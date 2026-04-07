@@ -1,0 +1,1 @@
+# generators — LLM provider adapters

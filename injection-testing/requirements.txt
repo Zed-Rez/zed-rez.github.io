@@ -1,0 +1,10 @@
+# Core (required)
+pyyaml>=6.0
+
+# LLM providers (install only what you need)
+anthropic>=0.40.0          # for --providers anthropic
+openai>=1.50.0             # for --providers openai
+# ollama uses stdlib urllib, no extra package needed
+
+# Optional: for llm_judge detector
+# anthropic or openai must already be installed
