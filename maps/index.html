@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>World Economy Map</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Preconnect for CDN performance -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ── Header ──────────────────────────────────────────── -->
+  <header id="header">
+    <h1>
+      <span class="globe-icon">🌍</span>
+      World Economy Map
+    </h1>
+    <div id="region-count-badge">Loading…</div>
+    <div style="flex:1"></div>
+    <div id="search-wrapper" style="width:240px; position:relative;">
+      <span id="search-icon">⌕</span>
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Search regions, countries…"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <div id="search-results"></div>
+    </div>
+  </header>
+
+  <!-- ── Body ────────────────────────────────────────────── -->
+  <div id="body">
+
+    <!-- ── Sidebar ─────────────────────────────────────────── -->
+    <aside id="sidebar">
+      <div id="sidebar-inner">
+
+        <!-- GDP metric toggle -->
+        <div class="sidebar-section">
+          <div class="sidebar-label">Bubble Size</div>
+          <div class="toggle-group">
+            <button class="toggle-btn active" data-metric="gdp_total" id="btn-gdp-total">Total GDP</button>
+            <button class="toggle-btn" data-metric="gdp_per_capita" id="btn-gdp-pc">Per Capita</button>
+            <button class="toggle-btn" data-metric="population" id="btn-population">Population</button>
+          </div>
+        </div>
+
+        <!-- Industry filter -->
+        <div class="sidebar-section">
+          <div class="sidebar-label">Industry Category</div>
+          <div id="industry-pills"></div>
+        </div>
+
+        <!-- Unknown GDP toggle -->
+        <div class="sidebar-section">
+          <div class="sidebar-label">Data Filter</div>
+          <label class="checkbox-row">
+            <input type="checkbox" id="show-unknown-gdp" />
+            <span>Show regions with no GDP data</span>
+          </label>
+        </div>
+
+        <!-- Size legend -->
+        <div class="sidebar-section">
+          <div class="sidebar-label">Bubble Size Scale</div>
+          <div id="size-legend">
+            <div id="size-legend-circles"></div>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- ── Map Container ────────────────────────────────────── -->
+    <div id="map-container">
+
+      <!-- Loading overlay -->
+      <div id="loading-overlay">
+        <div class="spinner"></div>
+        <div class="loading-text">Loading world data…</div>
+      </div>
+
+      <!-- Error overlay -->
+      <div id="error-overlay">
+        <div class="error-icon">⚠️</div>
+        <div class="error-title">Failed to load data</div>
+        <div class="error-msg" id="error-msg">Could not fetch the required data files. Make sure you're running a local server and that <code>regions_economy.json</code> exists one level above this directory.</div>
+      </div>
+
+      <!-- The SVG map -->
+      <svg id="map-svg"></svg>
+
+      <!-- Zoom indicator -->
+      <div id="zoom-indicator">1.0×</div>
+
+      <!-- Bottom-left stats -->
+      <div id="stats-bar">
+        <span><strong id="stat-visible">—</strong> regions visible</span>
+        <span id="stat-aggregate-label"><strong id="stat-total-gdp">—</strong> <span id="stat-aggregate-unit">total GDP</span></span>
+      </div>
+
+      <!-- Map zoom controls -->
+      <div id="map-controls">
+        <button class="map-control-btn" id="btn-zoom-in" title="Zoom in">+</button>
+        <button class="map-control-btn" id="btn-zoom-out" title="Zoom out">−</button>
+        <button class="map-control-btn" id="btn-zoom-reset" title="Reset view" style="font-size:13px;">⌂</button>
+      </div>
+
+    </div>
+
+    <!-- ── Detail Panel ──────────────────────────────────────── -->
+    <div id="detail-panel">
+      <div id="panel-header">
+        <div>
+          <div id="panel-region-name">—</div>
+          <div id="panel-country-name">—</div>
+        </div>
+        <button id="panel-close" title="Close">✕</button>
+      </div>
+      <div id="panel-body">
+        <div class="panel-section">
+          <div class="panel-section-title">Economic Overview</div>
+          <div class="panel-stat-grid" id="panel-stats"></div>
+          <div id="panel-data-quality" class="dq-badge" style="margin-top:8px"></div>
+        </div>
+        <div class="panel-section" id="panel-industry-gdp-section" style="display:none">
+          <div class="panel-section-title">Industry GDP (USD billions)</div>
+          <div id="panel-industry-gdp-list"></div>
+        </div>
+        <div class="panel-section">
+          <div class="panel-section-title">Industry Category</div>
+          <div id="panel-industry-badge"></div>
+        </div>
+        <div class="panel-section" id="panel-industries-section">
+          <div class="panel-section-title">Primary Industries</div>
+          <div class="panel-industries-list" id="panel-industries"></div>
+        </div>
+        <div class="panel-section" id="panel-excerpt-section">
+          <div class="panel-section-title">Economy Overview</div>
+          <div class="panel-excerpt" id="panel-excerpt"></div>
+        </div>
+        <div class="panel-section" id="panel-wiki-section">
+          <div class="panel-section-title">Reference</div>
+          <a id="panel-wiki-link" class="panel-wiki-link" href="#" target="_blank" rel="noopener noreferrer">
+            <span>📖</span>
+            <span>View on Wikipedia</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /#body -->
+
+</div><!-- /#app -->
+
+<!-- Tooltip (outside layout flow) -->
+<div id="tooltip">
+  <div class="tooltip-region" id="tt-region"></div>
+  <div class="tooltip-country" id="tt-country"></div>
+  <div class="tooltip-row">
+    <span class="tooltip-key">GDP (Total)</span>
+    <span class="tooltip-val" id="tt-gdp-total"></span>
+  </div>
+  <div class="tooltip-row">
+    <span class="tooltip-key">GDP per Capita</span>
+    <span class="tooltip-val" id="tt-gdp-pc"></span>
+  </div>
+  <div class="tooltip-row">
+    <span class="tooltip-key">Year</span>
+    <span class="tooltip-val" id="tt-year"></span>
+  </div>
+  <div class="tooltip-row">
+    <span class="tooltip-key">Industry</span>
+    <span class="tooltip-val" id="tt-industry"></span>
+  </div>
+  <div class="tooltip-excerpt" id="tt-excerpt"></div>
+</div>
+
+<!-- Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<!-- Application -->
+<script src="app.js"></script>
+
+</body>
+</html>
