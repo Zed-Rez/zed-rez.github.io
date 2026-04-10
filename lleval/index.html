@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>llm-eval</title>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <p>llm-eval — a pluggable A/B harness for benchmarking LLMs across providers via API calls.</p>
+  <p><a href="https://github.com/Zed-Rez/llmeval">github.com/Zed-Rez/llmeval</a></p>
+
+  <p>install:</p>
+  <pre>pip install -e .</pre>
+
+  <p>quickstart:</p>
+  <pre>llm-eval list
+
+llm-eval run --provider openai --model gpt-4o-mini \
+  --benchmarks gsm8k,arc_challenge,nameindex --n 20
+
+llm-eval ab \
+  -v gpt4o=openai/gpt-4o-mini \
+  -v sonnet=anthropic/claude-sonnet-4-6 \
+  --benchmarks gsm8k,mmlu_pro,math,middlematch --n 50 --trials 3 \
+  --compare gpt4o,sonnet \
+  --out-xlsx results/ab.xlsx</pre>
+
+  <p>benchmarks:</p>
+  <pre>openbookqa  arc_easy  arc_challenge  mmlu_pro
+gsm8k  math  nameindex  middlematch</pre>
+
+  <p>providers: openai, anthropic, google, openrouter</p>
+
+  <p>output per run:</p>
+  <pre>results/&lt;run_id&gt;.jsonl   — every API call
+results/&lt;run_id&gt;.xlsx   — Raw, Summary, Per_Item, McNemar, Config sheets
+cache/calls.jsonl        — keyed dedup cache; reruns are free</pre>
+
+  <p>extending:</p>
+  <pre>benchmarks  — subclass Benchmark, @register_benchmark("name")
+measurers   — subclass Measurer, @register_measurer("name")
+providers   — subclass Provider, @register_provider("name")</pre>
+
+  <p><a href="/">back</a></p>
+</body>
+</html>
