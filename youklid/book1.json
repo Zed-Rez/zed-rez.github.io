@@ -398,7 +398,7 @@
           "en": "Thus, CA is also equal to CB.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ἐδείχθη δὲ καὶ ἡ ΓΑ τῇ ΑΒ ἴση· ἑκατέρα ἄρα τῶν ΓΑ, ΓΒ τῇ ΑΒ ἐστιν ἴση.",
           "deps": [
             "cn.1"
           ],
@@ -411,7 +411,7 @@
           "en": "Thus, the three (straightlines) CA, AB, and BC are equal to one another.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "τὰ δὲ τῷ αὐτῷ ἴσα καὶ ἀλλήλοις ἐστὶν ἴσα· καὶ ἡ ΓΑ ἄρα τῇ ΓΒ ἐστιν ἴση· αἱ τρεῖς ἄρα αἱ ΓΑ, ΑΒ, ΒΓ ἴσαι ἀλλήλαις εἰσίν.",
           "deps": [
             "cn.1",
             "def.20"
@@ -427,7 +427,7 @@
           "en": "Thus, the triangle ABC is equilateral, and has been constructed on the given finite straight-line AB.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "᾿Ισόπλευρον ἄρα ἐστὶ τὸ ΑΒΓ τρίγωνον· καὶ συνέσταται ἐπὶ τῆς δοθείσης εὐθείας πεπερασμένης τῆς ΑΒ.",
           "deps": [
             "def.20"
           ],
@@ -440,7 +440,7 @@
           "en": "(Which is) the very thing it was required to do.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει ποιῆσαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -647,7 +647,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "λοιπὴ ἄρα ἡ ΑΛ λοιπῇ τῇ ΒΗ ἐστιν ἴση.",
           "deps": [
             "cn.3",
             "def.15",
@@ -664,7 +664,7 @@
           "en": "But BC was also shown (to be) equal to BG.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἐδείχθη δὲ καὶ ἡ ΒΓ τῇ ΒΗ ἴση·",
           "deps": [
             "def.15"
           ],
@@ -679,7 +679,7 @@
           "en": "Thus, AL and BC are each equal to BG.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ἑκατέρα ἄρα τῶν ΑΛ, ΒΓ τῇ ΒΗ ἐστιν ἴση.",
           "deps": [
             "cn.1"
           ],
@@ -702,7 +702,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "τὰ δὲ τῷ αὐτῷ ἴσα καὶ ἀλλήλοις ἐστὶν ἴσα·",
           "deps": [
             "cn.1"
           ],
@@ -717,7 +717,7 @@
           "en": "Thus, AL is also equal to BC.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "καὶ ἡ ΑΛ ἄρα τῇ ΒΓ ἐστιν ἴση.",
           "deps": [
             "cn.1"
           ],
@@ -730,7 +730,7 @@
           "en": "Thus, the straight-line AL, equal to the given straightline BC, has been placed at the given point A.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Πρὸς ἄρα τῷ δοθέντι σημείῳ τῷ Α τῇ δοθείσῃ εὐθείᾳ τῇ ΒΓ ἴση εὐθεῖα κεῖται ἡ ΑΛ·",
           "deps": [
             "prop.1"
           ],
@@ -743,7 +743,7 @@
           "en": "(Which is) the very thing it was required to do.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει ποιῆσαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -863,7 +863,7 @@
           "en": "But, C is also equal to AD.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἀλλὰ καὶ ἡ Γ τῇ ΑΔ ἐστιν ἴση·",
           "deps": [
             "prop.2"
           ],
@@ -878,7 +878,7 @@
           "en": "Thus, AE and C are each equal to AD.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ἑκατέρα ἄρα τῶν ΑΕ, Γ τῇ ΑΔ ἐστιν ἴση·",
           "deps": [
             "cn.1"
           ],
@@ -901,7 +901,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ὥστε καὶ ἡ ΑΕ τῇ Γ ἐστιν ἴση.",
           "deps": [
             "cn.1"
           ],
@@ -916,7 +916,7 @@
           "en": "Thus, for two given unequal straight-lines, AB and C, the (straight-line) AE, equal to the lesser C, has been cut off from the greater AB.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Δύο ἄρα δοθεισῶν εὐθειῶν ἀνίσων τῶν ΑΒ, Γ ἀπὸ τῆς μείζονος τῆς ΑΒ τῇ ἐλάσσονι τῇ Γ ἴση ἀφῄρηται ἡ ΑΕ·",
           "deps": [
             "post.3"
           ],
@@ -929,7 +929,7 @@
           "en": "(Which is) the very thing it was required to do.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει ποιῆσαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -1044,7 +1044,7 @@
           "en": "So the point C will also coincide with the point F, again on account of AC being equal to DF.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὥστε καὶ τὸ Γ σημεῖον ἐπὶ τὸ Ζ σημεῖον ἐφαρμόσει διὰ τὸ ἴσην πάλιν εἶναι τὴν ΑΓ τῇ ΔΖ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -1057,7 +1057,7 @@
           "en": "But, point B certainly also coincided with point E, so that the base BC will coincide with the base EF.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἀλλὰ μὴν καὶ τὸ Β ἐπὶ τὸ Ε ἐφηρμόκει· ὥστε βάσις ἡ ΒΓ ἐπὶ βάσιν τὴν ΕΖ ἐφαρμόσει.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -1070,7 +1070,7 @@
           "en": "For if B coincides with E, and C with F, and the base BC does not coincide with EF, then two straight-lines will encompass an area.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "εἰ γὰρ τοῦ μὲν Β ἐπὶ τὸ Ε ἐφαρμόσαντος τοῦ δὲ Γ ἐπὶ τὸ Ζ ἡ ΒΓ βάσις ἐπὶ τὴν ΕΖ οὐκ ἐφαρμόσει, δύο εὐθεῖαι χωρίον περιέξουσιν·",
           "deps": [
             "post.1"
           ],
@@ -1100,7 +1100,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ὅπερ ἐστὶν ἀδύνατον. ἐφαρμόσει ἄρα ἡ ΒΓ βάσις ἐπὶ τὴν ΕΖ καὶ ἴση αὐτῇ ἔσται·",
           "deps": [
             "cn.4"
           ],
@@ -1125,7 +1125,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ὥστε καὶ ὅλον τὸ ΑΒΓ τρίγωνον ἐπὶ ὅλον τὸ ΔΕΖ τρίγωνον ἐφαρμόσει καὶ ἴσον αὐτῷ ἔσται·",
           "deps": [
             "cn.4"
           ],
@@ -1148,7 +1148,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ αἱ λοιπαὶ γωνίαι ἐπὶ τὰς λοιπὰς γωνίας ἐφαρμόσουσι καὶ ἴσαι αὐταῖς ἔσονται·",
           "deps": [
             "cn.4"
           ],
@@ -1171,7 +1171,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ἡ μὲν ὑπὸ ΑΒΓ τῇ ὑπὸ ΔΕΖ ἡ δὲ ὑπὸ ΑΓΒ τῇ ὑπὸ ΔΖΕ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [
@@ -1184,7 +1184,7 @@
           "en": "Thus, if two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-line equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "᾿Εὰν ἄρα δύο τρίγωνα τὰς δύο πλευρὰς [ταῖς] δύο πλευραῖς ἴσας ἔχῃ ἑκατέραν ἑκατέρᾳ καὶ τὴν γωνίαν τῇ γωνίᾳ ἴσην ἔχῃ τὴν ὑπὸ τῶν ἴσων εὐθειῶν περιεχομένην, καὶ τὴν βάσιν τῇ βάσει ἴσην ἕξει, καὶ τὸ τρίγωνον τῷ τριγώνῳ ἴσον ἔσται, καὶ αἱ λοιπαὶ γωνίαι ταῖς λοιπαῖς γωνίαις ἴσαι ἔσονται ἑκατέρα ἑκατέρᾳ, ὑφ᾿ ἃς αἱ ἴσαι πλευραὶ ὑποτείνουσιν·",
           "deps": [
             "cn.4"
           ],
@@ -1197,7 +1197,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -1377,7 +1377,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ ἐπεὶ ὅλη ἡ ΑΖ ὅλῃ τῇ ΑΗ ἐστιν ἴση, ὧν ἡ ΑΒ τῇ ΑΓ ἐστιν ἴση, λοιπὴ ἄρα ἡ ΒΖ λοιπῇ τῇ ΓΗ ἐστιν ἴση.",
           "deps": [
             "cn.3"
           ],
@@ -1392,7 +1392,7 @@
           "en": "But FC was also shown (to be) equal to GB.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἐδείχθη δὲ καὶ ἡ ΖΓ τῇ ΗΒ ἴση·",
           "deps": [
             "prop.4"
           ],
@@ -1407,7 +1407,7 @@
           "en": "So the two (straightlines) BF, FC are equal to the two (straight-lines) CG, GB, respectively, and the angle BFC (is) equal to the angle CGB, and the base BC is common to them.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "δύο δὴ αἱ ΒΖ, ΖΓ δυσὶ ταῖς ΓΗ, ΗΒ ἴσαι εἰσίν ἑκατέρα ἑκατέρᾳ· καὶ γωνία ἡ ὑπὸ ΒΖΓ γωνίᾳ τῃ ὑπὸ ΓΗΒ ἴση, καὶ βάσις αὐτῶν κοινὴ ἡ ΒΓ·",
           "deps": [
             "prop.4"
           ],
@@ -1430,7 +1430,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "καὶ τὸ ΒΖΓ ἄρα τρίγωνον τῷ ΓΗΒ τριγώνῳ ἴσον ἔσται, καὶ αἱ λοιπαὶ γωνίαι ταῖς λοιπαῖς γωνίαις ἴσαι ἔσονται ἑκατέρα ἑκατέρᾳ, ὑφ᾿ ἃς αἱ ἴσαι πλευραὶ ὑποτείνουσιν·",
           "deps": [
             "prop.4"
           ],
@@ -1445,7 +1445,7 @@
           "en": "Thus, FBC is equal to GCB, and BCF to CBG.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ἴση ἄρα ἐστὶν ἡ μὲν ὑπὸ ΖΒΓ τῇ ὑπὸ ΗΓΒ ἡ δὲ ὑπὸ ΒΓΖ τῇ ὑπὸ ΓΒΗ.",
           "deps": [],
           "inferred": [
             "cn.3"
@@ -1466,7 +1466,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ἐπεὶ οὖν ὅλη ἡ ὑπὸ ΑΒΗ γωνία ὅλῃ τῇ ὑπὸ ΑΓΖ γωνίᾳ ἐδείχθη ἴση, ὧν ἡ ὑπὸ ΓΒΗ τῇ ὑπὸ ΒΓΖ ἴση, λοιπὴ ἄρα ἡ ὑπὸ ΑΒΓ λοιπῇ τῇ ὑπὸ ΑΓΒ ἐστιν ἴση·",
           "deps": [
             "cn.3"
           ],
@@ -1481,7 +1481,7 @@
           "en": "And they are at the base of triangle ABC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καί εἰσι πρὸς τῇ βάσει τοῦ ΑΒΓ τριγώνου.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -1492,7 +1492,7 @@
           "en": "And FBC was also shown (to be) equal to GCB.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἐδείχθη δὲ καὶ ἡ ὑπὸ ΖΒΓ τῇ ὑπὸ ΗΓΒ ἴση·",
           "deps": [
             "prop.4"
           ],
@@ -1507,7 +1507,7 @@
           "en": "And they are under the base.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καί εἰσιν ὑπὸ τὴν βάσιν.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -1518,7 +1518,7 @@
           "en": "Thus, for isosceles triangles, the angles at the base are equal to one another, and if the equal sides are produced then the angles under the base will be equal to one another.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Τῶν ἄρα ἰσοσκελῶν τριγώνων αἱ πρὸς τῇ βάσει γωνίαι ἴσαι ἀλλήλαις εἰσίν, καὶ προσεκβληθεισῶν τῶν ἴσων εὐθειῶν αἱ ὑπὸ τὴν βάσιν γωνίαι ἴσαι ἀλλήλαις ἔσονται·",
           "deps": [
             "cn.3"
           ],
@@ -1531,7 +1531,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -1650,7 +1650,7 @@
           "en": "Therefore, since DB is equal to AC, and BC (is) common, the two sides DB, BC are equal to the two sides AC, CB, respectively, and the angle DBC is equal to the angle ACB.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "᾿Επεὶ οὖν ἴση ἐστὶν ἡ ΔΒ τῇ ΑΓ κοινὴ δὲ ἡ ΒΓ, δύο δὴ αἱ ΔΒ, ΒΓ δύο ταῖς ΑΓ, ΓΒ ἴσαι εἰσίν ἑκατέρα ἑκατέρᾳ, καὶ γωνία ἡ ὑπὸ ΔΒΓ γωνίᾳ τῇ ὑπὸ ΑΓΒ ἐστιν ἴση·",
           "deps": [
             "cn.1",
             "prop.4"
@@ -1677,7 +1677,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "βάσις ἄρα ἡ ΔΓ βάσει τῇ ΑΒ ἴση ἐστίν, καὶ τὸ ΔΒΓ τρίγωνον τῷ ΑΓΒ τριγώνῳ ἴσον ἔσται, τὸ ἔλασσον τῷ μείζονι·",
           "deps": [
             "cn.5",
             "prop.4"
@@ -1705,7 +1705,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ὅπερ ἄτοπον·",
           "deps": [
             "cn.5"
           ],
@@ -1722,7 +1722,7 @@
           "en": "Thus, AB is not unequal to AC.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "οὐκ ἄρα ἄνισός ἐστιν ἡ ΑΒ τῇ ΑΓ·",
           "deps": [
             "prop.4",
             "cn.5"
@@ -1738,7 +1738,7 @@
           "en": "Thus, (it is) equal.† Thus, if a triangle has two angles equal to one another then the sides subtending the equal angles will also be equal to one another.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ἴση ἄρα. ᾿Εὰν ἄρα τριγώνου αἱ δύο γωνίαι ἴσαι ἀλλήλαις ὦσιν, καὶ αἱ ὑπὸ τὰς ἴσας γωνίας ὑποτείνουσαι πλευραὶ ἴσαι ἀλλήλαις ἔσονται·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -1752,7 +1752,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -1891,7 +1891,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "πολλῷ ἄρα ἡ ὑπὸ ΓΔΒ μείζων ἐστί τῆς ὑπὸ ΔΓΒ.",
           "deps": [
             "cn.5"
           ],
@@ -1916,7 +1916,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "πάλιν ἐπεὶ ἴση ἐστὶν ἡ ΓΒ τῇ ΔΒ, ἴση ἐστὶ καὶ γωνία ἡ ὑπὸ ΓΔΒ γωνίᾳ τῇ ὑπὸ ΔΓΒ.",
           "deps": [
             "prop.5"
           ],
@@ -1933,7 +1933,7 @@
           "en": "But it was shown that the former (angle) is also much greater (than the latter).",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἐδείχθη δὲ αὐτῆς καὶ πολλῷ μείζων·",
           "deps": [
             "prop.5",
             "cn.5"
@@ -1949,7 +1949,7 @@
           "en": "The very thing is impossible.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὅπερ ἐστὶν ἀδύνατον.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -1962,7 +1962,7 @@
           "en": "Thus, on the same straight-line, two other straightlines equal, respectively, to two (given) straight-lines (which meet) cannot be constructed (meeting) at a different point on the same side (of the straight-line), but having the same ends as the given straight-lines.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Οὐκ ἄρα ἐπὶ τῆς αὐτῆς εὐθείας δύο ταῖς αὐταῖς εὐθείαις ἄλλαι δύο εὐθεῖαι ἴσαι ἑκατέρα ἑκατέρᾳ συσταθήσονται πρὸς ἄλλῳ καὶ ἄλλῳ σημείῳ ἐπὶ τὰ αὐτὰ μέρη τὰ αὐτὰ πέρατα ἔχουσαι ταῖς ἐξ ἀρχῆς εὐθείαις·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -1975,7 +1975,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -2089,7 +2089,7 @@
           "en": "For if base BC coincides with base EF, but the sides AB and AC do not coincide with ED and DF (respectively), but miss like EG and GF (in the above figure), then we will have constructed upon the same straight-line, two other straightlines equal, respectively, to two (given) straight-lines, and (meeting) at a different point on the same side (of the straight-line), but having the same ends.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "εἰ γὰρ βάσις μὲν ἡ ΒΓ ἐπὶ βάσιν τὴν ΕΖ ἐφαρμόσει, αἱ δὲ ΒΑ, ΑΓ πλευραὶ ἐπὶ τὰς ΕΔ, ΔΖ οὐκ ἐφαρμόσουσιν ἀλλὰ παραλλάξουσιν ὡς αἱ ΕΗ, ΗΖ, συσταθήσονται ἐπὶ τῆς αὐτῆς εὐθείας δύο ταῖς αὐταῖς εὐθείαις ἄλλαι δύο εὐθεῖαι ἴσαι ἑκατέρα ἑκατέρᾳ πρὸς ἄλλῳ καὶ ἄλλῳ σημείῳ ἐπὶ τὰ αὐτὰ μέρη τὰ αὐτὰ πέρατα ἔχουσαι·",
           "deps": [
             "prop.7"
           ],
@@ -2114,7 +2114,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "οὐ συνίστανται δέ·",
           "deps": [
             "prop.7"
           ],
@@ -2131,7 +2131,7 @@
           "en": "Thus, the base BC being applied to the base EF, the sides BA and AC cannot not coincide with ED and DF (respectively).",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "οὐκ ἄρα ἐφαρμοζομένης τῆς ΒΓ βάσεως ἐπὶ τὴν ΕΖ βάσιν οὐκ ἐφαρμόσουσι καὶ αἱ ΒΑ, ΑΓ πλευραὶ ἐπὶ τὰς ΕΔ, ΔΖ.",
           "deps": [
             "prop.7"
           ],
@@ -2146,7 +2146,7 @@
           "en": "Thus, they will coincide.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ἐφαρμόσουσιν ἄρα·",
           "deps": [
             "cn.4"
           ],
@@ -2171,7 +2171,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ὥστε καὶ γωνία ἡ ὑπὸ ΒΑΓ ἐπὶ γωνίαν τὴν ὑπὸ ΕΔΖ ἐφαρμόσει καὶ ἴση αὐτῇ ἔσται.",
           "deps": [
             "cn.4"
           ],
@@ -2188,7 +2188,7 @@
           "en": "Thus, if two triangles have two sides equal to two side, respectively, and have the base equal to the base, then they will also have equal the angles encompassed by the equal straight-lines.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "᾿Εὰν ἄρα δύο τρίγωνα τὰς δύο πλευρὰς [ταῖς] δύο πλευραῖς ἴσας ἔχῃ ἑκατέραν ἑκατέρᾳ καὶ τὴν βάσιν τῇ βάσει ἴσην ἔχῃ, καὶ τὴν γωνίαν τῇ γωνίᾳ ἴσην ἕξει τὴν ὑπὸ τῶν ἴσων εὐθειῶν περιεχομένην·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -2201,7 +2201,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -2340,7 +2340,7 @@
           "en": "And the base DF is equal to the base EF.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ βάσις ἡ ΔΖ βάσει τῇ ΕΖ ἴση ἐστίν·",
           "deps": [
             "prop.8"
           ],
@@ -2365,7 +2365,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "γωνία ἄρα ἡ ὑπὸ ΔΑΖ γωνίᾳ τῇ ὑπὸ ΕΑΖ ἴση ἐστίν.",
           "deps": [
             "prop.8"
           ],
@@ -2382,7 +2382,7 @@
           "en": "Thus, the given rectilinear angle BAC has been cut in half by the straight-line AF.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "῾Η ἄρα δοθεῖσα γωνία εὐθύγραμμος ἡ ὑπὸ ΒΑΓ δίχα τέτμηται ὑπὸ τῆς ΑΖ εὐθείας·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -2395,7 +2395,7 @@
           "en": "(Which is) the very thing it was required to do.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει ποιῆσαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -2498,7 +2498,7 @@
           "en": "For since AC is equal to CB, and CD (is) common, the two (straight-lines) AC, CD are equal to the two (straight-lines) BC, CD, respectively.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "᾿Επεὶ γὰρ ἴση ἐστὶν ἡ ΑΓ τῇ ΓΒ, κοινὴ δὲ ἡ ΓΔ, δύο δὴ αἱ ΑΓ, ΓΔ δύο ταῖς ΒΓ, ΓΔ ἴσαι εἰσίν ἑκατέρα ἑκατέρᾳ·",
           "deps": [
             "cn.1"
           ],
@@ -2515,7 +2515,7 @@
           "en": "And the angle ACD is equal to the angle BCD.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ γωνία ἡ ὑπὸ ΑΓΔ γωνίᾳ τῇ ὑπὸ ΒΓΔ ἴση ἐστίν·",
           "deps": [
             "prop.9"
           ],
@@ -2538,7 +2538,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "βάσις ἄρα ἡ ΑΔ βάσει τῇ ΒΔ ἴση ἐστίν.",
           "deps": [
             "prop.4"
           ],
@@ -2555,7 +2555,7 @@
           "en": "Thus, the given finite straight-line AB has been cut in half at (point) D.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "῾Η ἄρα δοθεῖσα εὐθεῖα πεπερασμένη ἡ ΑΒ δίχα τέτμηται κατὰ τὸ Δ·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -2568,7 +2568,7 @@
           "en": "(Which is) the very thing it was required to do.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει ποιῆσαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -2689,7 +2689,7 @@
           "en": "And the base DF is equal to the base FE.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ βάσις ἡ ΔΖ βάσει τῇ ΖΕ ἴση ἐστίν·",
           "deps": [
             "prop.1"
           ],
@@ -2712,7 +2712,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "γωνία ἄρα ἡ ὑπὸ ΔΓΖ γωνίᾳ τῇ ὑπὸ ΕΓΖ ἴση ἐστίν· καί εἰσιν ἐφεξῆς.",
           "deps": [
             "prop.8"
           ],
@@ -2737,7 +2737,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ὅταν δὲ εὐθεῖα ἐπ᾿ εὐθεῖαν σταθεῖσα τὰς ἐφεξῆς γωνίας ἴσας ἀλλήλαις ποιῇ, ὀρθὴ ἑκατέρα τῶν ἴσων γωνιῶν ἐστιν·",
           "deps": [
             "def.10"
           ],
@@ -2754,7 +2754,7 @@
           "en": "Thus, each of the (angles) DCF and FCE is a right-angle.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ὀρθὴ ἄρα ἐστὶν ἑκατέρα τῶν ὑπὸ ΔΓΖ, ΖΓΕ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -2767,7 +2767,7 @@
           "en": "Thus, the straight-line CF has been drawn at rightangles to the given straight-line AB from the given point C on it.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Τῇ ἄρα δοθείσῃ εὐθείᾳ τῇ ΑΒ ἀπὸ τοῦ πρὸς αὐτῇ δοθέντος σημείου τοῦ Γ πρὸς ὀρθὰς γωνίας εὐθεῖα γραμμὴ ἦκται ἡ ΓΖ·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -2780,7 +2780,7 @@
           "en": "(Which is) the very thing it was required to do.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει ποιῆσαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -2937,7 +2937,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ὅταν δὲ εὐθεῖα ἐπ᾿ εὐθεῖαν σταθεῖσα τὰς ἐφεξῆς γωνίας ἴσας ἀλλήλαις ποιῇ, ὀρθὴ ἑκατέρα τῶν ἴσων γωνιῶν ἐστιν, καὶ ἡ ἐφεστηκυῖα εὐθεῖα κάθετος καλεῖται ἐφ᾿ ἣν ἐφέστηκεν.",
           "deps": [
             "def.10"
           ],
@@ -2954,7 +2954,7 @@
           "en": "Thus, the (straight-line) CH has been drawn perpendicular to the given infinite straight-line AB from the given point C, which is not on (AB).",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "᾿Επὶ τὴν δοθεῖσαν ἄρα εὐθεῖαν ἄπειρον τὴν ΑΒ ἀπὸ τοῦ δοθέντος σημείου τοῦ Γ, ὃ μή ἐστιν ἐπ᾿ αὐτῆς, κάθετος ἦκται ἡ ΓΘ·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -2967,7 +2967,7 @@
           "en": "(Which is) the very thing it was required to do.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει ποιῆσαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -3124,7 +3124,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "αἱ ἄρα ὑπὸ ΔΒΑ, ΑΒΓ τρισὶ ταῖς ὑπὸ ΔΒΕ, ΕΒΑ, ΑΒΓ ἴσαι εἰσίν. ἐδείχθησαν δὲ καὶ αἱ ὑπὸ ΓΒΕ, ΕΒΔ τρισὶ ταῖς αὐταῖς ἴσαι·",
           "deps": [
             "cn.2"
           ],
@@ -3149,7 +3149,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "τὰ δὲ τῷ αὐτῷ ἴσα καὶ ἀλλήλοις ἐστὶν ἴσα·",
           "deps": [
             "cn.1"
           ],
@@ -3166,7 +3166,7 @@
           "en": "Therefore, (the sum of) CBE and EBD is also equal to (the sum of) DBA and ABC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ αἱ ὑπὸ ΓΒΕ, ΕΒΔ ἄρα ταῖς ὑπὸ ΔΒΑ, ΑΒΓ ἴσαι εἰσίν.",
           "deps": [
             "cn.1"
           ],
@@ -3181,7 +3181,7 @@
           "en": "But, (the sum of) CBE and EBD is two right-angles.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἀλλὰ αἱ ὑπὸ ΓΒΕ, ΕΒΔ δύο ὀρθαί εἰσιν·",
           "deps": [
             "def.10"
           ],
@@ -3196,7 +3196,7 @@
           "en": "Thus, (the sum of) ABD and ABC is also equal to two right-angles.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "καὶ αἱ ὑπὸ ΔΒΑ, ΑΒΓ ἄρα δυσὶν ὀρθαῖς ἴσαι εἰσίν.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -3209,7 +3209,7 @@
           "en": "Thus, if a straight-line stood on a(nother) straightline makes angles, it will certainly either make two rightangles, or (angles whose sum is) equal to two rightangles.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "᾿Εὰν ἄρα εὐθεῖα ἐπ᾿ εὐθεῖαν σταθεῖσα γωνίας ποιῇ, ἤτοι δύο ὀρθὰς ἢ δυσὶν ὀρθαῖς ἴσας ποιήσει·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -3222,7 +3222,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -3380,7 +3380,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "λοιπὴ ἄρα ἡ ὑπὸ ΑΒΕ λοιπῇ τῇ ὑπὸ ΑΒΔ ἐστιν ἴση, ἡ ἐλάσσων τῇ μείζονι·",
           "deps": [
             "cn.3"
           ],
@@ -3397,7 +3397,7 @@
           "en": "The very thing is impossible.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὅπερ ἐστὶν ἀδύνατον.",
           "deps": [
             "cn.5"
           ],
@@ -3412,7 +3412,7 @@
           "en": "Thus, BE is not straight-on with respect to CB.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "οὐκ ἄρα ἐπ᾿ εὐθείας ἐστὶν ἡ ΒΕ τῇ ΓΒ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -3425,7 +3425,7 @@
           "en": "Similarly, we can show that neither (is) any other (straightline) than BD.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὁμοίως δὴ δείξομεν, ὅτι οὐδὲ ἄλλη τις πλὴν τῆς ΒΔ·",
           "deps": [
             "prop.13",
             "cn.5"
@@ -3441,7 +3441,7 @@
           "en": "Thus, CB is straight-on with respect to BD.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ἐπ᾿ εὐθείας ἄρα ἐστὶν ἡ ΓΒ τῇ ΒΔ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -3454,7 +3454,7 @@
           "en": "Thus, if two straight-lines, not lying on the same side, make adjacent angles (whose sum is) equal to two rightangles with some straight-line, at a point on it, then the two straight-lines will be straight-on (with respect) to one another.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "᾿Εὰν ἄρα πρός τινι εὐθείᾳ καὶ τῷ πρὸς αὐτῇ σημείῳ δύο εὐθεῖαι μὴ ἐπὶ τὰ αὐτὰ μέρη κείμεναι τὰς ἐφεξῆς γωνίας δυσὶν ὀρθαῖς ἴσας ποιῶσιν, ἐπ᾿ εὐθείας ἔσονται ἀλλήλαις αἱ εὐθεῖαι·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -3467,7 +3467,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -3613,7 +3613,7 @@
           "en": "Let AED have been subtracted from both.",
           "citations": [],
           "role": "construction",
-          "gr": "",
+          "gr": "κοινὴ ἀφῃρήσθω ἡ ὑπὸ ΑΕΔ·",
           "deps": [
             "cn.3"
           ],
@@ -3638,7 +3638,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "λοιπὴ ἄρα ἡ ὑπὸ ΓΕΑ λοιπῇ τῇ ὑπὸ ΒΕΔ ἴση ἐστίν·",
           "deps": [
             "cn.3"
           ],
@@ -3655,7 +3655,7 @@
           "en": "Similarly, it can be shown that CEB and DEA are also equal.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὁμοίως δὴ δειχθήσεται, ὅτι καὶ αἱ ὑπὸ ΓΕΒ, ΔΕΑ ἴσαι εἰσίν.",
           "deps": [
             "prop.13",
             "cn.3"
@@ -3671,7 +3671,7 @@
           "en": "Thus, if two straight-lines cut one another then they make the vertically opposite angles equal to one another.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "᾿Εὰν ἄρα δύο εὐθεῖαι τέμνωσιν ἀλλήλας, τὰς κατὰ κορυφὴν γωνίας ἴσας ἀλλήλαις ποιοῦσιν·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -3684,7 +3684,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -3848,7 +3848,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "βάσις ἄρα ἡ ΑΒ βάσει τῇ ΖΓ ἴση ἐστίν, καὶ τὸ ΑΒΕ τρίγωνον τῷ ΖΕΓ τριγώνῳ ἐστὶν ἴσον, καὶ αἱ λοιπαὶ γωνίαι ταῖς λοιπαῖς γωνίαις ἴσαι εἰσίν ἑκατέρα ἑκατέρᾳ, ὑφ᾿ ἃς αἱ ἴσαι πλευραὶ ὑποτείνουσιν·",
           "deps": [
             "prop.4"
           ],
@@ -3865,7 +3865,7 @@
           "en": "Thus, BAE is equal to ECF.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ἴση ἄρα ἐστὶν ἡ ὑπὸ ΒΑΕ τῇ ὑπὸ ΕΓΖ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -3878,7 +3878,7 @@
           "en": "But ECD is greater than ECF.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "μείζων δέ ἐστιν ἡ ὑπὸ ΕΓΔ τῆς ὑπὸ ΕΓΖ·",
           "deps": [
             "cn.5"
           ],
@@ -3895,7 +3895,7 @@
           "en": "Thus, ACD is greater than BAE.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "μείζων ἄρα ἡ ὑπὸ ΑΓΔ τῆς ὑπὸ ΒΑΕ.",
           "deps": [
             "prop.10"
           ],
@@ -3912,7 +3912,7 @@
           "en": "Similarly, by having cut BC in half, it can be shown (that) BCG—that is to say, ACD—(is) also greater than ABC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὁμοίως δὴ τῆς ΒΓ τετμημένης δίχα δειχθήσεται καὶ ἡ ὑπὸ ΒΓΗ, τουτέστιν ἡ ὑπὸ ΑΓΔ, μείζων καὶ τῆς ὑπὸ ΑΒΓ.",
           "deps": [
             "prop.10",
             "post.1",
@@ -3933,7 +3933,7 @@
           "en": "Thus, for any triangle, when one of the sides is produced, the external angle is greater than each of the internal and opposite angles.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Παντὸς ἄρα τριγώνου μιᾶς τῶν πλευρῶν προσεκβληθείσης ἡ ἐκτὸς γωνία ἑκατέρας τῶν ἐντὸς καὶ ἀπεναντίον γωνιῶν μείζων ἐστίν·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -3946,7 +3946,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -4108,7 +4108,7 @@
           "en": "Thus, (the sum of) ABC and BCA is less than two rightangles.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "αἱ ἄρα ὑπὸ ΑΒΓ, ΒΓΑ δύο ὀρθῶν ἐλάσσονές εἰσιν.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -4121,7 +4121,7 @@
           "en": "Similarly, we can show that (the sum of) BAC and ACB is also less than two right-angles, and further (that the sum of) CAB and ABC (is less than two rightangles).",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὁμοίως δὴ δείξομεν, ὅτι καὶ αἱ ὑπὸ ΒΑΓ, ΑΓΒ δύο ὀρθῶν ἐλάσσονές εἰσι καὶ ἔτι αἱ ὑπὸ ΓΑΒ, ΑΒΓ.",
           "deps": [
             "prop.16"
           ],
@@ -4136,7 +4136,7 @@
           "en": "Thus, for any triangle, (the sum of) two angles taken together in any (possible way) is less than two rightangles.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Παντὸς ἄρα τριγώνου αἱ δύο γωνίαι δύο ὀρθῶν ἐλάσσονές εἰσι πάντῃ μεταλαμβανόμεναι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -4149,7 +4149,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -4238,7 +4238,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "Καὶ ἐπεὶ τριγώνου τοῦ ΒΓΔ ἐκτός ἐστι γωνία ἡ ὑπὸ ΑΔΒ, μείζων ἐστὶ τῆς ἐντὸς καὶ ἀπεναντίον τῆς ὑπὸ ΔΓΒ.",
           "deps": [
             "prop.16"
           ],
@@ -4263,7 +4263,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ἴση δὲ ἡ ὑπὸ ΑΔΒ τῇ ὑπὸ ΑΒΔ, ἐπεὶ καὶ πλευρὰ ἡ ΑΒ τῇ ΑΔ ἐστιν ἴση.",
           "deps": [
             "prop.5"
           ],
@@ -4280,7 +4280,7 @@
           "en": "Thus, ABD is also greater than ACB.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "μείζων ἄρα καὶ ἡ ὑπὸ ΑΒΔ τῆς ὑπὸ ΑΓΒ.",
           "deps": [
             "cn.5"
           ],
@@ -4297,7 +4297,7 @@
           "en": "Thus, ABC is much greater than ACB.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "πολλῷ ἄρα ἡ ὑπὸ ΑΒΓ μείζων ἐστὶ τῆς ὑπὸ ΑΓΒ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -4310,7 +4310,7 @@
           "en": "Thus, in any triangle, the greater side subtends the greater angle.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Παντὸς ἄρα τριγώνου ἡ μείζων πλευρὰ τὴν μείζονα γωνίαν ὑποτείνει.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -4323,7 +4323,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -4446,7 +4446,7 @@
           "en": "Thus, AC is not equal to AB.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ἴση μὲν οὖν οὐκ ἔστιν ἡ ΑΓ τῇ ΑΒ· ἴση γὰρ ἂν ἦν καὶ γωνία ἡ ὑπὸ ΑΒΓ τῇ ὑπὸ ΑΓΒ· οὐκ ἔστι δέ· οὐκ ἄρα ἴση ἐστὶν ἡ ΑΓ τῇ ΑΒ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -4459,7 +4459,7 @@
           "en": "Neither, indeed, is AC less than AB.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "οὐ δὲ μὴν ἐλάσσων ἐστὶν ἡ ΑΓ τῆς ΑΒ.",
           "deps": [
             "prop.18"
           ],
@@ -4482,7 +4482,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ἐλάσσων γὰρ ἂν ἦν καὶ γωνία ἡ ὑπὸ ΑΒΓ τῆς ὑπὸ ΑΓΒ· οὐκ ἔστι δέ.",
           "deps": [
             "prop.18"
           ],
@@ -4499,7 +4499,7 @@
           "en": "But it is not.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "οὐκ ἔστι δέ.",
           "deps": [
             "prop.18"
           ],
@@ -4514,7 +4514,7 @@
           "en": "Thus, AC is not less than AB.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "οὐκ ἄρα ἐλάσσων ἐστὶν ἡ ΑΓ τῆς ΑΒ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -4527,7 +4527,7 @@
           "en": "But it was shown that (AC) is not equal (to AB) either.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἐδείχθη δέ, ὅτι οὐδὲ ἴση ἐστίν.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -4540,7 +4540,7 @@
           "en": "Thus, AC is greater than AB.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "μείζων ἄρα ἐστὶν ἡ ΑΓ τῆς ΑΒ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -4553,7 +4553,7 @@
           "en": "Thus, in any triangle, the greater angle is subtended by the greater side.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Παντὸς ἄρα τριγώνου ὑπὸ τὴν μείζονα γωνίαν ἡ μείζων πλευρὰ ὑποτείνει.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -4566,7 +4566,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -4686,7 +4686,7 @@
           "en": "Thus, BCD is greater than ADC.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "μείζων ἄρα ἡ ὑπὸ ΒΓΔ τῆς ὑπὸ ΑΔΓ.",
           "deps": [
             "cn.5"
           ],
@@ -4711,7 +4711,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ ἐπεὶ τρίγωνόν ἐστι τὸ ΔΓΒ μείζονα ἔχον τὴν ὑπὸ ΒΓΔ γωνίαν τῆς ὑπὸ ΒΔΓ, ὑπὸ δὲ τὴν μείζονα γωνίαν ἡ μείζων πλευρὰ ὑποτείνει, ἡ ΔΒ ἄρα τῆς ΒΓ ἐστι μείζων.",
           "deps": [
             "prop.19"
           ],
@@ -4728,7 +4728,7 @@
           "en": "But DA is equal to AC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἴση δὲ ἡ ΔΑ τῇ ΑΓ.",
           "deps": [
             "prop.3"
           ],
@@ -4743,7 +4743,7 @@
           "en": "Thus, (the sum of) BA and AC is greater than BC.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "μείζονες ἄρα αἱ ΒΑ, ΑΓ τῆς ΒΓ.",
           "deps": [
             "cn.2"
           ],
@@ -4760,7 +4760,7 @@
           "en": "Similarly, we can show that (the sum of) AB and BC is also greater than CA, and (the sum of) BC and CA than AB.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὁμοίως δὴ δείξομεν, ὅτι καὶ αἱ μὲν ΑΒ, ΒΓ τῆς ΓΑ μείζονές εἰσιν, αἱ δὲ ΒΓ, ΓΑ τῆς ΑΒ.",
           "deps": [
             "prop.19"
           ],
@@ -4775,7 +4775,7 @@
           "en": "Thus, in any triangle, (the sum of) two sides taken together in any (possible way) is greater than the remaining (side).",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Παντὸς ἄρα τριγώνου αἱ δύο πλευραὶ τῆς λοιπῆς μείζονές εἰσι πάντῃ μεταλαμβανόμεναι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -4788,7 +4788,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -4972,7 +4972,7 @@
           "en": "Thus, (the sum of) BA and AC is much greater than (the sum of) BD and DC.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ἀλλὰ τῶν ΒΕ, ΕΓ μείζονες ἐδείχθησαν αἱ ΒΑ, ΑΓ· πολλῷ ἄρα αἱ ΒΑ, ΑΓ τῶν ΒΔ, ΔΓ μείζονές εἰσιν.",
           "deps": [
             "cn.5"
           ],
@@ -4997,7 +4997,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "Πάλιν, ἐπεὶ παντὸς τριγώνου ἡ ἐκτὸς γωνία τῆς ἐντὸς καὶ ἀπεναντίον μείζων ἐστίν, τοῦ ΓΔΕ ἄρα τριγώνου ἡ ἐκτὸς γωνία ἡ ὑπὸ ΒΔΓ μείζων ἐστὶ τῆς ὑπὸ ΓΕΔ.",
           "deps": [
             "prop.16"
           ],
@@ -5014,7 +5014,7 @@
           "en": "Accordingly, for the same (reason), the external angle CEB of the triangle ABE is also greater than BAC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "διὰ ταὐτὰ τοίνυν καὶ τοῦ ΑΒΕ τριγώνου ἡ ἐκτὸς γωνία ἡ ὑπὸ ΓΕΒ μείζων ἐστὶ τῆς ὑπὸ ΒΑΓ.",
           "deps": [
             "prop.16"
           ],
@@ -5031,7 +5031,7 @@
           "en": "But, BDC was shown (to be) greater than CEB.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἀλλὰ τῆς ὑπὸ ΓΕΒ μείζων ἐδείχθη ἡ ὑπὸ ΒΔΓ.",
           "deps": [
             "cn.1"
           ],
@@ -5048,7 +5048,7 @@
           "en": "Thus, BDC is much greater than BAC.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "πολλῷ ἄρα ἡ ὑπὸ ΒΔΓ μείζων ἐστὶ τῆς ὑπὸ ΒΑΓ.",
           "deps": [
             "cn.5"
           ],
@@ -5065,7 +5065,7 @@
           "en": "Thus, if two internal straight-lines are constructed on one of the sides of a triangle, from its ends, the constructed (straight-lines) are less than the two remaining sides of the triangle, but encompass a greater angle.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "᾿Εὰν ἄρα τριγώνου ἐπὶ μιᾶς τῶν πλευρῶν ἀπὸ τῶν περάτων δύο εὐθεῖαι ἐντὸς συσταθῶσιν, αἱ συσταθεῖσαι τῶν λοιπῶν τοῦ τριγώνου δύο πλευρῶν ἐλάττονες μέν εἰσιν, μείζονα δὲ γωνίαν περιέχουσιν.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -5078,7 +5078,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -5233,7 +5233,7 @@
           "en": "Again, let the circle KLH have been drawn with center G and radius GH.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "πάλιν κέντρῳ μὲν τῷ Η, διαστήματι δὲ τῷ ΗΘ κύκλος γε γράφθω ὁ ΚΛΘ.",
           "deps": [
             "post.3"
           ],
@@ -5250,7 +5250,7 @@
           "en": "And let KF and KG have been joined.",
           "citations": [],
           "role": "construction",
-          "gr": "",
+          "gr": "καὶ ἐπεζεύχθωσαν αἱ ΚΖ, ΚΗ.",
           "deps": [
             "post.1"
           ],
@@ -5267,7 +5267,7 @@
           "en": "I say that the triangle KFG has been constructed from three straight-lines equal to A, B, and C.",
           "citations": [],
           "role": "assertion",
-          "gr": "",
+          "gr": "λέγω, ὅτι ἐκ τριῶν εὐθειῶν τῶν ἴσων ταῖς Α, Β, Γ τρίγωνον συνέσταται τὸ ΚΖΗ.",
           "deps": [
             "def.16"
           ],
@@ -5284,7 +5284,7 @@
           "en": "For since point F is the center of the circle DKL, FD is equal to FK.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "᾿Επεὶ γὰρ τὸ Ζ σημεῖον κέντρον ἐστὶ τοῦ ΔΚΛ κύκλου, ἴση ἐστὶν ἡ ΖΔ τῇ ΖΚ.",
           "deps": [
             "def.15"
           ],
@@ -5299,7 +5299,7 @@
           "en": "But, FD is equal to A.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἀλλὰ ἡ ΖΔ τῇ Α ἐστιν ἴση.",
           "deps": [
             "cn.1"
           ],
@@ -5316,7 +5316,7 @@
           "en": "Thus, KF is also equal to A.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "καὶ ἡ ΚΖ ἄρα τῇ Α ἐστιν ἴση.",
           "deps": [
             "def.16"
           ],
@@ -5333,7 +5333,7 @@
           "en": "Again, since point G is the center of the circle LKH, GH is equal to GK.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "πάλιν, ἐπεὶ τὸ Η σημεῖον κέντρον ἐστὶ τοῦ ΛΚΘ κύκλου, ἴση ἐστὶν ἡ ΗΘ τῇ ΗΚ.",
           "deps": [
             "def.15"
           ],
@@ -5348,7 +5348,7 @@
           "en": "But, GH is equal to C.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἀλλὰ ἡ ΗΘ τῇ Γ ἐστιν ἴση.",
           "deps": [
             "cn.1"
           ],
@@ -5365,7 +5365,7 @@
           "en": "Thus, KG is also equal to C.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "καὶ ἡ ΚΗ ἄρα τῇ Γ ἐστιν ἴση.",
           "deps": [
             "cn.1"
           ],
@@ -5380,7 +5380,7 @@
           "en": "And FG is also equal to B.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἐστὶ δὲ καὶ ἡ ΖΗ τῇ Β ἴση.",
           "deps": [
             "cn.1"
           ],
@@ -5397,7 +5397,7 @@
           "en": "Thus, the three straight-lines KF, FG, and GK are equal to A, B, and C (respectively).",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "αἱ τρεῖς ἄρα εὐθεῖαι αἱ ΚΖ, ΖΗ, ΗΚ τρισὶ ταῖς Α, Β, Γ ἴσαι εἰσίν.",
           "deps": [
             "cn.1"
           ],
@@ -5412,7 +5412,7 @@
           "en": "Thus, the triangle KFG has been constructed from the three straight-lines KF, FG, and GK, which are equal to the three given straight-lines A, B, and C (respectively).",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "᾿Εκ τριῶν ἄρα εὐθειῶν τῶν ΚΖ, ΖΗ, ΗΚ, αἵ εἰσιν ἴσαι τρισὶ ταῖς δοθείσαις εὐθείαις ταῖς Α, Β, Γ, τρίγωνον συνέσταται τὸ ΚΖΗ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -5425,7 +5425,7 @@
           "en": "(Which is) the very thing it was required to do.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει ποιῆσαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -5528,7 +5528,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "᾿Επεὶ οὖν δύο αἱ ΔΓ, ΓΕ δύο ταῖς ΖΑ, ΑΗ ἴσαι εἰσίν ἑκατέρα ἑκατέρᾳ, καὶ βάσις ἡ ΔΕ βάσει τῇ ΖΗ ἴση, γωνία ἄρα ἡ ὑπὸ ΔΓΕ γωνίᾳ τῇ ὑπὸ ΖΑΗ ἐστιν ἴση.",
           "deps": [
             "prop.8"
           ],
@@ -5545,7 +5545,7 @@
           "en": "Thus, the rectilinear angle FAG, equal to the given rectilinear angle DCE, has been constructed at the (given) point A on the given straight-line AB.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Πρὸς ἄρα τῇ δοθείσῃ εὐθείᾳ τῇ ΑΒ καὶ τῷ πρὸς αὐτῇ σημείῳ τῷ Α τῇ δοθείσῃ γωνίᾳ εὐθυγράμμῳ τῇ ὑπὸ ΔΓΕ ἴση γωνία εὐθύγραμμος συνέσταται ἡ ὑπὸ ΖΑΗ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -5558,7 +5558,7 @@
           "en": "(Which is) the very thing it was required to do.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει ποιῆσαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -5703,7 +5703,7 @@
           "en": "Also the angle BAC is equal to the angle EDG.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ γωνία ἡ ὑπὸ ΒΑΓ γωνίᾳ τῇ ὑπὸ ΕΔΗ ἴση.",
           "deps": [
             "prop.4"
           ],
@@ -5728,7 +5728,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "βάσις ἄρα ἡ ΒΓ βάσει τῇ ΕΗ ἐστιν ἴση.",
           "deps": [
             "prop.4",
             "prop.5"
@@ -5756,7 +5756,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "πάλιν, ἐπεὶ ἴση ἐστὶν ἡ ΔΖ τῇ ΔΗ, ἴση ἐστὶ καὶ ἡ ὑπὸ ΔΗΖ γωνία τῇ ὑπὸ ΔΖΗ.",
           "deps": [
             "prop.5"
           ],
@@ -5773,7 +5773,7 @@
           "en": "Thus, DFG (is) greater than EGF.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "μείζων ἄρα ἡ ὑπὸ ΔΖΗ τῆς ὑπὸ ΕΗΖ.",
           "deps": [
             "prop.5",
             "cn.5"
@@ -5789,7 +5789,7 @@
           "en": "Thus, EFG is much greater than EGF.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "πολλῷ ἄρα μείζων ἐστὶν ἡ ὑπὸ ΕΖΗ τῆς ὑπὸ ΕΗΖ.",
           "deps": [
             "prop.19"
           ],
@@ -5814,7 +5814,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ ἐπεὶ τρίγωνόν ἐστι τὸ ΕΖΗ μείζονα ἔχον τὴν ὑπὸ ΕΖΗ γωνίαν τῆς ὑπὸ ΕΗΖ, ὑπὸ δὲ τὴν μείζονα γωνίαν ἡ μείζων πλευρὰ ὑποτείνει, μείζων ἄρα καὶ πλευρὰ ἡ ΕΗ τῆς ΕΖ.",
           "deps": [
             "prop.19"
           ],
@@ -5831,7 +5831,7 @@
           "en": "But EG (is) equal to BC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἴση δὲ ἡ ΕΗ τῇ ΒΓ.",
           "deps": [
             "prop.4"
           ],
@@ -5846,7 +5846,7 @@
           "en": "Thus, BC (is) also greater than EF.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "μείζων ἄρα καὶ ἡ ΒΓ τῆς ΕΖ.",
           "deps": [
             "cn.1"
           ],
@@ -5861,7 +5861,7 @@
           "en": "Thus, if two triangles have two sides equal to two sides, respectively, but (one) has the angle encompassed by the equal straight-lines greater than the (corresponding) angle (in the other), then (the former triangle) will also have a base greater than the base (of the latter).",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "᾿Εὰν ἄρα δύο τρίγωνα τὰς δύο πλευρὰς δυσὶ πλευραῖς ἴσας ἔχῃ ἑκατέραν ἑκατέρᾳ, τὴν δὲ γωνίαν τῆς γωνίας μείζονα ἔχῃ τὴν ὑπὸ τῶν ἴσων εὐθειῶν περιεχομένην, καὶ τὴν βάσιν τῆς βάσεως μείζονα ἕξει.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -5874,7 +5874,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -5981,7 +5981,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ἴση γὰρ ἂν ἦν καὶ βάσις ἡ ΒΓ βάσει τῇ ΕΖ· οὐκ ἔστι δέ.",
           "deps": [
             "prop.4"
           ],
@@ -5998,7 +5998,7 @@
           "en": "But it is not.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "οὐκ ἔστι δέ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6011,7 +6011,7 @@
           "en": "Thus, angle BAC is not equal to EDF.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "οὐκ ἄρα ἴση ἐστὶ γωνία ἡ ὑπὸ ΒΑΓ τῇ ὑπὸ ΕΔΖ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6024,7 +6024,7 @@
           "en": "Neither, indeed, is BAC less than EDF.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "οὐδὲ μὴν ἐλάσσων ἐστὶν ἡ ὑπὸ ΒΑΓ τῆς ὑπὸ ΕΔΖ.",
           "deps": [
             "prop.24"
           ],
@@ -6049,7 +6049,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ἐλάσσων γὰρ ἂν ἦν καὶ βάσις ἡ ΒΓ βάσεως τῆς ΕΖ· οὐκ ἔστι δέ.",
           "deps": [
             "prop.24"
           ],
@@ -6066,7 +6066,7 @@
           "en": "But it is not.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "οὐκ ἔστι δέ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6079,7 +6079,7 @@
           "en": "Thus, angle BAC is not less than EDF.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "οὐκ ἄρα ἐλάσσων ἐστὶν ἡ ὑπὸ ΒΑΓ γωνία τῆς ὑπὸ ΕΔΖ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6092,7 +6092,7 @@
           "en": "But it was shown that (BAC is) not equal (to EDF) either.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἐδείχθη δέ, ὅτι οὐδὲ ἴση.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6105,7 +6105,7 @@
           "en": "Thus, BAC is greater than EDF.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "μείζων ἄρα ἐστὶν ἡ ὑπὸ ΒΑΓ τῆς ὑπὸ ΕΔΖ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6118,7 +6118,7 @@
           "en": "Thus, if two triangles have two sides equal to two sides, respectively, but (one) has a base greater than the base (of the other), then (the former triangle) will also have the angle encompassed by the equal straight-lines greater than the (corresponding) angle (in the latter).",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "᾿Εὰν ἄρα δύο τρίγωνα τὰς δύο πλευρὰς δυσὶ πλευραῖς ἴσας ἔχῃ ἑκατέραν ἑκατέρᾳ, τὴν δὲ βάσιν τῆς βάσεως μείζονα ἔχῃ, καὶ τὴν γωνίαν τῆς γωνίας μείζονα ἕξει τὴν ὑπὸ τῶν ἴσων εὐθειῶν περιεχομένην.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6131,7 +6131,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6420,7 +6420,7 @@
           "en": "The very thing (is) impossible.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὅπερ ἀδύνατον.",
           "deps": [
             "cn.5"
           ],
@@ -6435,7 +6435,7 @@
           "en": "Thus, AB is not unequal to DE.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "οὐκ ἄρα ἄνισός ἐστιν ἡ ΑΒ τῇ ΔΕ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6448,7 +6448,7 @@
           "en": "Thus, (it is) equal.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ἴση ἄρα.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6461,7 +6461,7 @@
           "en": "And BC is also equal to EF.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἔστι δὲ καὶ ἡ ΒΓ τῇ ΕΖ ἴση.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6474,7 +6474,7 @@
           "en": "So the two (straight-lines) AB, BC are equal to the two (straightlines) DE, EF, respectively.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "δύο δὴ αἱ ΑΒ, ΒΓ δυσὶ ταῖς ΔΕ, ΕΖ ἴσαι εἰσίν ἑκατέρα ἑκατέρᾳ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6487,7 +6487,7 @@
           "en": "And angle ABC is equal to angle DEF.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ γωνία ἡ ὑπὸ ΑΒΓ γωνίᾳ τῇ ὑπὸ ΔΕΖ ἐστιν ἴση.",
           "deps": [
             "prop.4"
           ],
@@ -6512,7 +6512,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "βάσις ἄρα ἡ ΑΓ βάσει τῇ ΔΖ ἴση ἐστίν, καὶ λοιπὴ γωνία ἡ ὑπὸ ΒΑΓ τῇ λοιπῇ γωνίᾳ τῇ ὑπὸ ΕΔΖ ἴση ἐστίν.",
           "deps": [
             "prop.4"
           ],
@@ -6529,7 +6529,7 @@
           "en": "But, again, let the sides subtending the equal angles be equal: for instance, (let) AB (be equal) to DE.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "᾿Αλλὰ δὴ πάλιν ἔστωσαν αἱ ὑπὸ τὰς ἴσας γωνίας πλευραὶ ὑποτείνουσαι ἴσαι, ὡς ἡ ΑΒ τῇ ΔΕ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6542,7 +6542,7 @@
           "en": "Again, I say that the remaining sides will be equal to the remaining sides.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "λέγω πάλιν, ὅτι καὶ αἱ λοιπαὶ πλευραὶ ταῖς λοιπαῖς πλευραῖς ἴσαι ἔσονται.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6555,7 +6555,7 @@
           "en": "(That is) AC (equal) to DF, and BC to EF.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἡ μὲν ΑΓ τῇ ΔΖ, ἡ δὲ ΒΓ τῇ ΕΖ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6568,7 +6568,7 @@
           "en": "Furthermore, the remaining angle BAC is equal to the remaining angle EDF.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ ἔτι ἡ λοιπὴ γωνία ἡ ὑπὸ ΒΑΓ τῇ λοιπῇ γωνίᾳ τῇ ὑπὸ ΕΔΖ ἴση ἐστίν.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6581,7 +6581,7 @@
           "en": "For if BC is unequal to EF then one of them is greater.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "Εἰ γὰρ ἄνισός ἐστιν ἡ ΒΓ τῇ ΕΖ, μία αὐτῶν μείζων ἐστίν.",
           "deps": [
             "cn.5"
           ],
@@ -6598,7 +6598,7 @@
           "en": "If possible, let BC be greater.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἔστω μείζων, εἰ δυνατόν, ἡ ΒΓ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6619,7 +6619,7 @@
             }
           ],
           "role": "construction",
-          "gr": "",
+          "gr": "καὶ κείσθω τῇ ΕΖ ἴση ἡ ΒΘ, καὶ ἐπεζεύχθω ἡ ΑΘ.",
           "deps": [
             "prop.3"
           ],
@@ -6636,7 +6636,7 @@
           "en": "And since BH is equal to EF, and AB to DE, the two (straight-lines) AB, BH are equal to the two (straight-lines) DE, EF, respectively.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ ἐπεὶ ἴση ἐστὶν ἡ μὲν ΒΘ τῇ ΕΖ ἡ δὲ ΑΒ τῇ ΔΕ, δύο δὴ αἱ ΑΒ, ΒΘ δυσὶ ταῖς ΔΕ, ΕΖ ἴσαι εἰσίν ἑκατέρα ἑκατέρᾳ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6649,7 +6649,7 @@
           "en": "And the angles they encompass (are also equal).",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ γωνίας ἴσας περιέχουσιν.",
           "deps": [
             "prop.4"
           ],
@@ -6674,7 +6674,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "βάσις ἄρα ἡ ΑΘ βάσει τῇ ΔΖ ἴση ἐστίν, καὶ τὸ ΑΒΘ τρίγωνον τῷ ΔΕΖ τριγώνῳ ἴσον ἐστίν, καὶ αἱ λοιπαὶ γωνίαι ταῖς λοιπαῖς γωνίαις ἴσαι ἔσονται, ὑφ᾿ ἃς αἱ ἴσαι πλευραὶ ὑποτείνουσιν.",
           "deps": [
             "prop.4"
           ],
@@ -6691,7 +6691,7 @@
           "en": "Thus, angle BHA is equal to EFD.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ἴση ἄρα ἐστὶν ἡ ὑπὸ ΒΘΑ γωνία τῇ ὑπὸ ΕΖΔ.",
           "deps": [
             "prop.4"
           ],
@@ -6706,7 +6706,7 @@
           "en": "But, EFD is equal to BCA.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἀλλὰ ἡ ὑπὸ ΕΖΔ τῇ ὑπὸ ΒΓΑ ἐστιν ἴση.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6719,7 +6719,7 @@
           "en": "So, in triangle AHC, the external angle BHA is equal to the internal and opposite angle BCA.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "τριγώνου δὴ τοῦ ΑΘΓ ἡ ἐκτὸς γωνία ἡ ὑπὸ ΒΘΑ ἴση ἐστὶ τῇ ἐντὸς καὶ ἀπεναντίον τῇ ὑπὸ ΒΓΑ.",
           "deps": [
             "prop.16"
           ],
@@ -6744,7 +6744,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ὅπερ ἀδύνατον.",
           "deps": [
             "prop.16"
           ],
@@ -6761,7 +6761,7 @@
           "en": "Thus, BC is not unequal to EF.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "οὐκ ἄρα ἄνισός ἐστιν ἡ ΒΓ τῇ ΕΖ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6774,7 +6774,7 @@
           "en": "Thus, (it is) equal.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ἴση ἄρα.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6787,7 +6787,7 @@
           "en": "And AB is also equal to DE.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἐστὶ δὲ καὶ ἡ ΑΒ τῇ ΔΕ ἴση.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6800,7 +6800,7 @@
           "en": "So the two (straight-lines) AB, BC are equal to the two (straightlines) DE, EF, respectively.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "δύο δὴ αἱ ΑΒ, ΒΓ δύο ταῖς ΔΕ, ΕΖ ἴσαι εἰσίν ἑκατέρα ἑκατέρᾳ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6813,7 +6813,7 @@
           "en": "And they encompass equal angles.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ γωνίας ἴσας περιέχουσι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6834,7 +6834,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "βάσις ἄρα ἡ ΑΓ βάσει τῇ ΔΖ ἴση ἐστίν, καὶ τὸ ΑΒΓ τρίγωνον τῷ ΔΕΖ τριγώνῳ ἴσον καὶ λοιπὴ γωνία ἡ ὑπὸ ΒΑΓ τῇ λοιπῇ γωνίᾳ τῇ ὑπὸ ΕΔΖ ἴση.",
           "deps": [
             "prop.4"
           ],
@@ -6851,7 +6851,7 @@
           "en": "Thus, if two triangles have two angles equal to two angles, respectively, and one side equal to one side—in fact, either that by the equal angles, or that subtending one of the equal angles—then (the triangles) will also have the remaining sides equal to the (corresponding) remaining sides, and the remaining angle (equal) to the remaining angle.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "᾿Εὰν ἄρα δύο τρίγωνα τὰς δύο γωνίας δυσὶ γωνίαις ἴσας ἔχῃ ἑκατέραν ἑκατέρᾳ καὶ μίαν πλευρὰν μιᾷ πλευρᾷ ἴσην ἤτοι τὴν πρὸς ταῖς ἴσαις γωνίαις, ἢ τὴν ὑποτείνουσαν ὑπὸ μίαν τῶν ἴσων γωνιῶν, καὶ τὰς λοιπὰς πλευρὰς ταῖς λοιπαῖς πλευραῖς ἴσας ἕξει καὶ τὴν λοιπὴν γωνίαν τῇ λοιπῇ γωνίᾳ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -6864,7 +6864,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -7006,7 +7006,7 @@
           "en": "Thus, being produced, AB and CD will not meet together in the direction of B and D.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "οὐκ ἄρα αἱ ΑΒ, ΔΓ ἐκβαλλόμεναι συμπεσοῦνται ἐπὶ τὰ Β, Δ μέρη.",
           "deps": [
             "prop.16"
           ],
@@ -7021,7 +7021,7 @@
           "en": "Similarly, it can be shown that neither (will they meet together) in (the direction of) A and C.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὁμοίως δὴ δειχθήσεται, ὅτι οὐδὲ ἐπὶ τὰ Α, Γ.",
           "deps": [
             "def.23"
           ],
@@ -7046,7 +7046,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "αἱ δὲ ἐπὶ μηδέτερα τὰ μέρη συμπίπτουσαι παράλληλοί εἰσιν.",
           "deps": [
             "def.23"
           ],
@@ -7063,7 +7063,7 @@
           "en": "Thus, AB and CD are parallel.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "παράλληλος ἄρα ἐστὶν ἡ ΑΒ τῇ ΓΔ.",
           "deps": [
             "def.23"
           ],
@@ -7078,7 +7078,7 @@
           "en": "Thus, if a straight-line falling across two straight-lines makes the alternate angles equal to one another then the (two) straight-lines will be parallel (to one another).",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "᾿Εὰν ἄρα εἰς δύο εὐθείας εὐθεῖα ἐμπίπτουσα τὰς ἐν ἀλλὰξ γωνίας ἴσας ἀλλήλαις ποιῇ, παράλληλοι ἔσονται αἱ εὐθεῖαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -7091,7 +7091,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -7195,7 +7195,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "παράλληλος ἄρα ἐστὶν ἡ ΑΒ τῇ ΓΔ.",
           "deps": [
             "prop.27"
           ],
@@ -7220,7 +7220,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "Πάλιν, ἐπεὶ αἱ ὑπὸ ΒΗΘ, ΗΘΔ δύο ὀρθαῖς ἴσαι εἰσίν, εἰσὶ δὲ καὶ αἱ ὑπὸ ΑΗΘ, ΒΗΘ δυσὶν ὀρθαῖς ἴσαι, αἱ ἄρα ὑπὸ ΑΗΘ, ΒΗΘ ταῖς ὑπὸ ΒΗΘ, ΗΘΔ ἴσαι εἰσίν.",
           "deps": [
             "cn.1",
             "prop.13"
@@ -7240,7 +7240,7 @@
           "en": "Let BGH have been subtracted from both.",
           "citations": [],
           "role": "construction",
-          "gr": "",
+          "gr": "κοινὴ ἀφῃρήσθω ἡ ὑπὸ ΒΗΘ.",
           "deps": [
             "cn.3"
           ],
@@ -7257,7 +7257,7 @@
           "en": "Thus, the remainder AGH is equal to the remainder GHD.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "λοιπὴ ἄρα ἡ ὑπὸ ΑΗΘ λοιπῇ τῇ ὑπὸ ΗΘΔ ἐστιν ἴση.",
           "deps": [
             "cn.3"
           ],
@@ -7272,7 +7272,7 @@
           "en": "And they are alternate (angles).",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καί εἰσιν ἐν ἀλλάξ.",
           "deps": [
             "prop.27"
           ],
@@ -7297,7 +7297,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "παράλληλος ἄρα ἐστὶν ἡ ΑΒ τῇ ΓΔ.",
           "deps": [
             "prop.27"
           ],
@@ -7314,7 +7314,7 @@
           "en": "Thus, if a straight-line falling across two straight-lines makes the external angle equal to the internal and opposite angle on the same side, or (makes) the (sum of the) internal (angles) on the same side equal to two rightangles, then the (two) straight-lines will be parallel (to one another).",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "᾿Εὰν ἄρα εἰς δύο εὐθείας εὐθεῖα ἐμπίπτουσα τὴν ἐκτὸς γωνίαν τῇ ἐντὸς καὶ ἀπεναντίον καὶ ἐπὶ τὰ αὐτὰ μέρη ἴσην ποιῇ ἢ τὰς ἐντὸς καὶ ἐπὶ τὰ αὐτὰ μέρη δυσὶν ὀρθαῖς ἴσας, παράλληλοι ἔσονται αἱ εὐθεῖαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -7327,7 +7327,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -7513,7 +7513,7 @@
           "en": "Thus, AB and CD, being produced to infinity, will meet together.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "αἱ ἄρα ΑΒ, ΓΔ ἐκβαλλόμεναι εἰς ἄπειρον συμπεσοῦνται.",
           "deps": [
             "def.23"
           ],
@@ -7538,7 +7538,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "οὐ συμπίπτουσι δὲ διὰ τὸ παραλλήλους αὐτὰς ὑποκεῖσθαι.",
           "deps": [
             "def.23"
           ],
@@ -7555,7 +7555,7 @@
           "en": "Thus, AGH is not unequal to GHD.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "οὐκ ἄρα ἄνισός ἐστιν ἡ ὑπὸ ΑΗΘ τῇ ὑπὸ ΗΘΔ.",
           "deps": [
             "prop.13",
             "def.23"
@@ -7571,7 +7571,7 @@
           "en": "Thus, (it is) equal.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ἴση ἄρα.",
           "deps": [
             "prop.15"
           ],
@@ -7596,7 +7596,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ἀλλὰ ἡ ὑπὸ ΑΗΘ τῇ ὑπὸ ΕΗΒ ἐστιν ἴση.",
           "deps": [
             "cn.1",
             "prop.15"
@@ -7616,7 +7616,7 @@
           "en": "And EGB is thus also equal to GHD.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ ἡ ὑπὸ ΕΗΒ ἄρα τῇ ὑπὸ ΗΘΔ ἐστιν ἴση.",
           "deps": [
             "cn.2"
           ],
@@ -7633,7 +7633,7 @@
           "en": "Let BGH be added to both.",
           "citations": [],
           "role": "construction",
-          "gr": "",
+          "gr": "κοινὴ προσκείσθω ἡ ὑπὸ ΒΗΘ.",
           "deps": [
             "cn.2"
           ],
@@ -7650,7 +7650,7 @@
           "en": "Thus, (the sum of) EGB and BGH is equal to (the sum of) BGH and GHD.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "αἱ ἄρα ὑπὸ ΕΗΒ, ΒΗΘ ταῖς ὑπὸ ΒΗΘ, ΗΘΔ ἴσαι εἰσίν.",
           "deps": [
             "prop.13"
           ],
@@ -7675,7 +7675,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ἀλλὰ αἱ ὑπὸ ΕΗΒ, ΒΗΘ δύο ὀρθαῖς ἴσαι εἰσίν.",
           "deps": [
             "cn.1",
             "prop.13"
@@ -7695,7 +7695,7 @@
           "en": "Thus, (the sum of) BGH and GHD is also equal to two right-angles.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "καὶ αἱ ὑπὸ ΒΗΘ, ΗΘΔ ἄρα δύο ὀρθαῖς ἴσαι εἰσίν.",
           "deps": [
             "prop.13",
             "cn.1"
@@ -7711,7 +7711,7 @@
           "en": "Thus, a straight-line falling across parallel straightlines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "῾Η ἄρα εἰς τὰς παραλλήλους εὐθείας εὐθεῖα ἐμπίπτουσα τάς τε ἐν ἀλλὰξ γωνίας ἴσας ἀλλήλαις ποιεῖ καὶ τὴν ἐκτὸς τῇ ἐντὸς καὶ ἀπεναντίον ἴσην καὶ τὰς ἐντὸς καὶ ἐπὶ τὰ αὐτὰ μέρη δυσὶν ὀρθαῖς ἴσας.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -7724,7 +7724,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -7906,7 +7906,7 @@
             }
           ],
           "role": "qed",
-          "gr": "",
+          "gr": "παράλληλος ἄρα ἐστὶν ἡ ΑΒ τῇ ΓΔ. [Αἱ ἄρα τῇ αὐτῇ εὐθείᾳ παράλληλοι καὶ ἀλλήλαις εἰσὶ παράλληλοι·] ὅπερ ἔδει δεῖξαι.",
           "deps": [
             "prop.27"
           ],
@@ -8007,7 +8007,7 @@
           "en": "And let the straightline AF have been produced in a straight-line with EA.",
           "citations": [],
           "role": "construction",
-          "gr": "",
+          "gr": "καὶ ἐκβεβλήσθω ἐπ᾿ εὐθείας τῇ ΕΑ εὐθεῖα ἡ ΑΖ.",
           "deps": [
             "post.2"
           ],
@@ -8032,7 +8032,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "Καὶ ἐπεὶ εἰς δύο εὐθείας τὰς ΒΓ, ΕΖ εὐθεῖα ἐμπίπτουσα ἡ ΑΔ τὰς ἐν ἀλλὰξ γωνίας τὰς ὑπὸ ΕΑΔ, ΑΔΓ ἴσας ἀλλήλαις πεποίηκεν, παράλληλος ἄρα ἐστὶν ἡ ΕΑΖ τῇ ΒΓ.",
           "deps": [
             "prop.27"
           ],
@@ -8049,7 +8049,7 @@
           "en": "Thus, the straight-line EAF has been drawn parallel to the given straight-line BC, through the given point A.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Διὰ τοῦ δοθέντος ἄρα σημείου τοῦ Α τῇ δοθείσῃ εὐθείᾳ τῇ ΒΓ παράλληλος εὐθεῖα γραμμὴ ἦκται ἡ ΕΑΖ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -8062,7 +8062,7 @@
           "en": "(Which is) the very thing it was required to do.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει ποιῆσαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -8242,7 +8242,7 @@
           "en": "Thus, (the sum of) ACD and ACB is equal to the (sum of the) three (angles) ABC, BCA, and CAB.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "αἱ ἄρα ὑπὸ ΑΓΔ, ΑΓΒ τρισὶ ταῖς ὑπὸ ΑΒΓ, ΒΓΑ, ΓΑΒ ἴσαι εἰσίν.",
           "deps": [
             "prop.13"
           ],
@@ -8267,7 +8267,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ἀλλ᾿ αἱ ὑπὸ ΑΓΔ, ΑΓΒ δυσὶν ὀρθαῖς ἴσαι εἰσίν.",
           "deps": [
             "cn.1",
             "prop.13"
@@ -8287,7 +8287,7 @@
           "en": "Thus, (the sum of) ACB, CBA, and CAB is also equal to two right-angles.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "καὶ αἱ ὑπὸ ΑΓΒ, ΓΒΑ, ΓΑΒ ἄρα δυσὶν ὀρθαῖς ἴσαι εἰσίν.",
           "deps": [
             "cn.1"
           ],
@@ -8302,7 +8302,7 @@
           "en": "Thus, in any triangle, (if) one of the sides (is) produced (then) the external angle is equal to the (sum of the) two internal and opposite (angles), and the (sum of the) three internal angles of the triangle is equal to two right-angles.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Παντὸς ἄρα τριγώνου μιᾶς τῶν πλευρῶν προσεκβληθείσης ἡ ἐκτὸς γωνία δυσὶ ταῖς ἐντὸς καὶ ἀπεναντίον ἴση ἐστίν, καὶ αἱ ἐντὸς τοῦ τριγώνου τρεῖς γωνίαι δυσὶν ὀρθαῖς ἴσαι εἰσίν.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -8315,7 +8315,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -8487,7 +8487,7 @@
           "en": "And (AC) was also shown (to be) equal to (BD).",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἐδείχθη δὲ αὐτῇ καὶ ἴση.",
           "deps": [
             "prop.4"
           ],
@@ -8502,7 +8502,7 @@
           "en": "Thus, straight-lines joining equal and parallel (straightlines) on the same sides are themselves also equal and parallel.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Αἱ ἄρα τὰς ἴσας τε καὶ παραλλήλους ἐπὶ τὰ αὐτὰ μέρη ἐπιζευγνύουσαι εὐθεῖαι καὶ αὐταὶ ἴσαι τε καὶ παράλληλοί εἰσιν·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -8515,7 +8515,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -8757,7 +8757,7 @@
           "en": "For since AB is equal to CD, and BC (is) common, the two (straight-lines) AB, BC are equal to the two (straightlines) DC, CB†, respectively.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἐπεὶ γὰρ ἴση ἐστὶν ἡ ΑΒ τῇ ΓΔ, κοινὴ δὲ ἡ ΒΓ, δύο δὴ αἱ ΑΒ, ΒΓ δυσὶ ταῖς ΓΔ, ΒΓ ἴσαι εἰσίν ἑκατέρα ἑκατέρᾳ·",
           "deps": [
             "prop.29",
             "prop.26"
@@ -8774,7 +8774,7 @@
           "en": "And angle ABC is equal to angle BCD.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ γωνία ἡ ὑπὸ ΑΒΓ γωνίᾳ τῇ ὑπὸ ΒΓΔ ἴση·",
           "deps": [
             "prop.4"
           ],
@@ -8799,7 +8799,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "καὶ βάσις ἄρα ἡ ΑΓ τῇ ΔΒ ἴση· καὶ τὸ ΑΒΓ [ἄρα] τρίγωνον τῷ ΒΓΔ τριγώνῳ ἴσον ἐστίν.",
           "deps": [
             "prop.4"
           ],
@@ -8816,7 +8816,7 @@
           "en": "Thus, the diagonal BC cuts the parallelogram ACDB‡ in half.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "῾Η ἄρα ΒΓ διά μετρος δίχα τέμνει τὸ ΑΒΓΔ παραλληλόγραμμον.",
           "deps": [
             "prop.4"
           ],
@@ -8832,7 +8832,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -8947,7 +8947,7 @@
           "en": "And DE is common.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ κοινὴ ἡ ΔΕ·",
           "deps": [
             "cn.2"
           ],
@@ -8964,7 +8964,7 @@
           "en": "Thus, the whole (straight-line) AE is equal to the whole (straight-line) DF.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ὅλη ἄρα ἡ ΑΕ ὅλῃ τῇ ΔΖ ἐστιν ἴση.",
           "deps": [
             "prop.34"
           ],
@@ -8981,7 +8981,7 @@
           "en": "And AB is also equal to DC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἔστι δὲ καὶ ἡ ΑΒ τῇ ΔΓ ἴση·",
           "deps": [
             "prop.34"
           ],
@@ -8996,7 +8996,7 @@
           "en": "So the two (straight-lines) EA, AB are equal to the two (straight-lines) FD, DC, respectively.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "δύο δὴ αἱ ΕΑ, ΑΒ δύο ταῖς ΖΔ, ΔΓ ἴσαι εἰσίν ἑκατέρα ἑκατέρᾳ·",
           "deps": [
             "prop.29"
           ],
@@ -9021,7 +9021,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ γωνία ἡ ὑπὸ ΖΔΓ γωνίᾳ τῇ ὑπὸ ΕΑΒ ἐστιν ἴση ἡ ἐκτὸς τῇ ἐντός·",
           "deps": [
             "prop.29",
             "prop.4"
@@ -9049,7 +9049,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "βάσις ἄρα ἡ ΕΒ βάσει τῇ ΖΓ ἴση ἐστίν, καὶ τὸ ΕΑΒ τρίγωνον τῷ ΔΖΓ τριγώνῳ ἴσον ἔσται·",
           "deps": [
             "prop.4"
           ],
@@ -9066,7 +9066,7 @@
           "en": "Let DGE have been taken away from both.",
           "citations": [],
           "role": "construction",
-          "gr": "",
+          "gr": "κοινὸν ἀφῃρήσθω τὸ ΔΗΕ·",
           "deps": [
             "cn.3"
           ],
@@ -9083,7 +9083,7 @@
           "en": "Thus, the remaining trapezium ABGD is equal to the remaining trapezium EGCF.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "λοιπὸν ἄρα τὸ ΑΒΗΔ τραπέζιον λοιπῷ τῷ ΕΗΓΖ τραπεζίῳ ἐστὶν ἴσον·",
           "deps": [
             "cn.3"
           ],
@@ -9098,7 +9098,7 @@
           "en": "Let triangle GBC have been added to both.",
           "citations": [],
           "role": "construction",
-          "gr": "",
+          "gr": "κοινὸν προσκείσθω τὸ ΗΒΓ τρίγωνον·",
           "deps": [
             "cn.2"
           ],
@@ -9115,7 +9115,7 @@
           "en": "Thus, the whole parallelogram ABCD is equal to the whole parallelogram EBCF.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ὅλον ἄρα τὸ ΑΒΓΔ παραλληλόγραμμον ὅλῳ τῷ ΕΒΓΖ παραλληλογράμμῳ ἴσον ἐστίν.",
           "deps": [
             "cn.2"
           ],
@@ -9130,7 +9130,7 @@
           "en": "Thus, parallelograms which are on the same base and between the same parallels are equal to one another.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Τὰ ἄρα παραλληλόγραμμα τὰ ἐπὶ τῆς αὐτῆς βάσεως ὄντα καὶ ἐν ταῖς αὐταῖς παραλλήλοις ἴσα ἀλλήλοις ἐστίν·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -9143,7 +9143,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -9368,7 +9368,7 @@
           "en": "So that the parallelogram ABCD is also equal to EFGH.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὥστε καὶ τὸ ΑΒΓΔ παραλληλόγραμμον τῷ ΕΖΗΘ ἐστιν ἴσον.",
           "deps": [
             "cn.1"
           ],
@@ -9383,7 +9383,7 @@
           "en": "Thus, parallelograms which are on equal bases and between the same parallels are equal to one another.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Τὰ ἄρα παραλληλόγραμμα τὰ ἐπὶ ἴσων βάσεων ὄντα καὶ ἐν ταῖς αὐταῖς παραλλήλοις ἴσα ἀλλήλοις ἐστίν·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -9396,7 +9396,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -9550,7 +9550,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ἡ γὰρ ΑΒ διά μετρος αὐτὸ δίχα τέμνει·",
           "deps": [
             "prop.34"
           ],
@@ -9567,7 +9567,7 @@
           "en": "And the triangle DBC (is) half of the parallelogram DBCF.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "τοῦ δὲ ΔΒΓΖ παραλληλογράμμου ἥμισυ τὸ ΔΒΓ τρίγωνον·",
           "deps": [
             "cn.3",
             "prop.34"
@@ -9594,7 +9594,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ἡ γὰρ ΔΓ διά μετρος αὐτὸ δίχα τέμνει· [τὰ δὲ τῶν ἴσων ἡ μίση ἴσα ἀλλήλοις ἐστίν·] ἴσον ἄρα ἐστὶ τὸ ΑΒΓ τρίγωνον τῷ ΔΒΓ τριγώνῳ.",
           "deps": [
             "prop.34"
           ],
@@ -9612,7 +9612,7 @@
           "en": "Thus, triangles which are on the same base and between the same parallels are equal to one another.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Τὰ ἄρα τρίγωνα τὰ ἐπὶ τῆς αὐτῆς βάσεως ὄντα καὶ ἐν ταῖς αὐταῖς παραλλήλοις ἴσα ἀλλήλοις ἐστίν·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -9625,7 +9625,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -9774,7 +9774,7 @@
           "en": "And triangle ABC is half of the parallelogram GBCA.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καί ἐστι τοῦ μὲν ΗΒΓΑ παραλληλογράμμου ἥμισυ τὸ ΑΒΓ τρίγωνον·",
           "deps": [
             "prop.34"
           ],
@@ -9799,7 +9799,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ἡ γὰρ ΑΒ διά μετρος αὐτὸ δίχα τέμνει·",
           "deps": [
             "prop.34"
           ],
@@ -9816,7 +9816,7 @@
           "en": "And triangle FED (is) half of parallelogram DEFH.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "τοῦ δὲ ΔΕΖΘ παραλληλογράμμου ἥμισυ τὸ ΖΕΔ τρίγωνον·",
           "deps": [
             "cn.3"
           ],
@@ -9833,7 +9833,7 @@
           "en": "For the diagonal DF cuts the latter in half. [And the halves of equal things are equal to one another.] Thus, triangle ABC is equal to triangle DEF.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἡ γὰρ ΔΖ δίαμετρος αὐτὸ δίχα τέμνει· [τὰ δὲ τῶν ἴσων ἡ μίση ἴσα ἀλλήλοις ἐστίν·] ἴσον ἄρα ἐστὶ τὸ ΑΒΓ τρίγωνον τῷ ΔΕΖ τριγώνῳ.",
           "deps": [
             "prop.34",
             "cn.3"
@@ -9849,7 +9849,7 @@
           "en": "Thus, triangles which are on equal bases and between the same parallels are equal to one another.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Τὰ ἄρα τρίγωνα τὰ ἐπὶ ἴσων βάσεων ὄντα καὶ ἐν ταῖς αὐταῖς παραλλήλοις ἴσα ἀλλήλοις ἐστίν·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -9862,7 +9862,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -10015,7 +10015,7 @@
           "en": "DBC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἀλλὰ τὸ ΑΒΓ τῷ ΔΒΓ ἐστιν ἴσον·",
           "deps": [
             "cn.5"
           ],
@@ -10032,7 +10032,7 @@
           "en": "Thus, DBC is also equal to EBC, the greater to the lesser.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "καὶ τὸ ΔΒΓ ἄρα τῷ ΕΒΓ ἴσον ἐστὶ τὸ μεῖζον τῷ ἐλάσσονι·",
           "deps": [
             "cn.1"
           ],
@@ -10047,7 +10047,7 @@
           "en": "The very thing is impossible.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὅπερ ἐστὶν ἀδύνατον·",
           "deps": [
             "cn.5"
           ],
@@ -10062,7 +10062,7 @@
           "en": "Thus, AE is not parallel to BC.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "οὐκ ἄρα παράλληλός ἐστιν ἡ ΑΕ τῇ ΒΓ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -10075,7 +10075,7 @@
           "en": "Similarly, we can show that neither (is) any other (straight-line) than AD.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὁ μοίως δὴ δείξομεν, ὅτι οὐδ᾿ ἄλλη τις πλὴν τῆς ΑΔ·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -10088,7 +10088,7 @@
           "en": "Thus, AD is parallel to BC.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ἡ ΑΔ ἄρα τῇ ΒΓ ἐστι παράλληλος.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -10101,7 +10101,7 @@
           "en": "Thus, equal triangles which are on the same base, and on the same side, are also between the same parallels.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Τὰ ἄρα ἴσα τρίγωνα τὰ ἐπὶ τῆς αὐτῆς βάσεως ὄντα καὶ ἐπὶ τὰ αὐτὰ μέρη καὶ ἐν ταῖς αὐταῖς παραλλήλοις ἐστίν·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -10114,7 +10114,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -10285,7 +10285,7 @@
           "en": "Thus, [triangle] DCE is also equal to triangle FCE, the greater to the lesser.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "καὶ τὸ ΔΓΕ ἄρα [τρίγωνον] ἴσον ἐστὶ τῷ ΖΓΕ τριγώνῳ τὸ μεῖζον τῷ ἐλάσσονι·",
           "deps": [
             "cn.1"
           ],
@@ -10300,7 +10300,7 @@
           "en": "The very thing is impossible.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὅπερ ἐστὶν ἀδύνατον·",
           "deps": [
             "cn.5"
           ],
@@ -10315,7 +10315,7 @@
           "en": "Thus, AF is not parallel to BE.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "οὐκ ἄρα παράλληλος ἡ ΑΖ τῇ ΒΕ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -10328,7 +10328,7 @@
           "en": "Similarly, we can show that neither (is) any other (straight-line) than AD.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὁ μοίως δὴ δείξομεν, ὅτι οὐδ᾿ ἄλλη τις πλὴν τῆς ΑΔ·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -10341,7 +10341,7 @@
           "en": "Thus, AD is parallel to BE.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ἡ ΑΔ ἄρα τῇ ΒΕ ἐστι παράλληλος.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -10354,7 +10354,7 @@
           "en": "Thus, equal triangles which are on equal bases, and on the same side, are also between the same parallels.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Τὰ ἄρα ἴσα τρίγωνα τὰ ἐπὶ ἴσων βάσεων ὄντα καὶ ἐπὶ τὰ αὐτὰ μέρη καὶ ἐν ταῖς αὐταῖς παραλλήλοις ἐστίν·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -10367,7 +10367,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -10482,7 +10482,7 @@
           "en": "But, parallelogram ABCD is double (the area) of triangle ABC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἀλλὰ τὸ ΑΒΓΔ παραλληλόγραμμον διπλάσιόν ἐστι τοῦ ΑΒΓ τριγώνου·",
           "deps": [
             "prop.34"
           ],
@@ -10507,7 +10507,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ἡ γὰρ ΑΓ διά μετρος αὐτὸ δίχα τέμνει·",
           "deps": [
             "cn.1",
             "cn.2",
@@ -10529,7 +10529,7 @@
           "en": "So parallelogram ABCD is also double (the area) of triangle EBC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὥστε τὸ ΑΒΓΔ παραλληλόγραμμον καὶ τοῦ ΕΒΓ τριγώνου ἐστὶ διπλάσιον.",
           "deps": [
             "prop.37",
             "prop.34"
@@ -10545,7 +10545,7 @@
           "en": "Thus, if a parallelogram has the same base as a triangle, and is between the same parallels, then the parallelogram is double (the area) of the triangle.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "᾿Εὰν ἄρα παραλληλόγραμμον τριγώνῳ βάσιν τε ἔχῃ τὴν αὐτὴν καὶ ἐν ταῖς αὐταῖς παραλλήλοις ᾖ, διπλάσιόν ἐστί τὸ παραλληλόγραμμον τοῦ τριγώνου·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -10558,7 +10558,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -10722,7 +10722,7 @@
           "en": "And since BE is equal to EC, triangle ABE is also equal to triangle AEC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ ἐπεὶ ἴση ἐστὶν ἡ ΒΕ τῇ ΕΓ, ἴσον ἐστὶ καὶ τὸ ΑΒΕ τρίγωνον τῷ ΑΕΓ τριγώνῳ·",
           "deps": [
             "prop.38"
           ],
@@ -10747,7 +10747,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ἐπί τε γὰρ ἴσων βάσεών εἰσι τῶν ΒΕ, ΕΓ καὶ ἐν ταῖς αὐταῖς παραλλήλοις ταῖς ΒΓ, ΑΗ·",
           "deps": [
             "cn.2",
             "prop.38"
@@ -10767,7 +10767,7 @@
           "en": "Thus, triangle ABC is double (the area) of triangle AEC.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "διπλάσιον ἄρα ἐστὶ τὸ ΑΒΓ τρίγωνον τοῦ ΑΕΓ τριγώνου.",
           "deps": [
             "prop.41"
           ],
@@ -10784,7 +10784,7 @@
           "en": "And parallelogram FECG is also double (the area) of triangle AEC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἔστι δὲ καὶ τὸ ΖΕΓΗ παραλληλόγραμμον διπλάσιον τοῦ ΑΕΓ τριγώνου·",
           "deps": [
             "cn.2"
           ],
@@ -10809,7 +10809,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "βάσιν τε γὰρ αὐτῷ τὴν αὐτὴν ἔχει καὶ ἐν ταῖς αὐταῖς ἐστιν αὐτῷ παραλλήλοις·",
           "deps": [
             "cn.1",
             "prop.41"
@@ -10829,7 +10829,7 @@
           "en": "Thus, parallelogram FECG is equal to triangle ABC.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ἴσον ἄρα ἐστὶ τὸ ΖΕΓΗ παραλληλόγραμμον τῷ ΑΒΓ τριγώνῳ.",
           "deps": [
             "prop.41",
             "cn.1"
@@ -10845,7 +10845,7 @@
           "en": "(FECG) also has the angle CEF equal to the given (angle) D.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ ἔχει τὴν ὑπὸ ΓΕΖ γωνίαν ἴσην τῇ δοθείσῃ τῇ Δ.",
           "deps": [
             "cn.1"
           ],
@@ -10862,7 +10862,7 @@
           "en": "Thus, parallelogram FECG, equal to the given triangle ABC, has been constructed in the angle CEF, which is equal to D.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Τῷ ἄρα δοθέντι τριγώνῳ τῷ ΑΒΓ ἴσον παραλληλόγραμμον συνέσταται τὸ ΖΕΓΗ ἐν γωνίᾳ τῇ ὑπὸ ΓΕΖ, ἥτις ἐστὶν ἴση τῇ Δ·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -10875,7 +10875,7 @@
           "en": "(Which is) the very thing it was required to do.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει ποιῆσαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -11014,7 +11014,7 @@
           "en": "Therefore, since triangle AEK is equal to triangle AHK, and KFC to KGC, triangle AEK plus KGC is equal to triangle AHK plus KFC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἐπεὶ οὖν τὸ μὲν ΑΕΚ τρίγωνον τῷ ΑΘΚ τριγώνῳ ἐστὶν ἴσον, τὸ δὲ ΚΖΓ τῷ ΚΗΓ, τὸ ΑΕΚ τρίγωνον μετὰ τοῦ ΚΗΓ ἴσον ἐστὶ τῷ ΑΘΚ τριγώνῳ μετὰ τοῦ ΚΖΓ·",
           "deps": [
             "cn.3"
           ],
@@ -11031,7 +11031,7 @@
           "en": "And the whole triangle ABC is also equal to the whole (triangle) ADC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἔστι δὲ καὶ ὅλον τὸ ΑΒΓ τρίγωνον ὅλῳ τῷ ΑΔΓ ἴσον·",
           "deps": [
             "prop.34"
           ],
@@ -11046,7 +11046,7 @@
           "en": "Thus, the remaining complement BK is equal to the remaining complement KD.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "λοιπὸν ἄρα τὸ ΒΚ παραπλήρωμα λοιπῷ τῷ ΚΔ παραπληρώματί ἐστιν ἴσον.",
           "deps": [
             "cn.3"
           ],
@@ -11061,7 +11061,7 @@
           "en": "Thus, for any parallelogramic figure, the complements of the parallelograms about the diagonal are equal to one another.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Παντὸς ἄρα παραλληλογράμμου χωρίου τῶν περὶ τὴν διά μετρον παραλληλογράμμων τὰ παραπληρώματα ἴσα ἀλλήλοις ἐστίν·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -11074,7 +11074,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -11288,7 +11288,7 @@
             }
           ],
           "role": "construction",
-          "gr": "",
+          "gr": "καὶ διὰ τοῦ Κ σημείου ὁ ποτέρᾳ τῶν ΕΑ, ΖΘ παράλληλος ἤχθω ἡ ΚΛ·",
           "deps": [
             "post.2",
             "prop.31"
@@ -11308,7 +11308,7 @@
           "en": "And let HA and GB have been produced to points L and M (respectively).",
           "citations": [],
           "role": "construction",
-          "gr": "",
+          "gr": "καὶ ἐκβεβλήσθωσαν αἱ ΘΑ, ΗΒ ἐπὶ τὰ Λ, Μ σημεῖα.",
           "deps": [
             "def.22"
           ],
@@ -11325,7 +11325,7 @@
           "en": "Thus, HLKF is a parallelogram, and HK its diagonal.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "παραλληλόγραμμον ἄρα ἐστὶ τὸ ΘΛΚΖ, διά μετρος δὲ αὐτοῦ ἡ ΘΚ·",
           "deps": [
             "def.22"
           ],
@@ -11342,7 +11342,7 @@
           "en": "And AG and ME (are) parallelograms, and LB and BF the so-called complements, about HK.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "περὶ δὲ τὴν ΘΚ παραλληλόγραμμα μὲν τὰ ΑΗ, ΜΕ, τὰ δὲ λεγόμενα παραπληρώματα τὰ ΛΒ, ΒΖ·",
           "deps": [
             "prop.43"
           ],
@@ -11367,7 +11367,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ἴσον ἄρα ἐστὶ τὸ ΛΒ τῷ ΒΖ.",
           "deps": [
             "prop.42",
             "prop.43"
@@ -11387,7 +11387,7 @@
           "en": "But, BF is equal to triangle C.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἀλλὰ τὸ ΒΖ τῷ Γ τριγώνῳ ἐστὶν ἴσον·",
           "deps": [
             "cn.1"
           ],
@@ -11404,7 +11404,7 @@
           "en": "Thus, LB is also equal to C.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "καὶ τὸ ΛΒ ἄρα τῷ Γ ἐστιν ἴσον.",
           "deps": [
             "prop.15"
           ],
@@ -11429,7 +11429,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ ἐπεὶ ἴση ἐστὶν ἡ ὑπὸ ΗΒΕ γωνία τῇ ὑπὸ ΑΒΜ, ἀλλὰ ἡ ὑπὸ ΗΒΕ τῇ Δ ἐστιν ἴση, καὶ ἡ ὑπὸ ΑΒΜ ἄρα τῇ Δ γωνίᾳ ἐστὶν ἴση.",
           "deps": [
             "cn.1",
             "prop.15"
@@ -11449,7 +11449,7 @@
           "en": "Thus, the parallelogram LB, equal to the given triangle C, has been applied to the given straight-line AB in the angle ABM, which is equal to D.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Παρὰ τὴν δοθεῖσαν ἄρα εὐθεῖαν τὴν ΑΒ τῷ δοθέντι τριγώνῳ τῷ Γ ἴσον παραλληλόγραμμον παραβέβληται τὸ ΛΒ ἐν γωνίᾳ τῇ ὑπὸ ΑΒΜ, ἥ ἐστιν ἴση τῇ Δ·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -11462,7 +11462,7 @@
           "en": "(Which is) the very thing it was required to do.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει ποιῆσαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -11723,7 +11723,7 @@
           "en": "Let HGL have been added to both.",
           "citations": [],
           "role": "construction",
-          "gr": "",
+          "gr": "κοινὴ προσκείσθω ἡ ὑπὸ ΘΗΛ·",
           "deps": [
             "cn.1"
           ],
@@ -11740,7 +11740,7 @@
           "en": "Thus, (the sum of) MHG and HGL is equal to (the sum of) HGF and HGL.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "αἱ ἄρα ὑπὸ ΜΘΗ, ΘΗΛ ταῖς ὑπὸ ΘΗΖ, ΘΗΛ ἴσαι εἰσιν.",
           "deps": [
             "prop.29"
           ],
@@ -11765,7 +11765,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ἀλλ᾿ αἱ ὑπὸ ΜΘΗ, ΘΗΛ δύο ὀρθαῖς ἴσαι εἰσίν·",
           "deps": [
             "cn.1",
             "prop.29"
@@ -11785,7 +11785,7 @@
           "en": "Thus, (the sum of) HGF and HGL is also equal to two right-angles.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "καὶ αἱ ὑπὸ ΘΗΖ, ΘΗΛ ἄρα δύο ὀρθαῖς ἴσαι εἰσίν·",
           "deps": [
             "prop.14"
           ],
@@ -11810,7 +11810,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ἐπ᾿ εὐθείας ἄρα ἐστὶν ἡ ΖΗ τῇ ΗΛ.",
           "deps": [
             "prop.14",
             "prop.30",
@@ -11854,7 +11854,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ ἐπεὶ ἡ ΖΚ τῇ ΘΗ ἴση τε καὶ παράλληλός ἐστιν, ἀλλὰ καὶ ἡ ΘΗ τῇ ΜΛ, καὶ ἡ ΚΖ ἄρα τῇ ΜΛ ἴση τε καὶ παράλληλός ἐστιν·",
           "deps": [
             "prop.30",
             "prop.34"
@@ -11873,7 +11873,7 @@
           "en": "And the straight-lines KM and FL join them.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ ἐπιζευγνύουσιν αὐτὰς εὐθεῖαι αἱ ΚΜ, ΖΛ·",
           "deps": [
             "prop.33"
           ],
@@ -11898,7 +11898,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "καὶ αἱ ΚΜ, ΖΛ ἄρα ἴσαι τε καὶ παράλληλοί εἰσιν·",
           "deps": [
             "prop.33"
           ],
@@ -11915,7 +11915,7 @@
           "en": "Thus, KFLM is a parallelogram.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "παραλληλόγραμμον ἄρα ἐστὶ τὸ ΚΖΛΜ.",
           "deps": [
             "cn.2"
           ],
@@ -11932,7 +11932,7 @@
           "en": "And since triangle ABD is equal to parallelogram FH, and DBC to GM, the whole rectilinear figure ABCD is thus equal to the whole parallelogram KFLM.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ ἐπεὶ ἴσον ἐστὶ τὸ μὲν ΑΒΔ τρίγωνον τῷ ΖΘ παραλληλογράμμῳ, τὸ δὲ ΔΒΓ τῷ ΗΜ, ὅλον ἄρα τὸ ΑΒΓΔ εὐθύγραμμον ὅλῳ τῷ ΚΖΛΜ παραλληλογράμμῳ ἐστὶν ἴσον.",
           "deps": [
             "cn.2"
           ],
@@ -11947,7 +11947,7 @@
           "en": "Thus, the parallelogram KFLM, equal to the given rectilinear figure ABCD, has been constructed in the angle FKM, which is equal to the given (angle) E.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Τῷ ἄρα δοθέντι εὐθυγράμμῳ τῷ ΑΒΓΔ ἴσον παραλληλόγραμμον συνέσταται τὸ ΚΖΛΜ ἐν γωνίᾳ τῇ ὑπὸ ΖΚΜ, ἥ ἐστιν ἴση τῇ δοθείσῃ τῇ Ε·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -11960,7 +11960,7 @@
           "en": "(Which is) the very thing it was required to do.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει ποιῆσαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -12196,7 +12196,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "ἐπεὶ γὰρ εἰς παραλλήλους τὰς ΑΒ, ΔΕ εὐθεῖα ἐν έπεσεν ἡ ΑΔ, αἱ ἄρα ὑπὸ ΒΑΔ, ΑΔΕ γωνίαι δύο ὀρθαῖς ἴσαι εἰσίν.",
           "deps": [
             "prop.29"
           ],
@@ -12213,7 +12213,7 @@
           "en": "But BAD (is a) right-angle.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὀρθὴ δὲ ἡ ὑπὸ ΒΑΔ·",
           "deps": [
             "cn.3"
           ],
@@ -12230,7 +12230,7 @@
           "en": "Thus, ADE (is) also a right-angle.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ὀρθὴ ἄρα καὶ ἡ ὑπὸ ΑΔΕ.",
           "deps": [
             "prop.34"
           ],
@@ -12255,7 +12255,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "τῶν δὲ παραλληλογράμμων χωρίων αἱ ἀπεναντίον πλευραί τε καὶ γωνίαι ἴσαι ἀλλήλαις εἰσίν· ὀρθὴ ἄρα καὶ ἑκατέρα τῶν ἀπεναντίον τῶν ὑπὸ ΑΒΕ, ΒΕΔ γωνιῶν·",
           "deps": [
             "prop.34"
           ],
@@ -12272,7 +12272,7 @@
           "en": "Thus, ADEB is rightangled.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ὀρθογώνιον ἄρα ἐστὶ τὸ ΑΔΕΒ.",
           "deps": [
             "prop.34",
             "cn.3"
@@ -12288,7 +12288,7 @@
           "en": "And it was also shown (to be) equilateral.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ἐδείχθη δὲ καὶ ἰσόπλευρον.",
           "deps": [
             "def.22"
           ],
@@ -12313,7 +12313,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "Τετράγωνον ἄρα ἐστίν·",
           "deps": [
             "def.22"
           ],
@@ -12330,7 +12330,7 @@
           "en": "And it is described on the straight-line AB.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καί ἐστιν ἀπὸ τῆς ΑΒ εὐθείας ἀναγεγραμμένον·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -12343,7 +12343,7 @@
           "en": "(Which is) the very thing it was required to do.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει ποιῆσαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -12584,7 +12584,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "βάσις ἄρα ἡ ΑΔ βάσει τῇ ΖΓ [ἐστιν] ἴση, καὶ τὸ ΑΒΔ τρίγωνον τῷ ΖΒΓ τριγώνῳ ἐστὶν ἴσον·",
           "deps": [
             "prop.4",
             "prop.41"
@@ -12604,7 +12604,7 @@
           "en": "And parallelogram BL [is] double (the area) of triangle ABD.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καί [ἐστι] τοῦ μὲν ΑΒΔ τριγώνου διπλάσιον τὸ ΒΛ παραλληλόγραμμον·",
           "deps": [
             "prop.41"
           ],
@@ -12629,7 +12629,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "βάσιν τε γὰρ τὴν αὐτὴν ἔχουσι τὴν ΒΔ καὶ ἐν ταῖς αὐταῖς εἰσι παραλλήλοις ταῖς ΒΔ, ΑΛ·",
           "deps": [
             "prop.41"
           ],
@@ -12646,7 +12646,7 @@
           "en": "And square GB is double (the area) of triangle FBC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "τοῦ δὲ ΖΒΓ τριγώνου διπλάσιον τὸ ΗΒ τετράγωνον·",
           "deps": [
             "prop.41"
           ],
@@ -12671,7 +12671,7 @@
             }
           ],
           "role": "step",
-          "gr": "",
+          "gr": "βάσιν τε γὰρ πάλιν τὴν αὐτὴν ἔχουσι τὴν ΖΒ καὶ ἐν ταῖς αὐταῖς εἰσι παραλλήλοις ταῖς ΖΒ, ΗΓ· [τὰ δὲ τῶν ἴσων διπλάσια ἴσα ἀλλήλοις ἐστίν·] ἴσον ἄρα ἐστὶ καὶ τὸ ΒΛ παραλληλόγραμμον τῷ ΗΒ τετραγώνῳ.",
           "deps": [
             "prop.41"
           ],
@@ -12689,7 +12689,7 @@
           "en": "So, similarly, AE and BK being joined, the parallelogram CL can be shown (to be) equal to the square HC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὁ μοίως δὴ ἐπιζευγνυμένων τῶν ΑΕ, ΒΚ δειχθήσεται καὶ τὸ ΓΛ παραλληλόγραμμον ἴσον τῷ ΘΓ τετραγώνῳ·",
           "deps": [
             "cn.2"
           ],
@@ -12706,7 +12706,7 @@
           "en": "Thus, the whole square BDEC is equal to the (sum of the) two squares GB and HC.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ὅλον ἄρα τὸ ΒΔΕΓ τετράγωνον δυσὶ τοῖς ΗΒ, ΘΓ τετραγώνοις ἴσον ἐστίν.",
           "deps": [
             "cn.2"
           ],
@@ -12721,7 +12721,7 @@
           "en": "And the square BDEC is described on BC, and the (squares) GB and HC on BA and AC (respectively).",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καί ἐστι τὸ μὲν ΒΔΕΓ τετράγωνον ἀπὸ τῆς ΒΓ ἀναγραφέν, τὰ δὲ ΗΒ, ΘΓ ἀπὸ τῶν ΒΑ, ΑΓ.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -12734,7 +12734,7 @@
           "en": "Thus, the square on the side BC is equal to the (sum of the) squares on the sides BA and AC.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "τὸ ἄρα ἀπὸ τῆς ΒΓ πλευρᾶς τετράγωνον ἴσον ἐστὶ τοῖς ἀπὸ τῶν ΒΑ, ΑΓ πλευρῶν τετραγώνοις.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -12747,7 +12747,7 @@
           "en": "Thus, in right-angled triangles, the square on the side subtending the right-angle is equal to the (sum of the) squares on the sides surrounding the right-[angle].",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "᾿Εν ἄρα τοῖς ὀρθογωνίοις τριγώνοις τὸ ἀπὸ τῆς τὴν ὀρθὴν γωνίαν ὑποτεινούσης πλευρᾶς τετράγωνον ἴσον ἐστὶ τοῖς ἀπὸ τῶν τὴν ὀρθὴν [γωνίαν] περιεχουσῶν πλευρῶν τετραγώνοις·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -12760,7 +12760,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -12929,7 +12929,7 @@
           "en": "But, the (square) on BC is equal to (sum of the squares) on BA and AC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "τοῖς δὲ ἀπὸ τῶν ΒΑ, ΑΓ ἴσον ἐστὶ τὸ ἀπὸ τῆς ΒΓ·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -12942,7 +12942,7 @@
           "en": "For (that) was assumed.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὑπόκειται γάρ·",
           "deps": [
             "cn.1"
           ],
@@ -12959,7 +12959,7 @@
           "en": "Thus, the square on DC is equal to the square on BC.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "τὸ ἄρα ἀπὸ τῆς ΔΓ τετράγωνον ἴσον ἐστὶ τῷ ἀπὸ τῆς ΒΓ τετραγώνῳ·",
           "deps": [
             "cn.4"
           ],
@@ -12976,7 +12976,7 @@
           "en": "So side DC is also equal to (side) BC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὥστε καὶ πλευρὰ ἡ ΔΓ τῇ ΒΓ ἐστιν ἴση·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -12989,7 +12989,7 @@
           "en": "And since DA is equal to AB, and AC (is) common, the two (straight-lines) DA, AC are equal to the two (straight-lines) BA, AC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ ἐπεὶ ἴση ἐστὶν ἡ ΔΑ τῇ ΑΒ, κοινὴ δὲ ἡ ΑΓ, δύο δὴ αἱ ΔΑ, ΑΓ δύο ταῖς ΒΑ, ΑΓ ἴσαι εἰσίν·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -13002,7 +13002,7 @@
           "en": "And the base DC is equal to the base BC.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "καὶ βάσις ἡ ΔΓ βάσει τῇ ΒΓ ἴση·",
           "deps": [
             "prop.8"
           ],
@@ -13027,7 +13027,7 @@
             }
           ],
           "role": "conclusion",
-          "gr": "",
+          "gr": "γωνία ἄρα ἡ ὑπὸ ΔΑΓ γωνίᾳ τῇ ὑπὸ ΒΑΓ [ἐστιν] ἴση.",
           "deps": [
             "prop.8"
           ],
@@ -13044,7 +13044,7 @@
           "en": "But DAC is a right-angle.",
           "citations": [],
           "role": "step",
-          "gr": "",
+          "gr": "ὀρθὴ δὲ ἡ ὑπὸ ΔΑΓ·",
           "deps": [
             "cn.1"
           ],
@@ -13061,7 +13061,7 @@
           "en": "Thus, BAC is also a right-angle.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "ὀρθὴ ἄρα καὶ ἡ ὑπὸ ΒΑΓ.",
           "deps": [
             "prop.8",
             "cn.1"
@@ -13077,7 +13077,7 @@
           "en": "Thus, if the square on one of the sides of a triangle is equal to the (sum of the) squares on the remaining two sides of the triangle then the angle contained by the remaining two sides of the triangle is a right-angle.",
           "citations": [],
           "role": "conclusion",
-          "gr": "",
+          "gr": "᾿Εὰν ἄρα τριγώνου τὸ ἀπὸ μιᾶς τῶν πλευρῶν τετράγωνον ἴσον ᾖ τοῖς ἀπὸ τῶν λοιπῶν τοῦ τριγώνου δύο πλευρῶν τετραγώνοις, ἡ περιεχομένη γωνία ὑπὸ τῶν λοιπῶν τοῦ τριγώνου δύο πλευρῶν ὀρθή ἐστιν·",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
@@ -13090,7 +13090,7 @@
           "en": "(Which is) the very thing it was required to show.",
           "citations": [],
           "role": "qed",
-          "gr": "",
+          "gr": "ὅπερ ἔδει δεῖξαι.",
           "deps": [],
           "inferred": [],
           "ground_truth": [],
