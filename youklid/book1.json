@@ -346,13 +346,15 @@
           "citations": [],
           "role": "step",
           "gr": "᾿Ισόπλευρον ἄρα ἐστὶ τὸ ΑΒΓ τρίγωνον.",
-          "deps": [],
-          "inferred": [],
+          "deps": [
+            "def.15"
+          ],
+          "inferred": [
+            "def.15"
+          ],
           "ground_truth": [],
           "unclear": false,
-          "logical_function": "equality_by_back_reference",
-          "borrowed_axiom": "identity",
-          "borrowed_axiom_text": "The equality AC = AB established in step [4] is recalled and restated here. This requires the identity principle: a previously proved equality remains valid and can be cited again."
+          "logical_function": "equality_by_back_reference"
         },
         {
           "en": "Thus, CA and CB are each equal to AB.",
@@ -625,12 +627,13 @@
             "def.20",
             "prop.1"
           ],
-          "inferred": [],
+          "inferred": [
+            "def.20",
+            "prop.1"
+          ],
           "ground_truth": [],
           "unclear": false,
-          "logical_function": "equality_by_back_reference",
-          "borrowed_axiom": "identity",
-          "borrowed_axiom_text": "From Prop.1, triangle DAB is equilateral. By Def.20, DA = DB. This equality is now cited in the proof as a known fact."
+          "logical_function": "equality_by_back_reference"
         },
         {
           "en": "Thus, the remainder AL is equal to the remainder BG [C.N. 3].",
@@ -662,13 +665,15 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
-          "inferred": [],
+          "deps": [
+            "def.15"
+          ],
+          "inferred": [
+            "def.15"
+          ],
           "ground_truth": [],
           "unclear": false,
-          "logical_function": "equality_by_back_reference",
-          "borrowed_axiom": "identity",
-          "borrowed_axiom_text": "Step [5] established BC = BG. This is now recalled and restated."
+          "logical_function": "equality_by_back_reference"
         },
         {
           "en": "Thus, AL and BC are each equal to BG.",
@@ -859,13 +864,15 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
-          "inferred": [],
+          "deps": [
+            "prop.2"
+          ],
+          "inferred": [
+            "prop.2"
+          ],
           "ground_truth": [],
           "unclear": false,
-          "logical_function": "equality_by_back_reference",
-          "borrowed_axiom": "identity",
-          "borrowed_axiom_text": "Step [2] established AD = C. This equality is now cited."
+          "logical_function": "equality_by_back_reference"
         },
         {
           "en": "Thus, AE and C are each equal to AD.",
@@ -1052,14 +1059,10 @@
           "role": "step",
           "gr": "",
           "deps": [],
-          "inferred": [
-            "post.1"
-          ],
+          "inferred": [],
           "ground_truth": [],
           "unclear": false,
-          "logical_function": "equality_by_back_reference",
-          "borrowed_axiom": "identity",
-          "borrowed_axiom_text": "Step [5] established that B coincides with E. This fact is recalled here."
+          "logical_function": "coincidence_conclusion"
         },
         {
           "en": "For if B coincides with E, and C with F, and the base BC does not coincide with EF, then two straight-lines will encompass an area.",
@@ -1302,16 +1305,16 @@
           "role": "step",
           "gr": "ἐδείχθη δὲ καὶ ἡ ΖΓ τῇ ΗΒ ἴση· δύο δὴ αἱ ΒΖ, ΖΓ δυσὶ ταῖς ΓΗ, ΗΒ ἴσαι εἰσίν ἑκατέρα ἑκατέρᾳ· καὶ γωνία ἡ ὑπὸ ΒΖΓ γωνίᾳ τῃ ὑπὸ ΓΗΒ ἴση, καὶ βάσις αὐτῶν κοινὴ ἡ ΒΓ· καὶ τὸ ΒΖΓ ἄρα τρίγωνον τῷ ΓΗΒ τριγώνῳ ἴσον ἔσται, καὶ αἱ λοιπαὶ γωνίαι ταῖς λοιπαῖς γωνίαις ἴσαι ἔσονται ἑκατέρα ἑκατέρᾳ, ὑφ᾿ ἃς αἱ ἴσαι πλευραὶ ὑποτείνουσιν· ἴση ἄρα ἐστὶν ἡ μὲν ὑπὸ ΖΒΓ τῇ ὑπὸ ΗΓΒ ἡ δὲ ὑπὸ ΒΓΖ τῇ ὑπὸ ΓΒΗ.",
           "deps": [
-            "cn.1"
+            "prop.3",
+            "def.20"
           ],
           "inferred": [
-            "cn.1"
+            "prop.3",
+            "def.20"
           ],
           "ground_truth": [],
           "unclear": false,
-          "logical_function": "equality_by_back_reference",
-          "borrowed_axiom": "identity",
-          "borrowed_axiom_text": "From step [2]: AF = AG (by construction). From step [0]: AB = AC (given). These equalities are cited to form two pairs of equal sides."
+          "logical_function": "equality_by_back_reference"
         },
         {
           "en": "They also encompass a common angle, FAG.",
@@ -1388,13 +1391,15 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
-          "inferred": [],
+          "deps": [
+            "prop.4"
+          ],
+          "inferred": [
+            "prop.4"
+          ],
           "ground_truth": [],
           "unclear": false,
-          "logical_function": "equality_by_back_reference",
-          "borrowed_axiom": "identity",
-          "borrowed_axiom_text": "Step [6] established FC = GB. This equality is now cited."
+          "logical_function": "equality_by_back_reference"
         },
         {
           "en": "So the two (straightlines) BF, FC are equal to the two (straight-lines) CG, GB, respectively, and the angle BFC (is) equal to the angle CGB, and the base BC is common to them.",
@@ -1486,13 +1491,15 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
-          "inferred": [],
+          "deps": [
+            "prop.4"
+          ],
+          "inferred": [
+            "prop.4"
+          ],
           "ground_truth": [],
           "unclear": false,
-          "logical_function": "equality_by_back_reference",
-          "borrowed_axiom": "identity",
-          "borrowed_axiom_text": "Step [12] established angle FBC = angle GCB. This equality is now cited."
+          "logical_function": "equality_by_back_reference"
         },
         {
           "en": "And they are under the base.",
