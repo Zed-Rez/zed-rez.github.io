@@ -1,0 +1,94 @@
+{
+  "prop": 7,
+  "viewBox": [0, 0, 440, 320],
+  "points": {
+    "A": { "x": 80,  "y": 280, "label": "bottom-left" },
+    "B": { "x": 360, "y": 280, "label": "bottom-right" },
+    "C": { "x": 160, "y": 80,  "label": "top-left" },
+    "D": { "x": 260, "y": 130, "label": "top-right" }
+  },
+  "elements": [
+    { "id": "seg_AB",  "kind": "segment", "from": "A", "to": "B" },
+    { "id": "seg_CA",  "kind": "segment", "from": "C", "to": "A" },
+    { "id": "seg_CB",  "kind": "segment", "from": "C", "to": "B" },
+    { "id": "seg_DA",  "kind": "segment", "from": "D", "to": "A" },
+    { "id": "seg_DB",  "kind": "segment", "from": "D", "to": "B" },
+    { "id": "seg_CD",  "kind": "segment", "from": "C", "to": "D" },
+    { "id": "pt_A",    "kind": "point",   "at": "A" },
+    { "id": "pt_B",    "kind": "point",   "at": "B" },
+    { "id": "pt_C",    "kind": "point",   "at": "C" },
+    { "id": "pt_D",    "kind": "point",   "at": "D" },
+    { "id": "tick_CA", "kind": "tick",    "on": "seg_CA", "count": 1 },
+    { "id": "tick_DA", "kind": "tick",    "on": "seg_DA", "count": 1 },
+    { "id": "tick_CB", "kind": "tick",    "on": "seg_CB", "count": 2 },
+    { "id": "tick_DB", "kind": "tick",    "on": "seg_DB", "count": 2 }
+  ],
+  "steps": [
+    {
+      "arg": 0,
+      "introduce": ["seg_AB","seg_CA","seg_CB","seg_DA","seg_DB","pt_A","pt_B","pt_C","pt_D","tick_CA","tick_DA","tick_CB","tick_DB"],
+      "focus": "seg_AB",
+      "emphasize": ["tick_CA","tick_DA","tick_CB","tick_DB"]
+    },
+    {
+      "arg": 1,
+      "introduce": [],
+      "focus": "seg_CA",
+      "emphasize": ["tick_CA","tick_DA"]
+    },
+    {
+      "arg": 2,
+      "introduce": ["seg_CD"],
+      "focus": "seg_CD",
+      "emphasize": []
+    },
+    {
+      "arg": 3,
+      "introduce": [],
+      "focus": "seg_CA",
+      "emphasize": ["seg_CA","seg_DA"]
+    },
+    {
+      "arg": 4,
+      "introduce": [],
+      "focus": "seg_CD",
+      "emphasize": []
+    },
+    {
+      "arg": 5,
+      "introduce": [],
+      "focus": "seg_CD",
+      "emphasize": []
+    },
+    {
+      "arg": 6,
+      "introduce": [],
+      "focus": "seg_CB",
+      "emphasize": ["seg_CB","seg_DB"]
+    },
+    {
+      "arg": 7,
+      "introduce": [],
+      "focus": "seg_CD",
+      "emphasize": []
+    },
+    {
+      "arg": 8,
+      "introduce": [],
+      "focus": "seg_AB",
+      "emphasize": []
+    },
+    {
+      "arg": 9,
+      "introduce": [],
+      "focus": "seg_AB",
+      "emphasize": []
+    },
+    {
+      "arg": 10,
+      "introduce": [],
+      "focus": "seg_AB",
+      "emphasize": []
+    }
+  ]
+}

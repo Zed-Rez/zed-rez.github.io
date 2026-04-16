@@ -1,0 +1,36 @@
+{
+  "prop": 18,
+  "viewBox": [0, 0, 420, 320],
+  "points": {
+    "A": { "x": 210, "y": 50, "label": "top" },
+    "B": { "x": 60,  "y": 270, "label": "bottom-left" },
+    "C": { "x": 360, "y": 270, "label": "bottom-right" },
+    "D": { "x": 210, "y": 270, "label": "bottom" }
+  },
+  "elements": [
+    { "id": "poly_ABC", "kind": "polygon", "vertices": ["A","B","C"] },
+    { "id": "seg_AB",   "kind": "segment", "from": "A", "to": "B" },
+    { "id": "seg_AC",   "kind": "segment", "from": "A", "to": "C" },
+    { "id": "seg_BC",   "kind": "segment", "from": "B", "to": "C" },
+    { "id": "seg_AD",   "kind": "segment", "from": "A", "to": "D" },
+    { "id": "pt_A",     "kind": "point",   "at": "A" },
+    { "id": "pt_B",     "kind": "point",   "at": "B" },
+    { "id": "pt_C",     "kind": "point",   "at": "C" },
+    { "id": "pt_D",     "kind": "point",   "at": "D" },
+    { "id": "tick_AC",  "kind": "tick",    "on": "seg_AC", "count": 1 },
+    { "id": "tick_AD",  "kind": "tick",    "on": "seg_AD", "count": 1 },
+    { "id": "arc_ADB",  "kind": "arc",     "vertex": "A", "ray1": "D", "ray2": "B", "radius": 28, "count": 1 },
+    { "id": "arc_C",    "kind": "arc",     "vertex": "C", "ray1": "D", "ray2": "A", "radius": 28, "count": 1 }
+  ],
+  "steps": [
+    { "arg": 0,  "introduce": ["poly_ABC","seg_AB","seg_AC","seg_BC","pt_A","pt_B","pt_C"], "focus": "poly_ABC", "emphasize": [] },
+    { "arg": 1,  "introduce": [], "focus": "seg_AC", "emphasize": [] },
+    { "arg": 2,  "introduce": ["seg_AD","pt_D","tick_AC","tick_AD"], "focus": "seg_AD", "emphasize": ["tick_AC","tick_AD"] },
+    { "arg": 3,  "introduce": [], "focus": "seg_AD", "emphasize": ["tick_AC","tick_AD"] },
+    { "arg": 4,  "introduce": ["arc_ADB","arc_C"], "focus": "arc_ADB", "emphasize": ["arc_ADB","arc_C"] },
+    { "arg": 5,  "introduce": [], "focus": "arc_ADB", "emphasize": ["arc_ADB"] },
+    { "arg": 6,  "introduce": [], "focus": "seg_AB", "emphasize": [] },
+    { "arg": 7,  "introduce": [], "focus": "poly_ABC", "emphasize": [] },
+    { "arg": 8,  "introduce": [], "focus": "poly_ABC", "emphasize": [] }
+  ]
+}

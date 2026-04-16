@@ -1,0 +1,46 @@
+{
+  "prop": 48,
+  "viewBox": [0, 0, 480, 400],
+  "points": {
+    "B": { "x": 80,  "y": 360, "label": "bottom-left" },
+    "A": { "x": 220, "y": 220, "label": "left" },
+    "C": { "x": 400, "y": 320, "label": "bottom-right" },
+    "D": { "x": 120, "y": 70,  "label": "top-left" }
+  },
+  "elements": [
+    { "id": "poly_ABC", "kind": "polygon", "vertices": ["A", "B", "C"] },
+    { "id": "seg_AB",   "kind": "segment", "from": "A", "to": "B" },
+    { "id": "seg_AC",   "kind": "segment", "from": "A", "to": "C" },
+    { "id": "seg_BC",   "kind": "segment", "from": "B", "to": "C" },
+    { "id": "seg_AD",   "kind": "segment", "from": "A", "to": "D" },
+    { "id": "seg_DC",   "kind": "segment", "from": "D", "to": "C" },
+    { "id": "pt_A",  "kind": "point", "at": "A" },
+    { "id": "pt_B",  "kind": "point", "at": "B" },
+    { "id": "pt_C",  "kind": "point", "at": "C" },
+    { "id": "pt_D",  "kind": "point", "at": "D" },
+    { "id": "tick_AD", "kind": "tick", "on": "seg_AD", "count": 1 },
+    { "id": "tick_AB", "kind": "tick", "on": "seg_AB", "count": 1 },
+    { "id": "arc_DAC", "kind": "arc", "vertex": "A", "ray1": "D", "ray2": "C", "radius": 26, "count": 1 },
+    { "id": "arc_BAC", "kind": "arc", "vertex": "A", "ray1": "B", "ray2": "C", "radius": 38, "count": 1 }
+  ],
+  "steps": [
+    { "arg": 0,  "introduce": ["poly_ABC", "seg_AB", "seg_AC", "seg_BC", "pt_A", "pt_B", "pt_C"], "focus": "seg_BC", "emphasize": [] },
+    { "arg": 1,  "introduce": [], "focus": "arc_BAC", "emphasize": [] },
+    { "arg": 2,  "introduce": ["seg_AD", "pt_D", "arc_DAC", "tick_AD", "tick_AB"], "focus": "seg_AD", "emphasize": ["arc_DAC", "tick_AD", "tick_AB"] },
+    { "arg": 3,  "introduce": ["seg_DC"], "focus": "seg_DC", "emphasize": ["tick_AD", "tick_AB"] },
+    { "arg": 4,  "introduce": [], "focus": "seg_DC", "emphasize": [] },
+    { "arg": 5,  "introduce": [], "focus": "seg_DC", "emphasize": [] },
+    { "arg": 6,  "introduce": [], "focus": "arc_DAC", "emphasize": ["arc_DAC"] },
+    { "arg": 7,  "introduce": [], "focus": "seg_BC", "emphasize": [] },
+    { "arg": 8,  "introduce": [], "focus": "seg_BC", "emphasize": [] },
+    { "arg": 9,  "introduce": [], "focus": "seg_DC", "emphasize": [] },
+    { "arg": 10, "introduce": [], "focus": "seg_DC", "emphasize": [] },
+    { "arg": 11, "introduce": [], "focus": "seg_DC", "emphasize": [] },
+    { "arg": 12, "introduce": [], "focus": "seg_DC", "emphasize": [] },
+    { "arg": 13, "introduce": ["arc_BAC"], "focus": "arc_BAC", "emphasize": ["arc_BAC", "arc_DAC"] },
+    { "arg": 14, "introduce": [], "focus": "arc_DAC", "emphasize": ["arc_DAC"] },
+    { "arg": 15, "introduce": [], "focus": "arc_BAC", "emphasize": ["arc_BAC"] },
+    { "arg": 16, "introduce": [], "focus": "arc_BAC", "emphasize": ["arc_BAC"] },
+    { "arg": 17, "introduce": [], "focus": "arc_BAC", "emphasize": [] }
+  ]
+}

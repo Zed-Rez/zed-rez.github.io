@@ -1,0 +1,95 @@
+{
+  "prop": 6,
+  "viewBox": [0, 0, 420, 320],
+  "points": {
+    "A": { "x": 210, "y": 40,  "label": "top" },
+    "B": { "x": 80,  "y": 280, "label": "bottom-left" },
+    "C": { "x": 340, "y": 280, "label": "bottom-right" },
+    "D": { "x": 126, "y": 148, "label": "left" }
+  },
+  "elements": [
+    { "id": "poly_ABC", "kind": "polygon", "vertices": ["A","B","C"] },
+    { "id": "poly_DBC", "kind": "polygon", "vertices": ["D","B","C"] },
+    { "id": "seg_AB",   "kind": "segment", "from": "A", "to": "B" },
+    { "id": "seg_AC",   "kind": "segment", "from": "A", "to": "C" },
+    { "id": "seg_BC",   "kind": "segment", "from": "B", "to": "C" },
+    { "id": "seg_DB",   "kind": "segment", "from": "D", "to": "B" },
+    { "id": "seg_DC",   "kind": "segment", "from": "D", "to": "C" },
+    { "id": "pt_A",     "kind": "point",   "at": "A" },
+    { "id": "pt_B",     "kind": "point",   "at": "B" },
+    { "id": "pt_C",     "kind": "point",   "at": "C" },
+    { "id": "pt_D",     "kind": "point",   "at": "D" },
+    { "id": "arc_B",    "kind": "arc",     "vertex": "B", "ray1": "A", "ray2": "C", "radius": 30, "count": 1 },
+    { "id": "arc_C",    "kind": "arc",     "vertex": "C", "ray1": "B", "ray2": "A", "radius": 30, "count": 1 },
+    { "id": "tick_AC",  "kind": "tick",    "on": "seg_AC", "count": 1 },
+    { "id": "tick_DB",  "kind": "tick",    "on": "seg_DB", "count": 1 }
+  ],
+  "steps": [
+    {
+      "arg": 0,
+      "introduce": ["poly_ABC","seg_AB","seg_AC","seg_BC","pt_A","pt_B","pt_C","arc_B","arc_C"],
+      "focus": "poly_ABC",
+      "emphasize": ["arc_B","arc_C"]
+    },
+    {
+      "arg": 1,
+      "introduce": [],
+      "focus": "seg_AB",
+      "emphasize": []
+    },
+    {
+      "arg": 2,
+      "introduce": [],
+      "focus": "seg_AB",
+      "emphasize": []
+    },
+    {
+      "arg": 3,
+      "introduce": ["pt_D","seg_DB","tick_AC","tick_DB"],
+      "focus": "seg_DB",
+      "emphasize": ["tick_AC","tick_DB"]
+    },
+    {
+      "arg": 4,
+      "introduce": ["seg_DC","poly_DBC"],
+      "focus": "seg_DC",
+      "emphasize": []
+    },
+    {
+      "arg": 5,
+      "introduce": [],
+      "focus": "poly_DBC",
+      "emphasize": ["seg_DB","seg_BC"]
+    },
+    {
+      "arg": 6,
+      "introduce": [],
+      "focus": "poly_DBC",
+      "emphasize": ["seg_DC","seg_AB"]
+    },
+    {
+      "arg": 7,
+      "introduce": [],
+      "focus": "poly_DBC",
+      "emphasize": []
+    },
+    {
+      "arg": 8,
+      "introduce": [],
+      "focus": "seg_AB",
+      "emphasize": []
+    },
+    {
+      "arg": 9,
+      "introduce": [],
+      "focus": "seg_AB",
+      "emphasize": ["seg_AB","seg_AC"]
+    },
+    {
+      "arg": 10,
+      "introduce": [],
+      "focus": "poly_ABC",
+      "emphasize": []
+    }
+  ]
+}

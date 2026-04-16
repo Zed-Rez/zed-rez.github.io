@@ -1,0 +1,47 @@
+{
+  "prop": 35,
+  "viewBox": [0, 0, 500, 300],
+  "points": {
+    "A": { "x": 60,  "y": 80,  "label": "top-left" },
+    "D": { "x": 280, "y": 80,  "label": "top-right" },
+    "E": { "x": 170, "y": 80,  "label": "top" },
+    "F": { "x": 390, "y": 80,  "label": "top-right" },
+    "B": { "x": 100, "y": 220, "label": "bottom-left" },
+    "C": { "x": 320, "y": 220, "label": "bottom-right" }
+  },
+  "elements": [
+    { "id": "poly_ABCD", "kind": "polygon", "vertices": ["A", "B", "C", "D"] },
+    { "id": "poly_EBCF", "kind": "polygon", "vertices": ["E", "B", "C", "F"] },
+    { "id": "seg_AF",   "kind": "segment", "from": "A", "to": "F" },
+    { "id": "seg_BC",   "kind": "segment", "from": "B", "to": "C" },
+    { "id": "seg_AB",   "kind": "segment", "from": "A", "to": "B" },
+    { "id": "seg_DC",   "kind": "segment", "from": "D", "to": "C" },
+    { "id": "seg_EB",   "kind": "segment", "from": "E", "to": "B" },
+    { "id": "seg_FC",   "kind": "segment", "from": "F", "to": "C" },
+    { "id": "pt_A",  "kind": "point", "at": "A" },
+    { "id": "pt_D",  "kind": "point", "at": "D" },
+    { "id": "pt_E",  "kind": "point", "at": "E" },
+    { "id": "pt_F",  "kind": "point", "at": "F" },
+    { "id": "pt_B",  "kind": "point", "at": "B" },
+    { "id": "pt_C",  "kind": "point", "at": "C" }
+  ],
+  "steps": [
+    { "arg": 0,  "introduce": ["poly_ABCD", "poly_EBCF", "seg_AF", "seg_BC", "seg_AB", "seg_DC", "seg_EB", "seg_FC", "pt_A", "pt_D", "pt_E", "pt_F", "pt_B", "pt_C"], "focus": "seg_BC", "emphasize": [] },
+    { "arg": 1,  "introduce": [], "focus": "poly_ABCD", "emphasize": [] },
+    { "arg": 2,  "introduce": [], "focus": "seg_BC", "emphasize": [] },
+    { "arg": 3,  "introduce": [], "focus": "seg_BC", "emphasize": [] },
+    { "arg": 4,  "introduce": [], "focus": "seg_AF", "emphasize": [] },
+    { "arg": 5,  "introduce": [], "focus": "seg_AF", "emphasize": [] },
+    { "arg": 6,  "introduce": [], "focus": "seg_AF", "emphasize": [] },
+    { "arg": 7,  "introduce": [], "focus": "seg_AB", "emphasize": [] },
+    { "arg": 8,  "introduce": [], "focus": "seg_EB", "emphasize": [] },
+    { "arg": 9,  "introduce": [], "focus": "seg_AB", "emphasize": [] },
+    { "arg": 10, "introduce": [], "focus": "seg_EB", "emphasize": [] },
+    { "arg": 11, "introduce": [], "focus": "poly_ABCD", "emphasize": [] },
+    { "arg": 12, "introduce": [], "focus": "poly_ABCD", "emphasize": [] },
+    { "arg": 13, "introduce": [], "focus": "poly_EBCF", "emphasize": [] },
+    { "arg": 14, "introduce": [], "focus": "poly_ABCD", "emphasize": ["poly_ABCD", "poly_EBCF"] },
+    { "arg": 15, "introduce": [], "focus": "poly_ABCD", "emphasize": ["poly_ABCD", "poly_EBCF"] },
+    { "arg": 16, "introduce": [], "focus": "poly_ABCD", "emphasize": [] }
+  ]
+}

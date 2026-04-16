@@ -1,0 +1,38 @@
+{
+  "prop": 33,
+  "viewBox": [0, 0, 460, 300],
+  "points": {
+    "A": { "x": 80,  "y": 80,  "label": "top-left" },
+    "B": { "x": 370, "y": 80,  "label": "top-right" },
+    "C": { "x": 80,  "y": 220, "label": "bottom-left" },
+    "D": { "x": 370, "y": 220, "label": "bottom-right" }
+  },
+  "elements": [
+    { "id": "poly_ABDC", "kind": "polygon", "vertices": ["A", "B", "D", "C"] },
+    { "id": "seg_AB", "kind": "segment", "from": "A", "to": "B" },
+    { "id": "seg_CD", "kind": "segment", "from": "C", "to": "D" },
+    { "id": "seg_AC", "kind": "segment", "from": "A", "to": "C" },
+    { "id": "seg_BD", "kind": "segment", "from": "B", "to": "D" },
+    { "id": "seg_BC", "kind": "segment", "from": "B", "to": "C" },
+    { "id": "pt_A",  "kind": "point", "at": "A" },
+    { "id": "pt_B",  "kind": "point", "at": "B" },
+    { "id": "pt_C",  "kind": "point", "at": "C" },
+    { "id": "pt_D",  "kind": "point", "at": "D" },
+    { "id": "tick_AB", "kind": "tick", "on": "seg_AB", "count": 1 },
+    { "id": "tick_CD", "kind": "tick", "on": "seg_CD", "count": 1 },
+    { "id": "arc_ABC", "kind": "arc", "vertex": "B", "ray1": "A", "ray2": "C", "radius": 24, "count": 1 },
+    { "id": "arc_DCB", "kind": "arc", "vertex": "C", "ray1": "D", "ray2": "B", "radius": 24, "count": 1 }
+  ],
+  "steps": [
+    { "arg": 0, "introduce": ["seg_AB", "seg_CD", "seg_AC", "seg_BD", "pt_A", "pt_B", "pt_C", "pt_D", "tick_AB", "tick_CD"], "focus": "seg_AB", "emphasize": ["tick_AB", "tick_CD"] },
+    { "arg": 1, "introduce": [], "focus": "seg_AC", "emphasize": [] },
+    { "arg": 2, "introduce": ["seg_BC"], "focus": "seg_BC", "emphasize": [] },
+    { "arg": 3, "introduce": ["arc_ABC", "arc_DCB"], "focus": "arc_ABC", "emphasize": ["arc_ABC", "arc_DCB"] },
+    { "arg": 4, "introduce": ["poly_ABDC"], "focus": "poly_ABDC", "emphasize": [] },
+    { "arg": 5, "introduce": [], "focus": "seg_AC", "emphasize": [] },
+    { "arg": 6, "introduce": [], "focus": "seg_AC", "emphasize": ["arc_ABC", "arc_DCB"] },
+    { "arg": 7, "introduce": [], "focus": "seg_AC", "emphasize": [] },
+    { "arg": 8, "introduce": [], "focus": "seg_AC", "emphasize": ["seg_AC", "seg_BD"] },
+    { "arg": 9, "introduce": [], "focus": "seg_AC", "emphasize": [] }
+  ]
+}

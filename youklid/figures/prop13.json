@@ -1,0 +1,105 @@
+{
+  "prop": 13,
+  "viewBox": [0, 0, 460, 300],
+  "points": {
+    "A": { "x": 40,  "y": 220, "label": "left" },
+    "C": { "x": 420, "y": 220, "label": "right" },
+    "B": { "x": 200, "y": 220, "label": "bottom" },
+    "D": { "x": 200, "y": 60,  "label": "top" },
+    "E": { "x": 120, "y": 60,  "label": "top-left" }
+  },
+  "elements": [
+    { "id": "seg_AC",    "kind": "segment", "from": "A", "to": "C" },
+    { "id": "seg_BD",    "kind": "segment", "from": "B", "to": "D" },
+    { "id": "seg_BE",    "kind": "segment", "from": "B", "to": "E" },
+    { "id": "pt_A",      "kind": "point",   "at": "A" },
+    { "id": "pt_C",      "kind": "point",   "at": "C" },
+    { "id": "pt_B",      "kind": "point",   "at": "B" },
+    { "id": "pt_D",      "kind": "point",   "at": "D" },
+    { "id": "pt_E",      "kind": "point",   "at": "E" },
+    { "id": "arc_CBA",   "kind": "arc",     "vertex": "B", "ray1": "C", "ray2": "A",  "radius": 40, "count": 1 },
+    { "id": "arc_CBD",   "kind": "arc",     "vertex": "B", "ray1": "C", "ray2": "D",  "radius": 30, "count": 1 },
+    { "id": "arc_DBE",   "kind": "arc",     "vertex": "B", "ray1": "D", "ray2": "E",  "radius": 30, "count": 1 },
+    { "id": "arc_EBA",   "kind": "arc",     "vertex": "B", "ray1": "E", "ray2": "A",  "radius": 30, "count": 1 }
+  ],
+  "steps": [
+    {
+      "arg": 0,
+      "introduce": ["seg_AC","seg_BD","pt_A","pt_C","pt_B","pt_D","arc_CBA"],
+      "focus": "seg_BD",
+      "emphasize": ["arc_CBA"]
+    },
+    {
+      "arg": 1,
+      "introduce": [],
+      "focus": "arc_CBA",
+      "emphasize": []
+    },
+    {
+      "arg": 2,
+      "introduce": [],
+      "focus": "seg_BD",
+      "emphasize": []
+    },
+    {
+      "arg": 3,
+      "introduce": ["seg_BE","pt_E"],
+      "focus": "seg_BE",
+      "emphasize": []
+    },
+    {
+      "arg": 4,
+      "introduce": ["arc_CBD","arc_DBE","arc_EBA"],
+      "focus": "arc_CBD",
+      "emphasize": ["arc_CBD","arc_DBE","arc_EBA"]
+    },
+    {
+      "arg": 5,
+      "introduce": [],
+      "focus": "arc_CBD",
+      "emphasize": []
+    },
+    {
+      "arg": 6,
+      "introduce": [],
+      "focus": "arc_CBA",
+      "emphasize": []
+    },
+    {
+      "arg": 7,
+      "introduce": [],
+      "focus": "arc_CBA",
+      "emphasize": []
+    },
+    {
+      "arg": 8,
+      "introduce": [],
+      "focus": "arc_CBA",
+      "emphasize": ["arc_CBA"]
+    },
+    {
+      "arg": 9,
+      "introduce": [],
+      "focus": "arc_CBD",
+      "emphasize": ["arc_CBD","arc_DBE"]
+    },
+    {
+      "arg": 10,
+      "introduce": [],
+      "focus": "arc_CBA",
+      "emphasize": ["arc_CBA"]
+    },
+    {
+      "arg": 11,
+      "introduce": [],
+      "focus": "seg_BD",
+      "emphasize": []
+    },
+    {
+      "arg": 12,
+      "introduce": [],
+      "focus": "seg_BD",
+      "emphasize": []
+    }
+  ]
+}

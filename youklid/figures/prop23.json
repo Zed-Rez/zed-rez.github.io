@@ -1,0 +1,47 @@
+{
+  "prop": 23,
+  "viewBox": [0, 0, 460, 320],
+  "points": {
+    "C": { "x": 130, "y": 200, "label": "bottom-left" },
+    "D": { "x": 80,  "y": 100, "label": "top-left" },
+    "E": { "x": 220, "y": 240, "label": "bottom-right" },
+    "A": { "x": 300, "y": 240, "label": "bottom-left" },
+    "B": { "x": 430, "y": 240, "label": "bottom-right" },
+    "F": { "x": 340, "y": 110, "label": "top" },
+    "G": { "x": 420, "y": 200, "label": "right" }
+  },
+  "elements": [
+    { "id": "poly_AFG",  "kind": "polygon", "vertices": ["A","F","G"] },
+    { "id": "seg_CD",    "kind": "segment", "from": "C", "to": "D" },
+    { "id": "seg_CE",    "kind": "segment", "from": "C", "to": "E" },
+    { "id": "seg_DE",    "kind": "segment", "from": "D", "to": "E" },
+    { "id": "seg_AB",    "kind": "segment", "from": "A", "to": "B" },
+    { "id": "seg_AF",    "kind": "segment", "from": "A", "to": "F" },
+    { "id": "seg_FG",    "kind": "segment", "from": "F", "to": "G" },
+    { "id": "seg_AG",    "kind": "segment", "from": "A", "to": "G" },
+    { "id": "pt_C",      "kind": "point",   "at": "C" },
+    { "id": "pt_D",      "kind": "point",   "at": "D" },
+    { "id": "pt_E",      "kind": "point",   "at": "E" },
+    { "id": "pt_A",      "kind": "point",   "at": "A" },
+    { "id": "pt_B",      "kind": "point",   "at": "B" },
+    { "id": "pt_F",      "kind": "point",   "at": "F" },
+    { "id": "pt_G",      "kind": "point",   "at": "G" },
+    { "id": "tick_CD1",  "kind": "tick",    "on": "seg_CD", "count": 1 },
+    { "id": "tick_AF1",  "kind": "tick",    "on": "seg_AF", "count": 1 },
+    { "id": "tick_CE2",  "kind": "tick",    "on": "seg_CE", "count": 2 },
+    { "id": "tick_AG2",  "kind": "tick",    "on": "seg_AG", "count": 2 },
+    { "id": "tick_DE3",  "kind": "tick",    "on": "seg_DE", "count": 3 },
+    { "id": "tick_FG3",  "kind": "tick",    "on": "seg_FG", "count": 3 },
+    { "id": "arc_C",     "kind": "arc",     "vertex": "C", "ray1": "D", "ray2": "E", "radius": 30, "count": 1 },
+    { "id": "arc_A",     "kind": "arc",     "vertex": "A", "ray1": "F", "ray2": "G", "radius": 30, "count": 1 }
+  ],
+  "steps": [
+    { "arg": 0,  "introduce": ["seg_CD","seg_CE","pt_C","pt_D","pt_E","seg_AB","pt_A","pt_B"], "focus": "seg_CD", "emphasize": [] },
+    { "arg": 1,  "introduce": [], "focus": "seg_AB", "emphasize": [] },
+    { "arg": 2,  "introduce": ["seg_DE","tick_CD1","tick_CE2","tick_DE3"], "focus": "seg_DE", "emphasize": ["tick_CD1","tick_CE2","tick_DE3"] },
+    { "arg": 3,  "introduce": ["poly_AFG","seg_AF","seg_FG","seg_AG","pt_F","pt_G","tick_AF1","tick_AG2","tick_FG3"], "focus": "poly_AFG", "emphasize": ["tick_AF1","tick_AG2","tick_FG3"] },
+    { "arg": 4,  "introduce": ["arc_C","arc_A"], "focus": "arc_A", "emphasize": ["arc_C","arc_A"] },
+    { "arg": 5,  "introduce": [], "focus": "arc_A", "emphasize": ["arc_A"] },
+    { "arg": 6,  "introduce": [], "focus": "arc_A", "emphasize": [] }
+  ]
+}
