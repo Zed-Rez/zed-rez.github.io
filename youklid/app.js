@@ -362,8 +362,10 @@ function renderProp() {
     text.innerHTML = renderArgText(a, lang);
     li.appendChild(text);
 
-    // Inline tags for *inferred* deps (not already shown as bracketed citations)
-    const inferred = (a.inferred || []).filter(Boolean);
+    // Inline tags for *inferred* deps — CN and Postulate refs are already appended
+    // inside renderArgText as [C.N. N] / [Post. N] cite links; only show pill badges
+    // here for proposition and definition inferred refs.
+    const inferred = (a.inferred || []).filter(r => r && !r.startsWith('cn.') && !r.startsWith('post.'));
     if (inferred.length) {
       const tags = document.createElement('span');
       tags.className = 'arg-inline-tags';
@@ -472,6 +474,20 @@ function renderArgText(arg, lang) {
   if (fellBack) {
     html = `<em class="fallback-lang" title="No Greek sentence aligned to this argument — showing English">${html}</em>`;
   }
+  // Append inferred Common Notion and Postulate refs as [C.N. N] / [Post. N] cite links.
+  // These were previously shown as separate pill badges; inline bracket format is consistent
+  // with how explicit citations in the text are rendered.
+  // Skip any ref whose data-ref is already present (avoids doubling when it appears in both
+  // the Fitzpatrick text and the inferred array, as in Prop. 12 arg 2).
+  const CN_POST_NORM = { cn: 'C.N.', post: 'Post.' };
+  (arg.inferred || [])
+    .filter(r => r.startsWith('cn.') || r.startsWith('post.'))
+    .forEach(ref => {
+      if (html.includes(`data-ref="${ref}"`)) return; // already linkified inline
+      const [k, n] = ref.split('.');
+      const label = `[${CN_POST_NORM[k]} ${n}]`;
+      html += ` <a class="cite" href="${escapeHTML(refToHash(ref))}" data-ref="${ref}" title="${escapeHTML(refToTitle(ref))}">${label}</a>`;
+    });
   return html;
 }
 
