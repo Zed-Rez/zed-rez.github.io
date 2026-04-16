@@ -1,52 +1,273 @@
 {
   "prop": 25,
-  "viewBox": [0, 0, 500, 320],
+  "viewBox": [
+    0,
+    0,
+    500,
+    320
+  ],
   "points": {
-    "A": { "x": 100, "y": 60,  "label": "top" },
-    "B": { "x": 40,  "y": 260, "label": "bottom-left" },
-    "C": { "x": 200, "y": 260, "label": "bottom-right" },
-    "D": { "x": 350, "y": 60,  "label": "top" },
-    "E": { "x": 280, "y": 260, "label": "bottom-left" },
-    "F": { "x": 460, "y": 260, "label": "bottom-right" }
+    "A": {
+      "x": 100,
+      "y": 60,
+      "label": "top"
+    },
+    "B": {
+      "x": 40,
+      "y": 260,
+      "label": "bottom-left"
+    },
+    "C": {
+      "x": 200,
+      "y": 260,
+      "label": "bottom-right"
+    },
+    "D": {
+      "x": 350,
+      "y": 60,
+      "label": "top"
+    },
+    "E": {
+      "x": 280,
+      "y": 260,
+      "label": "bottom-left"
+    },
+    "F": {
+      "x": 460,
+      "y": 260,
+      "label": "bottom-right"
+    }
   },
   "elements": [
-    { "id": "poly_ABC",  "kind": "polygon", "vertices": ["A","B","C"] },
-    { "id": "poly_DEF",  "kind": "polygon", "vertices": ["D","E","F"] },
-    { "id": "seg_AB",    "kind": "segment", "from": "A", "to": "B" },
-    { "id": "seg_AC",    "kind": "segment", "from": "A", "to": "C" },
-    { "id": "seg_BC",    "kind": "segment", "from": "B", "to": "C" },
-    { "id": "seg_DE",    "kind": "segment", "from": "D", "to": "E" },
-    { "id": "seg_DF",    "kind": "segment", "from": "D", "to": "F" },
-    { "id": "seg_EF",    "kind": "segment", "from": "E", "to": "F" },
-    { "id": "pt_A",      "kind": "point",   "at": "A" },
-    { "id": "pt_B",      "kind": "point",   "at": "B" },
-    { "id": "pt_C",      "kind": "point",   "at": "C" },
-    { "id": "pt_D",      "kind": "point",   "at": "D" },
-    { "id": "pt_E",      "kind": "point",   "at": "E" },
-    { "id": "pt_F",      "kind": "point",   "at": "F" },
-    { "id": "tick_AB1",  "kind": "tick",    "on": "seg_AB", "count": 1 },
-    { "id": "tick_DE1",  "kind": "tick",    "on": "seg_DE", "count": 1 },
-    { "id": "tick_AC2",  "kind": "tick",    "on": "seg_AC", "count": 2 },
-    { "id": "tick_DF2",  "kind": "tick",    "on": "seg_DF", "count": 2 },
-    { "id": "arc_A",     "kind": "arc",     "vertex": "A", "ray1": "B", "ray2": "C", "radius": 34, "count": 2 },
-    { "id": "arc_D",     "kind": "arc",     "vertex": "D", "ray1": "E", "ray2": "F", "radius": 30, "count": 1 }
+    {
+      "id": "poly_ABC",
+      "kind": "polygon",
+      "vertices": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "poly_DEF",
+      "kind": "polygon",
+      "vertices": [
+        "D",
+        "E",
+        "F"
+      ]
+    },
+    {
+      "id": "seg_AB",
+      "kind": "segment",
+      "from": "A",
+      "to": "B"
+    },
+    {
+      "id": "seg_AC",
+      "kind": "segment",
+      "from": "A",
+      "to": "C"
+    },
+    {
+      "id": "seg_BC",
+      "kind": "segment",
+      "from": "B",
+      "to": "C"
+    },
+    {
+      "id": "seg_DE",
+      "kind": "segment",
+      "from": "D",
+      "to": "E"
+    },
+    {
+      "id": "seg_DF",
+      "kind": "segment",
+      "from": "D",
+      "to": "F"
+    },
+    {
+      "id": "seg_EF",
+      "kind": "segment",
+      "from": "E",
+      "to": "F"
+    },
+    {
+      "id": "pt_A",
+      "kind": "point",
+      "at": "A"
+    },
+    {
+      "id": "pt_B",
+      "kind": "point",
+      "at": "B"
+    },
+    {
+      "id": "pt_C",
+      "kind": "point",
+      "at": "C"
+    },
+    {
+      "id": "pt_D",
+      "kind": "point",
+      "at": "D"
+    },
+    {
+      "id": "pt_E",
+      "kind": "point",
+      "at": "E"
+    },
+    {
+      "id": "pt_F",
+      "kind": "point",
+      "at": "F"
+    },
+    {
+      "id": "tick_AB1",
+      "kind": "tick",
+      "on": "seg_AB",
+      "count": 1
+    },
+    {
+      "id": "tick_DE1",
+      "kind": "tick",
+      "on": "seg_DE",
+      "count": 1
+    },
+    {
+      "id": "tick_AC2",
+      "kind": "tick",
+      "on": "seg_AC",
+      "count": 2
+    },
+    {
+      "id": "tick_DF2",
+      "kind": "tick",
+      "on": "seg_DF",
+      "count": 2
+    }
   ],
   "steps": [
-    { "arg": 0,  "introduce": ["poly_ABC","poly_DEF","seg_AB","seg_AC","seg_BC","seg_DE","seg_DF","seg_EF","pt_A","pt_B","pt_C","pt_D","pt_E","pt_F","tick_AB1","tick_DE1","tick_AC2","tick_DF2"], "focus": "poly_ABC", "emphasize": ["tick_AB1","tick_DE1","tick_AC2","tick_DF2"] },
-    { "arg": 1,  "introduce": [], "focus": "seg_BC", "emphasize": [] },
-    { "arg": 2,  "introduce": [], "focus": "arc_A", "emphasize": [] },
-    { "arg": 3,  "introduce": [], "focus": "arc_A", "emphasize": [] },
-    { "arg": 4,  "introduce": ["arc_D"], "focus": "arc_D", "emphasize": ["arc_D"] },
-    { "arg": 5,  "introduce": [], "focus": "seg_BC", "emphasize": [] },
-    { "arg": 6,  "introduce": [], "focus": "seg_BC", "emphasize": [] },
-    { "arg": 7,  "introduce": [], "focus": "arc_D", "emphasize": [] },
-    { "arg": 8,  "introduce": [], "focus": "arc_D", "emphasize": [] },
-    { "arg": 9,  "introduce": [], "focus": "seg_EF", "emphasize": [] },
-    { "arg": 10, "introduce": [], "focus": "seg_BC", "emphasize": [] },
-    { "arg": 11, "introduce": [], "focus": "arc_D", "emphasize": [] },
-    { "arg": 12, "introduce": [], "focus": "arc_D", "emphasize": [] },
-    { "arg": 13, "introduce": ["arc_A"], "focus": "arc_A", "emphasize": ["arc_A"] },
-    { "arg": 14, "introduce": [], "focus": "poly_ABC", "emphasize": [] },
-    { "arg": 15, "introduce": [], "focus": "poly_ABC", "emphasize": [] }
+    {
+      "arg": 0,
+      "introduce": [
+        "poly_ABC",
+        "poly_DEF",
+        "seg_AB",
+        "seg_AC",
+        "seg_BC",
+        "seg_DE",
+        "seg_DF",
+        "seg_EF",
+        "pt_A",
+        "pt_B",
+        "pt_C",
+        "pt_D",
+        "pt_E",
+        "pt_F",
+        "tick_AB1",
+        "tick_DE1",
+        "tick_AC2",
+        "tick_DF2"
+      ],
+      "focus": "poly_ABC",
+      "emphasize": [
+        "tick_AB1",
+        "tick_DE1",
+        "tick_AC2",
+        "tick_DF2"
+      ]
+    },
+    {
+      "arg": 1,
+      "introduce": [],
+      "focus": "seg_BC",
+      "emphasize": []
+    },
+    {
+      "arg": 2,
+      "introduce": [],
+      "focus": null,
+      "emphasize": []
+    },
+    {
+      "arg": 3,
+      "introduce": [],
+      "focus": null,
+      "emphasize": []
+    },
+    {
+      "arg": 4,
+      "introduce": [],
+      "focus": null,
+      "emphasize": []
+    },
+    {
+      "arg": 5,
+      "introduce": [],
+      "focus": "seg_BC",
+      "emphasize": []
+    },
+    {
+      "arg": 6,
+      "introduce": [],
+      "focus": "seg_BC",
+      "emphasize": []
+    },
+    {
+      "arg": 7,
+      "introduce": [],
+      "focus": null,
+      "emphasize": []
+    },
+    {
+      "arg": 8,
+      "introduce": [],
+      "focus": null,
+      "emphasize": []
+    },
+    {
+      "arg": 9,
+      "introduce": [],
+      "focus": "seg_EF",
+      "emphasize": []
+    },
+    {
+      "arg": 10,
+      "introduce": [],
+      "focus": "seg_BC",
+      "emphasize": []
+    },
+    {
+      "arg": 11,
+      "introduce": [],
+      "focus": null,
+      "emphasize": []
+    },
+    {
+      "arg": 12,
+      "introduce": [],
+      "focus": null,
+      "emphasize": []
+    },
+    {
+      "arg": 13,
+      "introduce": [],
+      "focus": null,
+      "emphasize": []
+    },
+    {
+      "arg": 14,
+      "introduce": [],
+      "focus": "poly_ABC",
+      "emphasize": []
+    },
+    {
+      "arg": 15,
+      "introduce": [],
+      "focus": "poly_ABC",
+      "emphasize": []
+    }
   ]
 }

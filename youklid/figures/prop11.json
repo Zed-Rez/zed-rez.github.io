@@ -1,38 +1,167 @@
 {
   "prop": 11,
-  "viewBox": [0, 0, 460, 300],
+  "viewBox": [
+    0,
+    0,
+    460,
+    300
+  ],
   "points": {
-    "A": { "x": 40,  "y": 220, "label": "left" },
-    "B": { "x": 420, "y": 220, "label": "right" },
-    "C": { "x": 230, "y": 220, "label": "bottom" },
-    "D": { "x": 140, "y": 220, "label": "bottom-left" },
-    "E": { "x": 320, "y": 220, "label": "bottom-right" },
-    "F": { "x": 230, "y": 47,  "label": "top" }
+    "A": {
+      "x": 40,
+      "y": 220,
+      "label": "left"
+    },
+    "B": {
+      "x": 420,
+      "y": 220,
+      "label": "right"
+    },
+    "C": {
+      "x": 230,
+      "y": 220,
+      "label": "bottom"
+    },
+    "D": {
+      "x": 140,
+      "y": 220,
+      "label": "bottom-left"
+    },
+    "E": {
+      "x": 320,
+      "y": 220,
+      "label": "bottom-right"
+    },
+    "F": {
+      "x": 230,
+      "y": 47,
+      "label": "top"
+    }
   },
   "elements": [
-    { "id": "poly_DEF",  "kind": "polygon", "vertices": ["D","E","F"] },
-    { "id": "seg_AB",    "kind": "segment", "from": "A", "to": "B" },
-    { "id": "seg_DF",    "kind": "segment", "from": "D", "to": "F" },
-    { "id": "seg_DE",    "kind": "segment", "from": "D", "to": "E" },
-    { "id": "seg_EF",    "kind": "segment", "from": "E", "to": "F" },
-    { "id": "seg_FC",    "kind": "segment", "from": "F", "to": "C" },
-    { "id": "pt_A",      "kind": "point",   "at": "A" },
-    { "id": "pt_B",      "kind": "point",   "at": "B" },
-    { "id": "pt_C",      "kind": "point",   "at": "C" },
-    { "id": "pt_D",      "kind": "point",   "at": "D" },
-    { "id": "pt_E",      "kind": "point",   "at": "E" },
-    { "id": "pt_F",      "kind": "point",   "at": "F" },
-    { "id": "tick_CD",   "kind": "tick",    "on": "seg_DE", "count": 1 },
-    { "id": "tick_CE",   "kind": "tick",    "on": "seg_DE", "count": 1 },
-    { "id": "tick_DF",   "kind": "tick",    "on": "seg_DF", "count": 2 },
-    { "id": "tick_EF",   "kind": "tick",    "on": "seg_EF", "count": 2 },
-    { "id": "arc_left",  "kind": "arc",     "vertex": "C", "ray1": "D", "ray2": "F", "radius": 22, "count": 1 },
-    { "id": "arc_right", "kind": "arc",     "vertex": "C", "ray1": "F", "ray2": "E", "radius": 22, "count": 1 }
+    {
+      "id": "poly_DEF",
+      "kind": "polygon",
+      "vertices": [
+        "D",
+        "E",
+        "F"
+      ]
+    },
+    {
+      "id": "seg_AB",
+      "kind": "segment",
+      "from": "A",
+      "to": "B"
+    },
+    {
+      "id": "seg_DF",
+      "kind": "segment",
+      "from": "D",
+      "to": "F"
+    },
+    {
+      "id": "seg_DE",
+      "kind": "segment",
+      "from": "D",
+      "to": "E"
+    },
+    {
+      "id": "seg_EF",
+      "kind": "segment",
+      "from": "E",
+      "to": "F"
+    },
+    {
+      "id": "seg_FC",
+      "kind": "segment",
+      "from": "F",
+      "to": "C"
+    },
+    {
+      "id": "pt_A",
+      "kind": "point",
+      "at": "A"
+    },
+    {
+      "id": "pt_B",
+      "kind": "point",
+      "at": "B"
+    },
+    {
+      "id": "pt_C",
+      "kind": "point",
+      "at": "C"
+    },
+    {
+      "id": "pt_D",
+      "kind": "point",
+      "at": "D"
+    },
+    {
+      "id": "pt_E",
+      "kind": "point",
+      "at": "E"
+    },
+    {
+      "id": "pt_F",
+      "kind": "point",
+      "at": "F"
+    },
+    {
+      "id": "tick_CD",
+      "kind": "tick",
+      "count": 1,
+      "a": "D",
+      "b": "C"
+    },
+    {
+      "id": "tick_CE",
+      "kind": "tick",
+      "count": 1,
+      "a": "C",
+      "b": "E"
+    },
+    {
+      "id": "tick_DF",
+      "kind": "tick",
+      "on": "seg_DF",
+      "count": 2
+    },
+    {
+      "id": "tick_EF",
+      "kind": "tick",
+      "on": "seg_EF",
+      "count": 2
+    },
+    {
+      "id": "arc_left",
+      "kind": "arc",
+      "vertex": "C",
+      "ray1": "D",
+      "ray2": "F",
+      "radius": 22,
+      "count": 1
+    },
+    {
+      "id": "arc_right",
+      "kind": "arc",
+      "vertex": "C",
+      "ray1": "F",
+      "ray2": "E",
+      "radius": 22,
+      "count": 1
+    }
   ],
   "steps": [
     {
       "arg": 0,
-      "introduce": ["seg_AB","pt_A","pt_B","pt_C"],
+      "introduce": [
+        "seg_AB",
+        "pt_A",
+        "pt_B",
+        "pt_C"
+      ],
       "focus": "seg_AB",
       "emphasize": []
     },
@@ -44,13 +173,27 @@
     },
     {
       "arg": 2,
-      "introduce": ["pt_D","pt_E","seg_DE","tick_CD","tick_CE"],
-      "focus": "seg_DE",
-      "emphasize": ["tick_CD","tick_CE"]
+      "introduce": [
+        "pt_D",
+        "pt_E",
+        "seg_DE",
+        "tick_CD",
+        "tick_CE",
+        "poly_DEF",
+        "seg_DF",
+        "seg_EF",
+        "pt_F",
+        "seg_FC"
+      ],
+      "focus": "seg_FC",
+      "emphasize": [
+        "tick_CD",
+        "tick_CE"
+      ]
     },
     {
       "arg": 3,
-      "introduce": ["poly_DEF","seg_DF","seg_EF","pt_F","seg_FC","tick_DF","tick_EF"],
+      "introduce": [],
       "focus": "seg_FC",
       "emphasize": []
     },
@@ -58,19 +201,33 @@
       "arg": 4,
       "introduce": [],
       "focus": "seg_FC",
-      "emphasize": ["seg_DF","seg_EF","seg_FC"]
+      "emphasize": [
+        "seg_DF",
+        "seg_EF",
+        "seg_FC"
+      ]
     },
     {
       "arg": 5,
-      "introduce": [],
+      "introduce": [
+        "tick_DF",
+        "tick_EF"
+      ],
       "focus": "seg_DF",
-      "emphasize": ["seg_DF","seg_EF"]
+      "emphasize": [
+        "seg_DF",
+        "seg_EF",
+        "tick_DF",
+        "tick_EF"
+      ]
     },
     {
       "arg": 6,
       "introduce": [],
       "focus": "seg_FC",
-      "emphasize": ["seg_FC"]
+      "emphasize": [
+        "seg_FC"
+      ]
     },
     {
       "arg": 7,
@@ -80,15 +237,23 @@
     },
     {
       "arg": 8,
-      "introduce": ["arc_left","arc_right"],
+      "introduce": [
+        "arc_left",
+        "arc_right"
+      ],
       "focus": "arc_left",
-      "emphasize": ["arc_left","arc_right"]
+      "emphasize": [
+        "arc_left",
+        "arc_right"
+      ]
     },
     {
       "arg": 9,
       "introduce": [],
       "focus": "seg_FC",
-      "emphasize": ["seg_FC"]
+      "emphasize": [
+        "seg_FC"
+      ]
     },
     {
       "arg": 10,
