@@ -40,6 +40,61 @@ const ROLE_LABEL = {
 // source-text language toggle. Only the main source passages switch to Greek.
 function roleLabel(r) { return ROLE_LABEL[r] || r; }
 
+// ── Borrowed-axiom reference table ────────────────────────────────────────────
+// Each entry explains the missing axiom and links to a canonical reference.
+const BORROWED_AXIOM_INFO = {
+  superposition: {
+    title: 'Superposition Axiom',
+    body: 'Euclid moves one figure onto another and argues by coincidence of parts. This "method of superposition" is not justified by any of the five Postulates — it assumes figures can be rigidly translated and rotated without distortion. Hilbert\'s modern axiom system replaces it with explicit congruence axioms (SAS, angle transfer, etc.).',
+    url:  'https://en.wikipedia.org/wiki/Hilbert%27s_axioms#Congruence',
+    link: 'Hilbert\'s Congruence Axioms',
+  },
+  circle_intersection: {
+    title: 'Circle Intersection Postulate',
+    body: 'The five Postulates only guarantee that circles and lines can be drawn — not that they actually meet. Euclid assumes two circles (or a circle and a line) intersect at a point without proof. A continuity axiom (such as Dedekind\'s, or the "circle–circle intersection" postulate) is needed to guarantee the existence of the intersection point.',
+    url:  'https://en.wikipedia.org/wiki/Euclidean_geometry#Relation_to_Euclid%27s_postulates',
+    link: 'Euclidean Geometry — Gaps in Euclid',
+  },
+  pasch_axiom: {
+    title: 'Pasch\'s Axiom',
+    body: 'If a straight line enters a triangle through a vertex or side, it must exit through one of the remaining sides. Euclid reads this from diagrams without stating it as a postulate. Pasch (1882) was first to identify it as an independent axiom; it appears in Hilbert\'s axiom group II (Order).',
+    url:  'https://en.wikipedia.org/wiki/Pasch%27s_axiom',
+    link: 'Pasch\'s Axiom',
+  },
+  betweenness_axiom: {
+    title: 'Betweenness / Order Axiom',
+    body: 'Euclid reads "between-ness" — which of three collinear points lies between the other two, or which of two segments is the greater — directly from diagrams without a formal ordering axiom. Hilbert\'s system formalises this in axiom group II (Order), including the statement that of any three collinear points, exactly one lies between the other two.',
+    url:  'https://en.wikipedia.org/wiki/Hilbert%27s_axioms#Order',
+    link: 'Hilbert\'s Order Axioms',
+  },
+  diagram_continuity: {
+    title: 'Diagram Continuity',
+    body: 'The relative position of a constructed point (e.g., that it lies inside an angle, or that two regions are distinct and non-overlapping) is inferred from the diagram rather than derived from the postulates. This class of gap was first systematically addressed by Pasch (1882), whose axiom guarantees line–triangle intersection without reference to a figure.',
+    url:  'https://en.wikipedia.org/wiki/Pasch%27s_axiom',
+    link: 'Pasch\'s Axiom',
+  },
+  common_angle: {
+    title: 'Common Angle Axiom',
+    body: 'Euclid asserts that "angle FAG" is the same angle in both configurations being compared — that a shared angle is literally identical in the two triangles. Modern treatments derive this from congruence axioms and the definition of an angle, but Euclid states it as an evident geometric fact without explicit justification.',
+    url:  'https://en.wikipedia.org/wiki/Hilbert%27s_axioms#Congruence',
+    link: 'Hilbert\'s Congruence Axioms',
+  },
+  identity: {
+    title: 'Transitivity of Equality (C.N. 1)',
+    body: 'This step chains two equalities via "things equal to the same thing are equal to each other" (Common Notion 1). While C.N. 1 is explicitly stated, its repeated chained application as an identity / substitution axiom is implicit.',
+    url:  'https://en.wikipedia.org/wiki/Common_notions_(Euclid)',
+    link: 'Euclid\'s Common Notions',
+  },
+};
+/** Resolve a borrowed_axiom key (including variants like superposition_angle_transfer) to its info entry. */
+function borrowedAxiomInfo(key) {
+  if (!key) return null;
+  if (BORROWED_AXIOM_INFO[key]) return BORROWED_AXIOM_INFO[key];
+  // Try the first segment (superposition_angle_transfer → superposition)
+  const base = key.split('_')[0];
+  return BORROWED_AXIOM_INFO[base] || null;
+}
+
 // ============================================================
 // INIT
 // ============================================================
@@ -365,16 +420,22 @@ function renderProp() {
     // Borrowed-axiom marker: ★ star + amber highlight
     if (a.borrowed_axiom) {
       li.classList.add('has-borrowed-axiom');
-      const star = document.createElement('span');
+      const bInfo = borrowedAxiomInfo(a.borrowed_axiom);
+      const star = document.createElement('button');
       star.className = 'borrowed-star';
-      star.title = `External axiom required: ${a.borrowed_axiom}`;
-      star.setAttribute('aria-label', `External axiom: ${a.borrowed_axiom}`);
+      star.title = bInfo ? `★ ${bInfo.title} — click to see explanation` : `External axiom required: ${a.borrowed_axiom}`;
+      star.setAttribute('aria-label', bInfo ? `Missing axiom: ${bInfo.title}` : `External axiom: ${a.borrowed_axiom}`);
       star.textContent = '★';
+      star.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        setArg(i);
+        toggleDepsPopover(i);
+      });
       li.appendChild(star);
-      // Tooltip-style note showing which axiom
+      // Small label badge
       const note = document.createElement('span');
       note.className = 'borrowed-axiom-note';
-      note.textContent = a.borrowed_axiom.replace(/_/g, ' ');
+      note.textContent = bInfo ? bInfo.title : a.borrowed_axiom.replace(/_/g, ' ');
       li.appendChild(note);
     }
 
@@ -676,6 +737,47 @@ function toggleDepsPopover(i) {
     });
   }
 
+  // ── Borrowed / missing axiom section ──────────────────────────────────────
+  if (arg.borrowed_axiom) {
+    const bInfo = borrowedAxiomInfo(arg.borrowed_axiom);
+    const sec = document.createElement('div');
+    sec.className = 'missing-axiom-section';
+    const title = document.createElement('h3');
+    title.className = 'missing-axiom-title';
+    title.textContent = `★ ${bInfo ? bInfo.title : arg.borrowed_axiom.replace(/_/g, ' ')}`;
+    sec.appendChild(title);
+    const body = document.createElement('p');
+    body.className = 'missing-axiom-body';
+    // Prefer the richer per-arg text from book1.json; fall back to the table's body
+    body.textContent = arg.borrowed_axiom_text || (bInfo ? bInfo.body : '');
+    sec.appendChild(body);
+    if (bInfo && bInfo.url) {
+      const refLink = document.createElement('a');
+      refLink.className = 'missing-axiom-ref';
+      refLink.href = bInfo.url;
+      refLink.target = '_blank';
+      refLink.rel = 'noopener noreferrer';
+      refLink.textContent = `${bInfo.link} ↗`;
+      sec.appendChild(refLink);
+    }
+    box.appendChild(sec);
+  }
+
+  // ── Fitzpatrick editorial note section ────────────────────────────────────
+  if (arg.fitzpatrick_note) {
+    const sec = document.createElement('div');
+    sec.className = 'fitz-section';
+    const title = document.createElement('h3');
+    title.className = 'fitz-section-title';
+    title.textContent = '† Fitzpatrick Note';
+    sec.appendChild(title);
+    const body = document.createElement('p');
+    body.className = 'fitz-section-body';
+    body.textContent = arg.fitzpatrick_note;
+    sec.appendChild(body);
+    box.appendChild(sec);
+  }
+
   li.appendChild(box);
 }
 
@@ -874,13 +976,63 @@ function drawMap(ref) {
 // FULL DEPENDENCY GRAPH (global map mode)
 // ============================================================
 
+// Returns a Set of "prop.A->prop.B" strings for edges on the longest
+// dependency chain(s). Rule: edge (u→v) is critical when
+//   longestTo[u] + 1 + longestFrom[v] === maxPath
+// So a direct shortcut u→v is skipped whenever a longer path through an
+// intermediate already reaches v (e.g. 4→9 is skipped because 4→5→9 exists).
+function computeCriticalEdges(propGraph, N) {
+  const succs = {};
+  for (let n = 1; n <= N; n++) {
+    const ref = `prop.${n}`;
+    const pg = propGraph[ref];
+    (pg ? pg.deps_props || [] : []).forEach(predRef => {
+      if (!succs[predRef]) succs[predRef] = [];
+      succs[predRef].push(ref);
+    });
+  }
+  // Longest path to each node (topological order = ascending prop number)
+  const longestTo = {};
+  for (let n = 1; n <= N; n++) {
+    const ref = `prop.${n}`;
+    const pg = propGraph[ref];
+    longestTo[ref] = 0;
+    (pg ? pg.deps_props || [] : []).forEach(predRef => {
+      longestTo[ref] = Math.max(longestTo[ref], (longestTo[predRef] || 0) + 1);
+    });
+  }
+  // Longest path from each node (reverse topological order)
+  const longestFrom = {};
+  for (let n = N; n >= 1; n--) {
+    const ref = `prop.${n}`;
+    longestFrom[ref] = 0;
+    (succs[ref] || []).forEach(succRef => {
+      longestFrom[ref] = Math.max(longestFrom[ref], (longestFrom[succRef] || 0) + 1);
+    });
+  }
+  let maxPath = 0;
+  for (let n = 1; n <= N; n++) {
+    const ref = `prop.${n}`;
+    maxPath = Math.max(maxPath, (longestTo[ref] || 0) + (longestFrom[ref] || 0));
+  }
+  const critical = new Set();
+  for (let n = 1; n <= N; n++) {
+    const ref = `prop.${n}`;
+    const pg = propGraph[ref];
+    (pg ? pg.deps_props || [] : []).forEach(predRef => {
+      if ((longestTo[predRef] || 0) + 1 + (longestFrom[ref] || 0) === maxPath) {
+        critical.add(`${predRef}->${ref}`);
+      }
+    });
+  }
+  return critical;
+}
+
 function drawFullGraph() {
   const svg = $('#map-svg');
   svg.innerHTML = '';
   const rect = svg.getBoundingClientRect();
-  const W = Math.max(700, rect.width);
-  const H = Math.max(600, rect.height);
-  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const W = Math.max(700, rect.width || window.innerWidth);
 
   const ns = 'http://www.w3.org/2000/svg';
   const data = STATE.data;

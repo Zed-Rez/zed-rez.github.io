@@ -533,37 +533,42 @@ ol.arguments li.argument.unclear::after {
   flex-direction: column;
   min-width: 0;
   min-height: 0;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #map-info-strip {
-  padding: 0.75rem 1.25rem;
+  padding: 0.55rem 1.25rem;
   border-bottom: 1px solid var(--rule);
   background: var(--bg);
   display: flex;
-  align-items: baseline;
-  gap: 1rem;
-  flex-wrap: wrap;
-  min-height: 3.5rem;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: nowrap;
+  height: 2.75rem;
+  flex-shrink: 0;
+  overflow: hidden;
 }
 #map-info-strip .map-kind {
   font-family: var(--font-mono);
   font-size: 0.78rem;
   color: var(--ink-soft);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 #map-info-strip h1 {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 500;
   margin: 0;
   font-family: var(--font-serif-en);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1 1 0;
+  min-width: 0;
 }
 #map-info-strip .map-selected-text {
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-  margin: 0;
-  flex: 1 1 100%;
-  font-style: italic;
+  display: none;
 }
 body[data-lang="gr"] #map-info-strip .map-selected-text { font-style: normal; }
 #map-goto-text {
@@ -591,9 +596,9 @@ body[data-lang="gr"] #map-info-strip .map-selected-text { font-style: normal; }
 body[data-lang="gr"] .map-selected-text { font-style: normal; }
 
 #map-svg {
-  flex: 1;
+  flex: none;
+  display: block;
   width: 100%;
-  min-height: 0;
   border: none;
   border-top: 1px solid var(--rule);
   border-radius: 0;
@@ -603,6 +608,7 @@ body[data-lang="gr"] .map-selected-text { font-style: normal; }
 }
 #map-svg .edge { stroke: var(--rule); stroke-width: 1; fill: none; }
 #map-svg .edge.direct { stroke: var(--accent); stroke-width: 2; opacity: 0.85; }
+#map-svg .edge.critical-edge { stroke: var(--ink); stroke-width: 2.2; opacity: 0.45; }
 #map-svg .node rect, #map-svg .node circle {
   fill: var(--bg); stroke: var(--rule); stroke-width: 1;
   transition: fill 120ms, stroke 120ms, stroke-width 120ms;
@@ -808,10 +814,18 @@ body[data-lang="gr"] .map-selected-text { font-style: normal; }
   color: #c8922a;
   font-size: 0.85em;
   margin-left: 0.5rem;
-  cursor: help;
+  cursor: pointer;
   flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 0;
+  line-height: inherit;
+  font-family: inherit;
+  transition: color 100ms, transform 100ms;
 }
+.borrowed-star:hover { color: #a06010; transform: scale(1.2); }
 [data-theme="dark"] .borrowed-star { color: #e0aa44; }
+[data-theme="dark"] .borrowed-star:hover { color: #f5c060; }
 .borrowed-axiom-note {
   display: inline-block;
   margin-left: 0.4rem;
@@ -828,6 +842,73 @@ body[data-lang="gr"] .map-selected-text { font-style: normal; }
 [data-theme="dark"] .borrowed-axiom-note {
   background: rgba(224, 170, 68, 0.15);
   color: #d4922c;
+}
+
+/* ── Missing-axiom section inside deps popover ──────────────── */
+.missing-axiom-section {
+  margin-top: 1rem;
+  padding: 0.7rem 0.85rem;
+  background: color-mix(in srgb, #c8922a 8%, var(--bg));
+  border: 1px solid color-mix(in srgb, #c8922a 30%, transparent);
+  border-radius: 5px;
+}
+[data-theme="dark"] .missing-axiom-section {
+  background: color-mix(in srgb, #e0aa44 10%, var(--bg));
+  border-color: color-mix(in srgb, #e0aa44 30%, transparent);
+}
+.missing-axiom-title {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #a06010;
+  margin: 0 0 0.4rem 0;
+}
+[data-theme="dark"] .missing-axiom-title { color: #e0aa44; }
+.missing-axiom-body {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ink);
+  margin: 0 0 0.55rem 0;
+}
+.missing-axiom-ref {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: #a06010;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+  transition: color 120ms;
+}
+.missing-axiom-ref:hover { color: var(--accent); }
+[data-theme="dark"] .missing-axiom-ref { color: #e0aa44; }
+[data-theme="dark"] .missing-axiom-ref:hover { color: #f5c060; }
+
+/* ── Fitzpatrick note section inside deps popover ───────────── */
+.fitz-section {
+  margin-top: 1rem;
+  padding: 0.7rem 0.85rem;
+  background: color-mix(in srgb, var(--ink) 4%, var(--bg));
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+}
+.fitz-section-title {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 0.4rem 0;
+}
+.fitz-section-body {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ink);
+  margin: 0;
+  font-style: italic;
 }
 
 /* ── Fitzpatrick footnote markers ─────────────────────────── */
