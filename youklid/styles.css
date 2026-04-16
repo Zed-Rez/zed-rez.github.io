@@ -520,6 +520,9 @@ ol.arguments li.argument.unclear::after {
    Map view
    ====================================== */
 
+/* Map page: hide footer so total height == 100vh, no outer page scroll */
+body[data-view="map"] #site-footer { display: none; }
+
 #map-view {
   display: none;
   flex-direction: column;

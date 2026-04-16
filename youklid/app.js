@@ -982,16 +982,9 @@ function drawMap(ref) {
 // So a direct shortcut u→v is skipped whenever a longer path through an
 // intermediate already reaches v (e.g. 4→9 is skipped because 4→5→9 exists).
 function computeCriticalEdges(propGraph, N) {
-  const succs = {};
-  for (let n = 1; n <= N; n++) {
-    const ref = `prop.${n}`;
-    const pg = propGraph[ref];
-    (pg ? pg.deps_props || [] : []).forEach(predRef => {
-      if (!succs[predRef]) succs[predRef] = [];
-      succs[predRef].push(ref);
-    });
-  }
-  // Longest path to each node (topological order = ascending prop number)
+  // longestTo[ref] = length of the longest path (in edges) from any root to ref.
+  // Processed in topological order (prop.1 → prop.N is already topological since
+  // prop i only depends on prop j < i in Euclid's Elements).
   const longestTo = {};
   for (let n = 1; n <= N; n++) {
     const ref = `prop.${n}`;
@@ -1001,26 +994,18 @@ function computeCriticalEdges(propGraph, N) {
       longestTo[ref] = Math.max(longestTo[ref], (longestTo[predRef] || 0) + 1);
     });
   }
-  // Longest path from each node (reverse topological order)
-  const longestFrom = {};
-  for (let n = N; n >= 1; n--) {
-    const ref = `prop.${n}`;
-    longestFrom[ref] = 0;
-    (succs[ref] || []).forEach(succRef => {
-      longestFrom[ref] = Math.max(longestFrom[ref], (longestFrom[succRef] || 0) + 1);
-    });
-  }
-  let maxPath = 0;
-  for (let n = 1; n <= N; n++) {
-    const ref = `prop.${n}`;
-    maxPath = Math.max(maxPath, (longestTo[ref] || 0) + (longestFrom[ref] || 0));
-  }
+  // Edge (u→v) is critical iff u lies on the longest path leading to v:
+  //   longestTo[u] + 1 === longestTo[v]
+  // This gives every proposition v exactly one bold "spine" of predecessors —
+  // a direct shortcut u→v is skipped whenever a longer path through an
+  // intermediate already reaches v (e.g. 4→9 skipped because 4→5→9 is longer).
+  // Ties (two predecessors with equal longestTo depth) are both marked bold.
   const critical = new Set();
   for (let n = 1; n <= N; n++) {
     const ref = `prop.${n}`;
     const pg = propGraph[ref];
     (pg ? pg.deps_props || [] : []).forEach(predRef => {
-      if ((longestTo[predRef] || 0) + 1 + (longestFrom[ref] || 0) === maxPath) {
+      if ((longestTo[predRef] || 0) + 1 === longestTo[ref]) {
         critical.add(`${predRef}->${ref}`);
       }
     });
@@ -1031,8 +1016,12 @@ function computeCriticalEdges(propGraph, N) {
 function drawFullGraph() {
   const svg = $('#map-svg');
   svg.innerHTML = '';
-  const rect = svg.getBoundingClientRect();
-  const W = Math.max(700, rect.width || window.innerWidth);
+  // Use clientWidth (always reliable) rather than svg.getBoundingClientRect()
+  // which returns 0 before first layout pass.
+  const W = Math.max(700, document.documentElement.clientWidth);
+  // Reset scroll to top so the graph always starts visible at the first layer.
+  const mapWrap = $('#map-canvas-wrap');
+  if (mapWrap) mapWrap.scrollTop = 0;
 
   const ns = 'http://www.w3.org/2000/svg';
   const data = STATE.data;
