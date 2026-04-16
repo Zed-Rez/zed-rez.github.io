@@ -1062,7 +1062,9 @@
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
-          "logical_function": "coincidence_conclusion"
+          "logical_function": "coincidence_conclusion",
+          "borrowed_axiom": "superposition",
+          "borrowed_axiom_text": "Euclid applies the method of superposition (moving one figure onto another) — an assumed geometric operation not grounded by any explicit postulate or definition."
         },
         {
           "en": "For if B coincides with E, and C with F, and the base BC does not coincide with EF, then two straight-lines will encompass an area.",
@@ -1589,7 +1591,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": "betweenness_axiom",
           "borrowed_axiom_text": "Assumes that if AB > AC, one can identify which segment is greater and later 'cut off' a part from the greater. This relies on implicit ordering of points on a line."
@@ -1721,7 +1723,10 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.4",
+            "cn.5"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -1794,7 +1799,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -1929,10 +1934,13 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.5",
+            "cn.5"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -2012,7 +2020,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -2124,7 +2132,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.7"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -2506,10 +2516,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.9"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -2678,10 +2690,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.1"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -3153,10 +3167,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "cn.1"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -3166,10 +3182,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "def.10"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -3237,7 +3255,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "construction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -3260,10 +3278,12 @@
           "citations": [],
           "role": "step",
           "gr": "᾿Επεὶ οὖν εὐθεῖα ἡ ΑΒ ἐπ᾿ εὐθεῖαν τὴν ΓΒΕ ἐφέστηκεν, αἱ ἄρα ὑπὸ ΑΒΓ, ΑΒΕ γωνίαι δύο ὀρθαῖς ἴσαι εἰσίν· εἰσ ὶ δὲ καὶ αἱ ὑπὸ ΑΒΓ, ΑΒΔ δύο ὀρθαῖς ἴσαι· αἱ ἄρα ὑπὸ ΓΒΑ, ΑΒΕ ταῖς ὑπὸ ΓΒΑ, ΑΒΔ ἴσαι εἰσίν.",
-          "deps": [],
+          "deps": [
+            "post.2"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "construction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -3301,7 +3321,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -3378,10 +3398,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "cn.5"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -3404,10 +3426,13 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.13",
+            "cn.5"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -3474,7 +3499,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "construction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -3631,10 +3656,13 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.13",
+            "cn.3"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -3684,10 +3712,12 @@
           "citations": [],
           "role": "construction",
           "gr": "῎Εστω τρίγωνον τὸ ΑΒΓ, καὶ προσεκβεβλήσθω αὐτοῦ μία πλευρὰ ἡ ΒΓ ἐπὶ τὸ Δ· λὲγω, ὅτι ἡ ἐκ τὸς γωνία ἡ ὑπὸ ΑΓΔ μείζων ἐστὶν ἑκατέρας τῶν ἐν τὸς καὶ ἀπεναντίον τῶν ὑπὸ ΓΒΑ, ΒΑΓ γωνιῶν.",
-          "deps": [],
+          "deps": [
+            "post.2"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "construction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -3883,10 +3913,18 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.10",
+            "post.1",
+            "post.2",
+            "prop.3",
+            "prop.15",
+            "prop.4",
+            "cn.5"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -3944,7 +3982,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "construction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -4084,10 +4122,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.16"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -4143,7 +4183,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "construction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -4316,7 +4356,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "construction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -4342,7 +4382,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -4352,10 +4392,12 @@
           "citations": [],
           "role": "step",
           "gr": "ἐδείχθη δέ, ὅτι οὐ δὲ ἴση ἐστίν.",
-          "deps": [],
+          "deps": [
+            "prop.5"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -4390,10 +4432,12 @@
           "citations": [],
           "role": "step",
           "gr": "Παντὸς ἄρα τριγώνου ὑπὸ τὴν μείζονα γωνίαν ἡ μείζων πλευρὰ ὑποτείνει· ὅπερ ἔδει δεῖξαι.",
-          "deps": [],
+          "deps": [
+            "prop.5"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -4416,10 +4460,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.18"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -4454,10 +4500,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.18"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -4483,7 +4531,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -4548,7 +4596,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "construction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -4571,10 +4619,12 @@
           "citations": [],
           "role": "step",
           "gr": "᾿Επεὶ οὖν ἴση ἐστὶν ἡ ΔΑ τῇ ΑΓ, ἴση ἐστὶ καὶ γωνία ἡ ὑπὸ ΑΔΓ τῇ ὑπὸ ΑΓΔ· μείζων ἄρα ἡ ὑπὸ ΒΓΔ τῆς ὑπὸ ΑΔΓ· καὶ ἐπεὶ τρίγωνόν ἐστι τὸ ΔΓΒ μείζονα ἔχον τὴν ὑπὸ ΒΓΔ γωνίαν τῆς ὑπὸ ΒΔΓ, ὑπὸ δὲ τὴν μείζονα γωνίαν ἡ μείζων πλευρὰ ὑποτείνει, ἡ ΔΒ ἄρα τῆς ΒΓ ἐστι μείζων.",
-          "deps": [],
+          "deps": [
+            "prop.19"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -4679,10 +4729,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.3"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -4709,10 +4761,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.19"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -5231,10 +5285,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "def.15"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "application_of_definition",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -5278,10 +5334,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "def.15"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "application_of_definition",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -5308,7 +5366,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "cn.1"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -5338,7 +5398,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "cn.1"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -5424,7 +5486,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "construction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -5632,7 +5694,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -5712,7 +5774,10 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.5",
+            "cn.5"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -5767,10 +5832,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.4"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -5780,7 +5847,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "cn.1"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -5878,7 +5947,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -5933,7 +6002,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6001,7 +6070,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6027,7 +6096,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6252,7 +6321,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "fitzpatrick_note": "The Greek text has 'BG, BC', which is obviously a mistake.",
           "logical_function": "deduction",
           "borrowed_axiom": null,
@@ -6305,7 +6374,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "ἐστὶ δὲ καὶ ἡ ΑΒ τῇ ΔΕ ἴση.",
-          "deps": [],
+          "deps": [
+            "prop.4"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -6335,7 +6406,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "᾿Εὰν ἄρα δύο τρίγωνα τὰς δύο γωνίας δυσὶ γωνίαις ἴσας ἔχῃ ἑκατέραν ἑκατέρᾳ καὶ μίαν πλευρὰν μιᾷ πλευρᾷ ἴσην ἤτοι τὴν πρὸς ταῖς ἴσαις γωνίαις, ἢ τὴν ὑποτείνουσαν ὑπὸ μίαν τῶν ἴσων γωνιῶν, καὶ τὰς λοιπὰς πλευρὰς ταῖς λοιπαῖς πλευραῖς ἴσας ἕξει καὶ τὴν λοιπὴν γωνίαν τῇ λοιπῇ γωνίᾳ· ὅπερ ἔδει δεῖξαι.",
-          "deps": [],
+          "deps": [
+            "cn.1"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -6348,10 +6421,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "cn.5"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6390,7 +6465,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6403,7 +6478,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6527,7 +6602,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "construction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6565,7 +6640,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6617,7 +6692,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.4"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -6633,7 +6710,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6714,7 +6791,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6727,7 +6804,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6740,7 +6817,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6873,10 +6950,12 @@
           "citations": [],
           "role": "construction",
           "gr": "τριγώνου δὴ τοῦ ΗΕΖ ἡ ἐκ τὸς γωνία ἡ ὑπὸ ΑΕΖ ἴση ἐστὶ τῇ ἐν τὸς καὶ ἀπε- ναντίον τῇ ὑπὸ ΕΖΗ· ὅπερ ἐστὶν ἀδύνατον· οὐκ ἄρα αἱ ΑΒ, ΔΓ ἐκ βαλλόμεναι συμπεσοῦνται ἐπὶ τὰ Β, Δ μέρη.",
-          "deps": [],
+          "deps": [
+            "post.2"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "construction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6928,7 +7007,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.16"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -6983,7 +7064,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "def.23"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -7095,7 +7178,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -7175,7 +7258,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "cn.3"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -7471,7 +7556,10 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.13",
+            "def.23"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -7608,7 +7696,10 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.13",
+            "cn.1"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -7776,7 +7867,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "παρά λληλος ἄρα ἐστὶν ἡ ΑΒ τῇ ΓΔ.",
-          "deps": [],
+          "deps": [
+            "cn.1"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -8195,7 +8288,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "cn.1"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -8393,10 +8488,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.4"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -8601,10 +8698,12 @@
           "citations": [],
           "role": "step",
           "gr": "ἐπεὶ γὰρ ἴση ἐστὶν ἡ ΑΒ τῇ ΓΔ, κοινὴ δὲ ἡ ΒΓ, δύο δὴ αἱ ΑΒ, ΒΓ δυσὶ ταῖς ΓΔ, ΒΓ ἴσαι εἰσίν ἑκατέρα ἑκατέρᾳ· καὶ γωνία ἡ ὑπὸ ΑΒΓ γωνίᾳ τῇ ὑπὸ ΒΓΔ ἴση.",
-          "deps": [],
+          "deps": [
+            "cn.2"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -8614,10 +8713,12 @@
           "citations": [],
           "role": "step",
           "gr": "καὶ βάσις ἄρα ἡ ΑΓ τῇ ΔΒ ἴση.",
-          "deps": [],
+          "deps": [
+            "prop.26"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -8657,10 +8758,13 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.29",
+            "prop.26"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "fitzpatrick_note": "The Greek text has 'CD, BC', which is obviously a mistake.",
           "logical_function": "deduction",
           "borrowed_axiom": null,
@@ -8713,7 +8817,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.4"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -8876,10 +8982,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.34"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -8976,7 +9084,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "cn.3"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -9006,7 +9116,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "cn.2"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -9138,7 +9250,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -9257,10 +9369,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "cn.1"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -9720,10 +9834,13 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.34",
+            "cn.3"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "application_of_common_notion",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -9916,7 +10033,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "cn.1"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -9929,10 +10048,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "cn.5"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -9958,7 +10079,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -10165,7 +10286,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "cn.1"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -10178,10 +10301,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "cn.5"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -10207,7 +10332,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -10405,10 +10530,13 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.37",
+            "prop.34"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -10702,7 +10830,10 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.41",
+            "cn.1"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -10901,10 +11032,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.34"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "application_of_prior_result",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -10914,7 +11047,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "cn.3"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -11114,7 +11249,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "καὶ ἐπεὶ ἴση ἐστὶν ἡ ὑπὸ ΗΒΕ γωνία τῇ ὑπὸ ΑΒΜ, ἀλλὰ ἡ ὑπὸ ΗΒΕ τῇ Δ ἐστιν ἴση, καὶ ἡ ὑπὸ ΑΒΜ ἄρα τῇ Δ γωνίᾳ ἐστὶν ἴση.",
-          "deps": [],
+          "deps": [
+            "post.5"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -11796,10 +11933,12 @@
           "citations": [],
           "role": "step",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "cn.2"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -11947,7 +12086,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "λέγω δή, ὅτι καὶ ὀρθογώνιον.",
-          "deps": [],
+          "deps": [
+            "prop.33"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -12015,7 +12156,10 @@
           "citations": [],
           "role": "conclusion",
           "gr": "ἐδείχθη δὲ καὶ ἰσόπλευρον.",
-          "deps": [],
+          "deps": [
+            "prop.34",
+            "cn.1"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -12129,7 +12273,10 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.34",
+            "cn.3"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -12187,7 +12334,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -12289,10 +12436,12 @@
           "citations": [],
           "role": "construction",
           "gr": "διὰ τὰ αὐτὰ δὴ καὶ ἡ ΒΑ τῇ ΑΘ ἐστιν ἐπ᾿ εὐθείας.",
-          "deps": [],
+          "deps": [
+            "post.1"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "construction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -12346,10 +12495,12 @@
           "citations": [],
           "role": "step",
           "gr": "[τὰ δὲ τῶν ἴσων διπλάσια ἴσα ἀλλήλοις ἐστίν ·] ἴσον ἄρα ἐστὶ καὶ τὸ ΒΛ παραλληλόγραμμον τῷ ΗΒ τετραγώνῳ.",
-          "deps": [],
+          "deps": [
+            "prop.14"
+          ],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "application_of_prior_result",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -12376,7 +12527,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "καί ἐστι τὸ μὲν ΒΔΕΓ τετράγωνον ἀπὸ τῆς ΒΓ ἀνα- γραφέν, τὰ δὲ ΗΒ, ΘΓ ἀπὸ τῶν ΒΑ, ΑΓ.",
-          "deps": [],
+          "deps": [
+            "cn.2"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -12554,7 +12707,9 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "cn.2"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
@@ -12570,7 +12725,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -12825,7 +12980,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "deduction",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -12907,7 +13062,10 @@
           "citations": [],
           "role": "conclusion",
           "gr": "",
-          "deps": [],
+          "deps": [
+            "prop.8",
+            "cn.1"
+          ],
           "inferred": [],
           "ground_truth": [],
           "unclear": false,
