@@ -741,47 +741,15 @@ function buildMapSidebar() {
 
 function renderMap() {
   if (!$('#map-svg')) return; // not on the map page
-  const data = STATE.data;
   // Default selection = post.1
   if (!STATE.currentMapRef) STATE.currentMapRef = 'post.1';
-  const ref = STATE.currentMapRef;
-  // Highlight sidebar
-  $$('#map-view .map-item').forEach(b => b.classList.toggle('active', b.dataset.ref === ref));
-  // Header
-  $('#map-selected-kind').textContent = refKindLabel(ref) + ' ' + ref.split('.')[1];
-  const txt = refToText(ref);
-  const [k, nStr] = ref.split('.');
-  const n = parseInt(nStr, 10);
-  let titleText = '';
-  if (k === 'prop') {
-    const p = data.propositions[n-1];
-    titleText = STATE.lang === 'en' ? p.enunciation_en : (transliterateDiagramLetters(p.enunciation_gr) || p.enunciation_en);
-    $('#map-selected-text').textContent = '';
-  } else {
-    // Kind label stays in English (chrome); source text switches language.
-    titleText = `${KIND_LABEL[k]} ${n}`;
-    $('#map-selected-text').textContent = STATE.lang === 'en' ? txt : transliterateDiagramLetters(txt);
-  }
-  $('#map-selected-title').textContent = titleText;
 
-  // Fitzpatrick note for foundations
-  const mapNote = $('#map-fitz-note');
-  if (mapNote) {
-    const item = k === 'def' ? data.definitions[n-1]
-               : k === 'post' ? data.postulates[n-1]
-               : k === 'cn' ? data.common_notions[n-1]
-               : null;
-    if (item && item.fitzpatrick_note) {
-      mapNote.hidden = false;
-      mapNote.querySelector('.fitz-note-text').textContent = item.fitzpatrick_note;
-    } else {
-      mapNote.hidden = true;
-    }
+  // Always full graph on the dedicated map page
+  drawFullGraph();
+  if (STATE.currentMapRef) {
+    updateMapInfoStrip(STATE.currentMapRef);
+    highlightMapNode(STATE.currentMapRef);
   }
-
-  // Build graph: seed = ref. Show direct successors and (for props) direct predecessors.
-  if (STATE.mapMode === 'global') drawFullGraph();
-  else drawMap(ref);
 }
 
 /**
@@ -1015,15 +983,16 @@ function drawFullGraph() {
     const g = document.createElementNS(ns, 'g');
     g.setAttribute('class', `node ${isSeed ? 'seed' : 'successor'}`);
     g.setAttribute('transform', `translate(${pos.x}, ${pos.y})`);
+    g.setAttribute('data-map-ref', ref);
     g.style.cursor = 'pointer';
     g.addEventListener('click', () => {
       STATE.currentMapRef = ref;
-      STATE.mapMode = 'local';
-      $$('.map-mode-btn').forEach(b => b.classList.toggle('active', b.id === 'map-mode-local'));
-      $$('.map-mode-btn').forEach(b => b.setAttribute('aria-pressed', b.id === 'map-mode-local' ? 'true' : 'false'));
-      renderMap();
       updateHash();
+      updateMapInfoStrip(ref);
+      highlightMapNode(ref);
     });
+    g.addEventListener('mouseenter', (e) => showMapTooltip(e, ref));
+    g.addEventListener('mouseleave', () => hideMapTooltip());
 
     const r = document.createElementNS(ns, 'rect');
     r.setAttribute('x', -nodeW/2); r.setAttribute('y', -nodeH/2);
@@ -1052,6 +1021,122 @@ function drawFullGraph() {
     tl.textContent = `d${lk}`;
     svg.appendChild(tl);
   });
+}
+
+// ============================================================
+// MAP INFO STRIP + HIGHLIGHT
+// ============================================================
+
+function updateMapInfoStrip(ref) {
+  if (!ref) return;
+  const data = STATE.data;
+  const [kind, nStr] = ref.split('.');
+  const n = parseInt(nStr, 10);
+  const kindEl = $('#map-selected-kind');
+  const titleEl = $('#map-selected-title');
+  const textEl = $('#map-selected-text');
+  const fitzEl = $('#map-fitz-note');
+  const gotoEl = $('#map-goto-text');
+
+  if (!kindEl) return;
+
+  if (kind === 'prop') {
+    const p = data.propositions[n - 1];
+    kindEl.textContent = `Proposition ${n}`;
+    titleEl.textContent = p ? (STATE.lang === 'gr' ? (p.enunciation_gr ? transliterateDiagramLetters(p.enunciation_gr) : p.enunciation_en) : p.enunciation_en) : '';
+    textEl.textContent = '';
+    if (gotoEl) { gotoEl.href = `./index.html#prop.${n}`; gotoEl.hidden = false; }
+    if (fitzEl) fitzEl.hidden = true;
+  } else {
+    const labels = { post: 'Postulate', def: 'Definition', cn: 'Common Notion' };
+    const key = kind === 'cn' ? 'common_notions' : kind === 'post' ? 'postulates' : 'definitions';
+    const arr = data[key];
+    const item = arr ? arr[n - 1] : null;
+    kindEl.textContent = `${labels[kind] || kind} ${n}`;
+    titleEl.textContent = item ? (STATE.lang === 'gr' ? (item.gr ? transliterateDiagramLetters(item.gr) : (item.en || '')) : (item.en || '')) : '';
+    textEl.textContent = '';
+    if (gotoEl) gotoEl.hidden = true;
+    // Fitzpatrick note for foundations
+    if (fitzEl) {
+      if (item && item.fitzpatrick_note) {
+        fitzEl.hidden = false;
+        fitzEl.querySelector('.fitz-note-text').textContent = item.fitzpatrick_note;
+      } else {
+        fitzEl.hidden = true;
+      }
+    }
+  }
+}
+
+function highlightMapNode(ref) {
+  // Remove existing highlights
+  $$('.map-node-selected, .map-node-adjacent').forEach(el => {
+    el.classList.remove('map-node-selected', 'map-node-adjacent');
+  });
+  if (!ref) return;
+  const data = STATE.data;
+
+  // Find adjacent refs (predecessors + successors)
+  const adjacent = new Set();
+  if (ref.startsWith('prop.')) {
+    const n = parseInt(ref.split('.')[1], 10);
+    const p = data.propositions[n - 1];
+    if (p) {
+      (p.deps || []).forEach(d => adjacent.add(d));
+      // Also use prop_graph deps_props if available
+      const pg = data.prop_graph && data.prop_graph[ref];
+      if (pg) (pg.deps_props || []).forEach(d => adjacent.add(d));
+      // Find propositions that depend on this one
+      data.propositions.forEach((pp, i) => {
+        const ppRef = `prop.${i + 1}`;
+        const ppg = data.prop_graph && data.prop_graph[ppRef];
+        if (ppg && (ppg.deps_props || []).includes(ref)) adjacent.add(ppRef);
+      });
+    }
+  }
+
+  // Apply classes
+  $$('[data-map-ref]').forEach(g => {
+    const r = g.getAttribute('data-map-ref');
+    if (r === ref) g.classList.add('map-node-selected');
+    else if (adjacent.has(r)) g.classList.add('map-node-adjacent');
+  });
+}
+
+// ============================================================
+// MAP TOOLTIPS
+// ============================================================
+
+let _mapTooltip = null;
+function showMapTooltip(e, ref) {
+  hideMapTooltip();
+  const data = STATE.data;
+  const [kind, nStr] = ref.split('.');
+  const n = parseInt(nStr, 10);
+  let label = '';
+  if (kind === 'prop') {
+    const p = data.propositions[n - 1];
+    const enunc = p ? (p.enunciation_en || p.title || '') : '';
+    label = p ? `§ ${n} — ${enunc.slice(0, 60)}${enunc.length > 60 ? '…' : ''}` : `§ ${n}`;
+  } else {
+    const labels = { post: 'Post.', def: 'Def.', cn: 'C.N.' };
+    const key = kind === 'cn' ? 'common_notions' : kind === 'post' ? 'postulates' : 'definitions';
+    const arr = data[key];
+    const item = arr ? arr[n - 1] : null;
+    label = `${labels[kind] || kind} ${n}${item ? ' — ' + (item.en || '').slice(0, 50) : ''}`;
+  }
+  const tip = document.createElement('div');
+  tip.className = 'map-tooltip';
+  tip.textContent = label;
+  document.body.appendChild(tip);
+  const x = e.clientX + 12;
+  const y = e.clientY - 8;
+  tip.style.left = `${Math.min(x, window.innerWidth - tip.offsetWidth - 16)}px`;
+  tip.style.top = `${y}px`;
+  _mapTooltip = tip;
+}
+function hideMapTooltip() {
+  if (_mapTooltip) { _mapTooltip.remove(); _mapTooltip = null; }
 }
 
 // ============================================================
