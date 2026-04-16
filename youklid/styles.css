@@ -642,10 +642,16 @@ body[data-lang="gr"] .map-selected-text { font-style: normal; }
   fill: var(--ink-soft);
 }
 
+/* Foundation nodes: dashed border distinguishes axioms/defs from propositions */
+#map-svg .node.def rect,
+#map-svg .node.post rect,
+#map-svg .node.cn rect { stroke-dasharray: 3 2; }
+
 /* Node selection highlights */
 .map-node-selected > rect {
   fill: var(--accent) !important;
   stroke: var(--accent) !important;
+  stroke-dasharray: none !important;
 }
 .map-node-selected > text {
   fill: #fff !important;
@@ -653,6 +659,7 @@ body[data-lang="gr"] .map-selected-text { font-style: normal; }
 .map-node-adjacent > rect {
   fill: color-mix(in srgb, var(--accent) 20%, var(--bg)) !important;
   stroke: color-mix(in srgb, var(--accent) 50%, var(--rule)) !important;
+  stroke-dasharray: none !important;
 }
 
 /* Map hover tooltip */
