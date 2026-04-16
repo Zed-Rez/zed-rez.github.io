@@ -1,37 +1,170 @@
 {
   "prop": 19,
-  "viewBox": [0, 0, 420, 320],
+  "viewBox": [
+    0,
+    0,
+    420,
+    320
+  ],
   "points": {
-    "A": { "x": 210, "y": 50,  "label": "top" },
-    "B": { "x": 60,  "y": 270, "label": "bottom-left" },
-    "C": { "x": 360, "y": 270, "label": "bottom-right" }
+    "A": {
+      "x": 210,
+      "y": 50,
+      "label": "top"
+    },
+    "B": {
+      "x": 60,
+      "y": 270,
+      "label": "bottom-left"
+    },
+    "C": {
+      "x": 360,
+      "y": 270,
+      "label": "bottom-right"
+    }
   },
   "elements": [
-    { "id": "poly_ABC", "kind": "polygon", "vertices": ["A","B","C"] },
-    { "id": "seg_AB",   "kind": "segment", "from": "A", "to": "B" },
-    { "id": "seg_AC",   "kind": "segment", "from": "A", "to": "C" },
-    { "id": "seg_BC",   "kind": "segment", "from": "B", "to": "C" },
-    { "id": "pt_A",     "kind": "point",   "at": "A" },
-    { "id": "pt_B",     "kind": "point",   "at": "B" },
-    { "id": "pt_C",     "kind": "point",   "at": "C" },
-    { "id": "arc_B",    "kind": "arc",     "vertex": "B", "ray1": "A", "ray2": "C", "radius": 36, "count": 2 },
-    { "id": "arc_C",    "kind": "arc",     "vertex": "C", "ray1": "B", "ray2": "A", "radius": 32, "count": 1 }
+    {
+      "id": "poly_ABC",
+      "kind": "polygon",
+      "vertices": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "seg_AB",
+      "kind": "segment",
+      "from": "A",
+      "to": "B"
+    },
+    {
+      "id": "seg_AC",
+      "kind": "segment",
+      "from": "A",
+      "to": "C"
+    },
+    {
+      "id": "seg_BC",
+      "kind": "segment",
+      "from": "B",
+      "to": "C"
+    },
+    {
+      "id": "pt_A",
+      "kind": "point",
+      "at": "A"
+    },
+    {
+      "id": "pt_B",
+      "kind": "point",
+      "at": "B"
+    },
+    {
+      "id": "pt_C",
+      "kind": "point",
+      "at": "C"
+    }
   ],
   "steps": [
-    { "arg": 0,  "introduce": ["poly_ABC","seg_AB","seg_AC","seg_BC","pt_A","pt_B","pt_C"], "focus": "poly_ABC", "emphasize": [] },
-    { "arg": 1,  "introduce": [], "focus": "seg_AC", "emphasize": [] },
-    { "arg": 2,  "introduce": [], "focus": "seg_AC", "emphasize": [] },
-    { "arg": 3,  "introduce": [], "focus": "seg_AB", "emphasize": [] },
-    { "arg": 4,  "introduce": ["arc_C"], "focus": "arc_C", "emphasize": ["arc_C"] },
-    { "arg": 5,  "introduce": [], "focus": "arc_B", "emphasize": [] },
-    { "arg": 6,  "introduce": [], "focus": "seg_AC", "emphasize": [] },
-    { "arg": 7,  "introduce": [], "focus": "seg_AC", "emphasize": [] },
-    { "arg": 8,  "introduce": ["arc_B"], "focus": "arc_B", "emphasize": ["arc_B"] },
-    { "arg": 9,  "introduce": [], "focus": "arc_B", "emphasize": [] },
-    { "arg": 10, "introduce": [], "focus": "seg_AC", "emphasize": [] },
-    { "arg": 11, "introduce": [], "focus": "seg_AC", "emphasize": [] },
-    { "arg": 12, "introduce": [], "focus": "seg_AC", "emphasize": [] },
-    { "arg": 13, "introduce": [], "focus": "poly_ABC", "emphasize": [] },
-    { "arg": 14, "introduce": [], "focus": "poly_ABC", "emphasize": [] }
+    {
+      "arg": 0,
+      "introduce": [
+        "poly_ABC",
+        "seg_AB",
+        "seg_AC",
+        "seg_BC",
+        "pt_A",
+        "pt_B",
+        "pt_C"
+      ],
+      "focus": "poly_ABC",
+      "emphasize": []
+    },
+    {
+      "arg": 1,
+      "introduce": [],
+      "focus": "seg_AC",
+      "emphasize": []
+    },
+    {
+      "arg": 2,
+      "introduce": [],
+      "focus": "seg_AC",
+      "emphasize": []
+    },
+    {
+      "arg": 3,
+      "introduce": [],
+      "focus": "seg_AB",
+      "emphasize": []
+    },
+    {
+      "arg": 4,
+      "introduce": [],
+      "focus": null,
+      "emphasize": []
+    },
+    {
+      "arg": 5,
+      "introduce": [],
+      "focus": null,
+      "emphasize": []
+    },
+    {
+      "arg": 6,
+      "introduce": [],
+      "focus": "seg_AC",
+      "emphasize": []
+    },
+    {
+      "arg": 7,
+      "introduce": [],
+      "focus": "seg_AC",
+      "emphasize": []
+    },
+    {
+      "arg": 8,
+      "introduce": [],
+      "focus": null,
+      "emphasize": []
+    },
+    {
+      "arg": 9,
+      "introduce": [],
+      "focus": null,
+      "emphasize": []
+    },
+    {
+      "arg": 10,
+      "introduce": [],
+      "focus": "seg_AC",
+      "emphasize": []
+    },
+    {
+      "arg": 11,
+      "introduce": [],
+      "focus": "seg_AC",
+      "emphasize": []
+    },
+    {
+      "arg": 12,
+      "introduce": [],
+      "focus": "seg_AC",
+      "emphasize": []
+    },
+    {
+      "arg": 13,
+      "introduce": [],
+      "focus": "poly_ABC",
+      "emphasize": []
+    },
+    {
+      "arg": 14,
+      "introduce": [],
+      "focus": "poly_ABC",
+      "emphasize": []
+    }
   ]
 }
