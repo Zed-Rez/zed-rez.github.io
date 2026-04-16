@@ -85,7 +85,7 @@ function parseHash(h) {
     return;
   }
   if (h === 'map') { STATE.view = 'map'; return; }
-  // text hash: prop.N or prop.N.aK
+  // text hash: prop.0 = foundations page, prop.N or prop.N.aK
   const m = h.match(/^prop\.(\d+)(?:\.a(\d+))?$/);
   if (m) {
     STATE.currentProp = parseInt(m[1], 10);
@@ -362,25 +362,6 @@ function renderProp() {
     text.innerHTML = renderArgText(a, lang);
     li.appendChild(text);
 
-    // Inline tags for *inferred* deps — CN and Postulate refs are already appended
-    // inside renderArgText as [C.N. N] / [Post. N] cite links; only show pill badges
-    // here for proposition and definition inferred refs.
-    const inferred = (a.inferred || []).filter(r => r && !r.startsWith('cn.') && !r.startsWith('post.'));
-    if (inferred.length) {
-      const tags = document.createElement('span');
-      tags.className = 'arg-inline-tags';
-      inferred.forEach(ref => {
-        const a2 = document.createElement('a');
-        a2.className = 'arg-inline-tag inferred';
-        a2.href = refToHash(ref);
-        a2.textContent = refToShort(ref);
-        a2.title = refToTitle(ref);
-        a2.addEventListener('click', (e) => refLinkClick(e, ref));
-        tags.appendChild(a2);
-      });
-      li.appendChild(tags);
-    }
-
     // Borrowed-axiom marker: ★ star + amber highlight
     if (a.borrowed_axiom) {
       li.classList.add('has-borrowed-axiom');
@@ -452,9 +433,11 @@ function renderArgText(arg, lang) {
     let k = kind.toLowerCase().replace(/\./g,'');
     if (k === 'c' || k === 'cn') k = 'cn';
     let n = num.replace(/\.$/,'');
-    if (n.includes('.')) n = n.split('.').slice(-1)[0];   // "1.15" -> "15"
-    const ref   = `${k}.${n}`;
-    const label = `[${NORM[k]} ${n}]`;
+    // For Props keep full "1.N" form; for Def/Post/CN strip book prefix
+    let refN = n.includes('.') ? n.split('.').slice(-1)[0] : n;
+    let labelN = (k === 'prop' && n.includes('.')) ? n : refN;
+    const ref   = `${k}.${refN}`;
+    const label = `[${NORM[k]} ${labelN}]`;
     return `<a class="cite" href="${refToHash(ref)}" data-ref="${ref}">${label}</a>`;
   });
   // Replace Fitzpatrick footnote markers with interactive superscript buttons
@@ -474,20 +457,18 @@ function renderArgText(arg, lang) {
   if (fellBack) {
     html = `<em class="fallback-lang" title="No Greek sentence aligned to this argument — showing English">${html}</em>`;
   }
-  // Append inferred Common Notion and Postulate refs as [C.N. N] / [Post. N] cite links.
-  // These were previously shown as separate pill badges; inline bracket format is consistent
-  // with how explicit citations in the text are rendered.
-  // Skip any ref whose data-ref is already present (avoids doubling when it appears in both
-  // the Fitzpatrick text and the inferred array, as in Prop. 12 arg 2).
-  const CN_POST_NORM = { cn: 'C.N.', post: 'Post.' };
-  (arg.inferred || [])
-    .filter(r => r.startsWith('cn.') || r.startsWith('post.'))
-    .forEach(ref => {
-      if (html.includes(`data-ref="${ref}"`)) return; // already linkified inline
-      const [k, n] = ref.split('.');
-      const label = `[${CN_POST_NORM[k]} ${n}]`;
-      html += ` <a class="cite" href="${escapeHTML(refToHash(ref))}" data-ref="${ref}" title="${escapeHTML(refToTitle(ref))}">${label}</a>`;
-    });
+  // Append all inferred refs (CN, Post, Prop, Def) as inline [X. N] cite links.
+  // Skip any ref whose data-ref is already present in the linkified text.
+  const INFERRED_NORM = { cn: 'C.N.', post: 'Post.', prop: 'Prop.', def: 'Def.' };
+  (arg.inferred || []).forEach(ref => {
+    if (html.includes(`data-ref="${ref}"`)) return;
+    const [k, nRaw] = ref.split('.');
+    if (!INFERRED_NORM[k]) return;
+    // For prop, label as "Prop. 1.N" to match the text citation style
+    const labelN = k === 'prop' ? `1.${nRaw}` : nRaw;
+    const label = `[${INFERRED_NORM[k]} ${labelN}]`;
+    html += ` <a class="cite" href="${escapeHTML(refToHash(ref))}" data-ref="${ref}" title="${escapeHTML(refToTitle(ref))}">${label}</a>`;
+  });
   return html;
 }
 
