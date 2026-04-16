@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>Youklid · Definitions &amp; Postulates</title>
+<meta name="description" content="Euclid's Elements, Book I — Definitions 1–23 and Postulates 1–5. English and Ancient Greek (Heiberg 1883–85).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Gentium+Plus:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css">
+<style>
+.fnd-page {
+  padding: 2rem clamp(1rem, 3vw, 2.5rem) 4rem;
+  max-width: 58rem;
+  margin: 0 auto;
+}
+.fnd-nav {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+.fnd-title-wrap { text-align: center; }
+.fnd-kind {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.82rem;
+  color: var(--accent);
+}
+.fnd-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  margin: 0.2rem 0 0;
+}
+.fnd-section-head {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.4rem;
+  margin: 2.5rem 0 0;
+}
+.fnd-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.fnd-item {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  gap: 0.4rem 0.9rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.fnd-list .fnd-item:first-child {
+  border-top: 1px solid var(--rule);
+}
+.fnd-num {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  padding-top: 0.25rem;
+  text-align: right;
+}
+.fnd-body { display: flex; flex-direction: column; gap: 0.35rem; }
+.fnd-en { margin: 0; line-height: 1.65; }
+.fnd-gr {
+  margin: 0;
+  font-family: var(--font-serif-gr);
+  color: var(--ink-soft);
+  font-size: 0.97rem;
+  line-height: 1.65;
+}
+</style>
+</head>
+<body data-theme="parchment" data-lang="en">
+<script>
+(function(){
+  var t = localStorage.getItem('youklid.theme') || 'parchment';
+  var l = localStorage.getItem('youklid.lang') || 'en';
+  document.body.setAttribute('data-theme', t);
+  document.body.setAttribute('data-lang', l);
+})();
+</script>
+
+<header id="top-bar">
+  <div class="brand">
+    <a href="./index.html" aria-label="Youklid home">
+      <span class="brand-mark">Υ</span><span class="brand-name">ouklid</span>
+    </a>
+    <span class="brand-sub">Elements · Book I</span>
+  </div>
+
+  <a href="./youklidmap.html" class="map-page-link" aria-label="Open dependency map">Map</a>
+
+  <nav class="lang-toggle" aria-label="Language">
+    <button class="lang" data-lang="en" aria-pressed="true" onclick="setLang('en')">English</button>
+    <button class="lang" data-lang="gr" aria-pressed="false" onclick="setLang('gr')">Ἑλληνικά</button>
+  </nav>
+
+  <div class="theme-toggle">
+    <button id="theme-btn" aria-label="Toggle theme" onclick="toggleTheme()">◐</button>
+  </div>
+</header>
+
+<main class="fnd-page">
+
+  <nav class="fnd-nav">
+    <button class="nav-arrow" disabled aria-disabled="true" aria-label="Previous (none)">‹</button>
+    <div class="fnd-title-wrap">
+      <div class="fnd-kind">Book I</div>
+      <h1 class="fnd-title">Definitions &amp; Postulates</h1>
+    </div>
+    <button class="nav-arrow" aria-label="Next: Common Notions" onclick="window.location.href='./cn.html'">›</button>
+  </nav>
+
+  <!-- ═══════════════════════════ DEFINITIONS ═══════════════════════════ -->
+
+  <h2 class="fnd-section-head">Definitions</h2>
+  <ol class="fnd-list">
+
+    <li class="fnd-item" id="def.1">
+      <span class="fnd-num">1</span>
+      <div class="fnd-body">
+        <p class="fnd-en">A point is that of which there is no part.</p>
+        <p class="fnd-gr">Σημεῖόν ἐστιν, οὗ μέρος οὐ θέν.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.2">
+      <span class="fnd-num">2</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And a line is a length without breadth.</p>
+        <p class="fnd-gr">Γραμμὴ δὲ μῆκος ἀπλατές.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.3">
+      <span class="fnd-num">3</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And the extremities of a line are points.</p>
+        <p class="fnd-gr">Γραμμῆς δὲ πέρατα σημεῖα.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.4">
+      <span class="fnd-num">4</span>
+      <div class="fnd-body">
+        <p class="fnd-en">A straight-line is (any) one which lies evenly with points on itself.</p>
+        <p class="fnd-gr">Εὐθεῖα γραμμή ἐστιν, ἥτις ἐξ ἴσου τοῖς ἐφ᾿ ἑαυτῆς σημείοις κεῖται.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.5">
+      <span class="fnd-num">5</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And a surface is that which has length and breadth only.</p>
+        <p class="fnd-gr">᾿Επιφάνεια δέ ἐστιν, ὃ μῆκος καὶ πλάτος μόνον ἔχει.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.6">
+      <span class="fnd-num">6</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And the extremities of a surface are lines.</p>
+        <p class="fnd-gr">᾿Επιφανείας δὲ πέρατα γραμμαί.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.7">
+      <span class="fnd-num">7</span>
+      <div class="fnd-body">
+        <p class="fnd-en">A plane surface is (any) one which lies evenly with the straight-lines on itself.</p>
+        <p class="fnd-gr">᾿Επίπεδος ἐπιφάνειά ἐστιν, ἥτις ἐξ ἴσου ταῖς ἐφ᾿ ἑαυτῆς εὐθείαις κεῖται.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.8">
+      <span class="fnd-num">8</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And a plane angle is the inclination of the lines to one another, when two lines in a plane meet one another, and are not lying in a straight-line.</p>
+        <p class="fnd-gr">᾿Επίπεδος δὲ γωνία ἐστὶν ἡ ἐν ἐπιπέδῳ δύο γραμμῶν ἁπτομένων ἀλλήλων καὶ μὴ ἐπ᾿ εὐθείας κειμένων πρὸς ἀλλήλας τῶν γραμμῶν κλίσις.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.9">
+      <span class="fnd-num">9</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And when the lines containing the angle are straight then the angle is called rectilinear.</p>
+        <p class="fnd-gr">῞Οταν δὲ αἱ περιέχουσαι τὴν γωνίαν γραμμαὶ εὐθεῖαι ὦσιν, εὐθύγραμμος καλεῖται ἡ γωνία.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.10">
+      <span class="fnd-num">10</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And when a straight-line stood upon (another) straight-line makes adjacent angles (which are) equal to one another, each of the equal angles is a right-angle, and the former straight-line is called a perpendicular to that upon which it stands.</p>
+        <p class="fnd-gr">῞Οταν δὲ εὐθεῖα ἐπ᾿ εὐθεῖαν σταθεῖσα τὰς ἐφεξῆς γωνίας ἴσας ἀλλήλαις ποιῇ, ὀρθὴ ἑκατέρα τῶν ἴσων γωνιῶν ἐστι, καὶ ἡ ἐφεστηκυῖα εὐθεῖα κάθετος καλεῖται, ἐφ᾿ ἣν ἐφέστηκεν.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.11">
+      <span class="fnd-num">11</span>
+      <div class="fnd-body">
+        <p class="fnd-en">An obtuse angle is one greater than a right-angle.</p>
+        <p class="fnd-gr">᾿Αμβλεῖα γωνία ἐστὶν ἡ μείζων ὀρθῆς.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.12">
+      <span class="fnd-num">12</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And an acute angle (is) one less than a right-angle.</p>
+        <p class="fnd-gr">᾿Οξεῖα δὲ ἡ ἐλάσσων ὀρθῆς.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.13">
+      <span class="fnd-num">13</span>
+      <div class="fnd-body">
+        <p class="fnd-en">A boundary is that which is the extremity of something.</p>
+        <p class="fnd-gr">῞Ορος ἐστίν, ὅ τινός ἐστι πέρας.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.14">
+      <span class="fnd-num">14</span>
+      <div class="fnd-body">
+        <p class="fnd-en">A figure is that which is contained by some boundary or boundaries.</p>
+        <p class="fnd-gr">Σχῆμά ἐστι τὸ ὑπό τινος ἤ τινων ὅρων περιεχόμενον.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.15">
+      <span class="fnd-num">15</span>
+      <div class="fnd-body">
+        <p class="fnd-en">A circle is a plane figure contained by a single line [which is called a circumference], (such that) all of the straight-lines radiating towards [the circumference] from one point amongst those lying inside the figure are equal to one another.</p>
+        <p class="fnd-gr">Κύκλος ἐστὶ σχῆμα ἐπίπεδον ὑπὸ μιᾶς γραμμῆς περιεχόμενον [ἣ καλεῖται περιφέρεια], πρὸς ἣν ἀφ᾿ ἑνὸς σημείου τῶν ἐντὸς τοῦ σχήματος κειμένων πᾶσαι αἱ προσπίπτουσαι εὐθεῖαι [πρὸς τὴν τοῦ κύκλου περιφέρειαν] ἴσαι ἀλλήλαις εἰσίν.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.16">
+      <span class="fnd-num">16</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And the point is called the center of the circle.</p>
+        <p class="fnd-gr">Κέντρον δὲ τοῦ κύκλου τὸ σημεῖον καλεῖται.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.17">
+      <span class="fnd-num">17</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And a diameter of the circle is any straight-line, being drawn through the center, and terminated in each direction by the circumference of the circle. (And) any such (straight-line) also cuts the circle in half.<button class="fitz-marker" data-note="This should really be counted as a postulate, rather than as part of a definition.">†</button></p>
+        <p class="fnd-gr">Διάμετρος δὲ τοῦ κύκλου ἐστὶν εὐθεῖά τις διὰ τοῦ κέντρου ἠγμένη καὶ περατουμένη ἐφ᾿ ἑκάτερα τὰ μέρη ὑπὸ τῆς τοῦ κύκλου περιφερείας, ἥτις καὶ δίχα τέμνει τὸν κύκλον.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.18">
+      <span class="fnd-num">18</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And a semi-circle is the figure contained by the diameter and the circumference cuts off by it. And the center of the semi-circle is the same (point) as (the center of) the circle.</p>
+        <p class="fnd-gr">῾Ημικύκλιον δέ ἐστι τὸ περιεχόμενον σχῆμα ὑπό τε τῆς διαμέτρου καὶ τῆς ἀπολαμβανομένης ὑπ᾿ αὐτῆς περιφερείας. κέντρον δὲ τοῦ ἡμικυκλίου τὸ αὐτό, ὃ καὶ τοῦ κύκλου ἐστίν.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.19">
+      <span class="fnd-num">19</span>
+      <div class="fnd-body">
+        <p class="fnd-en">Rectilinear figures are those (figures) contained by straight-lines: trilateral figures being those contained by three straight-lines, quadrilateral by four, and multilateral by more than four.</p>
+        <p class="fnd-gr">Σχήματα εὐθύγραμμά ἐστι τὰ ὑπὸ εὐθειῶν περιεχόμενα, τρίπλευρα μὲν τὰ ὑπὸ τριῶν, τετράπλευρα δὲ τὰ ὑπὸ τεσσάρων, πολύπλευρα δὲ τὰ ὑπὸ πλειόνων ἢ τεσσάρων εὐθειῶν περιεχόμενα.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.20">
+      <span class="fnd-num">20</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And of the trilateral figures: an equilateral triangle is that having three equal sides, an isosceles (triangle) that having only two equal sides, and a scalene (triangle) that having three unequal sides.</p>
+        <p class="fnd-gr">Τῶν δὲ τριπλεύρων σχημάτων ἰσόπλευρον μὲν τρίγωνόν ἐστι τὸ τὰς τρεῖς ἴσας ἔχον πλευράς, ἰσοσκελὲς δὲ τὸ τὰς δύο μόνας ἴσας ἔχον πλευράς, σκαληνὸν δὲ τὸ τὰς τρεῖς ἀνίσους ἔχον πλευράς.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.21">
+      <span class="fnd-num">21</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And further of the trilateral figures: a right-angled triangle is that having a right-angle, an obtuse-angled (triangle) that having an obtuse angle, and an acuteangled (triangle) that having three acute angles.</p>
+        <p class="fnd-gr">῎Ετι δὲ τῶν τριπλεύρων σχημάτων ὀρθογώνιον μὲν τρίγωνόν ἐστι τὸ ἔχον ὀρθὴν γωνίαν, ἀμβλυγώνιον δὲ τὸ ἔχον ἀμβλεῖαν γωνίαν, ὀξυγώνιον δὲ τὸ τὰς τρεῖς ὀξείας ἔχον γωνίας.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.22">
+      <span class="fnd-num">22</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And of the quadrilateral figures: a square is that which is right-angled and equilateral, a rectangle that which is right-angled but not equilateral, a rhombus that which is equilateral but not right-angled, and a rhomboid that having opposite sides and angles equal to one another which is neither right-angled nor equilateral. And let quadrilateral figures besides these be called trapezia.</p>
+        <p class="fnd-gr">Τὼν δὲ τετραπλεύρων σχημάτων τετράγωνον μέν ἐστιν, ὃ ἰσόπλευρόν τέ ἐστι καὶ ὀρθογώνιον, ἑτερόμηκες δέ, ὃ ὀρθογώνιον μέν, οὐκ ἰσόπλευρον δέ, ῥόμβος δέ, ὃ ἰσόπλευρον μέν, οὐκ ὀρθογώνιον δέ, ῥομβοειδὲς δὲ τὸ τὰς ἀπεναντίον πλευράς τε καὶ γωνίας ἴσας ἀλλήλοις ἔχον, ὃ οὔτε ἰσόπλευρόν ἐστιν οὔτε ὀρθογώνιον· τὰ δὲ παρὰ ταῦτα τετράπλευρα τραπέζια καλείσθω.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="def.23">
+      <span class="fnd-num">23</span>
+      <div class="fnd-body">
+        <p class="fnd-en">Parallel lines are straight-lines which, being in the same plane, and being produced to infinity in each direction, meet with one another in neither (of these directions).</p>
+        <p class="fnd-gr">Παράλληλοί εἰσιν εὐθεῖαι, αἵτινες ἐν τῷ αὐτῷ ἐπιπέδῳ οὖσαι καὶ ἐκβαλλόμεναι εἰς ἄπειρον ἐφ᾿ ἑκάτερα τὰ μέρη ἐπὶ μηδέτερα συμπίπτουσιν ἀλλήλαις.</p>
+      </div>
+    </li>
+
+  </ol>
+
+  <!-- ═══════════════════════════ POSTULATES ═══════════════════════════ -->
+
+  <h2 class="fnd-section-head">Postulates</h2>
+  <ol class="fnd-list">
+
+    <li class="fnd-item" id="post.1">
+      <span class="fnd-num">1</span>
+      <div class="fnd-body">
+        <p class="fnd-en">Let it have been postulated<button class="fitz-marker" data-note="The Greek present perfect tense indicates a past action with present significance. The literal translation &#x2018;let it have been postulated&#x2019; more accurately captures the meaning of the Greek.">†</button> to draw a straight-line from any point to any point.</p>
+        <p class="fnd-gr">᾿Ηιτήσθω ἀπὸ παντὸς σημείου ἐπὶ πᾶν σημεῖον εὐθεῖαν γραμμὴν ἀγαγεῖν.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="post.2">
+      <span class="fnd-num">2</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And to produce a finite straight-line continuously in a straight-line.</p>
+        <p class="fnd-gr">Καὶ πεπερασμένην εὐθεῖαν κατὰ τὸ συνεχὲς ἐπ᾿ εὐθείας ἐκβαλεῖν.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="post.3">
+      <span class="fnd-num">3</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And to draw a circle with any center and radius.</p>
+        <p class="fnd-gr">Καὶ παντὶ κέντρῳ καὶ διαστήματι κύκλον γράφεσθαι.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="post.4">
+      <span class="fnd-num">4</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And that all right-angles are equal to one another.</p>
+        <p class="fnd-gr">Καὶ πάσας τὰς ὀρθὰς γωνίας ἴσας ἀλλήλαις εἶναι.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="post.5">
+      <span class="fnd-num">5</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And that if a straight-line falling across two (other) straight-lines makes internal angles on the same side (of itself whose sum is) less than two right-angles, then the two (other) straight-lines, being produced to infinity, meet on that side (of the original straight-line) that the (sum of the internal angles) is less than two right-angles (and do not meet on the other side).<button class="fitz-marker" data-note="This postulate effectively specifies that we are dealing with the geometry of flat, rather than curved, space.">‡</button></p>
+        <p class="fnd-gr">Καὶ ἐὰν εἰς δύο εὐθείας εὐθεῖα ἐμπίπτουσα τὰς ἐντὸς καὶ ἐπὶ τὰ αὐτὰ μέρη γωνίας δύο ὀρθῶν ἐλάσσονας ποιῇ, ἐκβαλλομένας τὰς δύο εὐθείας ἐπ᾿ ἄπειρον συμπίπτειν, ἐφ᾿ ἃ μέρη εἰσίν αἱ τῶν δύο ὀρθῶν ἐλάσσονες.</p>
+      </div>
+    </li>
+
+  </ol>
+
+</main>
+
+<footer id="site-footer">
+  <span>Text: Heiberg (1883–85) Greek &amp; Fitzpatrick English &mdash; public domain.</span>
+  <span class="kbd-hint"><kbd>←</kbd><kbd>→</kbd> navigate · click <kbd>†</kbd> for notes</span>
+</footer>
+
+<script>
+function setLang(l) {
+  document.body.setAttribute('data-lang', l);
+  localStorage.setItem('youklid.lang', l);
+  document.querySelectorAll('.lang').forEach(function(b) {
+    b.setAttribute('aria-pressed', b.dataset.lang === l ? 'true' : 'false');
+  });
+}
+function toggleTheme() {
+  var t = document.body.getAttribute('data-theme') === 'dark' ? 'parchment' : 'dark';
+  document.body.setAttribute('data-theme', t);
+  localStorage.setItem('youklid.theme', t);
+  document.getElementById('theme-btn').textContent = t === 'dark' ? '☾' : '◐';
+}
+// Keyboard nav
+document.addEventListener('keydown', function(e) {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === 'ArrowRight') { window.location.href = './cn.html'; e.preventDefault(); }
+  if (e.key === 'l' || e.key === 'L') { setLang(document.body.getAttribute('data-lang') === 'en' ? 'gr' : 'en'); e.preventDefault(); }
+  if (e.key === 't' || e.key === 'T') { toggleTheme(); e.preventDefault(); }
+  if (e.key === 'm' || e.key === 'M') { window.location.href = './youklidmap.html'; e.preventDefault(); }
+});
+// Fitzpatrick note popovers
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('.fitz-marker');
+  if (!btn) { document.querySelectorAll('.fitz-popover').forEach(function(p){p.remove();}); return; }
+  e.stopPropagation();
+  var existing = btn.nextElementSibling;
+  if (existing && existing.classList.contains('fitz-popover')) { existing.remove(); return; }
+  document.querySelectorAll('.fitz-popover').forEach(function(p){p.remove();});
+  var pop = document.createElement('span');
+  pop.className = 'fitz-popover';
+  pop.setAttribute('role', 'tooltip');
+  var sym = btn.textContent.trim();
+  var note = btn.getAttribute('data-note');
+  pop.innerHTML = '<span class="fitz-pop-sym">' + sym + '</span> <span class="fitz-pop-text">' + note + '</span>';
+  btn.insertAdjacentElement('afterend', pop);
+});
+// Sync initial state
+(function(){
+  var l = document.body.getAttribute('data-lang');
+  document.querySelectorAll('.lang').forEach(function(b) {
+    b.setAttribute('aria-pressed', b.dataset.lang === l ? 'true' : 'false');
+  });
+  var t = document.body.getAttribute('data-theme');
+  document.getElementById('theme-btn').textContent = t === 'dark' ? '☾' : '◐';
+})();
+</script>
+</body>
+</html>
