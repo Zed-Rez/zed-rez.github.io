@@ -981,39 +981,39 @@ function drawMap(ref) {
 //   longestTo[u] + 1 + longestFrom[v] === maxPath
 // So a direct shortcut u→v is skipped whenever a longer path through an
 // intermediate already reaches v (e.g. 4→9 is skipped because 4→5→9 exists).
-function computeCriticalEdges(propGraph, N) {
-  // Transitive-reduction of direct prop dependencies.
-  //
-  // For each proposition P, its direct predecessors D(P) include both "essential"
-  // ones and "redundant" ones (those already implied by another direct predecessor).
-  // A predecessor d ∈ D(P) is redundant if some other d' ∈ D(P) transitively
-  // depends on d — meaning proving d' already requires proving d, so the explicit
-  // edge d→P carries no additional information.
-  //
-  // Example: if P depends on {4, 5} and 5 depends on {4}, then:
-  //   ancestors[5] contains 4  →  edge 4→P is redundant, only 5→P is bold.
-  //
-  // Step 1: precompute all transitive ancestors for each prop (topological order).
+// Transitive reduction of ALL direct dependencies (props + foundations).
+// For each proposition P with direct deps D(P), dep d is redundant iff some
+// other d' ∈ D(P) has d as a transitive ancestor (meaning proving d' already
+// requires d, so the explicit d→P edge adds nothing).
+// Returns a Set of "u->v" strings for non-redundant (bold) edges.
+function computeCriticalEdges(data, N) {
+  const props = data.propositions;
+
+  // Foundations are roots — their ancestors are empty.
   const ancestors = {};
+  [['postulates','post'],['definitions','def'],['common_notions','cn']].forEach(([key,kk]) => {
+    (data[key] || []).forEach((_, i) => { ancestors[`${kk}.${i+1}`] = new Set(); });
+  });
+
+  // Props: ancestors = all transitive deps (props + foundations), topo order.
   for (let n = 1; n <= N; n++) {
     const ref = `prop.${n}`;
     ancestors[ref] = new Set();
-    const pg = propGraph[ref];
-    (pg ? pg.deps_props || [] : []).forEach(depRef => {
-      ancestors[ref].add(depRef);                          // direct dep
-      (ancestors[depRef] || new Set()).forEach(a => ancestors[ref].add(a)); // transitive
+    const p = props[n - 1];
+    (p ? p.deps || [] : []).forEach(depRef => {
+      ancestors[ref].add(depRef);
+      (ancestors[depRef] || new Set()).forEach(a => ancestors[ref].add(a));
     });
   }
 
-  // Step 2: for each prop P, keep only the non-redundant direct deps.
-  // d is redundant iff some other d' ∈ D(P) has d in ancestors[d'].
+  // For each prop, keep only non-redundant deps.
   const critical = new Set();
   for (let n = 1; n <= N; n++) {
     const ref = `prop.${n}`;
-    const pg = propGraph[ref];
-    const directDeps = pg ? pg.deps_props || [] : [];
-    directDeps.forEach(d => {
-      const redundant = directDeps.some(d2 => d2 !== d && ancestors[d2] && ancestors[d2].has(d));
+    const p = props[n - 1];
+    const allDeps = p ? p.deps || [] : [];
+    allDeps.forEach(d => {
+      const redundant = allDeps.some(d2 => d2 !== d && ancestors[d2] && ancestors[d2].has(d));
       if (!redundant) critical.add(`${d}->${ref}`);
     });
   }
@@ -1023,40 +1023,31 @@ function computeCriticalEdges(propGraph, N) {
 function drawFullGraph() {
   const svg = $('#map-svg');
   svg.innerHTML = '';
-  // Use clientWidth (always reliable) rather than svg.getBoundingClientRect()
-  // which returns 0 before first layout pass.
   const W = Math.max(700, document.documentElement.clientWidth);
-  // Reset scroll to top so the graph always starts visible at the first layer.
   const mapWrap = $('#map-canvas-wrap');
-  if (mapWrap) mapWrap.scrollTop = 0;
 
-  const ns = 'http://www.w3.org/2000/svg';
+  const ns  = 'http://www.w3.org/2000/svg';
   const data = STATE.data;
   const props = data.propositions;
-
-  // Compute depth for each proposition:
-  // depth = 1 + max depth of its prop dependencies (props with no prop deps get depth 0)
-  const depthMap = {};
   const propGraph = data.prop_graph;
 
+  // ── Proposition depth layers ──────────────────────────────────────────
+  const depthMap = {};
   function getDepth(ref) {
     if (depthMap[ref] !== undefined) return depthMap[ref];
-    depthMap[ref] = -1; // guard against cycles
+    depthMap[ref] = -1;
     const pg = propGraph[ref];
     const propDeps = pg ? pg.deps_props : [];
-    if (!propDeps || propDeps.length === 0) {
-      depthMap[ref] = 0;
-    } else {
+    if (!propDeps || propDeps.length === 0) { depthMap[ref] = 0; }
+    else {
       let maxD = 0;
-      // deps_props are full ref strings like "prop.1"
-      propDeps.forEach(depRef => { maxD = Math.max(maxD, getDepth(depRef) + 1); });
+      propDeps.forEach(d => { maxD = Math.max(maxD, getDepth(d) + 1); });
       depthMap[ref] = maxD;
     }
     return depthMap[ref];
   }
   props.forEach(p => getDepth(`prop.${p.n}`));
 
-  // Group by depth layer
   const layers = {};
   props.forEach(p => {
     const d = depthMap[`prop.${p.n}`];
@@ -1064,100 +1055,148 @@ function drawFullGraph() {
     layers[d].push(p.n);
   });
   const layerKeys = Object.keys(layers).map(Number).sort((a, b) => a - b);
-  const numLayers = layerKeys.length;
 
-  const padX = 32, padY = 48;
-  const layerH = 90; // fixed per-layer height — content drives SVG height, not the other way
-  const H = padY * 2 + numLayers * layerH;
+  // ── Foundation layers (scrollable above props) ────────────────────────
+  // Order top-to-bottom: Definitions, Postulates, Common Notions.
+  // Each is one row. Users scroll UP from the prop layers to see them.
+  const FOUND = [
+    { kind: 'def',  arr: data.definitions    || [], label: 'Def.',  prefix: 'Df.' },
+    { kind: 'post', arr: data.postulates     || [], label: 'Post.', prefix: 'P.'  },
+    { kind: 'cn',   arr: data.common_notions || [], label: 'C.N.',  prefix: 'CN.' },
+  ].filter(f => f.arr.length > 0);
+  const N_found = FOUND.length;
+
+  // ── Geometry ──────────────────────────────────────────────────────────
+  const padX = 32, padY = 48, layerH = 90;
+  const totalLayers = N_found + layerKeys.length;
+  const H = padY * 2 + totalLayers * layerH;
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
   svg.setAttribute('height', H);
 
   const nodeW = 44, nodeH = 22, nodeRx = 4;
 
-  // Position map: ref -> {x, y}
+  // ── Position map ──────────────────────────────────────────────────────
   const posMap = {};
+  FOUND.forEach((fl, fli) => {
+    const y = padY + fli * layerH + layerH / 2;
+    const slotW = (W - padX * 2) / Math.max(1, fl.arr.length);
+    fl.arr.forEach((_, i) => {
+      const ref = `${fl.kind}.${i + 1}`;
+      posMap[ref] = { x: padX + slotW * i + slotW / 2, y, ref };
+    });
+  });
   layerKeys.forEach((lk, li) => {
+    const y = padY + (N_found + li) * layerH + layerH / 2;
     const group = layers[lk];
-    const count = group.length;
-    const slotW = (W - padX * 2) / Math.max(1, count);
-    const y = padY + li * layerH + layerH / 2;
+    const slotW = (W - padX * 2) / Math.max(1, group.length);
     group.forEach((pn, i) => {
-      const x = padX + slotW * i + slotW / 2;
-      posMap[`prop.${pn}`] = {x, y, ref: `prop.${pn}`};
+      posMap[`prop.${pn}`] = { x: padX + slotW * i + slotW / 2, y, ref: `prop.${pn}` };
     });
   });
 
-  // Compute which edges lie on the longest dependency chain
-  const criticalEdges = computeCriticalEdges(propGraph, props.length);
+  // ── Critical edges (transitive reduction over all deps) ───────────────
+  const criticalEdges = computeCriticalEdges(data, props.length);
 
-  // Draw edges first (under nodes)
+  // ── Build edges — collect into two arrays so critical renders on top ──
+  const thinPaths = [], boldPaths = [];
+  function makeEdgePath(from, to, isCritical) {
+    const path = document.createElementNS(ns, 'path');
+    const dy = Math.abs(to.y - from.y);
+    path.setAttribute('d',
+      `M ${from.x} ${from.y - nodeH/2}` +
+      ` C ${from.x} ${from.y - nodeH/2 - dy*0.4},` +
+      ` ${to.x} ${to.y + nodeH/2 + dy*0.4},` +
+      ` ${to.x} ${to.y + nodeH/2}`
+    );
+    path.setAttribute('class', isCritical ? 'edge critical-edge' : 'edge');
+    (isCritical ? boldPaths : thinPaths).push(path);
+  }
+
+  // Prop → prop dep edges
   props.forEach(p => {
     const ref = `prop.${p.n}`;
     const pg = propGraph[ref];
     if (!pg) return;
     const from = posMap[ref];
     (pg.deps_props || []).forEach(depRef => {
-      const to = posMap[depRef];  // depRef is already "prop.N"
-      if (!from || !to) return;
-      const path = document.createElementNS(ns, 'path');
-      const dy = to.y - from.y;
-      const d = `M ${from.x} ${from.y - nodeH/2} C ${from.x} ${from.y - nodeH/2 - Math.abs(dy)*0.4}, ${to.x} ${to.y + nodeH/2 + Math.abs(dy)*0.4}, ${to.x} ${to.y + nodeH/2}`;
-      path.setAttribute('d', d);
-      const isCritical = criticalEdges.has(`${depRef}->${ref}`);
-      path.setAttribute('class', isCritical ? 'edge critical-edge' : 'edge');
-      svg.appendChild(path);
+      const to = posMap[depRef];
+      if (from && to) makeEdgePath(from, to, criticalEdges.has(`${depRef}->${ref}`));
+    });
+  });
+  // Foundation → prop dep edges
+  props.forEach(p => {
+    const ref = `prop.${p.n}`;
+    const from = posMap[ref];
+    (p.deps || []).forEach(dep => {
+      if (dep.startsWith('prop.')) return;
+      const to = posMap[dep];
+      if (from && to) makeEdgePath(from, to, criticalEdges.has(`${dep}->${ref}`));
     });
   });
 
-  // Draw nodes
-  const selectedRef = STATE.currentMapRef && STATE.currentMapRef.startsWith('prop.') ? STATE.currentMapRef : null;
-  props.forEach(p => {
-    const ref = `prop.${p.n}`;
+  // Thin edges first, bold edges on top, nodes above everything
+  thinPaths.forEach(el => svg.appendChild(el));
+  boldPaths.forEach(el => svg.appendChild(el));
+
+  // ── Draw nodes ────────────────────────────────────────────────────────
+  const selectedRef = STATE.currentMapRef || null;
+  function makeNode(ref, label, kindClass) {
     const pos = posMap[ref];
     if (!pos) return;
     const isSeed = ref === selectedRef;
-
     const g = document.createElementNS(ns, 'g');
-    g.setAttribute('class', isSeed ? 'node seed' : 'node');
+    const cls = ['node', kindClass, isSeed ? 'seed' : ''].filter(Boolean).join(' ');
+    g.setAttribute('class', cls);
     g.setAttribute('transform', `translate(${pos.x}, ${pos.y})`);
     g.setAttribute('data-map-ref', ref);
     g.style.cursor = 'pointer';
     g.addEventListener('click', () => {
       STATE.currentMapRef = ref;
-      updateHash();
-      updateMapInfoStrip(ref);
-      highlightMapNode(ref);
+      updateHash(); updateMapInfoStrip(ref); highlightMapNode(ref);
     });
-    g.addEventListener('mouseenter', (e) => showMapTooltip(e, ref));
+    g.addEventListener('mouseenter', e => showMapTooltip(e, ref));
     g.addEventListener('mouseleave', () => hideMapTooltip());
-
     const r = document.createElementNS(ns, 'rect');
     r.setAttribute('x', -nodeW/2); r.setAttribute('y', -nodeH/2);
     r.setAttribute('width', nodeW); r.setAttribute('height', nodeH);
     r.setAttribute('rx', nodeRx);
     g.appendChild(r);
-
     const t = document.createElementNS(ns, 'text');
-    t.setAttribute('y', 1);
-    t.textContent = `§ ${p.n}`;
+    t.setAttribute('y', 1); t.textContent = label;
     g.appendChild(t);
-
     const title = document.createElementNS(ns, 'title');
     title.textContent = refToTitle(ref);
     g.appendChild(title);
-
     svg.appendChild(g);
-  });
+  }
 
-  // Layer depth labels on the left
-  layerKeys.forEach((lk, li) => {
-    const y = padY + li * layerH + layerH / 2 + 4;
+  // Foundation nodes (dashed-border style via CSS class)
+  FOUND.forEach(fl => {
+    fl.arr.forEach((_, i) => makeNode(`${fl.kind}.${i+1}`, `${fl.prefix}${i+1}`, fl.kind));
+  });
+  // Proposition nodes
+  props.forEach(p => makeNode(`prop.${p.n}`, `§ ${p.n}`, ''));
+
+  // ── Layer labels ──────────────────────────────────────────────────────
+  FOUND.forEach((fl, fli) => {
     const tl = document.createElementNS(ns, 'text');
-    tl.setAttribute('x', 4); tl.setAttribute('y', y);
+    tl.setAttribute('x', 4);
+    tl.setAttribute('y', padY + fli * layerH + layerH / 2 + 4);
+    tl.setAttribute('class', 'layer-label');
+    tl.textContent = fl.label;
+    svg.appendChild(tl);
+  });
+  layerKeys.forEach((lk, li) => {
+    const tl = document.createElementNS(ns, 'text');
+    tl.setAttribute('x', 4);
+    tl.setAttribute('y', padY + (N_found + li) * layerH + layerH / 2 + 4);
     tl.setAttribute('class', 'layer-label');
     tl.textContent = `d${lk}`;
     svg.appendChild(tl);
   });
+
+  // ── Scroll: start at proposition layers (foundations above, scroll up) ─
+  if (mapWrap) mapWrap.scrollTop = N_found * layerH;
 }
 
 // ============================================================
@@ -1206,33 +1245,30 @@ function updateMapInfoStrip(ref) {
 }
 
 function highlightMapNode(ref) {
-  // Remove existing highlights
   $$('.map-node-selected, .map-node-adjacent').forEach(el => {
     el.classList.remove('map-node-selected', 'map-node-adjacent');
   });
   if (!ref) return;
   const data = STATE.data;
-
-  // Find adjacent refs (predecessors + successors)
   const adjacent = new Set();
+
   if (ref.startsWith('prop.')) {
+    // Proposition: highlight its direct deps (incl. foundations) + direct successors
     const n = parseInt(ref.split('.')[1], 10);
     const p = data.propositions[n - 1];
     if (p) {
       (p.deps || []).forEach(d => adjacent.add(d));
-      // Also use prop_graph deps_props if available
-      const pg = data.prop_graph && data.prop_graph[ref];
-      if (pg) (pg.deps_props || []).forEach(d => adjacent.add(d));
-      // Find propositions that depend on this one
       data.propositions.forEach((pp, i) => {
-        const ppRef = `prop.${i + 1}`;
-        const ppg = data.prop_graph && data.prop_graph[ppRef];
-        if (ppg && (ppg.deps_props || []).includes(ref)) adjacent.add(ppRef);
+        if ((pp.deps || []).includes(ref)) adjacent.add(`prop.${i + 1}`);
       });
     }
+  } else {
+    // Foundation ref: highlight all props that directly depend on it
+    data.propositions.forEach((pp, i) => {
+      if ((pp.deps || []).includes(ref)) adjacent.add(`prop.${i + 1}`);
+    });
   }
 
-  // Apply classes
   $$('[data-map-ref]').forEach(g => {
     const r = g.getAttribute('data-map-ref');
     if (r === ref) g.classList.add('map-node-selected');
