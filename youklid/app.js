@@ -1070,8 +1070,12 @@ function drawFullGraph() {
   const layerKeys = Object.keys(layers).map(Number).sort((a, b) => a - b);
   const numLayers = layerKeys.length;
 
-  const padX = 32, padY = 40;
-  const layerH = Math.max(48, Math.floor((H - padY * 2) / Math.max(1, numLayers)));
+  const padX = 32, padY = 48;
+  const layerH = 90; // fixed per-layer height — content drives SVG height, not the other way
+  const H = padY * 2 + numLayers * layerH;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('height', H);
+
   const nodeW = 44, nodeH = 22, nodeRx = 4;
 
   // Position map: ref -> {x, y}
@@ -1087,6 +1091,9 @@ function drawFullGraph() {
     });
   });
 
+  // Compute which edges lie on the longest dependency chain
+  const criticalEdges = computeCriticalEdges(propGraph, props.length);
+
   // Draw edges first (under nodes)
   props.forEach(p => {
     const ref = `prop.${p.n}`;
@@ -1100,7 +1107,8 @@ function drawFullGraph() {
       const dy = to.y - from.y;
       const d = `M ${from.x} ${from.y - nodeH/2} C ${from.x} ${from.y - nodeH/2 - Math.abs(dy)*0.4}, ${to.x} ${to.y + nodeH/2 + Math.abs(dy)*0.4}, ${to.x} ${to.y + nodeH/2}`;
       path.setAttribute('d', d);
-      path.setAttribute('class', 'edge');
+      const isCritical = criticalEdges.has(`${depRef}->${ref}`);
+      path.setAttribute('class', isCritical ? 'edge critical-edge' : 'edge');
       svg.appendChild(path);
     });
   });
@@ -1114,7 +1122,7 @@ function drawFullGraph() {
     const isSeed = ref === selectedRef;
 
     const g = document.createElementNS(ns, 'g');
-    g.setAttribute('class', `node ${isSeed ? 'seed' : 'successor'}`);
+    g.setAttribute('class', isSeed ? 'node seed' : 'node');
     g.setAttribute('transform', `translate(${pos.x}, ${pos.y})`);
     g.setAttribute('data-map-ref', ref);
     g.style.cursor = 'pointer';
