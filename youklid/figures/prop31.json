@@ -1,0 +1,35 @@
+{
+  "prop": 31,
+  "viewBox": [0, 0, 500, 300],
+  "points": {
+    "B": { "x": 60,  "y": 220, "label": "bottom-left" },
+    "C": { "x": 420, "y": 220, "label": "bottom-right" },
+    "D": { "x": 220, "y": 220, "label": "bottom" },
+    "A": { "x": 200, "y": 100, "label": "top" },
+    "E": { "x": 60,  "y": 100, "label": "left" },
+    "F": { "x": 420, "y": 100, "label": "right" }
+  },
+  "elements": [
+    { "id": "seg_BC", "kind": "segment", "from": "B", "to": "C" },
+    { "id": "seg_EF", "kind": "segment", "from": "E", "to": "F" },
+    { "id": "seg_AD", "kind": "segment", "from": "A", "to": "D" },
+    { "id": "pt_B",  "kind": "point", "at": "B" },
+    { "id": "pt_C",  "kind": "point", "at": "C" },
+    { "id": "pt_D",  "kind": "point", "at": "D" },
+    { "id": "pt_A",  "kind": "point", "at": "A" },
+    { "id": "pt_E",  "kind": "point", "at": "E" },
+    { "id": "pt_F",  "kind": "point", "at": "F" },
+    { "id": "arc_ADB", "kind": "arc", "vertex": "D", "ray1": "A", "ray2": "B", "radius": 28, "count": 1 },
+    { "id": "arc_DAE", "kind": "arc", "vertex": "A", "ray1": "D", "ray2": "E", "radius": 28, "count": 1 }
+  ],
+  "steps": [
+    { "arg": 0, "introduce": ["pt_A", "seg_BC", "pt_B", "pt_C"], "focus": "seg_BC", "emphasize": [] },
+    { "arg": 1, "introduce": [], "focus": "pt_A", "emphasize": [] },
+    { "arg": 2, "introduce": ["pt_D", "seg_AD"], "focus": "seg_AD", "emphasize": [] },
+    { "arg": 3, "introduce": ["arc_ADB", "arc_DAE"], "focus": "arc_DAE", "emphasize": ["arc_ADB", "arc_DAE"] },
+    { "arg": 4, "introduce": ["seg_EF", "pt_E", "pt_F"], "focus": "seg_EF", "emphasize": [] },
+    { "arg": 5, "introduce": [], "focus": "seg_AD", "emphasize": ["arc_ADB", "arc_DAE"] },
+    { "arg": 6, "introduce": [], "focus": "seg_EF", "emphasize": ["seg_EF", "seg_BC"] },
+    { "arg": 7, "introduce": [], "focus": "seg_EF", "emphasize": [] }
+  ]
+}

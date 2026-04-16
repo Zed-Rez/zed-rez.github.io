@@ -1,0 +1,43 @@
+{
+  "prop": 39,
+  "viewBox": [0, 0, 500, 300],
+  "points": {
+    "A": { "x": 120, "y": 80,  "label": "top-left" },
+    "D": { "x": 360, "y": 80,  "label": "top-right" },
+    "E": { "x": 340, "y": 80,  "label": "top-right" },
+    "B": { "x": 100, "y": 240, "label": "bottom-left" },
+    "C": { "x": 320, "y": 240, "label": "bottom-right" }
+  },
+  "elements": [
+    { "id": "poly_ABC", "kind": "polygon", "vertices": ["A", "B", "C"] },
+    { "id": "poly_DBC", "kind": "polygon", "vertices": ["D", "B", "C"] },
+    { "id": "seg_AD",   "kind": "segment", "from": "A", "to": "D" },
+    { "id": "seg_BC",   "kind": "segment", "from": "B", "to": "C" },
+    { "id": "seg_AB",   "kind": "segment", "from": "A", "to": "B" },
+    { "id": "seg_AC",   "kind": "segment", "from": "A", "to": "C" },
+    { "id": "seg_DB",   "kind": "segment", "from": "D", "to": "B" },
+    { "id": "seg_DC",   "kind": "segment", "from": "D", "to": "C" },
+    { "id": "seg_AE",   "kind": "segment", "from": "A", "to": "E" },
+    { "id": "pt_A",  "kind": "point", "at": "A" },
+    { "id": "pt_D",  "kind": "point", "at": "D" },
+    { "id": "pt_B",  "kind": "point", "at": "B" },
+    { "id": "pt_C",  "kind": "point", "at": "C" }
+  ],
+  "steps": [
+    { "arg": 0,  "introduce": ["poly_ABC", "poly_DBC", "seg_AD", "seg_BC", "seg_AB", "seg_AC", "seg_DB", "seg_DC", "pt_A", "pt_D", "pt_B", "pt_C"], "focus": "seg_BC", "emphasize": ["poly_ABC", "poly_DBC"] },
+    { "arg": 1,  "introduce": [], "focus": "seg_AD", "emphasize": [] },
+    { "arg": 2,  "introduce": [], "focus": "seg_AD", "emphasize": [] },
+    { "arg": 3,  "introduce": [], "focus": "seg_AD", "emphasize": [] },
+    { "arg": 4,  "introduce": ["seg_AE"], "focus": "seg_AE", "emphasize": [] },
+    { "arg": 5,  "introduce": [], "focus": "poly_ABC", "emphasize": ["poly_ABC"] },
+    { "arg": 6,  "introduce": [], "focus": "poly_ABC", "emphasize": [] },
+    { "arg": 7,  "introduce": [], "focus": "poly_DBC", "emphasize": ["poly_DBC"] },
+    { "arg": 8,  "introduce": [], "focus": "poly_DBC", "emphasize": [] },
+    { "arg": 9,  "introduce": [], "focus": "seg_AE", "emphasize": [] },
+    { "arg": 10, "introduce": [], "focus": "seg_AE", "emphasize": [] },
+    { "arg": 11, "introduce": [], "focus": "seg_AD", "emphasize": [] },
+    { "arg": 12, "introduce": [], "focus": "seg_AD", "emphasize": ["seg_AD", "seg_BC"] },
+    { "arg": 13, "introduce": [], "focus": "seg_AD", "emphasize": ["seg_AD", "seg_BC"] },
+    { "arg": 14, "introduce": [], "focus": "seg_AD", "emphasize": [] }
+  ]
+}

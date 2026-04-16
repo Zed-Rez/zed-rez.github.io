@@ -1,0 +1,82 @@
+{
+  "prop": 10,
+  "viewBox": [0, 0, 420, 320],
+  "points": {
+    "A": { "x": 80,  "y": 260, "label": "bottom-left" },
+    "B": { "x": 340, "y": 260, "label": "bottom-right" },
+    "C": { "x": 210, "y": 47,  "label": "top" },
+    "D": { "x": 210, "y": 260, "label": "bottom" }
+  },
+  "elements": [
+    { "id": "poly_ABC",  "kind": "polygon", "vertices": ["A","B","C"] },
+    { "id": "seg_AB",    "kind": "segment", "from": "A", "to": "B" },
+    { "id": "seg_CA",    "kind": "segment", "from": "C", "to": "A" },
+    { "id": "seg_CB",    "kind": "segment", "from": "C", "to": "B" },
+    { "id": "seg_CD",    "kind": "segment", "from": "C", "to": "D" },
+    { "id": "pt_A",      "kind": "point",   "at": "A" },
+    { "id": "pt_B",      "kind": "point",   "at": "B" },
+    { "id": "pt_C",      "kind": "point",   "at": "C" },
+    { "id": "pt_D",      "kind": "point",   "at": "D" },
+    { "id": "tick_AD",   "kind": "tick",    "on": "seg_AB", "count": 1 },
+    { "id": "tick_DB",   "kind": "tick",    "on": "seg_AB", "count": 1 },
+    { "id": "tick_CA",   "kind": "tick",    "on": "seg_CA", "count": 2 },
+    { "id": "tick_CB",   "kind": "tick",    "on": "seg_CB", "count": 2 },
+    { "id": "arc_C",     "kind": "arc",     "vertex": "C", "ray1": "A", "ray2": "B", "radius": 28, "count": 1 }
+  ],
+  "steps": [
+    {
+      "arg": 0,
+      "introduce": ["seg_AB","pt_A","pt_B"],
+      "focus": "seg_AB",
+      "emphasize": []
+    },
+    {
+      "arg": 1,
+      "introduce": [],
+      "focus": "seg_AB",
+      "emphasize": []
+    },
+    {
+      "arg": 2,
+      "introduce": ["poly_ABC","seg_CA","seg_CB","pt_C","pt_D","seg_CD","tick_CA","tick_CB","arc_C"],
+      "focus": "poly_ABC",
+      "emphasize": ["tick_CA","tick_CB"]
+    },
+    {
+      "arg": 3,
+      "introduce": [],
+      "focus": "seg_CD",
+      "emphasize": []
+    },
+    {
+      "arg": 4,
+      "introduce": [],
+      "focus": "seg_CD",
+      "emphasize": ["seg_CA","seg_CB","seg_CD"]
+    },
+    {
+      "arg": 5,
+      "introduce": [],
+      "focus": "arc_C",
+      "emphasize": ["arc_C"]
+    },
+    {
+      "arg": 6,
+      "introduce": ["tick_AD","tick_DB"],
+      "focus": "seg_AB",
+      "emphasize": ["tick_AD","tick_DB"]
+    },
+    {
+      "arg": 7,
+      "introduce": [],
+      "focus": "pt_D",
+      "emphasize": ["tick_AD","tick_DB"]
+    },
+    {
+      "arg": 8,
+      "introduce": [],
+      "focus": "seg_AB",
+      "emphasize": []
+    }
+  ]
+}

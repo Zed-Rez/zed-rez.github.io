@@ -1,0 +1,86 @@
+{
+  "prop": 12,
+  "viewBox": [0, 0, 480, 320],
+  "points": {
+    "A": { "x": 30,  "y": 220, "label": "left" },
+    "B": { "x": 450, "y": 220, "label": "right" },
+    "C": { "x": 240, "y": 60,  "label": "top" },
+    "G": { "x": 130, "y": 220, "label": "bottom-left" },
+    "E": { "x": 350, "y": 220, "label": "bottom-right" },
+    "H": { "x": 240, "y": 280, "label": "bottom" },
+    "D": { "x": 240, "y": 220, "label": "bottom" }
+  },
+  "elements": [
+    { "id": "circ_C",   "kind": "circle",  "center": "C", "through": "G" },
+    { "id": "seg_AB",   "kind": "segment", "from": "A", "to": "B" },
+    { "id": "seg_CG",   "kind": "segment", "from": "C", "to": "G" },
+    { "id": "seg_CE",   "kind": "segment", "from": "C", "to": "E" },
+    { "id": "seg_CD",   "kind": "segment", "from": "C", "to": "D" },
+    { "id": "pt_A",     "kind": "point",   "at": "A" },
+    { "id": "pt_B",     "kind": "point",   "at": "B" },
+    { "id": "pt_C",     "kind": "point",   "at": "C" },
+    { "id": "pt_G",     "kind": "point",   "at": "G" },
+    { "id": "pt_E",     "kind": "point",   "at": "E" },
+    { "id": "pt_H",     "kind": "point",   "at": "H" },
+    { "id": "pt_D",     "kind": "point",   "at": "D" },
+    { "id": "tick_DG",  "kind": "tick",    "on": "seg_CG", "count": 1 },
+    { "id": "tick_DE",  "kind": "tick",    "on": "seg_CE", "count": 1 },
+    { "id": "arc_D",    "kind": "arc",     "vertex": "D", "ray1": "G", "ray2": "E", "radius": 22, "count": 1 }
+  ],
+  "steps": [
+    {
+      "arg": 0,
+      "introduce": ["seg_AB","pt_A","pt_B","pt_C"],
+      "focus": "seg_AB",
+      "emphasize": []
+    },
+    {
+      "arg": 1,
+      "introduce": [],
+      "focus": "seg_AB",
+      "emphasize": []
+    },
+    {
+      "arg": 2,
+      "introduce": ["pt_H","circ_C","pt_G","pt_E","seg_CG","seg_CE"],
+      "focus": "circ_C",
+      "emphasize": []
+    },
+    {
+      "arg": 3,
+      "introduce": ["pt_D","seg_CD","tick_DG","tick_DE"],
+      "focus": "seg_CD",
+      "emphasize": ["tick_DG","tick_DE"]
+    },
+    {
+      "arg": 4,
+      "introduce": [],
+      "focus": "seg_CD",
+      "emphasize": ["seg_CG","seg_CE","seg_CD"]
+    },
+    {
+      "arg": 5,
+      "introduce": [],
+      "focus": "seg_CD",
+      "emphasize": ["seg_CD"]
+    },
+    {
+      "arg": 6,
+      "introduce": [],
+      "focus": "seg_CD",
+      "emphasize": []
+    },
+    {
+      "arg": 7,
+      "introduce": ["arc_D"],
+      "focus": "arc_D",
+      "emphasize": ["arc_D","seg_CD"]
+    },
+    {
+      "arg": 8,
+      "introduce": [],
+      "focus": "seg_CD",
+      "emphasize": []
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "prop": 34,
+  "viewBox": [0, 0, 480, 320],
+  "points": {
+    "A": { "x": 80,  "y": 80,  "label": "top-left" },
+    "C": { "x": 340, "y": 80,  "label": "top-right" },
+    "D": { "x": 380, "y": 240, "label": "bottom-right" },
+    "B": { "x": 120, "y": 240, "label": "bottom-left" }
+  },
+  "elements": [
+    { "id": "poly_ACDB", "kind": "polygon", "vertices": ["A", "C", "D", "B"] },
+    { "id": "seg_AC", "kind": "segment", "from": "A", "to": "C" },
+    { "id": "seg_CD", "kind": "segment", "from": "C", "to": "D" },
+    { "id": "seg_DB", "kind": "segment", "from": "D", "to": "B" },
+    { "id": "seg_BA", "kind": "segment", "from": "B", "to": "A" },
+    { "id": "seg_BC", "kind": "segment", "from": "B", "to": "C" },
+    { "id": "pt_A",  "kind": "point", "at": "A" },
+    { "id": "pt_C",  "kind": "point", "at": "C" },
+    { "id": "pt_D",  "kind": "point", "at": "D" },
+    { "id": "pt_B",  "kind": "point", "at": "B" },
+    { "id": "tick_AC", "kind": "tick", "on": "seg_AC", "count": 2 },
+    { "id": "tick_BD", "kind": "tick", "on": "seg_DB", "count": 2 },
+    { "id": "tick_AB", "kind": "tick", "on": "seg_BA", "count": 1 },
+    { "id": "tick_CD", "kind": "tick", "on": "seg_CD", "count": 1 },
+    { "id": "arc_A",  "kind": "arc", "vertex": "A", "ray1": "C", "ray2": "B", "radius": 28, "count": 1 },
+    { "id": "arc_D",  "kind": "arc", "vertex": "D", "ray1": "B", "ray2": "C", "radius": 28, "count": 1 },
+    { "id": "arc_B",  "kind": "arc", "vertex": "B", "ray1": "A", "ray2": "D", "radius": 28, "count": 2 },
+    { "id": "arc_C",  "kind": "arc", "vertex": "C", "ray1": "D", "ray2": "A", "radius": 28, "count": 2 }
+  ],
+  "steps": [
+    { "arg": 0,  "introduce": ["poly_ACDB", "seg_AC", "seg_CD", "seg_DB", "seg_BA", "seg_BC", "pt_A", "pt_C", "pt_D", "pt_B"], "focus": "seg_BC", "emphasize": [] },
+    { "arg": 1,  "introduce": [], "focus": "poly_ACDB", "emphasize": [] },
+    { "arg": 2,  "introduce": ["arc_A", "arc_D"], "focus": "seg_BC", "emphasize": ["arc_A", "arc_D"] },
+    { "arg": 3,  "introduce": ["arc_B", "arc_C"], "focus": "seg_BC", "emphasize": ["arc_B", "arc_C"] },
+    { "arg": 4,  "introduce": [], "focus": "seg_BC", "emphasize": [] },
+    { "arg": 5,  "introduce": ["tick_AC", "tick_BD", "tick_AB", "tick_CD"], "focus": "seg_AC", "emphasize": ["tick_AC", "tick_BD"] },
+    { "arg": 6,  "introduce": [], "focus": "seg_AB", "emphasize": ["tick_AB", "tick_CD"] },
+    { "arg": 7,  "introduce": [], "focus": "arc_A", "emphasize": ["arc_A", "arc_D"] },
+    { "arg": 8,  "introduce": [], "focus": "arc_B", "emphasize": ["arc_B", "arc_C"] },
+    { "arg": 9,  "introduce": [], "focus": "arc_A", "emphasize": ["arc_A", "arc_D"] },
+    { "arg": 10, "introduce": [], "focus": "poly_ACDB", "emphasize": ["tick_AC", "tick_BD", "tick_AB", "tick_CD", "arc_A", "arc_D", "arc_B", "arc_C"] },
+    { "arg": 11, "introduce": [], "focus": "seg_BC", "emphasize": [] },
+    { "arg": 12, "introduce": [], "focus": "seg_BC", "emphasize": [] },
+    { "arg": 13, "introduce": [], "focus": "arc_B", "emphasize": ["arc_B", "arc_C"] },
+    { "arg": 14, "introduce": [], "focus": "seg_AC", "emphasize": [] },
+    { "arg": 15, "introduce": [], "focus": "seg_BC", "emphasize": [] },
+    { "arg": 16, "introduce": [], "focus": "poly_ACDB", "emphasize": [] }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "prop": 15,
+  "viewBox": [0, 0, 420, 320],
+  "points": {
+    "A": { "x": 60,  "y": 100, "label": "top-left" },
+    "B": { "x": 360, "y": 240, "label": "bottom-right" },
+    "C": { "x": 340, "y": 70,  "label": "top-right" },
+    "D": { "x": 80,  "y": 260, "label": "bottom-left" },
+    "E": { "x": 210, "y": 170, "label": "top-right" }
+  },
+  "elements": [
+    { "id": "seg_AB",    "kind": "segment", "from": "A", "to": "B" },
+    { "id": "seg_CD",    "kind": "segment", "from": "C", "to": "D" },
+    { "id": "pt_A",      "kind": "point",   "at": "A" },
+    { "id": "pt_B",      "kind": "point",   "at": "B" },
+    { "id": "pt_C",      "kind": "point",   "at": "C" },
+    { "id": "pt_D",      "kind": "point",   "at": "D" },
+    { "id": "pt_E",      "kind": "point",   "at": "E" },
+    { "id": "arc_AEC",   "kind": "arc",     "vertex": "E", "ray1": "A", "ray2": "C",  "radius": 26, "count": 1 },
+    { "id": "arc_DEB",   "kind": "arc",     "vertex": "E", "ray1": "D", "ray2": "B",  "radius": 26, "count": 1 },
+    { "id": "arc_AED",   "kind": "arc",     "vertex": "E", "ray1": "A", "ray2": "D",  "radius": 38, "count": 2 },
+    { "id": "arc_CEB",   "kind": "arc",     "vertex": "E", "ray1": "C", "ray2": "B",  "radius": 38, "count": 2 }
+  ],
+  "steps": [
+    {
+      "arg": 0,
+      "introduce": ["seg_AB","seg_CD","pt_A","pt_B","pt_C","pt_D","pt_E"],
+      "focus": "pt_E",
+      "emphasize": []
+    },
+    {
+      "arg": 1,
+      "introduce": [],
+      "focus": "seg_AB",
+      "emphasize": []
+    },
+    {
+      "arg": 2,
+      "introduce": ["arc_AEC","arc_DEB"],
+      "focus": "arc_AEC",
+      "emphasize": ["arc_AEC","arc_DEB"]
+    },
+    {
+      "arg": 3,
+      "introduce": ["arc_AED","arc_CEB"],
+      "focus": "arc_AED",
+      "emphasize": ["arc_AED","arc_CEB"]
+    },
+    {
+      "arg": 4,
+      "introduce": [],
+      "focus": "arc_AEC",
+      "emphasize": []
+    },
+    {
+      "arg": 5,
+      "introduce": [],
+      "focus": "arc_AEC",
+      "emphasize": []
+    },
+    {
+      "arg": 6,
+      "introduce": [],
+      "focus": "arc_AED",
+      "emphasize": []
+    },
+    {
+      "arg": 7,
+      "introduce": [],
+      "focus": "arc_AEC",
+      "emphasize": ["arc_AEC","arc_DEB"]
+    },
+    {
+      "arg": 8,
+      "introduce": [],
+      "focus": "arc_AED",
+      "emphasize": ["arc_AED","arc_CEB"]
+    },
+    {
+      "arg": 9,
+      "introduce": [],
+      "focus": "pt_E",
+      "emphasize": []
+    },
+    {
+      "arg": 10,
+      "introduce": [],
+      "focus": "pt_E",
+      "emphasize": []
+    }
+  ]
+}

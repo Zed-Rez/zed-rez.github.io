@@ -1,0 +1,50 @@
+{
+  "prop": 46,
+  "viewBox": [0, 0, 420, 360],
+  "points": {
+    "A": { "x": 90,  "y": 290, "label": "bottom-left" },
+    "B": { "x": 320, "y": 290, "label": "bottom-right" },
+    "D": { "x": 90,  "y": 60,  "label": "top-left" },
+    "E": { "x": 320, "y": 60,  "label": "top-right" }
+  },
+  "elements": [
+    { "id": "poly_ADEB", "kind": "polygon", "vertices": ["A", "D", "E", "B"] },
+    { "id": "seg_AB",    "kind": "segment", "from": "A", "to": "B" },
+    { "id": "seg_AD",    "kind": "segment", "from": "A", "to": "D" },
+    { "id": "seg_DE",    "kind": "segment", "from": "D", "to": "E" },
+    { "id": "seg_EB",    "kind": "segment", "from": "E", "to": "B" },
+    { "id": "pt_A",  "kind": "point", "at": "A" },
+    { "id": "pt_B",  "kind": "point", "at": "B" },
+    { "id": "pt_D",  "kind": "point", "at": "D" },
+    { "id": "pt_E",  "kind": "point", "at": "E" },
+    { "id": "tick_AB", "kind": "tick", "on": "seg_AB", "count": 1 },
+    { "id": "tick_AD", "kind": "tick", "on": "seg_AD", "count": 1 },
+    { "id": "tick_DE", "kind": "tick", "on": "seg_DE", "count": 1 },
+    { "id": "tick_EB", "kind": "tick", "on": "seg_EB", "count": 1 },
+    { "id": "arc_A",  "kind": "arc", "vertex": "A", "ray1": "B", "ray2": "D", "radius": 22, "count": 1 },
+    { "id": "arc_D",  "kind": "arc", "vertex": "D", "ray1": "A", "ray2": "E", "radius": 22, "count": 1 },
+    { "id": "arc_E",  "kind": "arc", "vertex": "E", "ray1": "D", "ray2": "B", "radius": 22, "count": 1 },
+    { "id": "arc_B",  "kind": "arc", "vertex": "B", "ray1": "E", "ray2": "A", "radius": 22, "count": 1 }
+  ],
+  "steps": [
+    { "arg": 0,  "introduce": ["seg_AB", "pt_A", "pt_B"], "focus": "seg_AB", "emphasize": [] },
+    { "arg": 1,  "introduce": [], "focus": "seg_AB", "emphasize": [] },
+    { "arg": 2,  "introduce": ["seg_AD", "pt_D", "arc_A"], "focus": "seg_AD", "emphasize": ["arc_A"] },
+    { "arg": 3,  "introduce": ["seg_DE", "seg_EB", "pt_E"], "focus": "seg_DE", "emphasize": [] },
+    { "arg": 4,  "introduce": ["poly_ADEB"], "focus": "poly_ADEB", "emphasize": [] },
+    { "arg": 5,  "introduce": ["tick_AB", "tick_AD", "tick_DE", "tick_EB"], "focus": "seg_DE", "emphasize": ["tick_AB", "tick_DE"] },
+    { "arg": 6,  "introduce": [], "focus": "seg_AD", "emphasize": ["tick_AB", "tick_AD"] },
+    { "arg": 7,  "introduce": [], "focus": "seg_AB", "emphasize": ["tick_AB", "tick_AD", "tick_DE", "tick_EB"] },
+    { "arg": 8,  "introduce": [], "focus": "poly_ADEB", "emphasize": ["tick_AB", "tick_AD", "tick_DE", "tick_EB"] },
+    { "arg": 9,  "introduce": [], "focus": "arc_A", "emphasize": [] },
+    { "arg": 10, "introduce": ["arc_D"], "focus": "arc_D", "emphasize": ["arc_A", "arc_D"] },
+    { "arg": 11, "introduce": [], "focus": "arc_A", "emphasize": ["arc_A"] },
+    { "arg": 12, "introduce": [], "focus": "arc_D", "emphasize": ["arc_D"] },
+    { "arg": 13, "introduce": ["arc_B", "arc_E"], "focus": "arc_B", "emphasize": ["arc_B", "arc_E"] },
+    { "arg": 14, "introduce": [], "focus": "poly_ADEB", "emphasize": ["arc_A", "arc_B", "arc_D", "arc_E"] },
+    { "arg": 15, "introduce": [], "focus": "poly_ADEB", "emphasize": ["tick_AB", "tick_AD", "tick_DE", "tick_EB"] },
+    { "arg": 16, "introduce": [], "focus": "poly_ADEB", "emphasize": ["poly_ADEB"] },
+    { "arg": 17, "introduce": [], "focus": "seg_AB", "emphasize": [] },
+    { "arg": 18, "introduce": [], "focus": "poly_ADEB", "emphasize": [] }
+  ]
+}
