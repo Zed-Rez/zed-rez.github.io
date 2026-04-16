@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>Youklid · Euclid's Elements Book I</title>
+<meta name="description" content="Euclid's Elements, Book I — every argument annotated with the definitions, postulates, common notions, and prior propositions it uses. English and Ancient Greek.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Gentium+Plus:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body data-view="text" data-lang="en" data-theme="parchment">
+
+<header id="top-bar">
+  <div class="brand">
+    <a href="#" id="home-link" aria-label="Youklid home">
+      <span class="brand-mark">Υ</span><span class="brand-name">ouklid</span>
+    </a>
+    <span class="brand-sub">Elements · Book I</span>
+  </div>
+
+  <nav class="tabs" aria-label="View">
+    <button class="tab" data-view="text" aria-pressed="true">Text</button>
+    <button class="tab" data-view="map"  aria-pressed="false">Map</button>
+  </nav>
+
+  <nav class="lang-toggle" aria-label="Language">
+    <button class="lang" data-lang="en" aria-pressed="true">English</button>
+    <button class="lang" data-lang="gr" aria-pressed="false">Ἑλληνικά</button>
+  </nav>
+
+  <div class="theme-toggle">
+    <button id="theme-btn" aria-label="Toggle theme">◐</button>
+  </div>
+</header>
+
+<!-- =========================== TEXT VIEW =========================== -->
+<div id="text-view" class="view active">
+
+  <main id="center" tabindex="0">
+
+    <nav id="prop-nav">
+      <button class="nav-arrow" id="prev-prop" aria-label="Previous proposition" title="Previous proposition (←)">‹</button>
+      <div class="prop-title-wrap">
+        <div id="prop-kind">Proposition</div>
+        <h1 id="prop-title">Loading…</h1>
+        <div id="prop-diagram" class="diagram-labels" hidden></div>
+      </div>
+      <button class="nav-arrow" id="next-prop" aria-label="Next proposition" title="Next proposition (→)">›</button>
+    </nav>
+
+    <p class="deps-hint">Double-click any line to see what it depends on.</p>
+
+    <section id="prop-section">
+      <p id="prop-enunciation" class="enunciation"></p>
+      <ol id="arguments" class="arguments" aria-label="Proof arguments"></ol>
+    </section>
+
+    <nav id="arg-nav">
+      <button id="prev-arg" class="arg-btn" title="Previous argument (shift+←)">‹ arg</button>
+      <span id="arg-status">—</span>
+      <button id="next-arg" class="arg-btn" title="Next argument (shift+→)">arg ›</button>
+    </nav>
+
+  </main>
+
+  <aside id="bottom-panel" aria-label="Successors">
+    <div class="panel-head">
+      <h2 id="bottom-title">Used by</h2>
+    </div>
+    <div class="panel-body" id="successors">
+      <p class="panel-empty">Arguments and propositions that depend on this will appear here.</p>
+    </div>
+  </aside>
+
+</div>
+
+<!-- =========================== MAP VIEW =========================== -->
+<div id="map-view" class="view">
+  <aside id="map-sidebar">
+    <h2>Foundations</h2>
+    <h3>Postulates</h3>
+    <ul id="map-list-posts" class="map-list"></ul>
+    <h3>Definitions</h3>
+    <ul id="map-list-defs" class="map-list"></ul>
+    <h3>Common Notions</h3>
+    <ul id="map-list-cns" class="map-list"></ul>
+    <h3>Propositions</h3>
+    <ul id="map-list-props" class="map-list"></ul>
+  </aside>
+
+  <section id="map-canvas-wrap">
+    <div id="map-header">
+      <div>
+        <div class="map-kind" id="map-selected-kind">Postulate 1</div>
+        <h1 id="map-selected-title">Select a foundation</h1>
+        <p id="map-selected-text" class="map-selected-text"></p>
+      </div>
+      <div id="map-legend">
+        <span><i class="dot dot-seed"></i>Selected</span>
+        <span><i class="dot dot-direct"></i>Direct successor</span>
+      </div>
+    </div>
+    <svg id="map-svg" aria-label="Dependency map" preserveAspectRatio="xMidYMid meet"></svg>
+  </section>
+</div>
+
+<footer id="site-footer">
+  <span>Text: Heiberg (1883–85) Greek &amp; Fitzpatrick English &mdash; public domain.</span>
+  <span>Citations by Fitzpatrick; additional links inferred with Claude Haiku 4.5.</span>
+  <span class="kbd-hint"><kbd>←</kbd><kbd>→</kbd> prop · <kbd>⇧</kbd>+arrows arg · <kbd>L</kbd> lang · <kbd>M</kbd> map · double-click a line for deps</span>
+</footer>
+
+<script src="./app.js"></script>
+</body>
+</html>
