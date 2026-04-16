@@ -171,6 +171,28 @@ function bindGlobal() {
   window.addEventListener('resize', () => {
     if (STATE.view === 'map') renderMap();
   });
+
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.fitz-marker');
+    if (!btn) {
+      // Close any open popover if clicking outside
+      $$('.fitz-popover').forEach(p => p.remove());
+      return;
+    }
+    e.stopPropagation();
+    // Toggle: close if already open for this button
+    const existing = btn.nextElementSibling;
+    if (existing && existing.classList.contains('fitz-popover')) {
+      existing.remove(); return;
+    }
+    $$('.fitz-popover').forEach(p => p.remove());
+    const pop = document.createElement('span');
+    pop.className = 'fitz-popover';
+    pop.setAttribute('role', 'tooltip');
+    const sym = btn.textContent.trim();
+    pop.innerHTML = `<span class="fitz-pop-sym">${sym}</span> <span class="fitz-pop-text">${escapeHTML(btn.dataset.note)}</span>`;
+    btn.insertAdjacentElement('afterend', pop);
+  });
 }
 
 // ============================================================
@@ -267,6 +289,17 @@ function renderProp() {
   $('#prop-title').textContent = lang === 'en'
     ? p.enunciation_en
     : (p.enunciation_gr ? transliterateDiagramLetters(p.enunciation_gr) : p.enunciation_en);
+  // Fitzpatrick note on enunciation
+  const enNote = $('#prop-enunciation-note');
+  if (enNote) {
+    if (p.fitzpatrick_note) {
+      enNote.hidden = false;
+      enNote.querySelector('.fitz-note-text').textContent = p.fitzpatrick_note;
+    } else {
+      enNote.hidden = true;
+    }
+  }
+
   // Bare diagram-label strings like "A B C D E F Z" are visual noise without an actual
   // figure. Hide them entirely until the live-figure feature is in place.
   const diagEl = $('#prop-diagram');
@@ -396,6 +429,20 @@ function renderArgText(arg, lang) {
     const label = `[${NORM[k]} ${n}]`;
     return `<a class="cite" href="${refToHash(ref)}" data-ref="${ref}">${label}</a>`;
   });
+  // Replace Fitzpatrick footnote markers with interactive superscript buttons
+  if (arg.fitzpatrick_note) {
+    let markerFound = false;
+    html = html.replace(/([†‡])/g, (_m, sym) => {
+      markerFound = true;
+      const escaped = escapeHTML(arg.fitzpatrick_note);
+      return `<button class="fitz-marker" data-note="${escaped}" aria-label="Fitzpatrick note" title="${escaped}">${sym}</button>`;
+    });
+    // If marker wasn't in text but note exists, append a small superscript at end
+    if (!markerFound) {
+      const escaped = escapeHTML(arg.fitzpatrick_note);
+      html += ` <button class="fitz-marker fitz-marker-sup" data-note="${escaped}" aria-label="Fitzpatrick note" title="${escaped}">†</button>`;
+    }
+  }
   if (fellBack) {
     html = `<em class="fallback-lang" title="No Greek sentence aligned to this argument — showing English">${html}</em>`;
   }
@@ -655,6 +702,21 @@ function renderMap() {
     $('#map-selected-text').textContent = STATE.lang === 'en' ? txt : transliterateDiagramLetters(txt);
   }
   $('#map-selected-title').textContent = titleText;
+
+  // Fitzpatrick note for foundations
+  const mapNote = $('#map-fitz-note');
+  if (mapNote) {
+    const item = k === 'def' ? data.definitions[n-1]
+               : k === 'post' ? data.postulates[n-1]
+               : k === 'cn' ? data.common_notions[n-1]
+               : null;
+    if (item && item.fitzpatrick_note) {
+      mapNote.hidden = false;
+      mapNote.querySelector('.fitz-note-text').textContent = item.fitzpatrick_note;
+    } else {
+      mapNote.hidden = true;
+    }
+  }
 
   // Build graph: seed = ref. Show direct successors and (for props) direct predecessors.
   if (STATE.mapMode === 'global') drawFullGraph();

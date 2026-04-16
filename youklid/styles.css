@@ -767,6 +767,57 @@ body[data-lang="gr"] .map-selected-text { font-style: normal; }
   color: #d4922c;
 }
 
+/* ── Fitzpatrick footnote markers ─────────────────────────── */
+.fitz-marker {
+  display: inline;
+  background: none;
+  border: none;
+  padding: 0 1px;
+  font-size: 0.8em;
+  vertical-align: super;
+  color: var(--accent-soft);
+  cursor: pointer;
+  line-height: 1;
+  font-family: var(--font-serif-en);
+}
+.fitz-marker:hover { color: var(--accent); text-decoration: underline; }
+
+.fitz-popover {
+  display: inline-block;
+  position: relative;
+  margin-left: 0.25rem;
+  padding: 0.35rem 0.6rem;
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent-soft);
+  border-radius: 4px;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  max-width: 34ch;
+  vertical-align: top;
+  box-shadow: var(--shadow-soft);
+  z-index: 10;
+  white-space: normal;
+}
+.fitz-pop-sym {
+  color: var(--accent-soft);
+  font-family: var(--font-serif-en);
+  margin-right: 0.3rem;
+}
+
+.prop-enunciation-note {
+  margin: 0.4rem 0 0;
+  padding: 0.3rem 0.6rem;
+  border-left: 3px solid var(--accent-soft);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  background: color-mix(in srgb, var(--panel) 60%, transparent);
+  border-radius: 0 4px 4px 0;
+}
+.prop-enunciation-note[hidden] { display: none; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
