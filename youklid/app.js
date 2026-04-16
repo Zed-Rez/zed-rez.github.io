@@ -982,32 +982,39 @@ function drawMap(ref) {
 // So a direct shortcut u→v is skipped whenever a longer path through an
 // intermediate already reaches v (e.g. 4→9 is skipped because 4→5→9 exists).
 function computeCriticalEdges(propGraph, N) {
-  // longestTo[ref] = length of the longest path (in edges) from any root to ref.
-  // Processed in topological order (prop.1 → prop.N is already topological since
-  // prop i only depends on prop j < i in Euclid's Elements).
-  const longestTo = {};
+  // Transitive-reduction of direct prop dependencies.
+  //
+  // For each proposition P, its direct predecessors D(P) include both "essential"
+  // ones and "redundant" ones (those already implied by another direct predecessor).
+  // A predecessor d ∈ D(P) is redundant if some other d' ∈ D(P) transitively
+  // depends on d — meaning proving d' already requires proving d, so the explicit
+  // edge d→P carries no additional information.
+  //
+  // Example: if P depends on {4, 5} and 5 depends on {4}, then:
+  //   ancestors[5] contains 4  →  edge 4→P is redundant, only 5→P is bold.
+  //
+  // Step 1: precompute all transitive ancestors for each prop (topological order).
+  const ancestors = {};
   for (let n = 1; n <= N; n++) {
     const ref = `prop.${n}`;
+    ancestors[ref] = new Set();
     const pg = propGraph[ref];
-    longestTo[ref] = 0;
-    (pg ? pg.deps_props || [] : []).forEach(predRef => {
-      longestTo[ref] = Math.max(longestTo[ref], (longestTo[predRef] || 0) + 1);
+    (pg ? pg.deps_props || [] : []).forEach(depRef => {
+      ancestors[ref].add(depRef);                          // direct dep
+      (ancestors[depRef] || new Set()).forEach(a => ancestors[ref].add(a)); // transitive
     });
   }
-  // Edge (u→v) is critical iff u lies on the longest path leading to v:
-  //   longestTo[u] + 1 === longestTo[v]
-  // This gives every proposition v exactly one bold "spine" of predecessors —
-  // a direct shortcut u→v is skipped whenever a longer path through an
-  // intermediate already reaches v (e.g. 4→9 skipped because 4→5→9 is longer).
-  // Ties (two predecessors with equal longestTo depth) are both marked bold.
+
+  // Step 2: for each prop P, keep only the non-redundant direct deps.
+  // d is redundant iff some other d' ∈ D(P) has d in ancestors[d'].
   const critical = new Set();
   for (let n = 1; n <= N; n++) {
     const ref = `prop.${n}`;
     const pg = propGraph[ref];
-    (pg ? pg.deps_props || [] : []).forEach(predRef => {
-      if ((longestTo[predRef] || 0) + 1 === longestTo[ref]) {
-        critical.add(`${predRef}->${ref}`);
-      }
+    const directDeps = pg ? pg.deps_props || [] : [];
+    directDeps.forEach(d => {
+      const redundant = directDeps.some(d2 => d2 !== d && ancestors[d2] && ancestors[d2].has(d));
+      if (!redundant) critical.add(`${d}->${ref}`);
     });
   }
   return critical;

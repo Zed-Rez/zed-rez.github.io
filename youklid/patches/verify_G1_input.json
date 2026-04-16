@@ -1,0 +1,934 @@
+[
+  {
+    "prop_n": 1,
+    "prop_stmt": "To construct an equilateral triangle on a given finite straight-line.",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction_by_postulate",
+    "en": "Let the circle BCD with center A and radius AB have been drawn [Post. 3], and again let the circle ACE with center B and radius BA have been drawn [Post. 3].",
+    "deps": [
+      "post.3"
+    ],
+    "dep_content": [
+      "Post.3: And to draw a circle with any center and radius."
+    ]
+  },
+  {
+    "prop_n": 1,
+    "prop_stmt": "To construct an equilateral triangle on a given finite straight-line.",
+    "arg_i": 3,
+    "role": "construction",
+    "lf": "intersection_existence",
+    "en": "And let the straight-lines CA and CB have been joined from the point C, where the circles cut one another,† to the points A and B (respectively) [Post. 1].",
+    "deps": [
+      "post.1"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point."
+    ]
+  },
+  {
+    "prop_n": 1,
+    "prop_stmt": "To construct an equilateral triangle on a given finite straight-line.",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "definition_application",
+    "en": "And since the point A is the center of the circle CDB, AC is equal to AB [Def. 1.15].",
+    "deps": [
+      "def.15"
+    ],
+    "dep_content": [
+      "Def.15: A circle is a plane figure contained by a single line [which is called a circumference], (such that) all of the straight-lines radiating towards [the circumference] from one point amongst those lying inside the figure are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 1,
+    "prop_stmt": "To construct an equilateral triangle on a given finite straight-line.",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "definition_application",
+    "en": "Again, since the point B is the center of the circle CAE, BC is equal to BA [Def. 1.15].",
+    "deps": [
+      "def.15"
+    ],
+    "dep_content": [
+      "Def.15: A circle is a plane figure contained by a single line [which is called a circumference], (such that) all of the straight-lines radiating towards [the circumference] from one point amongst those lying inside the figure are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 1,
+    "prop_stmt": "To construct an equilateral triangle on a given finite straight-line.",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "equality_by_back_reference",
+    "en": "But CA was also shown (to be) equal to AB.",
+    "deps": [
+      "def.15"
+    ],
+    "dep_content": [
+      "Def.15: A circle is a plane figure contained by a single line [which is called a circumference], (such that) all of the straight-lines radiating towards [the circumference] from one point amongst those lying inside the figure are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 1,
+    "prop_stmt": "To construct an equilateral triangle on a given finite straight-line.",
+    "arg_i": 7,
+    "role": "conclusion",
+    "lf": "equality_transitivity",
+    "en": "Thus, CA and CB are each equal to AB.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 1,
+    "prop_stmt": "To construct an equilateral triangle on a given finite straight-line.",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "equality_transitivity",
+    "en": "But things equal to the same thing are also equal to one another [C.N. 1].",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 1,
+    "prop_stmt": "To construct an equilateral triangle on a given finite straight-line.",
+    "arg_i": 9,
+    "role": "conclusion",
+    "lf": "equality_transitivity",
+    "en": "Thus, CA is also equal to CB.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 1,
+    "prop_stmt": "To construct an equilateral triangle on a given finite straight-line.",
+    "arg_i": 10,
+    "role": "conclusion",
+    "lf": "conclusion",
+    "en": "Thus, the three (straightlines) CA, AB, and BC are equal to one another.",
+    "deps": [
+      "cn.1",
+      "def.20"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another.",
+      "Def.20: And of the trilateral figures: an equilateral triangle is that having three equal sides, an isosceles (triangle) that having only two equal sides, and a scalene (triangle) that having three unequal sides."
+    ]
+  },
+  {
+    "prop_n": 1,
+    "prop_stmt": "To construct an equilateral triangle on a given finite straight-line.",
+    "arg_i": 11,
+    "role": "conclusion",
+    "lf": "conclusion",
+    "en": "Thus, the triangle ABC is equilateral, and has been constructed on the given finite straight-line AB.",
+    "deps": [
+      "def.20"
+    ],
+    "dep_content": [
+      "Def.20: And of the trilateral figures: an equilateral triangle is that having three equal sides, an isosceles (triangle) that having only two equal sides, and a scalene (triangle) that having three unequal sides."
+    ]
+  },
+  {
+    "prop_n": 2,
+    "prop_stmt": "To place a straight-line equal to a given straight-line at a given point (as an ",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction_by_postulate",
+    "en": "For let the straight-line AB have been joined from point A to point B [Post. 1], and let the equilateral triangle DAB have been been constructed upon it [Prop. 1.1].",
+    "deps": [
+      "post.1",
+      "prop.1"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point.",
+      "Prop.1: To construct an equilateral triangle on a given finite straight-line."
+    ]
+  },
+  {
+    "prop_n": 2,
+    "prop_stmt": "To place a straight-line equal to a given straight-line at a given point (as an ",
+    "arg_i": 3,
+    "role": "construction",
+    "lf": "construction_by_postulate",
+    "en": "And let the straight-lines AE and BF have been produced in a straight-line with DA and DB (respectively) [Post. 2].",
+    "deps": [
+      "post.2"
+    ],
+    "dep_content": [
+      "Post.2: And to produce a finite straight-line continuously in a straight-line."
+    ]
+  },
+  {
+    "prop_n": 2,
+    "prop_stmt": "To place a straight-line equal to a given straight-line at a given point (as an ",
+    "arg_i": 4,
+    "role": "construction",
+    "lf": "construction_by_postulate",
+    "en": "And let the circle CGH with center B and radius BC have been drawn [Post. 3], and again let the circle GKL with center D and radius DG have been drawn [Post. 3].",
+    "deps": [
+      "post.3"
+    ],
+    "dep_content": [
+      "Post.3: And to draw a circle with any center and radius."
+    ]
+  },
+  {
+    "prop_n": 2,
+    "prop_stmt": "To place a straight-line equal to a given straight-line at a given point (as an ",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "definition_application",
+    "en": "Therefore, since the point B is the center of (the circle) CGH, BC is equal to BG [Def. 1.15].",
+    "deps": [
+      "def.15"
+    ],
+    "dep_content": [
+      "Def.15: A circle is a plane figure contained by a single line [which is called a circumference], (such that) all of the straight-lines radiating towards [the circumference] from one point amongst those lying inside the figure are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 2,
+    "prop_stmt": "To place a straight-line equal to a given straight-line at a given point (as an ",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "definition_application",
+    "en": "Again, since the point D is the center of the circle GKL, DL is equal to DG [Def. 1.15].",
+    "deps": [
+      "def.15"
+    ],
+    "dep_content": [
+      "Def.15: A circle is a plane figure contained by a single line [which is called a circumference], (such that) all of the straight-lines radiating towards [the circumference] from one point amongst those lying inside the figure are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 2,
+    "prop_stmt": "To place a straight-line equal to a given straight-line at a given point (as an ",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "equality_by_back_reference",
+    "en": "And within these, DA is equal to DB.",
+    "deps": [
+      "def.20",
+      "prop.1"
+    ],
+    "dep_content": [
+      "Def.20: And of the trilateral figures: an equilateral triangle is that having three equal sides, an isosceles (triangle) that having only two equal sides, and a scalene (triangle) that having three unequal sides.",
+      "Prop.1: To construct an equilateral triangle on a given finite straight-line."
+    ]
+  },
+  {
+    "prop_n": 2,
+    "prop_stmt": "To place a straight-line equal to a given straight-line at a given point (as an ",
+    "arg_i": 8,
+    "role": "conclusion",
+    "lf": "equality_subtraction",
+    "en": "Thus, the remainder AL is equal to the remainder BG [C.N. 3].",
+    "deps": [
+      "cn.3",
+      "def.15",
+      "prop.1"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†",
+      "Def.15: A circle is a plane figure contained by a single line [which is called a circumference], (such that) all of the straight-lines radiating towards [the circumference] from one point amongst those lying inside the figure are equal to one another.",
+      "Prop.1: To construct an equilateral triangle on a given finite straight-line."
+    ]
+  },
+  {
+    "prop_n": 2,
+    "prop_stmt": "To place a straight-line equal to a given straight-line at a given point (as an ",
+    "arg_i": 9,
+    "role": "step",
+    "lf": "equality_by_back_reference",
+    "en": "But BC was also shown (to be) equal to BG.",
+    "deps": [
+      "def.15"
+    ],
+    "dep_content": [
+      "Def.15: A circle is a plane figure contained by a single line [which is called a circumference], (such that) all of the straight-lines radiating towards [the circumference] from one point amongst those lying inside the figure are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 2,
+    "prop_stmt": "To place a straight-line equal to a given straight-line at a given point (as an ",
+    "arg_i": 10,
+    "role": "conclusion",
+    "lf": "equality_transitivity",
+    "en": "Thus, AL and BC are each equal to BG.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 2,
+    "prop_stmt": "To place a straight-line equal to a given straight-line at a given point (as an ",
+    "arg_i": 11,
+    "role": "step",
+    "lf": "equality_transitivity",
+    "en": "But things equal to the same thing are also equal to one another [C.N. 1].",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 2,
+    "prop_stmt": "To place a straight-line equal to a given straight-line at a given point (as an ",
+    "arg_i": 12,
+    "role": "conclusion",
+    "lf": "equality_transitivity",
+    "en": "Thus, AL is also equal to BC.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 2,
+    "prop_stmt": "To place a straight-line equal to a given straight-line at a given point (as an ",
+    "arg_i": 13,
+    "role": "conclusion",
+    "lf": "conclusion",
+    "en": "Thus, the straight-line AL, equal to the given straightline BC, has been placed at the given point A.",
+    "deps": [
+      "prop.1"
+    ],
+    "dep_content": [
+      "Prop.1: To construct an equilateral triangle on a given finite straight-line."
+    ]
+  },
+  {
+    "prop_n": 3,
+    "prop_stmt": "For two given unequal straight-lines, to cut off from the greater a straight-lin",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction_by_prior_prop",
+    "en": "Let the line AD, equal to the straight-line C, have been placed at point A [Prop. 1.2].",
+    "deps": [
+      "prop.2"
+    ],
+    "dep_content": [
+      "Prop.2: To place a straight-line equal to a given straight-line at a given point (as an extremity)."
+    ]
+  },
+  {
+    "prop_n": 3,
+    "prop_stmt": "For two given unequal straight-lines, to cut off from the greater a straight-lin",
+    "arg_i": 3,
+    "role": "construction",
+    "lf": "construction_by_postulate",
+    "en": "And let the circle DEF have been drawn with center A and radius AD [Post. 3].",
+    "deps": [
+      "post.3"
+    ],
+    "dep_content": [
+      "Post.3: And to draw a circle with any center and radius."
+    ]
+  },
+  {
+    "prop_n": 3,
+    "prop_stmt": "For two given unequal straight-lines, to cut off from the greater a straight-lin",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "definition_application",
+    "en": "And since point A is the center of circle DEF, AE is equal to AD [Def. 1.15].",
+    "deps": [
+      "def.15"
+    ],
+    "dep_content": [
+      "Def.15: A circle is a plane figure contained by a single line [which is called a circumference], (such that) all of the straight-lines radiating towards [the circumference] from one point amongst those lying inside the figure are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 3,
+    "prop_stmt": "For two given unequal straight-lines, to cut off from the greater a straight-lin",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "equality_by_back_reference",
+    "en": "But, C is also equal to AD.",
+    "deps": [
+      "prop.2"
+    ],
+    "dep_content": [
+      "Prop.2: To place a straight-line equal to a given straight-line at a given point (as an extremity)."
+    ]
+  },
+  {
+    "prop_n": 3,
+    "prop_stmt": "For two given unequal straight-lines, to cut off from the greater a straight-lin",
+    "arg_i": 6,
+    "role": "conclusion",
+    "lf": "equality_transitivity",
+    "en": "Thus, AE and C are each equal to AD.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 3,
+    "prop_stmt": "For two given unequal straight-lines, to cut off from the greater a straight-lin",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "equality_transitivity",
+    "en": "So AE is also equal to C [C.N. 1].",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 3,
+    "prop_stmt": "For two given unequal straight-lines, to cut off from the greater a straight-lin",
+    "arg_i": 8,
+    "role": "conclusion",
+    "lf": "conclusion",
+    "en": "Thus, for two given unequal straight-lines, AB and C, the (straight-line) AE, equal to the lesser C, has been cut off from the greater AB.",
+    "deps": [
+      "post.3"
+    ],
+    "dep_content": [
+      "Post.3: And to draw a circle with any center and radius."
+    ]
+  },
+  {
+    "prop_n": 4,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, and have the a",
+    "arg_i": 9,
+    "role": "step",
+    "lf": "reductio_ad_absurdum",
+    "en": "For if B coincides with E, and C with F, and the base BC does not coincide with EF, then two straight-lines will encompass an area.",
+    "deps": [
+      "post.1"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point."
+    ]
+  },
+  {
+    "prop_n": 4,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, and have the a",
+    "arg_i": 10,
+    "role": "step",
+    "lf": "coincidence_conclusion",
+    "en": "The very thing is impossible [Post. 1].‡ Thus, the base BC will coincide with EF, and will be equal to it [C.N. 4].",
+    "deps": [
+      "cn.4"
+    ],
+    "dep_content": [
+      "C.N.4: And things coinciding with one another are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 4,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, and have the a",
+    "arg_i": 11,
+    "role": "step",
+    "lf": "coincidence_conclusion",
+    "en": "So the whole triangle ABC will coincide with the whole triangle DEF, and will be equal to it [C.N. 4].",
+    "deps": [
+      "cn.4"
+    ],
+    "dep_content": [
+      "C.N.4: And things coinciding with one another are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 4,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, and have the a",
+    "arg_i": 12,
+    "role": "step",
+    "lf": "coincidence_conclusion",
+    "en": "And the remaining angles will coincide with the remaining angles, and will be equal to them [C.N. 4].",
+    "deps": [
+      "cn.4"
+    ],
+    "dep_content": [
+      "C.N.4: And things coinciding with one another are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 4,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, and have the a",
+    "arg_i": 14,
+    "role": "conclusion",
+    "lf": "conclusion",
+    "en": "Thus, if two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-line equal, then they will also have the base equal to the base, and the tr",
+    "deps": [
+      "cn.4"
+    ],
+    "dep_content": [
+      "C.N.4: And things coinciding with one another are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 5,
+    "prop_stmt": "For isosceles triangles, the angles at the base are equal to one another, and if",
+    "arg_i": 0,
+    "role": "construction",
+    "lf": "construction_by_postulate",
+    "en": "Let ABC be an isosceles triangle having the side AB equal to the side AC, and let the straight-lines BD and CE have been produced in a straight-line with AB and AC (respectively) [Post. 2].",
+    "deps": [
+      "def.20",
+      "post.2"
+    ],
+    "dep_content": [
+      "Def.20: And of the trilateral figures: an equilateral triangle is that having three equal sides, an isosceles (triangle) that having only two equal sides, and a scalene (triangle) that having three unequal sides.",
+      "Post.2: And to produce a finite straight-line continuously in a straight-line."
+    ]
+  },
+  {
+    "prop_n": 5,
+    "prop_stmt": "For isosceles triangles, the angles at the base are equal to one another, and if",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction_by_prior_prop",
+    "en": "For let the point F have been taken at random on BD, and let AG have been cut off from the greater AE, equal to the lesser AF [Prop. 1.3].",
+    "deps": [
+      "prop.3"
+    ],
+    "dep_content": [
+      "Prop.3: For two given unequal straight-lines, to cut off from the greater a straight-line equal to the lesser."
+    ]
+  },
+  {
+    "prop_n": 5,
+    "prop_stmt": "For isosceles triangles, the angles at the base are equal to one another, and if",
+    "arg_i": 3,
+    "role": "step",
+    "lf": "construction_by_postulate",
+    "en": "Also, let the straight-lines FC and GB have been joined [Post. 1].",
+    "deps": [
+      "post.1"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point."
+    ]
+  },
+  {
+    "prop_n": 5,
+    "prop_stmt": "For isosceles triangles, the angles at the base are equal to one another, and if",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "equality_by_back_reference",
+    "en": "In fact, since AF is equal to AG, and AB to AC, the two (straight-lines) FA, AC are equal to the two (straight-lines) GA, AB, respectively.",
+    "deps": [
+      "prop.3",
+      "def.20"
+    ],
+    "dep_content": [
+      "Prop.3: For two given unequal straight-lines, to cut off from the greater a straight-line equal to the lesser.",
+      "Def.20: And of the trilateral figures: an equilateral triangle is that having three equal sides, an isosceles (triangle) that having only two equal sides, and a scalene (triangle) that having three unequal sides."
+    ]
+  },
+  {
+    "prop_n": 5,
+    "prop_stmt": "For isosceles triangles, the angles at the base are equal to one another, and if",
+    "arg_i": 6,
+    "role": "conclusion",
+    "lf": "congruence_conclusion",
+    "en": "Thus, the base FC is equal to the base GB, and the triangle AFC will be equal to the triangle AGB, and the remaining angles subtendend by the equal sides will be equal to the corresponding remaining a",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 5,
+    "prop_stmt": "For isosceles triangles, the angles at the base are equal to one another, and if",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "equality_subtraction",
+    "en": "And since the whole of AF is equal to the whole of AG, within which AB is equal to AC, the remainder BF is thus equal to the remainder CG [C.N. 3].",
+    "deps": [
+      "cn.3"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 5,
+    "prop_stmt": "For isosceles triangles, the angles at the base are equal to one another, and if",
+    "arg_i": 9,
+    "role": "step",
+    "lf": "equality_by_back_reference",
+    "en": "But FC was also shown (to be) equal to GB.",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 5,
+    "prop_stmt": "For isosceles triangles, the angles at the base are equal to one another, and if",
+    "arg_i": 10,
+    "role": "step",
+    "lf": "congruence_conclusion",
+    "en": "So the two (straightlines) BF, FC are equal to the two (straight-lines) CG, GB, respectively, and the angle BFC (is) equal to the angle CGB, and the base BC is common to them.",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 5,
+    "prop_stmt": "For isosceles triangles, the angles at the base are equal to one another, and if",
+    "arg_i": 11,
+    "role": "conclusion",
+    "lf": "congruence_conclusion",
+    "en": "Thus, the triangle BFC will be equal to the triangle CGB, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles [Prop. 1.4].",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 5,
+    "prop_stmt": "For isosceles triangles, the angles at the base are equal to one another, and if",
+    "arg_i": 13,
+    "role": "step",
+    "lf": "equality_subtraction",
+    "en": "Therefore, since the whole angle ABG was shown (to be) equal to the whole angle ACF, within which CBG is equal to BCF, the remainder ABC is thus equal to the remainder ACB [C.N. 3].",
+    "deps": [
+      "cn.3"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 5,
+    "prop_stmt": "For isosceles triangles, the angles at the base are equal to one another, and if",
+    "arg_i": 15,
+    "role": "step",
+    "lf": "equality_by_back_reference",
+    "en": "And FBC was also shown (to be) equal to GCB.",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 5,
+    "prop_stmt": "For isosceles triangles, the angles at the base are equal to one another, and if",
+    "arg_i": 17,
+    "role": "conclusion",
+    "lf": "conclusion",
+    "en": "Thus, for isosceles triangles, the angles at the base are equal to one another, and if the equal sides are produced then the angles under the base will be equal to one another.",
+    "deps": [
+      "cn.3"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 6,
+    "prop_stmt": "If a triangle has two angles equal to one another then the sides subtending the ",
+    "arg_i": 3,
+    "role": "construction",
+    "lf": "construction",
+    "en": "And let DB, equal to greater. the lesser AC, have been cut off from the greater AB [Prop. 1.3].",
+    "deps": [
+      "prop.3"
+    ],
+    "dep_content": [
+      "Prop.3: For two given unequal straight-lines, to cut off from the greater a straight-line equal to the lesser."
+    ]
+  },
+  {
+    "prop_n": 6,
+    "prop_stmt": "If a triangle has two angles equal to one another then the sides subtending the ",
+    "arg_i": 4,
+    "role": "construction",
+    "lf": "construction",
+    "en": "And let DC have been joined [Post. 1].",
+    "deps": [
+      "post.1"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point."
+    ]
+  },
+  {
+    "prop_n": 6,
+    "prop_stmt": "If a triangle has two angles equal to one another then the sides subtending the ",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Therefore, since DB is equal to AC, and BC (is) common, the two sides DB, BC are equal to the two sides AC, CB, respectively, and the angle DBC is equal to the angle ACB.",
+    "deps": [
+      "cn.1",
+      "prop.4"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another.",
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 6,
+    "prop_stmt": "If a triangle has two angles equal to one another then the sides subtending the ",
+    "arg_i": 6,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, the base DC is equal to the base AB, and the triangle DBC will be equal to the triangle ACB [Prop. 1.4], the lesser to the greater.",
+    "deps": [
+      "cn.5",
+      "prop.4"
+    ],
+    "dep_content": [
+      "C.N.5: And the whole [is] greater than the part.",
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 6,
+    "prop_stmt": "If a triangle has two angles equal to one another then the sides subtending the ",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "application_of_common_notion",
+    "en": "The very notion (is) absurd [C.N. 5].",
+    "deps": [
+      "cn.5"
+    ],
+    "dep_content": [
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  },
+  {
+    "prop_n": 6,
+    "prop_stmt": "If a triangle has two angles equal to one another then the sides subtending the ",
+    "arg_i": 8,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, AB is not unequal to AC.",
+    "deps": [
+      "prop.4",
+      "cn.5"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles.",
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  },
+  {
+    "prop_n": 7,
+    "prop_stmt": "On the same straight-line, two other straight-lines equal, respectively, to two ",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "And let CD have been joined [Post. 1].",
+    "deps": [
+      "post.1"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point."
+    ]
+  },
+  {
+    "prop_n": 7,
+    "prop_stmt": "On the same straight-line, two other straight-lines equal, respectively, to two ",
+    "arg_i": 3,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Therefore, since AC is equal to AD, the angle ACD is also equal to angle ADC [Prop. 1.5].",
+    "deps": [
+      "prop.5"
+    ],
+    "dep_content": [
+      "Prop.5: For isosceles triangles, the angles at the base are equal to one another, and if the equal sides are produced then the angles under the base will be equal to one another."
+    ]
+  },
+  {
+    "prop_n": 7,
+    "prop_stmt": "On the same straight-line, two other straight-lines equal, respectively, to two ",
+    "arg_i": 4,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, ADC (is) greater than DCB [C.N. 5].",
+    "deps": [
+      "cn.5"
+    ],
+    "dep_content": [
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  },
+  {
+    "prop_n": 7,
+    "prop_stmt": "On the same straight-line, two other straight-lines equal, respectively, to two ",
+    "arg_i": 5,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, CDB is much greater than DCB [C.N. 5].",
+    "deps": [
+      "cn.5"
+    ],
+    "dep_content": [
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  },
+  {
+    "prop_n": 7,
+    "prop_stmt": "On the same straight-line, two other straight-lines equal, respectively, to two ",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Again, since CB is equal to DB, the angle CDB is also equal to angle DCB [Prop. 1.5].",
+    "deps": [
+      "prop.5"
+    ],
+    "dep_content": [
+      "Prop.5: For isosceles triangles, the angles at the base are equal to one another, and if the equal sides are produced then the angles under the base will be equal to one another."
+    ]
+  },
+  {
+    "prop_n": 7,
+    "prop_stmt": "On the same straight-line, two other straight-lines equal, respectively, to two ",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "deduction",
+    "en": "But it was shown that the former (angle) is also much greater (than the latter).",
+    "deps": [
+      "prop.5",
+      "cn.5"
+    ],
+    "dep_content": [
+      "Prop.5: For isosceles triangles, the angles at the base are equal to one another, and if the equal sides are produced then the angles under the base will be equal to one another.",
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  },
+  {
+    "prop_n": 8,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, and also have ",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "construction",
+    "en": "For if triangle ABC is applied to triangle DEF, the point B being placed on point E, and the straight-line BC on EF, then point C will also coincide with F, on account of BC being equal to EF.",
+    "deps": [
+      "cn.4"
+    ],
+    "dep_content": [
+      "C.N.4: And things coinciding with one another are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 8,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, and also have ",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "deduction",
+    "en": "So (because of) BC coinciding with EF, (the sides) BA and CA will also coincide with ED and DF (respectively).",
+    "deps": [
+      "cn.4"
+    ],
+    "dep_content": [
+      "C.N.4: And things coinciding with one another are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 8,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, and also have ",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "deduction",
+    "en": "For if base BC coincides with base EF, but the sides AB and AC do not coincide with ED and DF (respectively), but miss like EG and GF (in the above figure), then we will have constructed upon the same",
+    "deps": [
+      "prop.7"
+    ],
+    "dep_content": [
+      "Prop.7: On the same straight-line, two other straight-lines equal, respectively, to two (given) straight-lines (which meet) cannot be constructed (meeting) at a different point on the same side (of the straight-line), but having the same ends as the given straight-lines."
+    ]
+  },
+  {
+    "prop_n": 8,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, and also have ",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "But (such straight-lines) cannot be constructed [Prop. 1.7].",
+    "deps": [
+      "prop.7"
+    ],
+    "dep_content": [
+      "Prop.7: On the same straight-line, two other straight-lines equal, respectively, to two (given) straight-lines (which meet) cannot be constructed (meeting) at a different point on the same side (of the straight-line), but having the same ends as the given straight-lines."
+    ]
+  },
+  {
+    "prop_n": 8,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, and also have ",
+    "arg_i": 8,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, the base BC being applied to the base EF, the sides BA and AC cannot not coincide with ED and DF (respectively).",
+    "deps": [
+      "prop.7"
+    ],
+    "dep_content": [
+      "Prop.7: On the same straight-line, two other straight-lines equal, respectively, to two (given) straight-lines (which meet) cannot be constructed (meeting) at a different point on the same side (of the straight-line), but having the same ends as the given straight-lines."
+    ]
+  },
+  {
+    "prop_n": 8,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, and also have ",
+    "arg_i": 9,
+    "role": "conclusion",
+    "lf": "conclusion",
+    "en": "Thus, they will coincide.",
+    "deps": [
+      "cn.4"
+    ],
+    "dep_content": [
+      "C.N.4: And things coinciding with one another are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 8,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, and also have ",
+    "arg_i": 10,
+    "role": "step",
+    "lf": "application_of_common_notion",
+    "en": "So the angle BAC will also coincide with angle EDF, and will be equal to it [C.N. 4].",
+    "deps": [
+      "cn.4"
+    ],
+    "dep_content": [
+      "C.N.4: And things coinciding with one another are equal to one another."
+    ]
+  }
+]

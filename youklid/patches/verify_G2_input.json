@@ -1,0 +1,724 @@
+[
+  {
+    "prop_n": 9,
+    "prop_stmt": "To cut a given rectilinear angle in half.",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let the point D have been taken at random on AB, and let AE, equal to AD, have been cut off from AC [Prop. 1.3], and let DE have been joined.",
+    "deps": [
+      "post.1",
+      "prop.3"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point.",
+      "Prop.3: For two given unequal straight-lines, to cut off from the greater a straight-line equal to the lesser."
+    ]
+  },
+  {
+    "prop_n": 9,
+    "prop_stmt": "To cut a given rectilinear angle in half.",
+    "arg_i": 3,
+    "role": "construction",
+    "lf": "construction",
+    "en": "And let the equilateral triangle DEF have been constructed upon DE [Prop. 1.1], and let AF have been joined.",
+    "deps": [
+      "post.1",
+      "prop.1"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point.",
+      "Prop.1: To construct an equilateral triangle on a given finite straight-line."
+    ]
+  },
+  {
+    "prop_n": 9,
+    "prop_stmt": "To cut a given rectilinear angle in half.",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "deduction",
+    "en": "For since AD is equal to AE, and AF is common, the two (straight-lines) DA, AF are equal to the two (straight-lines) EA, AF, respectively.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 9,
+    "prop_stmt": "To cut a given rectilinear angle in half.",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And the base DF is equal to the base EF.",
+    "deps": [
+      "prop.8"
+    ],
+    "dep_content": [
+      "Prop.8: If two triangles have two sides equal to two sides, respectively, and also have the base equal to the base, then they will also have equal the angles encompassed by the equal straight-lines."
+    ]
+  },
+  {
+    "prop_n": 9,
+    "prop_stmt": "To cut a given rectilinear angle in half.",
+    "arg_i": 7,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, angle DAF is equal to angle EAF [Prop. 1.8].",
+    "deps": [
+      "prop.8"
+    ],
+    "dep_content": [
+      "Prop.8: If two triangles have two sides equal to two sides, respectively, and also have the base equal to the base, then they will also have equal the angles encompassed by the equal straight-lines."
+    ]
+  },
+  {
+    "prop_n": 10,
+    "prop_stmt": "To cut a given finite straight-line in half.",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let the equilateral triangle ABC have been constructed upon (AB) [Prop. 1.1], and let the angle ACB have been cut in half by the straight-line CD [Prop. 1.9].",
+    "deps": [
+      "prop.1",
+      "prop.9"
+    ],
+    "dep_content": [
+      "Prop.1: To construct an equilateral triangle on a given finite straight-line.",
+      "Prop.9: To cut a given rectilinear angle in half."
+    ]
+  },
+  {
+    "prop_n": 10,
+    "prop_stmt": "To cut a given finite straight-line in half.",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "deduction",
+    "en": "For since AC is equal to CB, and CD (is) common, the two (straight-lines) AC, CD are equal to the two (straight-lines) BC, CD, respectively.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 10,
+    "prop_stmt": "To cut a given finite straight-line in half.",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And the angle ACD is equal to the angle BCD.",
+    "deps": [
+      "prop.9"
+    ],
+    "dep_content": [
+      "Prop.9: To cut a given rectilinear angle in half."
+    ]
+  },
+  {
+    "prop_n": 10,
+    "prop_stmt": "To cut a given finite straight-line in half.",
+    "arg_i": 6,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, the base AD is equal to the base BD [Prop. 1.4].",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 11,
+    "prop_stmt": "To draw a straight-line at right-angles to a given straight-line from a given po",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let the point D be have been taken at random on AC, and let CE be made equal to CD [Prop. 1.3], and let the equilateral triangle FDE have been constructed on DE [Prop. 1.1], and let FC have been joine",
+    "deps": [
+      "post.1",
+      "prop.1",
+      "prop.3"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point.",
+      "Prop.1: To construct an equilateral triangle on a given finite straight-line.",
+      "Prop.3: For two given unequal straight-lines, to cut off from the greater a straight-line equal to the lesser."
+    ]
+  },
+  {
+    "prop_n": 11,
+    "prop_stmt": "To draw a straight-line at right-angles to a given straight-line from a given po",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "deduction",
+    "en": "For since DC is equal to CE, and CF is common, the two (straight-lines) DC, CF are equal to the two (straight-lines), EC, CF, respectively.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 11,
+    "prop_stmt": "To draw a straight-line at right-angles to a given straight-line from a given po",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And the base DF is equal to the base FE.",
+    "deps": [
+      "prop.1"
+    ],
+    "dep_content": [
+      "Prop.1: To construct an equilateral triangle on a given finite straight-line."
+    ]
+  },
+  {
+    "prop_n": 11,
+    "prop_stmt": "To draw a straight-line at right-angles to a given straight-line from a given po",
+    "arg_i": 6,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, the angle DCF is equal to the angle ECF [Prop. 1.8], and they are adjacent.",
+    "deps": [
+      "prop.8"
+    ],
+    "dep_content": [
+      "Prop.8: If two triangles have two sides equal to two sides, respectively, and also have the base equal to the base, then they will also have equal the angles encompassed by the equal straight-lines."
+    ]
+  },
+  {
+    "prop_n": 11,
+    "prop_stmt": "To draw a straight-line at right-angles to a given straight-line from a given po",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "application_of_definition",
+    "en": "But when a straight-line stood on a(nother) straight-line makes the adjacent angles equal to one another, each of the equal angles is a right-angle [Def. 1.10].",
+    "deps": [
+      "def.10"
+    ],
+    "dep_content": [
+      "Def.10: And when a straight-line stood upon (another) straight-line makes adjacent angles (which are) equal to one another, each of the equal angles is a right-angle, and the former straight-line is called a perpendicular to that upon which it stands."
+    ]
+  },
+  {
+    "prop_n": 12,
+    "prop_stmt": "To draw a straight-line perpendicular to a given infinite straight-line from a g",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "For let point D have been taken at random on the other side (to C) of the straight-line AB, and let the circle EFG have been drawn with center C and radius CD [Post. 3], and let the straight-line EG h",
+    "deps": [
+      "post.1",
+      "post.3",
+      "prop.10"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point.",
+      "Post.3: And to draw a circle with any center and radius.",
+      "Prop.10: To cut a given finite straight-line in half."
+    ]
+  },
+  {
+    "prop_n": 12,
+    "prop_stmt": "To draw a straight-line perpendicular to a given infinite straight-line from a g",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "deduction",
+    "en": "For since GH is equal to HE, and HC (is) common, the two (straight-lines) GH, HC are equal to the two (straight-lines) EH, HC, respectively, and the base CG is equal to the base CE.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 12,
+    "prop_stmt": "To draw a straight-line perpendicular to a given infinite straight-line from a g",
+    "arg_i": 5,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, the angle CHG is equal to the angle EHC [Prop. 1.8], and they are adjacent.",
+    "deps": [
+      "prop.8"
+    ],
+    "dep_content": [
+      "Prop.8: If two triangles have two sides equal to two sides, respectively, and also have the base equal to the base, then they will also have equal the angles encompassed by the equal straight-lines."
+    ]
+  },
+  {
+    "prop_n": 12,
+    "prop_stmt": "To draw a straight-line perpendicular to a given infinite straight-line from a g",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "application_of_definition",
+    "en": "But when a straight-line stood on a(nother) straight-line makes the adjacent angles equal to one another, each of the equal angles is a right-angle, and the former straightline is called a perpendicul",
+    "deps": [
+      "def.10"
+    ],
+    "dep_content": [
+      "Def.10: And when a straight-line stood upon (another) straight-line makes adjacent angles (which are) equal to one another, each of the equal angles is a right-angle, and the former straight-line is called a perpendicular to that upon which it stands."
+    ]
+  },
+  {
+    "prop_n": 13,
+    "prop_stmt": "If a straight-line stood on a(nother) straight-line makes angles, it will certai",
+    "arg_i": 2,
+    "role": "step",
+    "lf": "application_of_definition",
+    "en": "In fact, if CBA is equal to ABD then they are two right-angles [Def. 1.10].",
+    "deps": [
+      "def.10"
+    ],
+    "dep_content": [
+      "Def.10: And when a straight-line stood upon (another) straight-line makes adjacent angles (which are) equal to one another, each of the equal angles is a right-angle, and the former straight-line is called a perpendicular to that upon which it stands."
+    ]
+  },
+  {
+    "prop_n": 13,
+    "prop_stmt": "If a straight-line stood on a(nother) straight-line makes angles, it will certai",
+    "arg_i": 3,
+    "role": "step",
+    "lf": "construction",
+    "en": "But, if not, let BE have been drawn from the point B at right-angles to [the straightline] CD [Prop. 1.11].",
+    "deps": [
+      "prop.11"
+    ],
+    "dep_content": [
+      "Prop.11: To draw a straight-line at right-angles to a given straight-line from a given point on it."
+    ]
+  },
+  {
+    "prop_n": 13,
+    "prop_stmt": "If a straight-line stood on a(nother) straight-line makes angles, it will certai",
+    "arg_i": 4,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, CBE and EBD are two And since CBE is equal to the two (anright-angles. gles) CBA and ABE, let EBD have been added to both.",
+    "deps": [
+      "def.10"
+    ],
+    "dep_content": [
+      "Def.10: And when a straight-line stood upon (another) straight-line makes adjacent angles (which are) equal to one another, each of the equal angles is a right-angle, and the former straight-line is called a perpendicular to that upon which it stands."
+    ]
+  },
+  {
+    "prop_n": 13,
+    "prop_stmt": "If a straight-line stood on a(nother) straight-line makes angles, it will certai",
+    "arg_i": 5,
+    "role": "conclusion",
+    "lf": "application_of_common_notion",
+    "en": "Thus, the (sum of the angles) CBE and EBD is equal to the (sum of the) three (angles) CBA, ABE, and EBD Again, since DBA is equal to the two (an- [C.N. 2]. gles) DBE and EBA, let ABC have been added t",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 13,
+    "prop_stmt": "If a straight-line stood on a(nother) straight-line makes angles, it will certai",
+    "arg_i": 6,
+    "role": "conclusion",
+    "lf": "application_of_common_notion",
+    "en": "Thus, the (sum of the angles) DBA and ABC is equal to the (sum of the) three (angles) DBE, EBA, and ABC But (the sum of) CBE and EBD was also [C.N. 2]. shown (to be) equal to the (sum of the) same thr",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 13,
+    "prop_stmt": "If a straight-line stood on a(nother) straight-line makes angles, it will certai",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "application_of_common_notion",
+    "en": "And things equal to the same thing are also equal to one another [C.N. 1].",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 13,
+    "prop_stmt": "If a straight-line stood on a(nother) straight-line makes angles, it will certai",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "deduction",
+    "en": "Therefore, (the sum of) CBE and EBD is also equal to (the sum of) DBA and ABC.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 13,
+    "prop_stmt": "If a straight-line stood on a(nother) straight-line makes angles, it will certai",
+    "arg_i": 9,
+    "role": "step",
+    "lf": "deduction",
+    "en": "But, (the sum of) CBE and EBD is two right-angles.",
+    "deps": [
+      "def.10"
+    ],
+    "dep_content": [
+      "Def.10: And when a straight-line stood upon (another) straight-line makes adjacent angles (which are) equal to one another, each of the equal angles is a right-angle, and the former straight-line is called a perpendicular to that upon which it stands."
+    ]
+  },
+  {
+    "prop_n": 14,
+    "prop_stmt": "If two straight-lines, not lying on the same side, make adjacent angles (whose s",
+    "arg_i": 2,
+    "role": "step",
+    "lf": "construction",
+    "en": "For if BD is not straight-on to BC then let BE be straight-on to CB.",
+    "deps": [
+      "post.2"
+    ],
+    "dep_content": [
+      "Post.2: And to produce a finite straight-line continuously in a straight-line."
+    ]
+  },
+  {
+    "prop_n": 14,
+    "prop_stmt": "If two straight-lines, not lying on the same side, make adjacent angles (whose s",
+    "arg_i": 3,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Therefore, since the straight-line AB stands on the straight-line CBE, the (sum of the) angles ABC and ABE is thus equal to two right-angles [Prop. 1.13].",
+    "deps": [
+      "prop.13"
+    ],
+    "dep_content": [
+      "Prop.13: If a straight-line stood on a(nother) straight-line makes angles, it will certainly either make two rightangles, or (angles whose sum is) equal to two rightangles."
+    ]
+  },
+  {
+    "prop_n": 14,
+    "prop_stmt": "If two straight-lines, not lying on the same side, make adjacent angles (whose s",
+    "arg_i": 5,
+    "role": "conclusion",
+    "lf": "application_of_common_notion",
+    "en": "Thus, (the sum of angles) CBA and ABE is equal to (the sum of angles) CBA and ABD [C.N. 1].",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 14,
+    "prop_stmt": "If two straight-lines, not lying on the same side, make adjacent angles (whose s",
+    "arg_i": 6,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let (angle) CBA have been subtracted from both.",
+    "deps": [
+      "cn.3"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 14,
+    "prop_stmt": "If two straight-lines, not lying on the same side, make adjacent angles (whose s",
+    "arg_i": 7,
+    "role": "conclusion",
+    "lf": "application_of_common_notion",
+    "en": "Thus, the remainder ABE is equal to the remainder ABD [C.N. 3], the lesser to the greater.",
+    "deps": [
+      "cn.3"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 14,
+    "prop_stmt": "If two straight-lines, not lying on the same side, make adjacent angles (whose s",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "deduction",
+    "en": "The very thing is impossible.",
+    "deps": [
+      "cn.5"
+    ],
+    "dep_content": [
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  },
+  {
+    "prop_n": 14,
+    "prop_stmt": "If two straight-lines, not lying on the same side, make adjacent angles (whose s",
+    "arg_i": 10,
+    "role": "step",
+    "lf": "deduction",
+    "en": "Similarly, we can show that neither (is) any other (straightline) than BD.",
+    "deps": [
+      "prop.13",
+      "cn.5"
+    ],
+    "dep_content": [
+      "Prop.13: If a straight-line stood on a(nother) straight-line makes angles, it will certainly either make two rightangles, or (angles whose sum is) equal to two rightangles.",
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  },
+  {
+    "prop_n": 15,
+    "prop_stmt": "If two straight-lines cut one another then they make the vertically opposite ang",
+    "arg_i": 2,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For since the straight-line AE stands on the straightline CD, making the angles CEA and AED, the (sum of the) angles CEA and AED is thus equal to two rightangles [Prop. 1.13].",
+    "deps": [
+      "prop.13"
+    ],
+    "dep_content": [
+      "Prop.13: If a straight-line stood on a(nother) straight-line makes angles, it will certainly either make two rightangles, or (angles whose sum is) equal to two rightangles."
+    ]
+  },
+  {
+    "prop_n": 15,
+    "prop_stmt": "If two straight-lines cut one another then they make the vertically opposite ang",
+    "arg_i": 3,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Again, since the straight-line DE stands on the straight-line AB, making the angles AED and DEB, the (sum of the) angles AED and DEB is thus equal to two right-angles [Prop. 1.13].",
+    "deps": [
+      "prop.13"
+    ],
+    "dep_content": [
+      "Prop.13: If a straight-line stood on a(nother) straight-line makes angles, it will certainly either make two rightangles, or (angles whose sum is) equal to two rightangles."
+    ]
+  },
+  {
+    "prop_n": 15,
+    "prop_stmt": "If two straight-lines cut one another then they make the vertically opposite ang",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "application_of_common_notion",
+    "en": "But (the sum of) CEA and AED was also shown (to be) equal to two right-angles.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 15,
+    "prop_stmt": "If two straight-lines cut one another then they make the vertically opposite ang",
+    "arg_i": 5,
+    "role": "conclusion",
+    "lf": "application_of_common_notion",
+    "en": "Thus, (the sum of) CEA and AED is equal to (the sum of) AED and DEB [C.N. 1].",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 15,
+    "prop_stmt": "If two straight-lines cut one another then they make the vertically opposite ang",
+    "arg_i": 6,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let AED have been subtracted from both.",
+    "deps": [
+      "cn.3"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 15,
+    "prop_stmt": "If two straight-lines cut one another then they make the vertically opposite ang",
+    "arg_i": 7,
+    "role": "conclusion",
+    "lf": "application_of_common_notion",
+    "en": "Thus, the remainder CEA is equal to the remainder BED [C.N. 3].",
+    "deps": [
+      "cn.3"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 15,
+    "prop_stmt": "If two straight-lines cut one another then they make the vertically opposite ang",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "deduction",
+    "en": "Similarly, it can be shown that CEB and DEA are also equal.",
+    "deps": [
+      "prop.13",
+      "cn.3"
+    ],
+    "dep_content": [
+      "Prop.13: If a straight-line stood on a(nother) straight-line makes angles, it will certainly either make two rightangles, or (angles whose sum is) equal to two rightangles.",
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 16,
+    "prop_stmt": "For any triangle, when one of the sides is produced, the external angle is great",
+    "arg_i": 0,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let ABC be a triangle, and let one of its sides BC have been produced to D.",
+    "deps": [
+      "post.2"
+    ],
+    "dep_content": [
+      "Post.2: And to produce a finite straight-line continuously in a straight-line."
+    ]
+  },
+  {
+    "prop_n": 16,
+    "prop_stmt": "For any triangle, when one of the sides is produced, the external angle is great",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let the (straight-line) AC have been cut in half at (point) E [Prop. 1.10].",
+    "deps": [
+      "prop.10"
+    ],
+    "dep_content": [
+      "Prop.10: To cut a given finite straight-line in half."
+    ]
+  },
+  {
+    "prop_n": 16,
+    "prop_stmt": "For any triangle, when one of the sides is produced, the external angle is great",
+    "arg_i": 3,
+    "role": "step",
+    "lf": "construction",
+    "en": "And BE being joined, let it have been produced in a straight-line to (point) F.† And let EF be made equal to BE [Prop. 1.3], and let FC have been joined, and let AC have been drawn through to (point) ",
+    "deps": [
+      "post.1",
+      "post.2",
+      "prop.3"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point.",
+      "Post.2: And to produce a finite straight-line continuously in a straight-line.",
+      "Prop.3: For two given unequal straight-lines, to cut off from the greater a straight-line equal to the lesser."
+    ]
+  },
+  {
+    "prop_n": 16,
+    "prop_stmt": "For any triangle, when one of the sides is produced, the external angle is great",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "application_of_common_notion",
+    "en": "Therefore, since AE is equal to EC, and BE to EF, the two (straight-lines) AE, EB are equal to the two (straight-lines) CE, EF, respectively.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 16,
+    "prop_stmt": "For any triangle, when one of the sides is produced, the external angle is great",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Also, angle AEB is equal to angle FEC, for (they are) vertically opposite [Prop. 1.15].",
+    "deps": [
+      "prop.15",
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.15: If two straight-lines cut one another then they make the vertically opposite angles equal to one another.",
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 16,
+    "prop_stmt": "For any triangle, when one of the sides is produced, the external angle is great",
+    "arg_i": 6,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, the base AB is equal to the base FC, and the triangle ABE is equal to the triangle FEC, and the remaining angles subtended by the equal sides are equal to the corresponding remaining angles [Pro",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 16,
+    "prop_stmt": "For any triangle, when one of the sides is produced, the external angle is great",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "application_of_common_notion",
+    "en": "But ECD is greater than ECF.",
+    "deps": [
+      "cn.5"
+    ],
+    "dep_content": [
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  },
+  {
+    "prop_n": 16,
+    "prop_stmt": "For any triangle, when one of the sides is produced, the external angle is great",
+    "arg_i": 9,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, ACD is greater than BAE.",
+    "deps": [
+      "prop.10"
+    ],
+    "dep_content": [
+      "Prop.10: To cut a given finite straight-line in half."
+    ]
+  },
+  {
+    "prop_n": 16,
+    "prop_stmt": "For any triangle, when one of the sides is produced, the external angle is great",
+    "arg_i": 10,
+    "role": "step",
+    "lf": "deduction",
+    "en": "Similarly, by having cut BC in half, it can be shown (that) BCG—that is to say, ACD—(is) also greater than ABC.",
+    "deps": [
+      "prop.10",
+      "post.1",
+      "post.2",
+      "prop.3",
+      "prop.15",
+      "prop.4",
+      "cn.5"
+    ],
+    "dep_content": [
+      "Prop.10: To cut a given finite straight-line in half.",
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point.",
+      "Post.2: And to produce a finite straight-line continuously in a straight-line.",
+      "Prop.3: For two given unequal straight-lines, to cut off from the greater a straight-line equal to the lesser.",
+      "Prop.15: If two straight-lines cut one another then they make the vertically opposite angles equal to one another.",
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles.",
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  }
+]

@@ -1,0 +1,65 @@
+[
+  {
+    "prop_n": 34,
+    "arg_i": 7,
+    "issue": "WRONG",
+    "current_deps": ["cn.2"],
+    "proposed_deps": ["prop.26"],
+    "unclear": false,
+    "note": "The equality BAC=CDB follows from the triangle congruence (Prop.26, arg_i 5), not from adding equals. CN.2 is irrelevant here."
+  },
+  {
+    "prop_n": 34,
+    "arg_i": 11,
+    "issue": "WRONG",
+    "current_deps": ["cn.1"],
+    "proposed_deps": [],
+    "unclear": false,
+    "note": "This is a statement/heading ('a diagonal cuts them in half'), not a reasoning step. It should not cite CN.1; CN.1 is not invoked to make this claim. It sets up for the next steps."
+  },
+  {
+    "prop_n": 34,
+    "arg_i": 12,
+    "issue": "EXTRA",
+    "current_deps": ["prop.29", "prop.26"],
+    "proposed_deps": [],
+    "unclear": false,
+    "note": "This step just restates: AB=CD (given), BC common. Neither Prop.29 nor Prop.26 is invoked; this is setup for Prop.4 to be applied in the next step."
+  },
+  {
+    "prop_n": 35,
+    "arg_i": 6,
+    "issue": "WRONG",
+    "current_deps": ["prop.34"],
+    "proposed_deps": ["cn.2"],
+    "unclear": false,
+    "note": "Prop.34 gives AD=EF (arg_i 2, 3, 4). Then CN.2 adds common segment DE to conclude AE=DF. The cited Prop.34 is the source of the initial equalities, but the conclusion step uses CN.2 (adding equals)."
+  },
+  {
+    "prop_n": 35,
+    "arg_i": 8,
+    "issue": "WRONG",
+    "current_deps": ["prop.29"],
+    "proposed_deps": [],
+    "unclear": false,
+    "note": "This step restates the two equalities from arg_i 6 & 7 (AE=FD, AB=DC). Prop.29 (alternate angles) is not invoked. This is just assembly of facts for Prop.4."
+  },
+  {
+    "prop_n": 37,
+    "arg_i": 7,
+    "issue": "EXTRA",
+    "current_deps": ["cn.3", "prop.34"],
+    "proposed_deps": ["prop.34"],
+    "unclear": false,
+    "note": "Prop.34 states that a diagonal bisects a parallelogram. DC bisects DBCF, so triangle DBC is half. CN.3 (subtracting equals) is not needed; the bisection is direct from Prop.34."
+  },
+  {
+    "prop_n": 38,
+    "arg_i": 8,
+    "issue": "WRONG",
+    "current_deps": ["cn.3"],
+    "proposed_deps": ["prop.34"],
+    "unclear": false,
+    "note": "Triangle FED is half of parallelogram DEFH because the diagonal DF bisects it (Prop.34). CN.3 is not invoked; the bisection is a direct conclusion from Prop.34."
+  }
+]

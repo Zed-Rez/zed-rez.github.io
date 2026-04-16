@@ -1,0 +1,894 @@
+[
+  {
+    "prop_n": 17,
+    "prop_stmt": "For any triangle, (the sum of) two angles taken together in any (possible way) i",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "For let BC have been produced to D.",
+    "deps": [
+      "post.2"
+    ],
+    "dep_content": [
+      "Post.2: And to produce a finite straight-line continuously in a straight-line."
+    ]
+  },
+  {
+    "prop_n": 17,
+    "prop_stmt": "For any triangle, (the sum of) two angles taken together in any (possible way) i",
+    "arg_i": 3,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "And since the angle ACD is external to triangle ABC, it is greater than the internal and opposite angle ABC [Prop. 1.16].",
+    "deps": [
+      "prop.16"
+    ],
+    "dep_content": [
+      "Prop.16: For any triangle, when one of the sides is produced, the external angle is greater than each of the internal and opposite angles."
+    ]
+  },
+  {
+    "prop_n": 17,
+    "prop_stmt": "For any triangle, (the sum of) two angles taken together in any (possible way) i",
+    "arg_i": 4,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let ACB have been added to both.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 17,
+    "prop_stmt": "For any triangle, (the sum of) two angles taken together in any (possible way) i",
+    "arg_i": 5,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, the (sum of the angles) ACD and ACB is greater than the (sum of the angles) ABC and BCA.",
+    "deps": [
+      "prop.13"
+    ],
+    "dep_content": [
+      "Prop.13: If a straight-line stood on a(nother) straight-line makes angles, it will certainly either make two rightangles, or (angles whose sum is) equal to two rightangles."
+    ]
+  },
+  {
+    "prop_n": 17,
+    "prop_stmt": "For any triangle, (the sum of) two angles taken together in any (possible way) i",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "But, (the sum of) ACD and ACB is equal to two right-angles [Prop. 1.13].",
+    "deps": [
+      "cn.3",
+      "prop.13"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†",
+      "Prop.13: If a straight-line stood on a(nother) straight-line makes angles, it will certainly either make two rightangles, or (angles whose sum is) equal to two rightangles."
+    ]
+  },
+  {
+    "prop_n": 17,
+    "prop_stmt": "For any triangle, (the sum of) two angles taken together in any (possible way) i",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "deduction",
+    "en": "Similarly, we can show that (the sum of) BAC and ACB is also less than two right-angles, and further (that the sum of) CAB and ABC (is less than two rightangles).",
+    "deps": [
+      "prop.16"
+    ],
+    "dep_content": [
+      "Prop.16: For any triangle, when one of the sides is produced, the external angle is greater than each of the internal and opposite angles."
+    ]
+  },
+  {
+    "prop_n": 18,
+    "prop_stmt": "In any triangle, the greater side subtends the greater angle.",
+    "arg_i": 2,
+    "role": "step",
+    "lf": "construction",
+    "en": "For since AC is greater than AB, let AD be made equal to AB [Prop. 1.3], and let BD have been joined.",
+    "deps": [
+      "prop.3"
+    ],
+    "dep_content": [
+      "Prop.3: For two given unequal straight-lines, to cut off from the greater a straight-line equal to the lesser."
+    ]
+  },
+  {
+    "prop_n": 18,
+    "prop_stmt": "In any triangle, the greater side subtends the greater angle.",
+    "arg_i": 3,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "And since angle ADB is external to triangle BCD, it is greater than the internal and opposite (angle) DCB [Prop. 1.16].",
+    "deps": [
+      "prop.16"
+    ],
+    "dep_content": [
+      "Prop.16: For any triangle, when one of the sides is produced, the external angle is greater than each of the internal and opposite angles."
+    ]
+  },
+  {
+    "prop_n": 18,
+    "prop_stmt": "In any triangle, the greater side subtends the greater angle.",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "But ADB (is) equal to ABD, since side AB is also equal to side AD [Prop. 1.5].",
+    "deps": [
+      "prop.5"
+    ],
+    "dep_content": [
+      "Prop.5: For isosceles triangles, the angles at the base are equal to one another, and if the equal sides are produced then the angles under the base will be equal to one another."
+    ]
+  },
+  {
+    "prop_n": 18,
+    "prop_stmt": "In any triangle, the greater side subtends the greater angle.",
+    "arg_i": 5,
+    "role": "conclusion",
+    "lf": "application_of_common_notion",
+    "en": "Thus, ABD is also greater than ACB.",
+    "deps": [
+      "cn.5"
+    ],
+    "dep_content": [
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  },
+  {
+    "prop_n": 19,
+    "prop_stmt": "In any triangle, the greater angle is subtended by the greater side.",
+    "arg_i": 3,
+    "role": "step",
+    "lf": "deduction",
+    "en": "In fact, AC is not equal to AB.",
+    "deps": [
+      "prop.5"
+    ],
+    "dep_content": [
+      "Prop.5: For isosceles triangles, the angles at the base are equal to one another, and if the equal sides are produced then the angles under the base will be equal to one another."
+    ]
+  },
+  {
+    "prop_n": 19,
+    "prop_stmt": "In any triangle, the greater angle is subtended by the greater side.",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For then angle ABC would also have been equal to ACB [Prop. 1.5].",
+    "deps": [
+      "prop.5"
+    ],
+    "dep_content": [
+      "Prop.5: For isosceles triangles, the angles at the base are equal to one another, and if the equal sides are produced then the angles under the base will be equal to one another."
+    ]
+  },
+  {
+    "prop_n": 19,
+    "prop_stmt": "In any triangle, the greater angle is subtended by the greater side.",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "deduction",
+    "en": "But it is not.",
+    "deps": [
+      "prop.5"
+    ],
+    "dep_content": [
+      "Prop.5: For isosceles triangles, the angles at the base are equal to one another, and if the equal sides are produced then the angles under the base will be equal to one another."
+    ]
+  },
+  {
+    "prop_n": 19,
+    "prop_stmt": "In any triangle, the greater angle is subtended by the greater side.",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "deduction",
+    "en": "Neither, indeed, is AC less than AB.",
+    "deps": [
+      "prop.18"
+    ],
+    "dep_content": [
+      "Prop.18: In any triangle, the greater side subtends the greater angle."
+    ]
+  },
+  {
+    "prop_n": 19,
+    "prop_stmt": "In any triangle, the greater angle is subtended by the greater side.",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For then angle ABC would also have been less than ACB [Prop. 1.18].",
+    "deps": [
+      "prop.18"
+    ],
+    "dep_content": [
+      "Prop.18: In any triangle, the greater side subtends the greater angle."
+    ]
+  },
+  {
+    "prop_n": 19,
+    "prop_stmt": "In any triangle, the greater angle is subtended by the greater side.",
+    "arg_i": 9,
+    "role": "step",
+    "lf": "deduction",
+    "en": "But it is not.",
+    "deps": [
+      "prop.18"
+    ],
+    "dep_content": [
+      "Prop.18: In any triangle, the greater side subtends the greater angle."
+    ]
+  },
+  {
+    "prop_n": 20,
+    "prop_stmt": "In any triangle, (the sum of) two sides taken together in any (possible way) is ",
+    "arg_i": 2,
+    "role": "step",
+    "lf": "deduction",
+    "en": "(So), (the sum of) BA and AC (is greater) than BC, (the sum of) AB and BC than AC, and (the sum of) BC and CA than AB.",
+    "deps": [
+      "prop.19"
+    ],
+    "dep_content": [
+      "Prop.19: In any triangle, the greater angle is subtended by the greater side."
+    ]
+  },
+  {
+    "prop_n": 20,
+    "prop_stmt": "In any triangle, (the sum of) two sides taken together in any (possible way) is ",
+    "arg_i": 3,
+    "role": "construction",
+    "lf": "construction",
+    "en": "For let BA have been drawn through to point D, and let AD be made equal to CA [Prop. 1.3], and let DC have been joined.",
+    "deps": [
+      "post.2",
+      "prop.3"
+    ],
+    "dep_content": [
+      "Post.2: And to produce a finite straight-line continuously in a straight-line.",
+      "Prop.3: For two given unequal straight-lines, to cut off from the greater a straight-line equal to the lesser."
+    ]
+  },
+  {
+    "prop_n": 20,
+    "prop_stmt": "In any triangle, (the sum of) two sides taken together in any (possible way) is ",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Therefore, since DA is equal to AC, the angle ADC is also equal to ACD [Prop. 1.5].",
+    "deps": [
+      "prop.5"
+    ],
+    "dep_content": [
+      "Prop.5: For isosceles triangles, the angles at the base are equal to one another, and if the equal sides are produced then the angles under the base will be equal to one another."
+    ]
+  },
+  {
+    "prop_n": 20,
+    "prop_stmt": "In any triangle, (the sum of) two sides taken together in any (possible way) is ",
+    "arg_i": 5,
+    "role": "conclusion",
+    "lf": "application_of_common_notion",
+    "en": "Thus, BCD is greater than ADC.",
+    "deps": [
+      "cn.5"
+    ],
+    "dep_content": [
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  },
+  {
+    "prop_n": 20,
+    "prop_stmt": "In any triangle, (the sum of) two sides taken together in any (possible way) is ",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "And since DCB is a triangle having the angle BCD greater than BDC, and the greater angle subtends the greater side [Prop. 1.19], DB is thus greater than BC.",
+    "deps": [
+      "prop.19"
+    ],
+    "dep_content": [
+      "Prop.19: In any triangle, the greater angle is subtended by the greater side."
+    ]
+  },
+  {
+    "prop_n": 20,
+    "prop_stmt": "In any triangle, (the sum of) two sides taken together in any (possible way) is ",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "deduction",
+    "en": "But DA is equal to AC.",
+    "deps": [
+      "prop.3"
+    ],
+    "dep_content": [
+      "Prop.3: For two given unequal straight-lines, to cut off from the greater a straight-line equal to the lesser."
+    ]
+  },
+  {
+    "prop_n": 20,
+    "prop_stmt": "In any triangle, (the sum of) two sides taken together in any (possible way) is ",
+    "arg_i": 8,
+    "role": "conclusion",
+    "lf": "application_of_common_notion",
+    "en": "Thus, (the sum of) BA and AC is greater than BC.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 20,
+    "prop_stmt": "In any triangle, (the sum of) two sides taken together in any (possible way) is ",
+    "arg_i": 9,
+    "role": "step",
+    "lf": "deduction",
+    "en": "Similarly, we can show that (the sum of) AB and BC is also greater than CA, and (the sum of) BC and CA than AB.",
+    "deps": [
+      "prop.19"
+    ],
+    "dep_content": [
+      "Prop.19: In any triangle, the greater angle is subtended by the greater side."
+    ]
+  },
+  {
+    "prop_n": 21,
+    "prop_stmt": "If two internal straight-lines are constructed on one of the sides of a triangle",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "For let BD have been drawn through to E.",
+    "deps": [
+      "post.2"
+    ],
+    "dep_content": [
+      "Post.2: And to produce a finite straight-line continuously in a straight-line."
+    ]
+  },
+  {
+    "prop_n": 21,
+    "prop_stmt": "If two internal straight-lines are constructed on one of the sides of a triangle",
+    "arg_i": 3,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "And since in any triangle (the sum of any) two sides is greater than the remaining (side) [Prop. 1.20], in triangle ABE the (sum of the) two sides AB and AE is thus greater than BE.",
+    "deps": [
+      "prop.20"
+    ],
+    "dep_content": [
+      "Prop.20: In any triangle, (the sum of) two sides taken together in any (possible way) is greater than the remaining (side)."
+    ]
+  },
+  {
+    "prop_n": 21,
+    "prop_stmt": "If two internal straight-lines are constructed on one of the sides of a triangle",
+    "arg_i": 4,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let EC have been added to both.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 21,
+    "prop_stmt": "If two internal straight-lines are constructed on one of the sides of a triangle",
+    "arg_i": 5,
+    "role": "conclusion",
+    "lf": "application_of_common_notion",
+    "en": "Thus, (the sum of) BA and AC is greater than (the sum of) BE and EC.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 21,
+    "prop_stmt": "If two internal straight-lines are constructed on one of the sides of a triangle",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Again, since in triangle CED the (sum of the) two sides CE and ED is greater than CD, let DB have been added to both.",
+    "deps": [
+      "prop.20"
+    ],
+    "dep_content": [
+      "Prop.20: In any triangle, (the sum of) two sides taken together in any (possible way) is greater than the remaining (side)."
+    ]
+  },
+  {
+    "prop_n": 21,
+    "prop_stmt": "If two internal straight-lines are constructed on one of the sides of a triangle",
+    "arg_i": 7,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, (the sum of) CE and EB is greater than (the sum of) CD and DB.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 21,
+    "prop_stmt": "If two internal straight-lines are constructed on one of the sides of a triangle",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "deduction",
+    "en": "But, (the sum of) BA and AC was shown (to be) greater than (the sum of) BE and EC.",
+    "deps": [
+      "cn.3"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 21,
+    "prop_stmt": "If two internal straight-lines are constructed on one of the sides of a triangle",
+    "arg_i": 9,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, (the sum of) BA and AC is much greater than (the sum of) BD and DC.",
+    "deps": [
+      "cn.5"
+    ],
+    "dep_content": [
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  },
+  {
+    "prop_n": 21,
+    "prop_stmt": "If two internal straight-lines are constructed on one of the sides of a triangle",
+    "arg_i": 10,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Again, since in any triangle the external angle is greater than the internal and opposite (angles) [Prop. 1.16], in triangle CDE the external angle BDC is thus greater than CED.",
+    "deps": [
+      "prop.16"
+    ],
+    "dep_content": [
+      "Prop.16: For any triangle, when one of the sides is produced, the external angle is greater than each of the internal and opposite angles."
+    ]
+  },
+  {
+    "prop_n": 21,
+    "prop_stmt": "If two internal straight-lines are constructed on one of the sides of a triangle",
+    "arg_i": 11,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Accordingly, for the same (reason), the external angle CEB of the triangle ABE is also greater than BAC.",
+    "deps": [
+      "prop.16"
+    ],
+    "dep_content": [
+      "Prop.16: For any triangle, when one of the sides is produced, the external angle is greater than each of the internal and opposite angles."
+    ]
+  },
+  {
+    "prop_n": 21,
+    "prop_stmt": "If two internal straight-lines are constructed on one of the sides of a triangle",
+    "arg_i": 12,
+    "role": "step",
+    "lf": "deduction",
+    "en": "But, BDC was shown (to be) greater than CEB.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 21,
+    "prop_stmt": "If two internal straight-lines are constructed on one of the sides of a triangle",
+    "arg_i": 13,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, BDC is much greater than BAC.",
+    "deps": [
+      "cn.5"
+    ],
+    "dep_content": [
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  },
+  {
+    "prop_n": 22,
+    "prop_stmt": "To construct a triangle from three straight-lines which are equal to three given",
+    "arg_i": 0,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "It is necessary for (the sum of) two (of the straight-lines) taken together in any (possible way) to be greater than the remaining (one), [on account of the (fact that) in any triangle (the sum of) tw",
+    "deps": [
+      "prop.20"
+    ],
+    "dep_content": [
+      "Prop.20: In any triangle, (the sum of) two sides taken together in any (possible way) is greater than the remaining (side)."
+    ]
+  },
+  {
+    "prop_n": 22,
+    "prop_stmt": "To construct a triangle from three straight-lines which are equal to three given",
+    "arg_i": 4,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let some straight-line DE be set out, terminated at D, and infinite in the direction of E.",
+    "deps": [
+      "post.1"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point."
+    ]
+  },
+  {
+    "prop_n": 22,
+    "prop_stmt": "To construct a triangle from three straight-lines which are equal to three given",
+    "arg_i": 5,
+    "role": "construction",
+    "lf": "application_of_prior_result",
+    "en": "And let DF made equal to A, and FG equal to B, and GH equal to C [Prop. 1.3].",
+    "deps": [
+      "prop.3"
+    ],
+    "dep_content": [
+      "Prop.3: For two given unequal straight-lines, to cut off from the greater a straight-line equal to the lesser."
+    ]
+  },
+  {
+    "prop_n": 22,
+    "prop_stmt": "To construct a triangle from three straight-lines which are equal to three given",
+    "arg_i": 6,
+    "role": "construction",
+    "lf": "application_of_postulate",
+    "en": "And let the circle DKL have been drawn with center F and radius FD.",
+    "deps": [
+      "post.3"
+    ],
+    "dep_content": [
+      "Post.3: And to draw a circle with any center and radius."
+    ]
+  },
+  {
+    "prop_n": 22,
+    "prop_stmt": "To construct a triangle from three straight-lines which are equal to three given",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "application_of_postulate",
+    "en": "Again, let the circle KLH have been drawn with center G and radius GH.",
+    "deps": [
+      "post.3"
+    ],
+    "dep_content": [
+      "Post.3: And to draw a circle with any center and radius."
+    ]
+  },
+  {
+    "prop_n": 22,
+    "prop_stmt": "To construct a triangle from three straight-lines which are equal to three given",
+    "arg_i": 8,
+    "role": "construction",
+    "lf": "construction",
+    "en": "And let KF and KG have been joined.",
+    "deps": [
+      "post.1"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point."
+    ]
+  },
+  {
+    "prop_n": 22,
+    "prop_stmt": "To construct a triangle from three straight-lines which are equal to three given",
+    "arg_i": 9,
+    "role": "assertion",
+    "lf": "assertion",
+    "en": "I say that the triangle KFG has been constructed from three straight-lines equal to A, B, and C.",
+    "deps": [
+      "def.16"
+    ],
+    "dep_content": [
+      "Def.16: And the point is called the center of the circle."
+    ]
+  },
+  {
+    "prop_n": 22,
+    "prop_stmt": "To construct a triangle from three straight-lines which are equal to three given",
+    "arg_i": 10,
+    "role": "step",
+    "lf": "application_of_definition",
+    "en": "For since point F is the center of the circle DKL, FD is equal to FK.",
+    "deps": [
+      "def.15"
+    ],
+    "dep_content": [
+      "Def.15: A circle is a plane figure contained by a single line [which is called a circumference], (such that) all of the straight-lines radiating towards [the circumference] from one point amongst those lying inside the figure are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 22,
+    "prop_stmt": "To construct a triangle from three straight-lines which are equal to three given",
+    "arg_i": 11,
+    "role": "step",
+    "lf": "deduction",
+    "en": "But, FD is equal to A.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 22,
+    "prop_stmt": "To construct a triangle from three straight-lines which are equal to three given",
+    "arg_i": 12,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, KF is also equal to A.",
+    "deps": [
+      "def.16"
+    ],
+    "dep_content": [
+      "Def.16: And the point is called the center of the circle."
+    ]
+  },
+  {
+    "prop_n": 22,
+    "prop_stmt": "To construct a triangle from three straight-lines which are equal to three given",
+    "arg_i": 13,
+    "role": "step",
+    "lf": "application_of_definition",
+    "en": "Again, since point G is the center of the circle LKH, GH is equal to GK.",
+    "deps": [
+      "def.15"
+    ],
+    "dep_content": [
+      "Def.15: A circle is a plane figure contained by a single line [which is called a circumference], (such that) all of the straight-lines radiating towards [the circumference] from one point amongst those lying inside the figure are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 22,
+    "prop_stmt": "To construct a triangle from three straight-lines which are equal to three given",
+    "arg_i": 14,
+    "role": "step",
+    "lf": "deduction",
+    "en": "But, GH is equal to C.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 22,
+    "prop_stmt": "To construct a triangle from three straight-lines which are equal to three given",
+    "arg_i": 15,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, KG is also equal to C.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 22,
+    "prop_stmt": "To construct a triangle from three straight-lines which are equal to three given",
+    "arg_i": 16,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And FG is also equal to B.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 22,
+    "prop_stmt": "To construct a triangle from three straight-lines which are equal to three given",
+    "arg_i": 17,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, the three straight-lines KF, FG, and GK are equal to A, B, and C (respectively).",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 23,
+    "prop_stmt": "To construct a rectilinear angle equal to a given rectilinear angle at a (given)",
+    "arg_i": 3,
+    "role": "construction",
+    "lf": "application_of_prior_result",
+    "en": "And let the triangle AFG have been constructed from three straight-lines which are equal to CD, DE, and CE, such that CD is equal to AF, CE to AG, and further DE to FG [Prop. 1.22].",
+    "deps": [
+      "prop.22"
+    ],
+    "dep_content": [
+      "Prop.22: To construct a triangle from three straight-lines which are equal to three given [straight-lines]."
+    ]
+  },
+  {
+    "prop_n": 23,
+    "prop_stmt": "To construct a rectilinear angle equal to a given rectilinear angle at a (given)",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Therefore, since the two (straight-lines) DC, CE are equal to the two (straight-lines) FA, AG, respectively, and the base DE is equal to the base FG, the angle DCE is thus equal to the angle FAG [Prop",
+    "deps": [
+      "prop.8"
+    ],
+    "dep_content": [
+      "Prop.8: If two triangles have two sides equal to two sides, respectively, and also have the base equal to the base, then they will also have equal the angles encompassed by the equal straight-lines."
+    ]
+  },
+  {
+    "prop_n": 24,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, but (one) has ",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For since angle BAC is greater than angle EDF, let (angle) EDG, equal to angle BAC, have been constructed at the point D on the straight-line DE And let DG be made equal to either of [Prop. 1.23].",
+    "deps": [
+      "prop.23",
+      "prop.3"
+    ],
+    "dep_content": [
+      "Prop.23: To construct a rectilinear angle equal to a given rectilinear angle at a (given) point on a given straight-line.",
+      "Prop.3: For two given unequal straight-lines, to cut off from the greater a straight-line equal to the lesser."
+    ]
+  },
+  {
+    "prop_n": 24,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, but (one) has ",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "AC or DF [Prop. 1.3], and let EG and FG have been joined.",
+    "deps": [
+      "prop.3"
+    ],
+    "dep_content": [
+      "Prop.3: For two given unequal straight-lines, to cut off from the greater a straight-line equal to the lesser."
+    ]
+  },
+  {
+    "prop_n": 24,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, but (one) has ",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "deduction",
+    "en": "Also the angle BAC is equal to the angle EDG.",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 24,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, but (one) has ",
+    "arg_i": 8,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, the base BC is equal to the base EG [Prop. 1.4].",
+    "deps": [
+      "prop.4",
+      "prop.5"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles.",
+      "Prop.5: For isosceles triangles, the angles at the base are equal to one another, and if the equal sides are produced then the angles under the base will be equal to one another."
+    ]
+  },
+  {
+    "prop_n": 24,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, but (one) has ",
+    "arg_i": 9,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Again, since DF is equal to DG, angle DGF is also equal to angle DFG [Prop. 1.5].",
+    "deps": [
+      "prop.5"
+    ],
+    "dep_content": [
+      "Prop.5: For isosceles triangles, the angles at the base are equal to one another, and if the equal sides are produced then the angles under the base will be equal to one another."
+    ]
+  },
+  {
+    "prop_n": 24,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, but (one) has ",
+    "arg_i": 10,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, DFG (is) greater than EGF.",
+    "deps": [
+      "prop.5",
+      "cn.5"
+    ],
+    "dep_content": [
+      "Prop.5: For isosceles triangles, the angles at the base are equal to one another, and if the equal sides are produced then the angles under the base will be equal to one another.",
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  },
+  {
+    "prop_n": 24,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, but (one) has ",
+    "arg_i": 11,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, EFG is much greater than EGF.",
+    "deps": [
+      "prop.19"
+    ],
+    "dep_content": [
+      "Prop.19: In any triangle, the greater angle is subtended by the greater side."
+    ]
+  },
+  {
+    "prop_n": 24,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, but (one) has ",
+    "arg_i": 12,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "And since triangle EFG has angle EFG greater than EGF, and the greater angle is subtended by the greater side [Prop. 1.19], side EG (is) thus also greater than EF.",
+    "deps": [
+      "prop.19"
+    ],
+    "dep_content": [
+      "Prop.19: In any triangle, the greater angle is subtended by the greater side."
+    ]
+  },
+  {
+    "prop_n": 24,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, but (one) has ",
+    "arg_i": 13,
+    "role": "step",
+    "lf": "deduction",
+    "en": "But EG (is) equal to BC.",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 24,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, but (one) has ",
+    "arg_i": 14,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, BC (is) also greater than EF.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  }
+]
