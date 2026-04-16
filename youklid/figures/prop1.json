@@ -1,0 +1,37 @@
+{
+  "prop": 1,
+  "viewBox": [0, 0, 500, 360],
+  "points": {
+    "A": { "x": 170, "y": 260, "label": "left" },
+    "B": { "x": 330, "y": 260, "label": "right" },
+    "C": { "x": 250, "y": 121.4359, "label": "top" },
+    "D": { "x": 10,  "y": 260,      "label": "left"  },
+    "E": { "x": 490, "y": 260,      "label": "right" }
+  },
+  "elements": [
+    { "id": "seg_AB", "kind": "segment", "from": "A", "to": "B" },
+    { "id": "pt_A",   "kind": "point",   "at": "A" },
+    { "id": "pt_B",   "kind": "point",   "at": "B" },
+    { "id": "circ_A", "kind": "circle",  "center": "A", "through": "B", "hint": "circle BCD" },
+    { "id": "circ_B", "kind": "circle",  "center": "B", "through": "A", "hint": "circle ACE" },
+    { "id": "pt_C",   "kind": "point",   "at": "C" },
+    { "id": "seg_CA", "kind": "segment", "from": "C", "to": "A" },
+    { "id": "seg_CB", "kind": "segment", "from": "C", "to": "B" },
+    { "id": "tri_ABC","kind": "polygon", "vertices": ["A","B","C"], "hint": "equilateral triangle ABC" }
+  ],
+  "steps": [
+    { "arg": 0,  "introduce": ["seg_AB", "pt_A", "pt_B"], "focus": "seg_AB" },
+    { "arg": 1,  "introduce": [],                         "focus": "seg_AB" },
+    { "arg": 2,  "introduce": ["circ_A", "circ_B"],       "focus": "circ_A" },
+    { "arg": 3,  "introduce": ["pt_C", "seg_CA", "seg_CB"], "focus": "pt_C" },
+    { "arg": 4,  "introduce": [], "focus": "seg_CA", "emphasize": ["circ_A", "seg_CA", "seg_AB"] },
+    { "arg": 5,  "introduce": [], "focus": "seg_CB", "emphasize": ["circ_B", "seg_CB", "seg_AB"] },
+    { "arg": 6,  "introduce": [], "focus": "seg_CA" },
+    { "arg": 7,  "introduce": [], "focus": "seg_CA", "emphasize": ["seg_CA", "seg_CB", "seg_AB"] },
+    { "arg": 8,  "introduce": [], "focus": null },
+    { "arg": 9,  "introduce": [], "focus": "seg_CA", "emphasize": ["seg_CA", "seg_CB"] },
+    { "arg": 10, "introduce": [], "focus": null,     "emphasize": ["seg_CA", "seg_AB", "seg_CB"] },
+    { "arg": 11, "introduce": ["tri_ABC"], "focus": "tri_ABC" },
+    { "arg": 12, "introduce": [], "focus": "tri_ABC" }
+  ]
+}

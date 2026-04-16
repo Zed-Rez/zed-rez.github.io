@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Youklid · Live Figure Demo — Prop 1</title>
+<style>
+  body { font-family: Georgia, 'EB Garamond', serif; margin: 0; padding: 2rem;
+         background: #f7f1e3; color: #2b2015; }
+  h1 { font-size: 1.4rem; margin: 0 0 1rem; }
+  .demo {
+    display: grid;
+    grid-template-columns: minmax(280px, 1fr) minmax(320px, 1fr);
+    gap: 2rem; max-width: 1100px; margin: 0 auto;
+  }
+  ol.arguments { list-style: decimal; padding-left: 1.5rem; }
+  ol.arguments li { padding: .35rem .5rem; border-radius: 4px; cursor: pointer; line-height: 1.5; }
+  ol.arguments li.current { background: #f1dfb3; box-shadow: inset 3px 0 0 #8a5a1e; }
+  ol.arguments li:hover { background: #f3e9d0; }
+  .role { font-variant: small-caps; color: #8a5a1e; margin-right: .4rem; font-size: .85em; }
+  .controls { display: flex; gap: .5rem; align-items: center; margin: 1rem 0; }
+  .controls button { font-size: 1rem; padding: .35rem .8rem; cursor: pointer;
+                     border: 1px solid #8a5a1e; background: #fff; border-radius: 4px; }
+  .controls button:disabled { opacity: .4; cursor: default; }
+  .fig-host { position: sticky; top: 1rem; background: #fffaf0;
+              border: 1px solid #d8c9a3; border-radius: 6px; padding: .5rem; }
+
+  /* --- figure styles (will live in styles.css for real integration) --- */
+  .youklid-figure { width: 100%; height: auto; display: block; max-height: 70vh; }
+  .fig-segment { stroke: #2b2015; stroke-width: 2; fill: none;
+                 transition: stroke .3s, stroke-width .3s; }
+  .fig-circle  { stroke: #2b2015; stroke-width: 1.3; fill: none; opacity: .55;
+                 transition: stroke .3s, opacity .3s, stroke-width .3s; }
+  .fig-polygon { stroke: none; fill: #8a5a1e; fill-opacity: .12; }
+  .fig-dot     { fill: #2b2015; }
+  .fig-label   { font: 600 14px 'EB Garamond', Georgia, serif; fill: #2b2015;
+                 paint-order: stroke; stroke: #fffaf0; stroke-width: 3px; }
+  .fig-label-left   { text-anchor: end;    dx: -6; transform: translate(-7px, 5px); }
+  .fig-label-right  { text-anchor: start;                transform: translate(7px, 5px); }
+  .fig-label-top    { text-anchor: middle;               transform: translate(0, -8px); }
+  .fig-label-bottom { text-anchor: middle;               transform: translate(0, 18px); }
+
+  .fig-emph.fig-segment { stroke: #c0392b; stroke-width: 3.5; }
+  .fig-emph.fig-circle  { stroke: #c0392b; opacity: 1; }
+  .fig-emph.fig-polygon { fill: #c0392b; fill-opacity: .22; }
+
+  .fig-new.fig-segment { stroke: #e67e22; stroke-width: 4; }
+  .fig-new.fig-circle  { stroke: #e67e22; stroke-width: 2.2; opacity: 1; }
+  .fig-new.fig-polygon { fill: #e67e22; fill-opacity: .32; }
+  .fig-new .fig-dot    { fill: #e67e22; r: 5; }
+
+  @media (max-width: 900px) {
+    .demo { grid-template-columns: 1fr; }
+    .fig-host { position: static; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Live Figure Demo — Proposition 1 (Equilateral triangle on AB)</h1>
+
+<div class="demo">
+  <div>
+    <div class="controls">
+      <button id="prev">‹ Prev</button>
+      <button id="next">Next ›</button>
+      <span id="status">—</span>
+    </div>
+    <ol id="arguments" class="arguments" aria-label="Proof arguments"></ol>
+  </div>
+  <div class="fig-host" id="fig-host"></div>
+</div>
+
+<script src="./figure.js"></script>
+<script>
+(async function () {
+  // Inline minimal copy of Prop 1's argument text so the demo stands alone
+  // without pulling book1.json. Kept in sync with book1.json propositions[0].
+  const ARGS = [
+    { role: 'construction', en: 'Let AB be the given finite straight-line.' },
+    { role: 'goal',         en: 'So it is required to construct an equilateral triangle on the straight-line AB.' },
+    { role: 'construction', en: 'Let the circle BCD with center A and radius AB have been drawn [Post. 3], and again let the circle ACE with center B and radius BA have been drawn [Post. 3].' },
+    { role: 'construction', en: 'And let the straight-lines CA and CB have been joined from the point C, where the circles cut one another, to the points A and B (respectively) [Post. 1].' },
+    { role: 'step',         en: 'And since the point A is the center of the circle CDB, AC is equal to AB [Def. 1.15].' },
+    { role: 'step',         en: 'Again, since the point B is the center of the circle CAE, BC is equal to BA [Def. 1.15].' },
+    { role: 'step',         en: 'But CA was also shown (to be) equal to AB.' },
+    { role: 'conclusion',   en: 'Thus, CA and CB are each equal to AB.' },
+    { role: 'step',         en: 'But things equal to the same thing are also equal to one another [C.N. 1].' },
+    { role: 'conclusion',   en: 'Thus, CA is also equal to CB.' },
+    { role: 'conclusion',   en: 'Thus, the three (straight-lines) CA, AB, and BC are equal to one another.' },
+    { role: 'conclusion',   en: 'Thus, the triangle ABC is equilateral, and has been constructed on the given finite straight-line AB.' },
+    { role: 'qed',          en: '(Which is) the very thing it was required to do.' },
+  ];
+
+  const list = document.getElementById('arguments');
+  ARGS.forEach((a, i) => {
+    const li = document.createElement('li');
+    li.dataset.idx = String(i);
+    li.innerHTML = `<span class="role">${a.role}</span>${a.en}`;
+    li.addEventListener('click', () => setArg(i));
+    list.appendChild(li);
+  });
+
+  const sidecar = await YouklidFigure.load(1);
+  if (!sidecar) { document.getElementById('fig-host').textContent = 'Failed to load prop1.json'; return; }
+  const fig = YouklidFigure.mount(document.getElementById('fig-host'), sidecar);
+
+  let cur = 0;
+  function setArg(i) {
+    cur = Math.max(0, Math.min(ARGS.length - 1, i));
+    document.querySelectorAll('#arguments li').forEach((li, k) =>
+      li.classList.toggle('current', k === cur));
+    document.getElementById('status').textContent = `argument ${cur + 1} / ${ARGS.length}`;
+    document.getElementById('prev').disabled = cur === 0;
+    document.getElementById('next').disabled = cur === ARGS.length - 1;
+    fig.setArg(cur);
+  }
+  document.getElementById('prev').addEventListener('click', () => setArg(cur - 1));
+  document.getElementById('next').addEventListener('click', () => setArg(cur + 1));
+  window.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'j') { setArg(cur + 1); e.preventDefault(); }
+    if (e.key === 'ArrowLeft'  || e.key === 'k') { setArg(cur - 1); e.preventDefault(); }
+  });
+  setArg(0);
+})();
+</script>
+</body>
+</html>
