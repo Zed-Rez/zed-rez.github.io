@@ -52,6 +52,8 @@
 
     <p class="deps-hint">Double-click any line to see what it depends on.</p>
 
+    <div id="prop-figure" class="prop-figure" aria-hidden="true"></div>
+
     <section id="prop-section">
       <p id="prop-enunciation" class="enunciation"></p>
       <ol id="arguments" class="arguments" aria-label="Proof arguments"></ol>
@@ -101,6 +103,10 @@
         <span><i class="dot dot-seed"></i>Selected</span>
         <span><i class="dot dot-direct"></i>Direct successor</span>
       </div>
+      <div id="map-mode-toggle">
+        <button id="map-mode-local" class="map-mode-btn active" aria-pressed="true" title="Show local neighbourhood">Local</button>
+        <button id="map-mode-global" class="map-mode-btn" aria-pressed="false" title="Show full dependency graph">Full graph</button>
+      </div>
     </div>
     <svg id="map-svg" aria-label="Dependency map" preserveAspectRatio="xMidYMid meet"></svg>
   </section>
@@ -112,6 +118,7 @@
   <span class="kbd-hint"><kbd>←</kbd><kbd>→</kbd> prop · <kbd>⇧</kbd>+arrows arg · <kbd>L</kbd> lang · <kbd>M</kbd> map · double-click a line for deps</span>
 </footer>
 
+<script src="./figure.js"></script>
 <script src="./app.js"></script>
 </body>
 </html>

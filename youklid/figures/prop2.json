@@ -1,0 +1,129 @@
+{
+  "prop": 2,
+  "viewBox": [0, 0, 420, 360],
+  "points": {
+    "A": { "x": 130, "y": 200, "label": "left" },
+    "B": { "x": 230, "y": 200, "label": "right" },
+    "C": { "x": 310, "y": 200, "label": "right" },
+    "D": { "x": 180, "y": 113, "label": "top" },
+    "E": { "x": 100, "y": 252, "label": "bottom-left" },
+    "F": { "x": 260, "y": 252, "label": "bottom-right" },
+    "G": { "x": 270, "y": 269, "label": "bottom-right" },
+    "H": { "x": 150, "y": 200, "label": "top" },
+    "K": { "x": 10,  "y": 113, "label": "left" },
+    "L": { "x": 90,  "y": 269, "label": "bottom-left" }
+  },
+  "elements": [
+    { "id": "seg_BC",  "kind": "segment", "from": "B",  "to": "C" },
+    { "id": "seg_AB",  "kind": "segment", "from": "A",  "to": "B" },
+    { "id": "seg_DA",  "kind": "segment", "from": "D",  "to": "A" },
+    { "id": "seg_DB",  "kind": "segment", "from": "D",  "to": "B" },
+    { "id": "seg_AE",  "kind": "segment", "from": "A",  "to": "E" },
+    { "id": "seg_BF",  "kind": "segment", "from": "B",  "to": "F" },
+    { "id": "seg_AL",  "kind": "segment", "from": "A",  "to": "L" },
+    { "id": "seg_BG",  "kind": "segment", "from": "B",  "to": "G" },
+    { "id": "seg_DG",  "kind": "segment", "from": "D",  "to": "G" },
+    { "id": "seg_DL",  "kind": "segment", "from": "D",  "to": "L" },
+    { "id": "circ_CGH","kind": "circle",  "center": "B", "through": "C" },
+    { "id": "circ_GKL","kind": "circle",  "center": "D", "through": "G" },
+    { "id": "tri_DAB", "kind": "polygon", "vertices": ["D", "A", "B"] },
+    { "id": "pt_A",    "kind": "point",   "at": "A" },
+    { "id": "pt_B",    "kind": "point",   "at": "B" },
+    { "id": "pt_C",    "kind": "point",   "at": "C" },
+    { "id": "pt_D",    "kind": "point",   "at": "D" },
+    { "id": "pt_E",    "kind": "point",   "at": "E" },
+    { "id": "pt_F",    "kind": "point",   "at": "F" },
+    { "id": "pt_G",    "kind": "point",   "at": "G" },
+    { "id": "pt_H",    "kind": "point",   "at": "H" },
+    { "id": "pt_K",    "kind": "point",   "at": "K" },
+    { "id": "pt_L",    "kind": "point",   "at": "L" }
+  ],
+  "steps": [
+    {
+      "arg": 0,
+      "introduce": ["seg_BC", "pt_A", "pt_B", "pt_C"],
+      "focus": "seg_BC"
+    },
+    {
+      "arg": 1,
+      "introduce": ["seg_AB", "pt_A"],
+      "focus": "seg_AB"
+    },
+    {
+      "arg": 2,
+      "introduce": ["tri_DAB", "seg_DA", "seg_DB", "pt_D"],
+      "focus": "tri_DAB"
+    },
+    {
+      "arg": 3,
+      "introduce": ["seg_AE", "seg_BF", "pt_E", "pt_F"],
+      "focus": "seg_AE",
+      "emphasize": ["seg_AE", "seg_BF"]
+    },
+    {
+      "arg": 4,
+      "introduce": ["circ_CGH", "circ_GKL", "pt_G", "pt_H", "pt_K", "pt_L"],
+      "focus": "circ_GKL",
+      "emphasize": ["circ_CGH", "circ_GKL", "pt_G", "pt_L"]
+    },
+    {
+      "arg": 5,
+      "introduce": ["seg_BG"],
+      "focus": "circ_CGH",
+      "emphasize": ["pt_B", "circ_CGH", "seg_BC", "seg_BG"]
+    },
+    {
+      "arg": 6,
+      "introduce": ["seg_DG", "seg_DL"],
+      "focus": "circ_GKL",
+      "emphasize": ["pt_D", "circ_GKL", "seg_DL", "seg_DG"]
+    },
+    {
+      "arg": 7,
+      "introduce": [],
+      "focus": "tri_DAB",
+      "emphasize": ["seg_DA", "seg_DB"]
+    },
+    {
+      "arg": 8,
+      "introduce": ["seg_AL"],
+      "focus": "seg_AL",
+      "emphasize": ["seg_AL", "seg_BG"]
+    },
+    {
+      "arg": 9,
+      "introduce": [],
+      "focus": "seg_BC",
+      "emphasize": ["seg_BC", "seg_BG"]
+    },
+    {
+      "arg": 10,
+      "introduce": [],
+      "focus": "seg_AL",
+      "emphasize": ["seg_AL", "seg_BC"]
+    },
+    {
+      "arg": 11,
+      "introduce": [],
+      "focus": "seg_AL",
+      "emphasize": ["seg_AL", "seg_BC"]
+    },
+    {
+      "arg": 12,
+      "introduce": [],
+      "focus": "seg_AL",
+      "emphasize": ["seg_AL", "pt_L"]
+    },
+    {
+      "arg": 13,
+      "introduce": [],
+      "focus": "seg_AL",
+      "emphasize": ["seg_AL"]
+    },
+    {
+      "arg": 14,
+      "introduce": [],
+      "focus": "seg_AL"
+    }
+  ]
+}

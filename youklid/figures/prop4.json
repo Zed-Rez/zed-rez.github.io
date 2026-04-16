@@ -1,0 +1,46 @@
+{
+  "prop": 4,
+  "viewBox": [0, 0, 500, 280],
+  "points": {
+    "A": { "x": 100, "y": 70,  "label": "top" },
+    "B": { "x": 50,  "y": 230, "label": "bottom-left" },
+    "C": { "x": 200, "y": 230, "label": "bottom-right" },
+    "D": { "x": 340, "y": 70,  "label": "top" },
+    "E": { "x": 290, "y": 230, "label": "bottom-left" },
+    "F": { "x": 440, "y": 230, "label": "bottom-right" }
+  },
+  "elements": [
+    { "id": "tri_ABC", "kind": "polygon",  "vertices": ["A","B","C"] },
+    { "id": "seg_AB",  "kind": "segment",  "from": "A", "to": "B" },
+    { "id": "seg_AC",  "kind": "segment",  "from": "A", "to": "C" },
+    { "id": "seg_BC",  "kind": "segment",  "from": "B", "to": "C" },
+    { "id": "pt_A",    "kind": "point",    "at": "A" },
+    { "id": "pt_B",    "kind": "point",    "at": "B" },
+    { "id": "pt_C",    "kind": "point",    "at": "C" },
+    { "id": "tri_DEF", "kind": "polygon",  "vertices": ["D","E","F"] },
+    { "id": "seg_DE",  "kind": "segment",  "from": "D", "to": "E" },
+    { "id": "seg_DF",  "kind": "segment",  "from": "D", "to": "F" },
+    { "id": "seg_EF",  "kind": "segment",  "from": "E", "to": "F" },
+    { "id": "pt_D",    "kind": "point",    "at": "D" },
+    { "id": "pt_E",    "kind": "point",    "at": "E" },
+    { "id": "pt_F",    "kind": "point",    "at": "F" }
+  ],
+  "steps": [
+    { "arg": 0,  "introduce": ["tri_ABC","tri_DEF","seg_AB","seg_AC","seg_BC","seg_DE","seg_DF","seg_EF","pt_A","pt_B","pt_C","pt_D","pt_E","pt_F"], "focus": null },
+    { "arg": 1,  "introduce": [], "focus": null, "emphasize": ["seg_AB","seg_DE"] },
+    { "arg": 2,  "introduce": [], "focus": null, "emphasize": ["pt_A","pt_D"] },
+    { "arg": 3,  "introduce": [], "focus": "tri_ABC" },
+    { "arg": 4,  "introduce": [], "focus": null, "emphasize": ["seg_BC","seg_EF"] },
+    { "arg": 5,  "introduce": [], "focus": null, "emphasize": ["seg_AB","seg_DE","pt_A","pt_D","pt_B","pt_E"] },
+    { "arg": 6,  "introduce": [], "focus": null, "emphasize": ["seg_AC","seg_DF","pt_A","pt_D"] },
+    { "arg": 7,  "introduce": [], "focus": null, "emphasize": ["pt_C","pt_F","seg_AC","seg_DF"] },
+    { "arg": 8,  "introduce": [], "focus": null, "emphasize": ["pt_B","pt_E"] },
+    { "arg": 9,  "introduce": [], "focus": null, "emphasize": ["seg_BC","seg_EF"] },
+    { "arg": 10, "introduce": [], "focus": null, "emphasize": ["seg_BC","seg_EF"] },
+    { "arg": 11, "introduce": [], "focus": null, "emphasize": ["tri_ABC","tri_DEF"] },
+    { "arg": 12, "introduce": [], "focus": null, "emphasize": ["pt_B","pt_C","pt_E","pt_F"] },
+    { "arg": 13, "introduce": [], "focus": null, "emphasize": ["seg_AB","seg_DE","seg_AC","seg_DF"] },
+    { "arg": 14, "introduce": [], "focus": null, "emphasize": ["tri_ABC","tri_DEF"] },
+    { "arg": 15, "introduce": [], "focus": null }
+  ]
+}

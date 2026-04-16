@@ -17,6 +17,7 @@ const STATE = {
   currentProp: 1,
   currentArg: 0,
   currentMapRef: null,
+  mapMode: 'local',      // 'local' | 'global'
   popoverForArg: null,   // index of argument whose inline deps popover is currently open, or null
 };
 
@@ -121,6 +122,20 @@ function bindGlobal() {
   $('#prev-arg').addEventListener('click', () => setArg(STATE.currentArg - 1, {wrap: true}));
   $('#next-arg').addEventListener('click', () => setArg(STATE.currentArg + 1, {wrap: true}));
 
+  // Map mode toggle
+  $('#map-mode-local').addEventListener('click', () => {
+    STATE.mapMode = 'local';
+    $$('.map-mode-btn').forEach(b => b.classList.toggle('active', b.id === 'map-mode-local'));
+    $$('.map-mode-btn').forEach(b => b.setAttribute('aria-pressed', b.id === 'map-mode-local' ? 'true' : 'false'));
+    renderMap();
+  });
+  $('#map-mode-global').addEventListener('click', () => {
+    STATE.mapMode = 'global';
+    $$('.map-mode-btn').forEach(b => b.classList.toggle('active', b.id === 'map-mode-global'));
+    $$('.map-mode-btn').forEach(b => b.setAttribute('aria-pressed', b.id === 'map-mode-global' ? 'true' : 'false'));
+    renderMap();
+  });
+
   // Brand
   $('#home-link').addEventListener('click', (e) => { e.preventDefault(); setProp(1); setArg(0); });
 
@@ -168,6 +183,7 @@ function setView(v) {
   $('#text-view').classList.toggle('active', v === 'text');
   $('#map-view').classList.toggle('active', v === 'map');
   if (v === 'map') renderMap();
+  else renderProp();
   updateHash();
   // Reset scroll so the target view lands at the top, not wherever the user left off.
   window.scrollTo({top: 0, left: 0, behavior: 'auto'});
@@ -255,6 +271,20 @@ function renderProp() {
   // figure. Hide them entirely until the live-figure feature is in place.
   const diagEl = $('#prop-diagram');
   if (diagEl) diagEl.hidden = true;
+  // Live figure: load sidecar and mount if available
+  const figHost = $('#prop-figure');
+  if (figHost) {
+    if (window._figureController) {
+      window._figureController.destroy();
+      window._figureController = null;
+    }
+    YouklidFigure.load(STATE.currentProp).then(sidecar => {
+      if (!sidecar) { figHost.innerHTML = ''; figHost.hidden = true; return; }
+      figHost.hidden = false;
+      window._figureController = YouklidFigure.mount(figHost, sidecar);
+      window._figureController.setArg(STATE.currentArg);
+    });
+  }
   // Enunciation re-use the title as heading; show an italicised restatement below as well?
   $('#prop-enunciation').textContent = '';
 
@@ -292,6 +322,22 @@ function renderProp() {
         tags.appendChild(a2);
       });
       li.appendChild(tags);
+    }
+
+    // Borrowed-axiom marker: ★ star + amber highlight
+    if (a.borrowed_axiom) {
+      li.classList.add('has-borrowed-axiom');
+      const star = document.createElement('span');
+      star.className = 'borrowed-star';
+      star.title = `External axiom required: ${a.borrowed_axiom}`;
+      star.setAttribute('aria-label', `External axiom: ${a.borrowed_axiom}`);
+      star.textContent = '★';
+      li.appendChild(star);
+      // Tooltip-style note showing which axiom
+      const note = document.createElement('span');
+      note.className = 'borrowed-axiom-note';
+      note.textContent = a.borrowed_axiom.replace(/_/g, ' ');
+      li.appendChild(note);
     }
 
     li.addEventListener('click', () => setArg(i));
@@ -370,6 +416,9 @@ function updateArgHighlight() {
   $('#arg-status').textContent = total ? `argument ${STATE.currentArg + 1} / ${total}` : '—';
   $('#prev-arg').disabled = total === 0;
   $('#next-arg').disabled = total === 0;
+  if (window._figureController) {
+    window._figureController.setArg(STATE.currentArg);
+  }
 }
 
 function scrollArgIntoView() {
@@ -404,10 +453,10 @@ function refToHash(ref) {
 }
 function refToShort(ref) {
   const [k, n] = ref.split('.');
-  if (k === 'def')  return `D${n}`;
-  if (k === 'post') return `P${n}`;
-  if (k === 'cn')   return `CN${n}`;
-  if (k === 'prop') return `§${n}`;
+  if (k === 'def')  return `Def. ${n}`;
+  if (k === 'post') return `Post. ${n}`;
+  if (k === 'cn')   return `C.N. ${n}`;
+  if (k === 'prop') return `§ ${n}`;
   return ref;
 }
 function refToTitle(ref) {
@@ -574,13 +623,13 @@ function buildMapSidebar() {
     return b;
   };
   const pl = $('#map-list-posts'); pl.innerHTML='';
-  data.postulates.forEach(p => pl.appendChild(mkItem(`post.${p.n}`, `P${p.n}`)));
+  data.postulates.forEach(p => pl.appendChild(mkItem(`post.${p.n}`, refToShort(`post.${p.n}`))));
   const dl = $('#map-list-defs'); dl.innerHTML='';
-  data.definitions.forEach(d => dl.appendChild(mkItem(`def.${d.n}`, `D${d.n}`)));
+  data.definitions.forEach(d => dl.appendChild(mkItem(`def.${d.n}`, refToShort(`def.${d.n}`))));
   const cl = $('#map-list-cns'); cl.innerHTML='';
-  data.common_notions.forEach(c => cl.appendChild(mkItem(`cn.${c.n}`, `CN${c.n}`)));
+  data.common_notions.forEach(c => cl.appendChild(mkItem(`cn.${c.n}`, refToShort(`cn.${c.n}`))));
   const ppl = $('#map-list-props'); ppl.innerHTML='';
-  data.propositions.forEach(p => ppl.appendChild(mkItem(`prop.${p.n}`, `§${p.n}`)));
+  data.propositions.forEach(p => ppl.appendChild(mkItem(`prop.${p.n}`, refToShort(`prop.${p.n}`))));
 }
 
 function renderMap() {
@@ -608,7 +657,8 @@ function renderMap() {
   $('#map-selected-title').textContent = titleText;
 
   // Build graph: seed = ref. Show direct successors and (for props) direct predecessors.
-  drawMap(ref);
+  if (STATE.mapMode === 'global') drawFullGraph();
+  else drawMap(ref);
 }
 
 /**
@@ -746,6 +796,139 @@ function drawMap(ref) {
     t.textContent = 'This item is self-contained in Book I — nothing here directly depends on it.';
     svg.appendChild(t);
   }
+}
+
+// ============================================================
+// FULL DEPENDENCY GRAPH (global map mode)
+// ============================================================
+
+function drawFullGraph() {
+  const svg = $('#map-svg');
+  svg.innerHTML = '';
+  const rect = svg.getBoundingClientRect();
+  const W = Math.max(700, rect.width);
+  const H = Math.max(600, rect.height);
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+
+  const ns = 'http://www.w3.org/2000/svg';
+  const data = STATE.data;
+  const props = data.propositions;
+
+  // Compute depth for each proposition:
+  // depth = 1 + max depth of its prop dependencies (props with no prop deps get depth 0)
+  const depthMap = {};
+  const propGraph = data.prop_graph;
+
+  function getDepth(ref) {
+    if (depthMap[ref] !== undefined) return depthMap[ref];
+    depthMap[ref] = -1; // guard against cycles
+    const pg = propGraph[ref];
+    const propDeps = pg ? pg.deps_props : [];
+    if (!propDeps || propDeps.length === 0) {
+      depthMap[ref] = 0;
+    } else {
+      let maxD = 0;
+      // deps_props are full ref strings like "prop.1"
+      propDeps.forEach(depRef => { maxD = Math.max(maxD, getDepth(depRef) + 1); });
+      depthMap[ref] = maxD;
+    }
+    return depthMap[ref];
+  }
+  props.forEach(p => getDepth(`prop.${p.n}`));
+
+  // Group by depth layer
+  const layers = {};
+  props.forEach(p => {
+    const d = depthMap[`prop.${p.n}`];
+    if (!layers[d]) layers[d] = [];
+    layers[d].push(p.n);
+  });
+  const layerKeys = Object.keys(layers).map(Number).sort((a, b) => a - b);
+  const numLayers = layerKeys.length;
+
+  const padX = 32, padY = 40;
+  const layerH = Math.max(48, Math.floor((H - padY * 2) / Math.max(1, numLayers)));
+  const nodeW = 44, nodeH = 22, nodeRx = 4;
+
+  // Position map: ref -> {x, y}
+  const posMap = {};
+  layerKeys.forEach((lk, li) => {
+    const group = layers[lk];
+    const count = group.length;
+    const slotW = (W - padX * 2) / Math.max(1, count);
+    const y = padY + li * layerH + layerH / 2;
+    group.forEach((pn, i) => {
+      const x = padX + slotW * i + slotW / 2;
+      posMap[`prop.${pn}`] = {x, y, ref: `prop.${pn}`};
+    });
+  });
+
+  // Draw edges first (under nodes)
+  props.forEach(p => {
+    const ref = `prop.${p.n}`;
+    const pg = propGraph[ref];
+    if (!pg) return;
+    const from = posMap[ref];
+    (pg.deps_props || []).forEach(depRef => {
+      const to = posMap[depRef];  // depRef is already "prop.N"
+      if (!from || !to) return;
+      const path = document.createElementNS(ns, 'path');
+      const dy = to.y - from.y;
+      const d = `M ${from.x} ${from.y - nodeH/2} C ${from.x} ${from.y - nodeH/2 - Math.abs(dy)*0.4}, ${to.x} ${to.y + nodeH/2 + Math.abs(dy)*0.4}, ${to.x} ${to.y + nodeH/2}`;
+      path.setAttribute('d', d);
+      path.setAttribute('class', 'edge');
+      svg.appendChild(path);
+    });
+  });
+
+  // Draw nodes
+  const selectedRef = STATE.currentMapRef && STATE.currentMapRef.startsWith('prop.') ? STATE.currentMapRef : null;
+  props.forEach(p => {
+    const ref = `prop.${p.n}`;
+    const pos = posMap[ref];
+    if (!pos) return;
+    const isSeed = ref === selectedRef;
+
+    const g = document.createElementNS(ns, 'g');
+    g.setAttribute('class', `node ${isSeed ? 'seed' : 'successor'}`);
+    g.setAttribute('transform', `translate(${pos.x}, ${pos.y})`);
+    g.style.cursor = 'pointer';
+    g.addEventListener('click', () => {
+      STATE.currentMapRef = ref;
+      STATE.mapMode = 'local';
+      $$('.map-mode-btn').forEach(b => b.classList.toggle('active', b.id === 'map-mode-local'));
+      $$('.map-mode-btn').forEach(b => b.setAttribute('aria-pressed', b.id === 'map-mode-local' ? 'true' : 'false'));
+      renderMap();
+      updateHash();
+    });
+
+    const r = document.createElementNS(ns, 'rect');
+    r.setAttribute('x', -nodeW/2); r.setAttribute('y', -nodeH/2);
+    r.setAttribute('width', nodeW); r.setAttribute('height', nodeH);
+    r.setAttribute('rx', nodeRx);
+    g.appendChild(r);
+
+    const t = document.createElementNS(ns, 'text');
+    t.setAttribute('y', 1);
+    t.textContent = `§ ${p.n}`;
+    g.appendChild(t);
+
+    const title = document.createElementNS(ns, 'title');
+    title.textContent = refToTitle(ref);
+    g.appendChild(title);
+
+    svg.appendChild(g);
+  });
+
+  // Layer depth labels on the left
+  layerKeys.forEach((lk, li) => {
+    const y = padY + li * layerH + layerH / 2 + 4;
+    const tl = document.createElementNS(ns, 'text');
+    tl.setAttribute('x', 4); tl.setAttribute('y', y);
+    tl.setAttribute('class', 'layer-label');
+    tl.textContent = `d${lk}`;
+    svg.appendChild(tl);
+  });
 }
 
 // ============================================================
