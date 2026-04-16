@@ -240,7 +240,7 @@
           "logical_function": "goal_statement"
         },
         {
-          "en": "Let the circle BCD with center A and radius AB have been drawn [Post. 3], and again let the circle ACE with center B and radius BA have been drawn [Post. 3].",
+          "en": "Let the circle BCD with center A and radius AB have been drawn, and again let the circle ACE with center B and radius BA have been drawn.",
           "citations": [
             {
               "kind": "post",
@@ -270,7 +270,7 @@
           "logical_function": "construction_by_postulate"
         },
         {
-          "en": "And let the straight-lines CA and CB have been joined from the point C, where the circles cut one another,† to the points A and B (respectively) [Post. 1].",
+          "en": "And let the straight-lines CA and CB have been joined from the point C, where the circles cut one another,† to the points A and B (respectively).",
           "citations": [
             {
               "kind": "post",
@@ -296,7 +296,7 @@
           "fitzpatrick_note": "The assumption that the circles do indeed cut one another should be counted as an additional postulate. There is also an implicit assumption that two straight-lines cannot share a common segment."
         },
         {
-          "en": "And since the point A is the center of the circle CDB, AC is equal to AB [Def. 1.15].",
+          "en": "And since the point A is the center of the circle CDB, AC is equal to AB.",
           "citations": [
             {
               "kind": "def",
@@ -319,7 +319,7 @@
           "logical_function": "definition_application"
         },
         {
-          "en": "Again, since the point B is the center of the circle CAE, BC is equal to BA [Def. 1.15].",
+          "en": "Again, since the point B is the center of the circle CAE, BC is equal to BA.",
           "citations": [
             {
               "kind": "def",
@@ -372,7 +372,7 @@
           "logical_function": "equality_transitivity"
         },
         {
-          "en": "But things equal to the same thing are also equal to one another [C.N. 1].",
+          "en": "But things equal to the same thing are also equal to one another.",
           "citations": [
             {
               "kind": "cn",
@@ -488,7 +488,7 @@
           "logical_function": "goal_statement"
         },
         {
-          "en": "For let the straight-line AB have been joined from point A to point B [Post. 1], and let the equilateral triangle DAB have been been constructed upon it [Prop. 1.1].",
+          "en": "For let the straight-line AB have been joined from point A to point B, and let the equilateral triangle DAB have been been constructed upon it.",
           "citations": [
             {
               "kind": "post",
@@ -520,7 +520,7 @@
           "logical_function": "construction_by_postulate"
         },
         {
-          "en": "And let the straight-lines AE and BF have been produced in a straight-line with DA and DB (respectively) [Post. 2].",
+          "en": "And let the straight-lines AE and BF have been produced in a straight-line with DA and DB (respectively).",
           "citations": [
             {
               "kind": "post",
@@ -543,7 +543,7 @@
           "logical_function": "construction_by_postulate"
         },
         {
-          "en": "And let the circle CGH with center B and radius BC have been drawn [Post. 3], and again let the circle GKL with center D and radius DG have been drawn [Post. 3].",
+          "en": "And let the circle CGH with center B and radius BC have been drawn, and again let the circle GKL with center D and radius DG have been drawn.",
           "citations": [
             {
               "kind": "post",
@@ -573,7 +573,7 @@
           "logical_function": "construction_by_postulate"
         },
         {
-          "en": "Therefore, since the point B is the center of (the circle) CGH, BC is equal to BG [Def. 1.15].",
+          "en": "Therefore, since the point B is the center of (the circle) CGH, BC is equal to BG.",
           "citations": [
             {
               "kind": "def",
@@ -596,7 +596,7 @@
           "logical_function": "definition_application"
         },
         {
-          "en": "Again, since the point D is the center of the circle GKL, DL is equal to DG [Def. 1.15].",
+          "en": "Again, since the point D is the center of the circle GKL, DL is equal to DG.",
           "citations": [
             {
               "kind": "def",
@@ -636,7 +636,7 @@
           "logical_function": "equality_by_back_reference"
         },
         {
-          "en": "Thus, the remainder AL is equal to the remainder BG [C.N. 3].",
+          "en": "Thus, the remainder AL is equal to the remainder BG.",
           "citations": [
             {
               "kind": "cn",
@@ -691,7 +691,7 @@
           "logical_function": "equality_transitivity"
         },
         {
-          "en": "But things equal to the same thing are also equal to one another [C.N. 1].",
+          "en": "But things equal to the same thing are also equal to one another.",
           "citations": [
             {
               "kind": "cn",
@@ -791,7 +791,7 @@
           "logical_function": "goal_statement"
         },
         {
-          "en": "Let the line AD, equal to the straight-line C, have been placed at point A [Prop. 1.2].",
+          "en": "Let the line AD, equal to the straight-line C, have been placed at point A.",
           "citations": [
             {
               "kind": "prop",
@@ -814,7 +814,7 @@
           "logical_function": "construction_by_prior_prop"
         },
         {
-          "en": "And let the circle DEF have been drawn with center A and radius AD [Post. 3].",
+          "en": "And let the circle DEF have been drawn with center A and radius AD.",
           "citations": [
             {
               "kind": "post",
@@ -837,7 +837,7 @@
           "logical_function": "construction_by_postulate"
         },
         {
-          "en": "And since point A is the center of circle DEF, AE is equal to AD [Def. 1.15].",
+          "en": "And since point A is the center of circle DEF, AE is equal to AD.",
           "citations": [
             {
               "kind": "def",
@@ -890,7 +890,7 @@
           "logical_function": "equality_transitivity"
         },
         {
-          "en": "So AE is also equal to C [C.N. 1].",
+          "en": "So AE is also equal to C.",
           "citations": [
             {
               "kind": "cn",
@@ -1082,7 +1082,7 @@
           "logical_function": "reductio_ad_absurdum"
         },
         {
-          "en": "The very thing is impossible [Post. 1].‡ Thus, the base BC will coincide with EF, and will be equal to it [C.N. 4].",
+          "en": "The very thing is impossible.‡ Thus, the base BC will coincide with EF, and will be equal to it.",
           "citations": [
             {
               "kind": "post",
@@ -1114,7 +1114,7 @@
           "fitzpatrick_note": "Since Post. 1 implicitly assumes that the straight-line joining two given points is unique."
         },
         {
-          "en": "So the whole triangle ABC will coincide with the whole triangle DEF, and will be equal to it [C.N. 4].",
+          "en": "So the whole triangle ABC will coincide with the whole triangle DEF, and will be equal to it.",
           "citations": [
             {
               "kind": "cn",
@@ -1137,7 +1137,7 @@
           "logical_function": "coincidence_conclusion"
         },
         {
-          "en": "And the remaining angles will coincide with the remaining angles, and will be equal to them [C.N. 4].",
+          "en": "And the remaining angles will coincide with the remaining angles, and will be equal to them.",
           "citations": [
             {
               "kind": "cn",
@@ -1160,7 +1160,7 @@
           "logical_function": "coincidence_conclusion"
         },
         {
-          "en": "(That is) ABC to DEF, and ACB to DFE [C.N. 4].",
+          "en": "(That is) ABC to DEF, and ACB to DFE.",
           "citations": [
             {
               "kind": "cn",
@@ -1219,7 +1219,7 @@
       "diagram_labels": "A B C F G E D",
       "arguments": [
         {
-          "en": "Let ABC be an isosceles triangle having the side AB equal to the side AC, and let the straight-lines BD and CE have been produced in a straight-line with AB and AC (respectively) [Post. 2].",
+          "en": "Let ABC be an isosceles triangle having the side AB equal to the side AC, and let the straight-lines BD and CE have been produced in a straight-line with AB and AC (respectively).",
           "citations": [
             {
               "kind": "post",
@@ -1256,7 +1256,7 @@
           "logical_function": "assertion"
         },
         {
-          "en": "For let the point F have been taken at random on BD, and let AG have been cut off from the greater AE, equal to the lesser AF [Prop. 1.3].",
+          "en": "For let the point F have been taken at random on BD, and let AG have been cut off from the greater AE, equal to the lesser AF.",
           "citations": [
             {
               "kind": "prop",
@@ -1279,7 +1279,7 @@
           "logical_function": "construction_by_prior_prop"
         },
         {
-          "en": "Also, let the straight-lines FC and GB have been joined [Post. 1].",
+          "en": "Also, let the straight-lines FC and GB have been joined.",
           "citations": [
             {
               "kind": "post",
@@ -1332,7 +1332,7 @@
           "borrowed_axiom_text": "Angle FAG is the angle between rays AF and AG at vertex A. This angle is the same in both comparisons, i.e., angle FAG = angle FAG. This is the identity principle applied to angles."
         },
         {
-          "en": "Thus, the base FC is equal to the base GB, and the triangle AFC will be equal to the triangle AGB, and the remaining angles subtendend by the equal sides will be equal to the corresponding remaining angles [Prop. 1.4].",
+          "en": "Thus, the base FC is equal to the base GB, and the triangle AFC will be equal to the triangle AGB, and the remaining angles subtendend by the equal sides will be equal to the corresponding remaining angles.",
           "citations": [
             {
               "kind": "prop",
@@ -1366,7 +1366,7 @@
           "logical_function": "elaboration"
         },
         {
-          "en": "And since the whole of AF is equal to the whole of AG, within which AB is equal to AC, the remainder BF is thus equal to the remainder CG [C.N. 3].",
+          "en": "And since the whole of AF is equal to the whole of AG, within which AB is equal to AC, the remainder BF is thus equal to the remainder CG.",
           "citations": [
             {
               "kind": "cn",
@@ -1419,7 +1419,7 @@
           "logical_function": "congruence_conclusion"
         },
         {
-          "en": "Thus, the triangle BFC will be equal to the triangle CGB, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles [Prop. 1.4].",
+          "en": "Thus, the triangle BFC will be equal to the triangle CGB, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles.",
           "citations": [
             {
               "kind": "prop",
@@ -1455,7 +1455,7 @@
           "logical_function": "elaboration"
         },
         {
-          "en": "Therefore, since the whole angle ABG was shown (to be) equal to the whole angle ACF, within which CBG is equal to BCF, the remainder ABC is thus equal to the remainder ACB [C.N. 3].",
+          "en": "Therefore, since the whole angle ABG was shown (to be) equal to the whole angle ACF, within which CBG is equal to BCF, the remainder ABC is thus equal to the remainder ACB.",
           "citations": [
             {
               "kind": "cn",
@@ -1597,7 +1597,7 @@
           "borrowed_axiom_text": "Assumes that if AB > AC, one can identify which segment is greater and later 'cut off' a part from the greater. This relies on implicit ordering of points on a line."
         },
         {
-          "en": "And let DB, equal to greater. the lesser AC, have been cut off from the greater AB [Prop. 1.3].",
+          "en": "And let DB, equal to greater. the lesser AC, have been cut off from the greater AB.",
           "citations": [
             {
               "kind": "prop",
@@ -1622,7 +1622,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And let DC have been joined [Post. 1].",
+          "en": "And let DC have been joined.",
           "citations": [
             {
               "kind": "post",
@@ -1666,7 +1666,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, the base DC is equal to the base AB, and the triangle DBC will be equal to the triangle ACB [Prop. 1.4], the lesser to the greater.",
+          "en": "Thus, the base DC is equal to the base AB, and the triangle DBC will be equal to the triangle ACB, the lesser to the greater.",
           "citations": [
             {
               "kind": "prop",
@@ -1694,7 +1694,7 @@
           "borrowed_axiom_text": "Assumes the diagram shows that triangle DBC is 'lesser' and ACB is 'greater' without explicit proof of this spatial ordering; relies on visual diagram interpretation."
         },
         {
-          "en": "The very notion (is) absurd [C.N. 5].",
+          "en": "The very notion (is) absurd.",
           "citations": [
             {
               "kind": "cn",
@@ -1805,7 +1805,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And let CD have been joined [Post. 1].",
+          "en": "And let CD have been joined.",
           "citations": [
             {
               "kind": "post",
@@ -1830,7 +1830,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Therefore, since AC is equal to AD, the angle ACD is also equal to angle ADC [Prop. 1.5].",
+          "en": "Therefore, since AC is equal to AD, the angle ACD is also equal to angle ADC.",
           "citations": [
             {
               "kind": "prop",
@@ -1855,7 +1855,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, ADC (is) greater than DCB [C.N. 5].",
+          "en": "Thus, ADC (is) greater than DCB.",
           "citations": [
             {
               "kind": "cn",
@@ -1880,7 +1880,7 @@
           "borrowed_axiom_text": "Assumes ADC > DCB based on diagram ordering without explicit proof that C lies on the same side to make this angular comparison valid."
         },
         {
-          "en": "Thus, CDB is much greater than DCB [C.N. 5].",
+          "en": "Thus, CDB is much greater than DCB.",
           "citations": [
             {
               "kind": "cn",
@@ -1905,7 +1905,7 @@
           "borrowed_axiom_text": "Assumes CDB is 'much greater' than DCB based on spatial diagram layout; the angular ordering depends on point positions assumed from the figure."
         },
         {
-          "en": "Again, since CB is equal to DB, the angle CDB is also equal to angle DCB [Prop. 1.5].",
+          "en": "Again, since CB is equal to DB, the angle CDB is also equal to angle DCB.",
           "citations": [
             {
               "kind": "prop",
@@ -2103,7 +2103,7 @@
           "borrowed_axiom_text": "If sides don't coincide after base placement, they would form a different triangle; the proof assumes superposition allows this comparison."
         },
         {
-          "en": "But (such straight-lines) cannot be constructed [Prop. 1.7].",
+          "en": "But (such straight-lines) cannot be constructed.",
           "citations": [
             {
               "kind": "prop",
@@ -2160,7 +2160,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "So the angle BAC will also coincide with angle EDF, and will be equal to it [C.N. 4].",
+          "en": "So the angle BAC will also coincide with angle EDF, and will be equal to it.",
           "citations": [
             {
               "kind": "cn",
@@ -2251,7 +2251,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Let the point D have been taken at random on AB, and let AE, equal to AD, have been cut off from AC [Prop. 1.3], and let DE have been joined.",
+          "en": "Let the point D have been taken at random on AB, and let AE, equal to AD, have been cut off from AC, and let DE have been joined.",
           "citations": [
             {
               "kind": "prop",
@@ -2279,7 +2279,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And let the equilateral triangle DEF have been constructed upon DE [Prop. 1.1], and let AF have been joined.",
+          "en": "And let the equilateral triangle DEF have been constructed upon DE, and let AF have been joined.",
           "citations": [
             {
               "kind": "prop",
@@ -2352,7 +2352,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, angle DAF is equal to angle EAF [Prop. 1.8].",
+          "en": "Thus, angle DAF is equal to angle EAF.",
           "citations": [
             {
               "kind": "prop",
@@ -2446,7 +2446,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Let the equilateral triangle ABC have been constructed upon (AB) [Prop. 1.1], and let the angle ACB have been cut in half by the straight-line CD [Prop. 1.9].",
+          "en": "Let the equilateral triangle ABC have been constructed upon (AB), and let the angle ACB have been cut in half by the straight-line CD.",
           "citations": [
             {
               "kind": "prop",
@@ -2525,7 +2525,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, the base AD is equal to the base BD [Prop. 1.4].",
+          "en": "Thus, the base AD is equal to the base BD.",
           "citations": [
             {
               "kind": "prop",
@@ -2617,7 +2617,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Let the point D be have been taken at random on AC, and let CE be made equal to CD [Prop. 1.3], and let the equilateral triangle FDE have been constructed on DE [Prop. 1.1], and let FC have been joined.",
+          "en": "Let the point D be have been taken at random on AC, and let CE be made equal to CD, and let the equilateral triangle FDE have been constructed on DE, and let FC have been joined.",
           "citations": [
             {
               "kind": "prop",
@@ -2697,7 +2697,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, the angle DCF is equal to the angle ECF [Prop. 1.8], and they are adjacent.",
+          "en": "Thus, the angle DCF is equal to the angle ECF, and they are adjacent.",
           "citations": [
             {
               "kind": "prop",
@@ -2722,7 +2722,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "But when a straight-line stood on a(nother) straight-line makes the adjacent angles equal to one another, each of the equal angles is a right-angle [Def. 1.10].",
+          "en": "But when a straight-line stood on a(nother) straight-line makes the adjacent angles equal to one another, each of the equal angles is a right-angle.",
           "citations": [
             {
               "kind": "def",
@@ -2830,7 +2830,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For let point D have been taken at random on the other side (to C) of the straight-line AB, and let the circle EFG have been drawn with center C and radius CD [Post. 3], and let the straight-line EG have been cut in half at (point) H [Prop. 1.10], and let the straightlines CG, CH, and CE have been joined.",
+          "en": "For let point D have been taken at random on the other side (to C) of the straight-line AB, and let the circle EFG have been drawn with center C and radius CD, and let the straight-line EG have been cut in half at (point) H, and let the straightlines CG, CH, and CE have been joined.",
           "citations": [
             {
               "kind": "post",
@@ -2897,7 +2897,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, the angle CHG is equal to the angle EHC [Prop. 1.8], and they are adjacent.",
+          "en": "Thus, the angle CHG is equal to the angle EHC, and they are adjacent.",
           "citations": [
             {
               "kind": "prop",
@@ -2922,7 +2922,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "But when a straight-line stood on a(nother) straight-line makes the adjacent angles equal to one another, each of the equal angles is a right-angle, and the former straightline is called a perpendicular to that upon which it stands [Def. 1.10].",
+          "en": "But when a straight-line stood on a(nother) straight-line makes the adjacent angles equal to one another, each of the equal angles is a right-angle, and the former straightline is called a perpendicular to that upon which it stands.",
           "citations": [
             {
               "kind": "def",
@@ -3017,7 +3017,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "In fact, if CBA is equal to ABD then they are two right-angles [Def. 1.10].",
+          "en": "In fact, if CBA is equal to ABD then they are two right-angles.",
           "citations": [
             {
               "kind": "def",
@@ -3042,7 +3042,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "But, if not, let BE have been drawn from the point B at right-angles to [the straightline] CD [Prop. 1.11].",
+          "en": "But, if not, let BE have been drawn from the point B at right-angles to [the straightline] CD.",
           "citations": [
             {
               "kind": "prop",
@@ -3084,7 +3084,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, the (sum of the angles) CBE and EBD is equal to the (sum of the) three (angles) CBA, ABE, and EBD Again, since DBA is equal to the two (an- [C.N. 2]. gles) DBE and EBA, let ABC have been added to both.",
+          "en": "Thus, the (sum of the angles) CBE and EBD is equal to the (sum of the) three (angles) CBA, ABE, and EBD Again, since DBA is equal to the two (an-. gles) DBE and EBA, let ABC have been added to both.",
           "citations": [
             {
               "kind": "cn",
@@ -3109,7 +3109,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, the (sum of the angles) DBA and ABC is equal to the (sum of the) three (angles) DBE, EBA, and ABC But (the sum of) CBE and EBD was also [C.N. 2]. shown (to be) equal to the (sum of the) same three (angles).",
+          "en": "Thus, the (sum of the angles) DBA and ABC is equal to the (sum of the) three (angles) DBE, EBA, and ABC But (the sum of) CBE and EBD was also. shown (to be) equal to the (sum of the) same three (angles).",
           "citations": [
             {
               "kind": "cn",
@@ -3134,7 +3134,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And things equal to the same thing are also equal to one another [C.N. 1].",
+          "en": "And things equal to the same thing are also equal to one another.",
           "citations": [
             {
               "kind": "cn",
@@ -3285,7 +3285,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Therefore, since the straight-line AB stands on the straight-line CBE, the (sum of the) angles ABC and ABE is thus equal to two right-angles [Prop. 1.13].",
+          "en": "Therefore, since the straight-line AB stands on the straight-line CBE, the (sum of the) angles ABC and ABE is thus equal to two right-angles.",
           "citations": [
             {
               "kind": "prop",
@@ -3323,7 +3323,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, (the sum of angles) CBA and ABE is equal to (the sum of angles) CBA and ABD [C.N. 1].",
+          "en": "Thus, (the sum of angles) CBA and ABE is equal to (the sum of angles) CBA and ABD.",
           "citations": [
             {
               "kind": "cn",
@@ -3365,7 +3365,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, the remainder ABE is equal to the remainder ABD [C.N. 3], the lesser to the greater.",
+          "en": "Thus, the remainder ABE is equal to the remainder ABD, the lesser to the greater.",
           "citations": [
             {
               "kind": "cn",
@@ -3514,7 +3514,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For since the straight-line AE stands on the straightline CD, making the angles CEA and AED, the (sum of the) angles CEA and AED is thus equal to two rightangles [Prop. 1.13].",
+          "en": "For since the straight-line AE stands on the straightline CD, making the angles CEA and AED, the (sum of the) angles CEA and AED is thus equal to two rightangles.",
           "citations": [
             {
               "kind": "prop",
@@ -3539,7 +3539,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Again, since the straight-line DE stands on the straight-line AB, making the angles AED and DEB, the (sum of the) angles AED and DEB is thus equal to two right-angles [Prop. 1.13].",
+          "en": "Again, since the straight-line DE stands on the straight-line AB, making the angles AED and DEB, the (sum of the) angles AED and DEB is thus equal to two right-angles.",
           "citations": [
             {
               "kind": "prop",
@@ -3581,7 +3581,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, (the sum of) CEA and AED is equal to (the sum of) AED and DEB [C.N. 1].",
+          "en": "Thus, (the sum of) CEA and AED is equal to (the sum of) AED and DEB.",
           "citations": [
             {
               "kind": "cn",
@@ -3623,7 +3623,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, the remainder CEA is equal to the remainder BED [C.N. 3].",
+          "en": "Thus, the remainder CEA is equal to the remainder BED.",
           "citations": [
             {
               "kind": "cn",
@@ -3732,7 +3732,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Let the (straight-line) AC have been cut in half at (point) E [Prop. 1.10].",
+          "en": "Let the (straight-line) AC have been cut in half at (point) E.",
           "citations": [
             {
               "kind": "prop",
@@ -3757,7 +3757,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And BE being joined, let it have been produced in a straight-line to (point) F.† And let EF be made equal to BE [Prop. 1.3], and let FC have been joined, and let AC have been drawn through to (point) G.",
+          "en": "And BE being joined, let it have been produced in a straight-line to (point) F.† And let EF be made equal to BE, and let FC have been joined, and let AC have been drawn through to (point) G.",
           "citations": [
             {
               "kind": "prop",
@@ -3805,7 +3805,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Also, angle AEB is equal to angle FEC, for (they are) vertically opposite [Prop. 1.15].",
+          "en": "Also, angle AEB is equal to angle FEC, for (they are) vertically opposite.",
           "citations": [
             {
               "kind": "prop",
@@ -3832,7 +3832,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, the base AB is equal to the base FC, and the triangle ABE is equal to the triangle FEC, and the remaining angles subtended by the equal sides are equal to the corresponding remaining angles [Prop. 1.4].",
+          "en": "Thus, the base AB is equal to the base FC, and the triangle ABE is equal to the triangle FEC, and the remaining angles subtended by the equal sides are equal to the corresponding remaining angles.",
           "citations": [
             {
               "kind": "prop",
@@ -4013,7 +4013,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And since the angle ACD is external to triangle ABC, it is greater than the internal and opposite angle ABC [Prop. 1.16].",
+          "en": "And since the angle ACD is external to triangle ABC, it is greater than the internal and opposite angle ABC.",
           "citations": [
             {
               "kind": "prop",
@@ -4072,7 +4072,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "But, (the sum of) ACD and ACB is equal to two right-angles [Prop. 1.13].",
+          "en": "But, (the sum of) ACD and ACB is equal to two right-angles.",
           "citations": [
             {
               "kind": "prop",
@@ -4198,7 +4198,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For since AC is greater than AB, let AD be made equal to AB [Prop. 1.3], and let BD have been joined.",
+          "en": "For since AC is greater than AB, let AD be made equal to AB, and let BD have been joined.",
           "citations": [
             {
               "kind": "prop",
@@ -4223,7 +4223,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And since angle ADB is external to triangle BCD, it is greater than the internal and opposite (angle) DCB [Prop. 1.16].",
+          "en": "And since angle ADB is external to triangle BCD, it is greater than the internal and opposite (angle) DCB.",
           "citations": [
             {
               "kind": "prop",
@@ -4248,7 +4248,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "But ADB (is) equal to ABD, since side AB is also equal to side AD [Prop. 1.5].",
+          "en": "But ADB (is) equal to ABD, since side AB is also equal to side AD.",
           "citations": [
             {
               "kind": "prop",
@@ -4400,7 +4400,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For then angle ABC would also have been equal to ACB [Prop. 1.5].",
+          "en": "For then angle ABC would also have been equal to ACB.",
           "citations": [
             {
               "kind": "prop",
@@ -4468,7 +4468,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For then angle ABC would also have been less than ACB [Prop. 1.18].",
+          "en": "For then angle ABC would also have been less than ACB.",
           "citations": [
             {
               "kind": "prop",
@@ -4627,7 +4627,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For let BA have been drawn through to point D, and let AD be made equal to CA [Prop. 1.3], and let DC have been joined.",
+          "en": "For let BA have been drawn through to point D, and let AD be made equal to CA, and let DC have been joined.",
           "citations": [
             {
               "kind": "prop",
@@ -4655,7 +4655,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Therefore, since DA is equal to AC, the angle ADC is also equal to ACD [Prop. 1.5].",
+          "en": "Therefore, since DA is equal to AC, the angle ADC is also equal to ACD.",
           "citations": [
             {
               "kind": "prop",
@@ -4697,7 +4697,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And since DCB is a triangle having the angle BCD greater than BDC, and the greater angle subtends the greater side [Prop. 1.19], DB is thus greater than BC.",
+          "en": "And since DCB is a triangle having the angle BCD greater than BDC, and the greater angle subtends the greater side, DB is thus greater than BC.",
           "citations": [
             {
               "kind": "prop",
@@ -4856,7 +4856,7 @@
           "borrowed_axiom_text": "Assumes that a line from interior point D through B meets the opposite side AC at a point E, requiring Pasch's axiom about line-triangle intersection."
         },
         {
-          "en": "And since in any triangle (the sum of any) two sides is greater than the remaining (side) [Prop. 1.20], in triangle ABE the (sum of the) two sides AB and AE is thus greater than BE.",
+          "en": "And since in any triangle (the sum of any) two sides is greater than the remaining (side), in triangle ABE the (sum of the) two sides AB and AE is thus greater than BE.",
           "citations": [
             {
               "kind": "prop",
@@ -4983,7 +4983,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Again, since in any triangle the external angle is greater than the internal and opposite (angles) [Prop. 1.16], in triangle CDE the external angle BDC is thus greater than CED.",
+          "en": "Again, since in any triangle the external angle is greater than the internal and opposite (angles), in triangle CDE the external angle BDC is thus greater than CED.",
           "citations": [
             {
               "kind": "prop",
@@ -5102,7 +5102,7 @@
       "diagram_labels": "",
       "arguments": [
         {
-          "en": "It is necessary for (the sum of) two (of the straight-lines) taken together in any (possible way) to be greater than the remaining (one), [on account of the (fact that) in any triangle (the sum of) two sides taken together in any (possible way) is greater than the remaining (one) [Prop. 1.20] ].",
+          "en": "It is necessary for (the sum of) two (of the straight-lines) taken together in any (possible way) to be greater than the remaining (one), ].",
           "citations": [
             {
               "kind": "prop",
@@ -5183,7 +5183,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And let DF made equal to A, and FG equal to B, and GH equal to C [Prop. 1.3].",
+          "en": "And let DF made equal to A, and FG equal to B, and GH equal to C.",
           "citations": [
             {
               "kind": "prop",
@@ -5487,7 +5487,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And let the triangle AFG have been constructed from three straight-lines which are equal to CD, DE, and CE, such that CD is equal to AF, CE to AG, and further DE to FG [Prop. 1.22].",
+          "en": "And let the triangle AFG have been constructed from three straight-lines which are equal to CD, DE, and CE, such that CD is equal to AF, CE to AG, and further DE to FG.",
           "citations": [
             {
               "kind": "prop",
@@ -5512,7 +5512,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Therefore, since the two (straight-lines) DC, CE are equal to the two (straight-lines) FA, AG, respectively, and the base DE is equal to the base FG, the angle DCE is thus equal to the angle FAG [Prop. 1.8].",
+          "en": "Therefore, since the two (straight-lines) DC, CE are equal to the two (straight-lines) FA, AG, respectively, and the base DE is equal to the base FG, the angle DCE is thus equal to the angle FAG.",
           "citations": [
             {
               "kind": "prop",
@@ -5629,7 +5629,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For since angle BAC is greater than angle EDF, let (angle) EDG, equal to angle BAC, have been constructed at the point D on the straight-line DE And let DG be made equal to either of [Prop. 1.23].",
+          "en": "For since angle BAC is greater than angle EDF, let (angle) EDG, equal to angle BAC, have been constructed at the point D on the straight-line DE And let DG be made equal to either of.",
           "citations": [
             {
               "kind": "prop",
@@ -5657,7 +5657,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "AC or DF [Prop. 1.3], and let EG and FG have been joined.",
+          "en": "AC or DF, and let EG and FG have been joined.",
           "citations": [
             {
               "kind": "prop",
@@ -5712,7 +5712,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, the base BC is equal to the base EG [Prop. 1.4].",
+          "en": "Thus, the base BC is equal to the base EG.",
           "citations": [
             {
               "kind": "prop",
@@ -5740,7 +5740,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Again, since DF is equal to DG, angle DGF is also equal to angle DFG [Prop. 1.5].",
+          "en": "Again, since DF is equal to DG, angle DGF is also equal to angle DFG.",
           "citations": [
             {
               "kind": "prop",
@@ -5799,7 +5799,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And since triangle EFG has angle EFG greater than EGF, and the greater angle is subtended by the greater side [Prop. 1.19], side EG (is) thus also greater than EF.",
+          "en": "And since triangle EFG has angle EFG greater than EGF, and the greater angle is subtended by the greater side, side EG (is) thus also greater than EF.",
           "citations": [
             {
               "kind": "prop",
@@ -5966,7 +5966,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For then the base BC would also have been equal to the base EF [Prop. 1.4].",
+          "en": "For then the base BC would also have been equal to the base EF.",
           "citations": [
             {
               "kind": "prop",
@@ -6034,7 +6034,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For then the base BC would also have been less than the base EF [Prop. 1.24].",
+          "en": "For then the base BC would also have been less than the base EF.",
           "citations": [
             {
               "kind": "prop",
@@ -6285,7 +6285,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Let AB be greater, and let BG be made equal to DE [Prop. 1.3], and let GC have been joined.",
+          "en": "Let AB be greater, and let BG be made equal to DE, and let GC have been joined.",
           "citations": [
             {
               "kind": "prop",
@@ -6341,7 +6341,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, the base GC is equal to the base DF, and triangle GBC is equal to triangle DEF, and the remaining angles subtended by the equal sides will be equal to the (corresponding) remaining angles [Prop. 1.4].",
+          "en": "Thus, the base GC is equal to the base DF, and triangle GBC is equal to triangle DEF, and the remaining angles subtended by the equal sides will be equal to the (corresponding) remaining angles.",
           "citations": [
             {
               "kind": "prop",
@@ -6497,7 +6497,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, the base AC is equal to the base DF, and the remaining angle BAC is equal to the remaining angle EDF [Prop. 1.4].",
+          "en": "Thus, the base AC is equal to the base DF, and the remaining angle BAC is equal to the remaining angle EDF.",
           "citations": [
             {
               "kind": "prop",
@@ -6604,7 +6604,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And let BH be made equal to EF [Prop. 1.3], and let AH have been joined.",
+          "en": "And let BH be made equal to EF, and let AH have been joined.",
           "citations": [
             {
               "kind": "prop",
@@ -6659,7 +6659,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, the base AH is equal to the base DF, and the triangle ABH is equal to the triangle DEF, and the remaining angles subtended by the equal sides will be equal to the (corresponding) remaining angles [Prop. 1.4].",
+          "en": "Thus, the base AH is equal to the base DF, and the triangle ABH is equal to the triangle DEF, and the remaining angles subtended by the equal sides will be equal to the (corresponding) remaining angles.",
           "citations": [
             {
               "kind": "prop",
@@ -6729,7 +6729,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "The very thing (is) impossible [Prop. 1.16].",
+          "en": "The very thing (is) impossible.",
           "citations": [
             {
               "kind": "prop",
@@ -6819,7 +6819,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, the base AC is equal to the base DF, and triangle ABC (is) equal to triangle DEF, and the remaining angle BAC (is) equal to the remaining angle EDF [Prop. 1.4].",
+          "en": "Thus, the base AC is equal to the base DF, and triangle ABC (is) equal to triangle DEF, and the remaining angle BAC (is) equal to the remaining angle EDF.",
           "citations": [
             {
               "kind": "prop",
@@ -6917,7 +6917,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For if not, being produced, AB and CD will certainly meet together: either in the direction of B and D, or (in the direction) of A and C [Def. 1.23].",
+          "en": "For if not, being produced, AB and CD will certainly meet together: either in the direction of B and D, or (in the direction) of A and C.",
           "citations": [
             {
               "kind": "def",
@@ -6974,7 +6974,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "The very thing is impossible [Prop. 1.16].",
+          "en": "The very thing is impossible.",
           "citations": [
             {
               "kind": "prop",
@@ -7031,7 +7031,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "But (straight-lines) meeting in neither direction are parallel [Def. 1.23].",
+          "en": "But (straight-lines) meeting in neither direction are parallel.",
           "citations": [
             {
               "kind": "def",
@@ -7139,7 +7139,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For since (in the first case) EGB is equal to GHD, but EGB is equal to AGH [Prop. 1.15], AGH is thus also equal to GHD.",
+          "en": "For since (in the first case) EGB is equal to GHD, but EGB is equal to AGH, AGH is thus also equal to GHD.",
           "citations": [
             {
               "kind": "prop",
@@ -7180,7 +7180,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, AB is parallel to CD [Prop. 1.27].",
+          "en": "Thus, AB is parallel to CD.",
           "citations": [
             {
               "kind": "prop",
@@ -7205,7 +7205,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Again, since (in the second case, the sum of) BGH and GHD is equal to two right-angles, and (the sum of) AGH and BGH is also equal to two right-angles [Prop. 1.13], (the sum of) AGH and BGH is thus equal to (the sum of) BGH and GHD.",
+          "en": "Again, since (in the second case, the sum of) BGH and GHD is equal to two right-angles, and (the sum of) AGH and BGH is also equal to two right-angles, (the sum of) AGH and BGH is thus equal to (the sum of) BGH and GHD.",
           "citations": [
             {
               "kind": "prop",
@@ -7282,7 +7282,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, AB is parallel to CD [Prop. 1.27].",
+          "en": "Thus, AB is parallel to CD.",
           "citations": [
             {
               "kind": "prop",
@@ -7434,7 +7434,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "But, (the sum of) AGH and BGH is equal to two right-angles [Prop. 1.13].",
+          "en": "But, (the sum of) AGH and BGH is equal to two right-angles.",
           "citations": [
             {
               "kind": "prop",
@@ -7479,7 +7479,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "But (straight-lines) being produced to infinity from (internal angles whose sum is) less than two right-angles meet together [Post. 5].",
+          "en": "But (straight-lines) being produced to infinity from (internal angles whose sum is) less than two right-angles meet together.",
           "citations": [
             {
               "kind": "post",
@@ -7521,7 +7521,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "But they do not meet, on account of them (initially) being assumed parallel (to one another) [Def. 1.23].",
+          "en": "But they do not meet, on account of them (initially) being assumed parallel (to one another).",
           "citations": [
             {
               "kind": "def",
@@ -7577,7 +7577,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "But, AGH is equal to EGB [Prop. 1.15].",
+          "en": "But, AGH is equal to EGB.",
           "citations": [
             {
               "kind": "prop",
@@ -7656,7 +7656,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "But, (the sum of) EGB and BGH is equal to two rightangles [Prop. 1.13].",
+          "en": "But, (the sum of) EGB and BGH is equal to two rightangles.",
           "citations": [
             {
               "kind": "prop",
@@ -7788,7 +7788,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And since the straight-line GK has fallen across the parallel straight-lines AB and EF, (angle) AGK (is) thus equal to GHF [Prop. 1.29].",
+          "en": "And since the straight-line GK has fallen across the parallel straight-lines AB and EF, (angle) AGK (is) thus equal to GHF.",
           "citations": [
             {
               "kind": "prop",
@@ -7813,7 +7813,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Again, since the straight-line GK has fallen across the parallel straight-lines EF and CD, (angle) GHF is equal to GKD [Prop. 1.29].",
+          "en": "Again, since the straight-line GK has fallen across the parallel straight-lines EF and CD, (angle) GHF is equal to GKD.",
           "citations": [
             {
               "kind": "prop",
@@ -7887,7 +7887,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, AB is parallel to CD [Prop. 1.27]. [Thus, (straight-lines) parallel to the same straightline are also parallel to one another.] (Which is) the very thing it was required to show.",
+          "en": "Thus, AB is parallel to CD. (Which is) the very thing it was required to show.",
           "citations": [
             {
               "kind": "prop",
@@ -7971,7 +7971,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And let (angle) DAE, equal to angle ADC, have been constructed on the straight-line DA at the point A on it [Prop. 1.23].",
+          "en": "And let (angle) DAE, equal to angle ADC, have been constructed on the straight-line DA at the point A on it.",
           "citations": [
             {
               "kind": "prop",
@@ -8013,7 +8013,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And since the straight-line AD, (in) falling across the two straight-lines BC and EF, has made the alternate angles EAD and ADC equal to one another, EAF is thus parallel to BC [Prop. 1.27].",
+          "en": "And since the straight-line AD, (in) falling across the two straight-lines BC and EF, has made the alternate angles EAD and ADC equal to one another, EAF is thus parallel to BC.",
           "citations": [
             {
               "kind": "prop",
@@ -8105,7 +8105,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For let CE have been drawn through point C parallel to the straight-line AB [Prop. 1.31].",
+          "en": "For let CE have been drawn through point C parallel to the straight-line AB.",
           "citations": [
             {
               "kind": "prop",
@@ -8130,7 +8130,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And since AB is parallel to CE, and AC has fallen across them, the alternate angles BAC and ACE are equal to one another [Prop. 1.29].",
+          "en": "And since AB is parallel to CE, and AC has fallen across them, the alternate angles BAC and ACE are equal to one another.",
           "citations": [
             {
               "kind": "prop",
@@ -8155,7 +8155,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Again, since AB is parallel to CE, and the straight-line BD has fallen across them, the external angle ECD is equal to the internal and opposite (angle) ABC [Prop. 1.29].",
+          "en": "Again, since AB is parallel to CE, and the straight-line BD has fallen across them, the external angle ECD is equal to the internal and opposite (angle) ABC.",
           "citations": [
             {
               "kind": "prop",
@@ -8248,7 +8248,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "But, (the sum of) ACD and ACB is equal to two right-angles [Prop. 1.13].",
+          "en": "But, (the sum of) ACD and ACB is equal to two right-angles.",
           "citations": [
             {
               "kind": "prop",
@@ -8377,7 +8377,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And since AB is parallel to CD, and BC has fallen across them, the alternate angles ABC and BCD are equal to one another And since AB is equal to CD, and BC [Prop. 1.29]. is common, the two (straight-lines) AB, BC are equal to the two (straight-lines) DC, CB.†And the angle ABC is equal to the angle BCD.",
+          "en": "And since AB is parallel to CD, and BC has fallen across them, the alternate angles ABC and BCD are equal to one another And since AB is equal to CD, and BC. is common, the two (straight-lines) AB, BC are equal to the two (straight-lines) DC, CB.†And the angle ABC is equal to the angle BCD.",
           "citations": [
             {
               "kind": "prop",
@@ -8408,7 +8408,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, the base AC is equal to the base BD, and triangle ABC is equal to triangle DCB‡, and the remaining angles will be equal to the corresponding remaining angles subtended by the equal sides [Prop. 1.4].",
+          "en": "Thus, the base AC is equal to the base BD, and triangle ABC is equal to triangle DCB‡, and the remaining angles will be equal to the corresponding remaining angles subtended by the equal sides.",
           "citations": [
             {
               "kind": "prop",
@@ -8451,7 +8451,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Also, since the straight-line BC, (in) falling across the two straight-lines AC and BD, has made the alternate angles (ACB and CBD) equal to one another, AC is thus parallel to BD [Prop. 1.27].",
+          "en": "Also, since the straight-line BC, (in) falling across the two straight-lines AC and BD, has made the alternate angles (ACB and CBD) equal to one another, AC is thus parallel to BD.",
           "citations": [
             {
               "kind": "prop",
@@ -8560,7 +8560,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For since AB is parallel to CD, and the straight-line BC has fallen across them, the alternate angles ABC and BCD are equal to one another [Prop. 1.29].",
+          "en": "For since AB is parallel to CD, and the straight-line BC has fallen across them, the alternate angles ABC and BCD are equal to one another.",
           "citations": [
             {
               "kind": "prop",
@@ -8585,7 +8585,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Again, since AC is parallel to BD, and BC has fallen across them, the alternate angles ACB and CBD are equal to one another [Prop. 1.29].",
+          "en": "Again, since AC is parallel to BD, and BC has fallen across them, the alternate angles ACB and CBD are equal to one another.",
           "citations": [
             {
               "kind": "prop",
@@ -8627,7 +8627,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, they will also have the remaining sides equal to the corresponding remaining (sides), and the remaining angle (equal) to the remaining angle [Prop. 1.26].",
+          "en": "Thus, they will also have the remaining sides equal to the corresponding remaining (sides), and the remaining angle (equal) to the remaining angle.",
           "citations": [
             {
               "kind": "prop",
@@ -8777,7 +8777,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, the base AC (is) also equal to DB, and triangle ABC is equal to triangle BCD [Prop. 1.4].",
+          "en": "Thus, the base AC (is) also equal to DB, and triangle ABC is equal to triangle BCD.",
           "citations": [
             {
               "kind": "prop",
@@ -8874,7 +8874,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For since ABCD is a parallelogram, AD is equal to BC [Prop. 1.34].",
+          "en": "For since ABCD is a parallelogram, AD is equal to BC.",
           "citations": [
             {
               "kind": "prop",
@@ -8997,7 +8997,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And angle FDC is equal to angle EAB, the external to the internal [Prop. 1.29].",
+          "en": "And angle FDC is equal to angle EAB, the external to the internal.",
           "citations": [
             {
               "kind": "prop",
@@ -9025,7 +9025,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, the base EB is equal to the base FC, and triangle EAB will be equal to triangle DFC [Prop. 1.4].",
+          "en": "Thus, the base EB is equal to the base FC, and triangle EAB will be equal to triangle DFC.",
           "citations": [
             {
               "kind": "prop",
@@ -9202,7 +9202,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And since BC is equal to FG, but FG is equal to EH [Prop. 1.34], BC is thus equal to EH.",
+          "en": "And since BC is equal to FG, but FG is equal to EH, BC is thus equal to EH.",
           "citations": [
             {
               "kind": "prop",
@@ -9243,7 +9243,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "But (straight-lines) joining equal and parallel (straight-lines) on the same sides are (themselves) equal and parallel [Prop. 1.33] [thus, EB and HC are also equal and parallel].",
+          "en": "But (straight-lines) joining equal and parallel (straight-lines) on the same sides are (themselves) equal and parallel.",
           "citations": [
             {
               "kind": "prop",
@@ -9268,7 +9268,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, EBCH is a parallelogram [Prop. 1.34], and is equal to ABCD.",
+          "en": "Thus, EBCH is a parallelogram, and is equal to ABCD.",
           "citations": [
             {
               "kind": "prop",
@@ -9296,7 +9296,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For it has the same base, BC, as (ABCD), and is between the same parallels, BC and AH, as (ABCD) [Prop. 1.35].",
+          "en": "For it has the same base, BC, as (ABCD), and is between the same parallels, BC and AH, as (ABCD).",
           "citations": [
             {
               "kind": "prop",
@@ -9324,7 +9324,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "So, for the same (reasons), EFGH is also equal to the same (parallelogram) EBCH [Prop. 1.34].",
+          "en": "So, for the same (reasons), EFGH is also equal to the same (parallelogram) EBCH.",
           "citations": [
             {
               "kind": "prop",
@@ -9435,7 +9435,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Let AD have been produced in both directions to E and F, and let the (straight-line) BE have been drawn through B parallel to CA [Prop. 1.31], and let the (straight-line) CF have been drawn through C parallel to BD [Prop. 1.31].",
+          "en": "Let AD have been produced in both directions to E and F, and let the (straight-line) BE have been drawn through B parallel to CA, and let the (straight-line) CF have been drawn through C parallel to BD.",
           "citations": [
             {
               "kind": "prop",
@@ -9484,7 +9484,7 @@
           "borrowed_axiom_text": "Assumes from diagram that constructed parallelograms EBCA and DBCF are positioned such that they are equal"
         },
         {
-          "en": "For they are on the same base BC, and between the same parallels BC and EF [Prop. 1.35].",
+          "en": "For they are on the same base BC, and between the same parallels BC and EF.",
           "citations": [
             {
               "kind": "prop",
@@ -9526,7 +9526,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For the diagonal AB cuts the latter in half [Prop. 1.34].",
+          "en": "For the diagonal AB cuts the latter in half.",
           "citations": [
             {
               "kind": "prop",
@@ -9569,7 +9569,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For the diagonal DC cuts the latter in half [Prop. 1.34]. [And the halves of equal things are equal to one another.]† Thus, triangle ABC is equal to triangle DBC.",
+          "en": "For the diagonal DC cuts the latter in half.† Thus, triangle ABC is equal to triangle DBC.",
           "citations": [
             {
               "kind": "prop",
@@ -9663,7 +9663,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For let AD have been produced in both directions to G and H, and let the (straight-line) BG have been drawn through B parallel to CA [Prop. 1.31], and let the (straight-line) FH have been drawn through F parallel to DE [Prop. 1.31].",
+          "en": "For let AD have been produced in both directions to G and H, and let the (straight-line) BG have been drawn through B parallel to CA, and let the (straight-line) FH have been drawn through F parallel to DE.",
           "citations": [
             {
               "kind": "prop",
@@ -9729,7 +9729,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For they are on the equal bases BC and EF, and between the same parallels BF and GH [Prop. 1.36].",
+          "en": "For they are on the equal bases BC and EF, and between the same parallels BF and GH.",
           "citations": [
             {
               "kind": "prop",
@@ -9774,7 +9774,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For the diagonal AB cuts the latter in half [Prop. 1.34].",
+          "en": "For the diagonal AB cuts the latter in half.",
           "citations": [
             {
               "kind": "prop",
@@ -9816,7 +9816,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For the diagonal DF cuts the latter in half. [And the halves of equal things are equal to one another.] Thus, triangle ABC is equal to triangle DEF.",
+          "en": "For the diagonal DF cuts the latter in half. Thus, triangle ABC is equal to triangle DEF.",
           "citations": [],
           "role": "step",
           "gr": "ἡ γὰρ ΔΖ δίαμετρος αὐτὸ δίχα τέμνει· [τὰ δὲ τῶν ἴσων ἡ μίση ἴσα ἀλλήλοις ἐστίν·] ἴσον ἄρα ἐστὶ τὸ ΑΒΓ τρίγωνον τῷ ΔΕΖ τριγώνῳ.",
@@ -9931,7 +9931,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For, if not, let AE have been drawn through point A parallel to the straight-line BC [Prop. 1.31], and let EC have been joined.",
+          "en": "For, if not, let AE have been drawn through point A parallel to the straight-line BC, and let EC have been joined.",
           "citations": [
             {
               "kind": "prop",
@@ -9973,7 +9973,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For it is on the same base as it, BC, and between But ABC is equal to the same parallels [Prop. 1.37].",
+          "en": "For it is on the same base as it, BC, and between But ABC is equal to the same parallels.",
           "citations": [
             {
               "kind": "prop",
@@ -10181,7 +10181,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For if not, let AF have been drawn through A parallel to BE [Prop. 1.31], and let FE have been joined.",
+          "en": "For if not, let AF have been drawn through A parallel to BE, and let FE have been joined.",
           "citations": [
             {
               "kind": "prop",
@@ -10226,7 +10226,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For they are on equal bases, BC and CE, and between the same parallels, BE and AF [Prop. 1.38].",
+          "en": "For they are on equal bases, BC and CE, and between the same parallels, BE and AF.",
           "citations": [
             {
               "kind": "prop",
@@ -10440,7 +10440,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For it is on the same base, BC, as (EBC), and between the same parallels, BC and AE [Prop. 1.37].",
+          "en": "For it is on the same base, BC, as (EBC), and between the same parallels, BC and AE.",
           "citations": [
             {
               "kind": "prop",
@@ -10482,7 +10482,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For the diagonal AC cuts the former in half [Prop. 1.34].",
+          "en": "For the diagonal AC cuts the former in half.",
           "citations": [
             {
               "kind": "prop",
@@ -10595,7 +10595,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "D A G F H B E C Let BC have been cut in half at E [Prop. 1.10], and let AE have been joined.",
+          "en": "D A G F H B E C Let BC have been cut in half at E, and let AE have been joined.",
           "citations": [
             {
               "kind": "prop",
@@ -10623,7 +10623,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And let (angle) CEF, equal to angle D, have been constructed at the point E on the straight-line EC [Prop. 1.23].",
+          "en": "And let (angle) CEF, equal to angle D, have been constructed at the point E on the straight-line EC.",
           "citations": [
             {
               "kind": "prop",
@@ -10651,7 +10651,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And let AG have been drawn through A parallel to EC [Prop. 1.31], and let CG have been drawn through C parallel to EF [Prop. 1.31].",
+          "en": "And let AG have been drawn through A parallel to EC, and let CG have been drawn through C parallel to EF.",
           "citations": [
             {
               "kind": "prop",
@@ -10720,7 +10720,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For they are on the equal bases, BE and EC, and between the same parallels, BC and AG [Prop. 1.38].",
+          "en": "For they are on the equal bases, BE and EC, and between the same parallels, BC and AG.",
           "citations": [
             {
               "kind": "prop",
@@ -10782,7 +10782,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For it has the same base as (AEC), and is between the same parallels as (AEC) [Prop. 1.41].",
+          "en": "For it has the same base as (AEC), and is between the same parallels as (AEC).",
           "citations": [
             {
               "kind": "prop",
@@ -10928,7 +10928,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For since ABCD is a parallelogram, and AC its diagonal, triangle ABC is equal to triangle ACD [Prop. 1.34].",
+          "en": "For since ABCD is a parallelogram, and AC its diagonal, triangle ABC is equal to triangle ACD.",
           "citations": [
             {
               "kind": "prop",
@@ -10953,7 +10953,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Again, since EH is a parallelogram, and AK is its diagonal, triangle AEK is equal to triangle AHK [Prop. 1.34].",
+          "en": "Again, since EH is a parallelogram, and AK is its diagonal, triangle AEK is equal to triangle AHK.",
           "citations": [
             {
               "kind": "prop",
@@ -11108,7 +11108,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Let the parallelogram BEFG, equal to the triangle C, have been constructed in the angle EBG, which is equal to D [Prop. 1.42].",
+          "en": "Let the parallelogram BEFG, equal to the triangle C, have been constructed in the angle EBG, which is equal to D.",
           "citations": [
             {
               "kind": "prop",
@@ -11133,7 +11133,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And let it have been placed so that BE is straight-on to AB.† And let FG have been drawn through to H, and let AH have been drawn through A parallel to either of BG or EF [Prop. 1.31], and let HB have been joined.",
+          "en": "And let it have been placed so that BE is straight-on to AB.† And let FG have been drawn through to H, and let AH have been drawn through A parallel to either of BG or EF, and let HB have been joined.",
           "citations": [
             {
               "kind": "prop",
@@ -11162,7 +11162,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And since the straight-line HF falls across the parallels AH and EF, the (sum of the) angles AHF and HFE is thus equal to two right-angles [Prop. 1.29].",
+          "en": "And since the straight-line HF falls across the parallels AH and EF, the (sum of the) angles AHF and HFE is thus equal to two right-angles.",
           "citations": [
             {
               "kind": "prop",
@@ -11204,7 +11204,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And (straight-lines) produced to infinity from (internal angles whose sum is) less than two right-angles meet together [Post. 5].",
+          "en": "And (straight-lines) produced to infinity from (internal angles whose sum is) less than two right-angles meet together.",
           "citations": [
             {
               "kind": "post",
@@ -11261,7 +11261,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And let KL have been drawn through point K parallel to either of EA or FH [Prop. 1.31].",
+          "en": "And let KL have been drawn through point K parallel to either of EA or FH.",
           "citations": [
             {
               "kind": "prop",
@@ -11340,7 +11340,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, LB is equal to BF [Prop. 1.43].",
+          "en": "Thus, LB is equal to BF.",
           "citations": [
             {
               "kind": "prop",
@@ -11402,7 +11402,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Also, since angle GBE is equal to ABM [Prop. 1.15], but GBE is equal to D, ABM is thus also equal to angle D.",
+          "en": "Also, since angle GBE is equal to ABM, but GBE is equal to D, ABM is thus also equal to angle D.",
           "citations": [
             {
               "kind": "prop",
@@ -11505,7 +11505,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Let DB have been joined, and let the parallelogram FH, equal to the triangle ABD, have been constructed in the angle HKF, which is equal to E [Prop. 1.42].",
+          "en": "Let DB have been joined, and let the parallelogram FH, equal to the triangle ABD, have been constructed in the angle HKF, which is equal to E.",
           "citations": [
             {
               "kind": "prop",
@@ -11530,7 +11530,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And let the parallelogram GM, equal to the triangle DBC, have been applied to the straight-line GH in the angle GHM, which is equal to E [Prop. 1.44].",
+          "en": "And let the parallelogram GM, equal to the triangle DBC, have been applied to the straight-line GH in the angle GHM, which is equal to E.",
           "citations": [
             {
               "kind": "prop",
@@ -11606,7 +11606,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "But, (the sum of) FKH and KHG is equal to two right-angles Thus, (the sum of) KHG and GHM is [Prop. 1.29]. also equal to two right-angles.",
+          "en": "But, (the sum of) FKH and KHG is equal to two right-angles Thus, (the sum of) KHG and GHM is. also equal to two right-angles.",
           "citations": [
             {
               "kind": "prop",
@@ -11648,7 +11648,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, KH is straight-on to HM [Prop. 1.14].",
+          "en": "Thus, KH is straight-on to HM.",
           "citations": [
             {
               "kind": "prop",
@@ -11676,7 +11676,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And since the straightline HG falls across the parallels KM and FG, the alternate angles MHG and HGF are equal to one another [Prop. 1.29].",
+          "en": "And since the straightline HG falls across the parallels KM and FG, the alternate angles MHG and HGF are equal to one another.",
           "citations": [
             {
               "kind": "prop",
@@ -11738,7 +11738,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "But, (the sum of) MHG and HGL is equal to two right-angles [Prop. 1.29].",
+          "en": "But, (the sum of) MHG and HGL is equal to two right-angles.",
           "citations": [
             {
               "kind": "prop",
@@ -11783,7 +11783,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, FG is straight-on to GL [Prop. 1.14].",
+          "en": "Thus, FG is straight-on to GL.",
           "citations": [
             {
               "kind": "prop",
@@ -11813,7 +11813,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And since FK is equal and parallel to HG [Prop. 1.34], but also HG to ML [Prop. 1.34], KF is thus also equal and parallel to ML [Prop. 1.30].",
+          "en": "And since FK is equal and parallel to HG, but also HG to ML, KF is thus also equal and parallel to ML.",
           "citations": [
             {
               "kind": "prop",
@@ -11871,7 +11871,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, KM and FL are equal and parallel as well [Prop. 1.33].",
+          "en": "Thus, KM and FL are equal and parallel as well.",
           "citations": [
             {
               "kind": "prop",
@@ -12000,7 +12000,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Let AC have been drawn at right-angles to the straight-line AB from the point A on it [Prop. 1.11], and let AD have been made equal to AB [Prop. 1.3].",
+          "en": "Let AC have been drawn at right-angles to the straight-line AB from the point A on it, and let AD have been made equal to AB.",
           "citations": [
             {
               "kind": "prop",
@@ -12034,7 +12034,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And let DE have been drawn through point D parallel to AB [Prop. 1.31], and let BE have been drawn through point B parallel to AD [Prop. 1.31].",
+          "en": "And let DE have been drawn through point D parallel to AB, and let BE have been drawn through point B parallel to AD.",
           "citations": [
             {
               "kind": "prop",
@@ -12081,7 +12081,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Therefore, AB is equal to DE, and AD to BE [Prop. 1.34].",
+          "en": "Therefore, AB is equal to DE, and AD to BE.",
           "citations": [
             {
               "kind": "prop",
@@ -12167,7 +12167,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For since the straight-line AD falls across the parallels AB and DE, the (sum of the) angles BAD and ADE is equal to two right-angles [Prop. 1.29].",
+          "en": "For since the straight-line AD falls across the parallels AB and DE, the (sum of the) angles BAD and ADE is equal to two right-angles.",
           "citations": [
             {
               "kind": "prop",
@@ -12224,7 +12224,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "And for parallelogrammic figures, the opposite sides and angles are equal to one another Thus, each of the opposite angles ABE [Prop. 1.34]. and BED (are) also right-angles.",
+          "en": "And for parallelogrammic figures, the opposite sides and angles are equal to one another Thus, each of the opposite angles ABE. and BED (are) also right-angles.",
           "citations": [
             {
               "kind": "prop",
@@ -12282,7 +12282,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, (ADEB) is a square [Def. 1.22].",
+          "en": "Thus, (ADEB) is a square.",
           "citations": [
             {
               "kind": "def",
@@ -12378,7 +12378,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For let the square BDEC have been described on BC, and (the squares) GB and HC on AB and AC And let AL have been (respectively) [Prop. 1.46]. drawn through point A parallel to either of BD or CE [Prop. 1.31].",
+          "en": "For let the square BDEC have been described on BC, and (the squares) GB and HC on AB and AC And let AL have been (respectively). drawn through point A parallel to either of BD or CE.",
           "citations": [
             {
               "kind": "prop",
@@ -12446,7 +12446,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, CA is straight-on to AG [Prop. 1.14].",
+          "en": "Thus, CA is straight-on to AG.",
           "citations": [
             {
               "kind": "prop",
@@ -12551,7 +12551,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, the base AD [is] equal to the base FC, and the triangle ABD is equal to the triangle FBC [Prop. 1.4].",
+          "en": "Thus, the base AD [is] equal to the base FC, and the triangle ABD is equal to the triangle FBC.",
           "citations": [
             {
               "kind": "prop",
@@ -12596,7 +12596,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For they have the same base, BD, and are between the same parallels, BD and AL [Prop. 1.41].",
+          "en": "For they have the same base, BD, and are between the same parallels, BD and AL.",
           "citations": [
             {
               "kind": "prop",
@@ -12638,7 +12638,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For again they have the same base, FB, and are between the same parallels, FB and GC [Prop. 1.41]. [And the doubles of equal things are equal to one another.]‡ Thus, the parallelogram BL is also equal to the square GB.",
+          "en": "For again they have the same base, FB, and are between the same parallels, FB and GC.‡ Thus, the parallelogram BL is also equal to the square GB.",
           "citations": [
             {
               "kind": "prop",
@@ -12793,7 +12793,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For let AD have been drawn from point A at rightangles to the straight-line AC [Prop. 1.11], and let AD have been made equal to BA [Prop. 1.3], and let DC have been joined.",
+          "en": "For let AD have been drawn from point A at rightangles to the straight-line AC, and let AD have been made equal to BA, and let DC have been joined.",
           "citations": [
             {
               "kind": "prop",
@@ -12879,7 +12879,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "For angle DAC is a right-angle [Prop. 1.47].",
+          "en": "For angle DAC is a right-angle.",
           "citations": [
             {
               "kind": "prop",
@@ -12994,7 +12994,7 @@
           "borrowed_axiom_text": null
         },
         {
-          "en": "Thus, angle DAC [is] equal to angle BAC [Prop. 1.8].",
+          "en": "Thus, angle DAC [is] equal to angle BAC.",
           "citations": [
             {
               "kind": "prop",
