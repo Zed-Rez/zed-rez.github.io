@@ -29,14 +29,18 @@
     { "id": "seg_FC",  "kind": "segment", "from": "F", "to": "C" },
     { "id": "seg_GB",  "kind": "segment", "from": "G", "to": "B" },
     { "id": "seg_BF",  "kind": "segment", "from": "B", "to": "F" },
-    { "id": "seg_CG",  "kind": "segment", "from": "C", "to": "G" }
+    { "id": "seg_CG",  "kind": "segment", "from": "C", "to": "G" },
+    { "id": "tick_AB", "kind": "tick", "on": "seg_AB", "count": 1 },
+    { "id": "tick_AC", "kind": "tick", "on": "seg_AC", "count": 1 },
+    { "id": "arc_B",   "kind": "arc", "vertex": "B", "ray1": "A", "ray2": "C", "radius": 24, "count": 1 },
+    { "id": "arc_C",   "kind": "arc", "vertex": "C", "ray1": "A", "ray2": "B", "radius": 24, "count": 1 }
   ],
   "steps": [
     { "arg": 0,  "introduce": ["tri_ABC","seg_AB","seg_AC","seg_BC","pt_A","pt_B","pt_C","seg_BD","seg_CE","pt_D","pt_E"], "focus": "tri_ABC" },
-    { "arg": 1,  "introduce": [], "focus": "tri_ABC" },
+    { "arg": 1,  "introduce": ["tick_AB","tick_AC"], "focus": "tri_ABC", "emphasize": ["seg_AB","seg_AC","tick_AB","tick_AC"] },
     { "arg": 2,  "introduce": ["pt_F","pt_G","seg_AF","seg_AG","seg_BF","seg_CG"], "focus": null, "emphasize": ["seg_AF","seg_AG"] },
     { "arg": 3,  "introduce": ["seg_FC","seg_GB"], "focus": null },
-    { "arg": 4,  "introduce": [], "focus": null, "emphasize": ["seg_AF","seg_AG","seg_AB","seg_AC"] },
+    { "arg": 4,  "introduce": [], "focus": null, "emphasize": ["seg_AF","seg_AG","seg_AB","seg_AC","tick_AB","tick_AC"] },
     { "arg": 5,  "introduce": [], "focus": null, "emphasize": ["pt_A","seg_AF","seg_AG"] },
     { "arg": 6,  "introduce": [], "focus": null, "emphasize": ["seg_AF","seg_AC","seg_AG","seg_AB"] },
     { "arg": 7,  "introduce": [], "focus": null, "emphasize": ["seg_AC","seg_AB","seg_FC","seg_GB"] },
@@ -45,11 +49,11 @@
     { "arg": 10, "introduce": [], "focus": null, "emphasize": ["seg_BF","seg_FC","seg_CG","seg_GB","seg_BC"] },
     { "arg": 11, "introduce": [], "focus": null, "emphasize": ["seg_BF","seg_FC","seg_CG","seg_GB","seg_BC"] },
     { "arg": 12, "introduce": [], "focus": null, "emphasize": ["pt_B","pt_C"] },
-    { "arg": 13, "introduce": [], "focus": null, "emphasize": ["seg_AB","seg_AC","pt_B","pt_C"] },
+    { "arg": 13, "introduce": [], "focus": null, "emphasize": ["seg_AB","seg_AC","pt_B","pt_C","tick_AB","tick_AC"] },
     { "arg": 14, "introduce": [], "focus": null, "emphasize": ["seg_BC"] },
     { "arg": 15, "introduce": [], "focus": null, "emphasize": ["pt_B","pt_C","seg_BD","seg_CE"] },
     { "arg": 16, "introduce": [], "focus": null, "emphasize": ["seg_BD","seg_CE"] },
-    { "arg": 17, "introduce": [], "focus": null, "emphasize": ["tri_ABC","seg_BC"] },
+    { "arg": 17, "introduce": ["arc_B","arc_C"], "focus": null, "emphasize": ["tri_ABC","seg_BC","arc_B","arc_C"] },
     { "arg": 18, "introduce": [], "focus": null }
   ]
 }

@@ -36,94 +36,25 @@
     { "id": "pt_G",    "kind": "point",   "at": "G" },
     { "id": "pt_H",    "kind": "point",   "at": "H" },
     { "id": "pt_K",    "kind": "point",   "at": "K" },
-    { "id": "pt_L",    "kind": "point",   "at": "L" }
+    { "id": "pt_L",    "kind": "point",   "at": "L" },
+    { "id": "tick_BC", "kind": "tick", "on": "seg_BC", "count": 1 },
+    { "id": "tick_AL", "kind": "tick", "on": "seg_AL", "count": 1 }
   ],
   "steps": [
-    {
-      "arg": 0,
-      "introduce": ["seg_BC", "pt_A", "pt_B", "pt_C"],
-      "focus": "seg_BC"
-    },
-    {
-      "arg": 1,
-      "introduce": ["seg_AB", "pt_A"],
-      "focus": "seg_AB"
-    },
-    {
-      "arg": 2,
-      "introduce": ["tri_DAB", "seg_DA", "seg_DB", "pt_D"],
-      "focus": "tri_DAB"
-    },
-    {
-      "arg": 3,
-      "introduce": ["seg_AE", "seg_BF", "pt_E", "pt_F"],
-      "focus": "seg_AE",
-      "emphasize": ["seg_AE", "seg_BF"]
-    },
-    {
-      "arg": 4,
-      "introduce": ["circ_CGH", "circ_GKL", "pt_G", "pt_H", "pt_K", "pt_L"],
-      "focus": "circ_GKL",
-      "emphasize": ["circ_CGH", "circ_GKL", "pt_G", "pt_L"]
-    },
-    {
-      "arg": 5,
-      "introduce": ["seg_BG"],
-      "focus": "circ_CGH",
-      "emphasize": ["pt_B", "circ_CGH", "seg_BC", "seg_BG"]
-    },
-    {
-      "arg": 6,
-      "introduce": ["seg_DG", "seg_DL"],
-      "focus": "circ_GKL",
-      "emphasize": ["pt_D", "circ_GKL", "seg_DL", "seg_DG"]
-    },
-    {
-      "arg": 7,
-      "introduce": [],
-      "focus": "tri_DAB",
-      "emphasize": ["seg_DA", "seg_DB"]
-    },
-    {
-      "arg": 8,
-      "introduce": ["seg_AL"],
-      "focus": "seg_AL",
-      "emphasize": ["seg_AL", "seg_BG"]
-    },
-    {
-      "arg": 9,
-      "introduce": [],
-      "focus": "seg_BC",
-      "emphasize": ["seg_BC", "seg_BG"]
-    },
-    {
-      "arg": 10,
-      "introduce": [],
-      "focus": "seg_AL",
-      "emphasize": ["seg_AL", "seg_BC"]
-    },
-    {
-      "arg": 11,
-      "introduce": [],
-      "focus": "seg_AL",
-      "emphasize": ["seg_AL", "seg_BC"]
-    },
-    {
-      "arg": 12,
-      "introduce": [],
-      "focus": "seg_AL",
-      "emphasize": ["seg_AL", "pt_L"]
-    },
-    {
-      "arg": 13,
-      "introduce": [],
-      "focus": "seg_AL",
-      "emphasize": ["seg_AL"]
-    },
-    {
-      "arg": 14,
-      "introduce": [],
-      "focus": "seg_AL"
-    }
+    { "arg": 0,  "introduce": ["seg_BC", "pt_A", "pt_B", "pt_C"], "focus": "seg_BC" },
+    { "arg": 1,  "introduce": ["seg_AB", "pt_A"], "focus": "seg_AB" },
+    { "arg": 2,  "introduce": ["tri_DAB", "seg_DA", "seg_DB", "pt_D"], "focus": "tri_DAB" },
+    { "arg": 3,  "introduce": ["seg_AE", "seg_BF", "pt_E", "pt_F"], "focus": "seg_AE", "emphasize": ["seg_AE", "seg_BF"] },
+    { "arg": 4,  "introduce": ["circ_CGH", "circ_GKL", "pt_G", "pt_H", "pt_K", "pt_L"], "focus": "circ_GKL", "emphasize": ["circ_CGH", "circ_GKL", "pt_G", "pt_L"] },
+    { "arg": 5,  "introduce": ["seg_BG"], "focus": "circ_CGH", "emphasize": ["pt_B", "circ_CGH", "seg_BC", "seg_BG"] },
+    { "arg": 6,  "introduce": ["seg_DG", "seg_DL"], "focus": "circ_GKL", "emphasize": ["pt_D", "circ_GKL", "seg_DL", "seg_DG"] },
+    { "arg": 7,  "introduce": [], "focus": "tri_DAB", "emphasize": ["seg_DA", "seg_DB"] },
+    { "arg": 8,  "introduce": ["seg_AL"], "focus": "seg_AL", "emphasize": ["seg_AL", "seg_BG"] },
+    { "arg": 9,  "introduce": ["tick_BC"], "focus": "seg_BC", "emphasize": ["seg_BC", "seg_BG", "tick_BC"] },
+    { "arg": 10, "introduce": ["tick_AL"], "focus": "seg_AL", "emphasize": ["seg_AL", "seg_BC", "tick_AL", "tick_BC"] },
+    { "arg": 11, "introduce": [], "focus": "seg_AL", "emphasize": ["seg_AL", "seg_BC", "tick_AL", "tick_BC"] },
+    { "arg": 12, "introduce": [], "focus": "seg_AL", "emphasize": ["seg_AL", "pt_L"] },
+    { "arg": 13, "introduce": [], "focus": "seg_AL", "emphasize": ["seg_AL"] },
+    { "arg": 14, "introduce": [], "focus": "seg_AL" }
   ]
 }
