@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>Youklid · Common Notions</title>
+<meta name="description" content="Euclid's Elements, Book I — Common Notions 1–5. English and Ancient Greek (Heiberg 1883–85).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Gentium+Plus:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css">
+<style>
+.fnd-page {
+  padding: 2rem clamp(1rem, 3vw, 2.5rem) 4rem;
+  max-width: 58rem;
+  margin: 0 auto;
+}
+.fnd-nav {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+.fnd-title-wrap { text-align: center; }
+.fnd-kind {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.82rem;
+  color: var(--accent);
+}
+.fnd-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  margin: 0.2rem 0 0;
+}
+.fnd-section-head {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.4rem;
+  margin: 2.5rem 0 0;
+}
+.fnd-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.fnd-item {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  gap: 0.4rem 0.9rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.fnd-list .fnd-item:first-child {
+  border-top: 1px solid var(--rule);
+}
+.fnd-num {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  padding-top: 0.25rem;
+  text-align: right;
+}
+.fnd-body { display: flex; flex-direction: column; gap: 0.35rem; }
+.fnd-en { margin: 0; line-height: 1.65; }
+.fnd-gr {
+  margin: 0;
+  font-family: var(--font-serif-gr);
+  color: var(--ink-soft);
+  font-size: 0.97rem;
+  line-height: 1.65;
+}
+</style>
+</head>
+<body data-theme="parchment" data-lang="en">
+<script>
+(function(){
+  var t = localStorage.getItem('youklid.theme') || 'parchment';
+  var l = localStorage.getItem('youklid.lang') || 'en';
+  document.body.setAttribute('data-theme', t);
+  document.body.setAttribute('data-lang', l);
+})();
+</script>
+
+<header id="top-bar">
+  <div class="brand">
+    <a href="./index.html" aria-label="Youklid home">
+      <span class="brand-mark">Υ</span><span class="brand-name">ouklid</span>
+    </a>
+    <span class="brand-sub">Elements · Book I</span>
+  </div>
+
+  <a href="./youklidmap.html" class="map-page-link" aria-label="Open dependency map">Map</a>
+
+  <nav class="lang-toggle" aria-label="Language">
+    <button class="lang" data-lang="en" aria-pressed="true" onclick="setLang('en')">English</button>
+    <button class="lang" data-lang="gr" aria-pressed="false" onclick="setLang('gr')">Ἑλληνικά</button>
+  </nav>
+
+  <div class="theme-toggle">
+    <button id="theme-btn" aria-label="Toggle theme" onclick="toggleTheme()">◐</button>
+  </div>
+</header>
+
+<main class="fnd-page">
+
+  <nav class="fnd-nav">
+    <button class="nav-arrow" aria-label="Previous: Definitions &amp; Postulates" onclick="window.location.href='./defs.html'">‹</button>
+    <div class="fnd-title-wrap">
+      <div class="fnd-kind">Book I</div>
+      <h1 class="fnd-title">Common Notions</h1>
+    </div>
+    <button class="nav-arrow" aria-label="Next: Proposition 1" onclick="window.location.href='./index.html'">›</button>
+  </nav>
+
+  <!-- ═══════════════════════════ COMMON NOTIONS ═══════════════════════════ -->
+
+  <h2 class="fnd-section-head">Common Notions</h2>
+  <ol class="fnd-list">
+
+    <li class="fnd-item" id="cn.1">
+      <span class="fnd-num">1</span>
+      <div class="fnd-body">
+        <p class="fnd-en">Things equal to the same thing are also equal to one another.</p>
+        <p class="fnd-gr">Τὰ τῷ αὐτῷ ἴσα καὶ ἀλλήλοις ἐστὶν ἴσα.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="cn.2">
+      <span class="fnd-num">2</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And if equal things are added to equal things then the wholes are equal.</p>
+        <p class="fnd-gr">Καὶ ἐὰν ἴσοις ἴσα προστεθῇ, τὰ ὅλα ἐστὶν ἴσα.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="cn.3">
+      <span class="fnd-num">3</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And if equal things are subtracted from equal things then the remainders are equal.<button class="fitz-marker" data-note="As an obvious extension of C.N.s 2 &amp; 3 — if equal things are added or subtracted from the two sides of an inequality then the inequality remains an inequality of the same type.">†</button></p>
+        <p class="fnd-gr">Καὶ ἐὰν ἀπὸ ἴσων ἴσα ἀφαιρεθῇ, τὰ καταλειπόμενά ἐστιν ἴσα.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="cn.4">
+      <span class="fnd-num">4</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And things coinciding with one another are equal to one another.</p>
+        <p class="fnd-gr">Καὶ τὰ ἐφαρμόζοντα ἐπ᾿ ἀλλήλα ἴσα ἀλλήλοις ἐστίν.</p>
+      </div>
+    </li>
+
+    <li class="fnd-item" id="cn.5">
+      <span class="fnd-num">5</span>
+      <div class="fnd-body">
+        <p class="fnd-en">And the whole [is] greater than the part.</p>
+        <p class="fnd-gr">Καὶ τὸ ὅλον τοῦ μέρους μεῖζόν [ἐστιν].</p>
+      </div>
+    </li>
+
+  </ol>
+
+</main>
+
+<footer id="site-footer">
+  <span>Text: Heiberg (1883–85) Greek &amp; Fitzpatrick English &mdash; public domain.</span>
+  <span class="kbd-hint"><kbd>←</kbd><kbd>→</kbd> navigate · click <kbd>†</kbd> for notes</span>
+</footer>
+
+<script>
+function setLang(l) {
+  document.body.setAttribute('data-lang', l);
+  localStorage.setItem('youklid.lang', l);
+  document.querySelectorAll('.lang').forEach(function(b) {
+    b.setAttribute('aria-pressed', b.dataset.lang === l ? 'true' : 'false');
+  });
+}
+function toggleTheme() {
+  var t = document.body.getAttribute('data-theme') === 'dark' ? 'parchment' : 'dark';
+  document.body.setAttribute('data-theme', t);
+  localStorage.setItem('youklid.theme', t);
+  document.getElementById('theme-btn').textContent = t === 'dark' ? '☾' : '◐';
+}
+// Keyboard nav
+document.addEventListener('keydown', function(e) {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === 'ArrowLeft') { window.location.href = './defs.html'; e.preventDefault(); }
+  if (e.key === 'ArrowRight') { window.location.href = './index.html'; e.preventDefault(); }
+  if (e.key === 'l' || e.key === 'L') { setLang(document.body.getAttribute('data-lang') === 'en' ? 'gr' : 'en'); e.preventDefault(); }
+  if (e.key === 't' || e.key === 'T') { toggleTheme(); e.preventDefault(); }
+  if (e.key === 'm' || e.key === 'M') { window.location.href = './youklidmap.html'; e.preventDefault(); }
+});
+// Fitzpatrick note popovers
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('.fitz-marker');
+  if (!btn) { document.querySelectorAll('.fitz-popover').forEach(function(p){p.remove();}); return; }
+  e.stopPropagation();
+  var existing = btn.nextElementSibling;
+  if (existing && existing.classList.contains('fitz-popover')) { existing.remove(); return; }
+  document.querySelectorAll('.fitz-popover').forEach(function(p){p.remove();});
+  var pop = document.createElement('span');
+  pop.className = 'fitz-popover';
+  pop.setAttribute('role', 'tooltip');
+  var sym = btn.textContent.trim();
+  var note = btn.getAttribute('data-note');
+  pop.innerHTML = '<span class="fitz-pop-sym">' + sym + '</span> <span class="fitz-pop-text">' + note + '</span>';
+  btn.insertAdjacentElement('afterend', pop);
+});
+// Sync initial state
+(function(){
+  var l = document.body.getAttribute('data-lang');
+  document.querySelectorAll('.lang').forEach(function(b) {
+    b.setAttribute('aria-pressed', b.dataset.lang === l ? 'true' : 'false');
+  });
+  var t = document.body.getAttribute('data-theme');
+  document.getElementById('theme-btn').textContent = t === 'dark' ? '☾' : '◐';
+})();
+</script>
+</body>
+</html>

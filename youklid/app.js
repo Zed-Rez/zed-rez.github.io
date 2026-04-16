@@ -312,7 +312,7 @@ function applyTheme() {
 
 function setProp(n) {
   const total = STATE.data.propositions.length;
-  if (n < 1) n = 1;
+  if (n < 1) { window.location.href = './cn.html'; return; }
   if (n > total) n = total;
   STATE.currentProp = n;
   STATE.currentArg = 0;
