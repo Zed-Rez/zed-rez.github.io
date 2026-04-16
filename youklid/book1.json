@@ -1563,7 +1563,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -1781,7 +1781,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -1945,7 +1945,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "conclusion",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -1999,7 +1999,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -2025,7 +2025,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -2222,7 +2222,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -2419,7 +2419,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -2547,7 +2547,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "conclusion",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -2588,7 +2588,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -2801,7 +2801,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -2988,7 +2988,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -3899,7 +3899,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "conclusion",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -4509,7 +4509,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "conclusion",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -4769,7 +4769,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -5085,7 +5085,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -5098,7 +5098,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -5398,7 +5398,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -5527,7 +5527,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -5540,7 +5540,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -5553,7 +5553,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -5839,7 +5839,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -5852,7 +5852,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6093,7 +6093,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6106,7 +6106,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6119,7 +6119,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6132,7 +6132,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6145,7 +6145,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6171,7 +6171,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "assertion",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6184,7 +6184,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "assertion",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6197,7 +6197,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "assertion",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6458,7 +6458,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6471,7 +6471,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "assertion",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6484,7 +6484,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "assertion",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -6497,7 +6497,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "assertion",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -7041,7 +7041,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -7276,7 +7276,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -7302,7 +7302,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -7315,7 +7315,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -7669,7 +7669,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -7850,7 +7850,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -8001,7 +8001,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -8254,7 +8254,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -8452,7 +8452,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -8760,7 +8760,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -9067,7 +9067,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -9315,7 +9315,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -9544,7 +9544,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -9779,7 +9779,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -10025,7 +10025,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -10276,7 +10276,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -10464,7 +10464,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -10781,7 +10781,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -10794,7 +10794,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -10930,7 +10930,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "conclusion",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -10970,7 +10970,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -11364,7 +11364,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "fitzpatrick_note": "The proof is only given for a four-sided figure. However, the extension to many-sided figures is trivial.",
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
@@ -11812,7 +11812,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "conclusion",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -11858,7 +11858,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -11988,7 +11988,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -12232,7 +12232,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -12596,7 +12596,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "conclusion",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -12641,7 +12641,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -12778,7 +12778,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
@@ -12838,7 +12838,7 @@
           "deps": [],
           "inferred": [],
           "ground_truth": [],
-          "unclear": true,
+          "unclear": false,
           "logical_function": "hypothesis",
           "borrowed_axiom": null,
           "borrowed_axiom_text": null
