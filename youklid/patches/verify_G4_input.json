@@ -1,0 +1,1042 @@
+[
+  {
+    "prop_n": 25,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, but (one) has ",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "deduction",
+    "en": "In fact, BAC is not equal to EDF.",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 25,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, but (one) has ",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "deduction",
+    "en": "For then the base BC would also have been equal to the base EF [Prop. 1.4].",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 25,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, but (one) has ",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "deduction",
+    "en": "Neither, indeed, is BAC less than EDF.",
+    "deps": [
+      "prop.24"
+    ],
+    "dep_content": [
+      "Prop.24: If two triangles have two sides equal to two sides, respectively, but (one) has the angle encompassed by the equal straight-lines greater than the (corresponding) angle (in the other), then (the former triangle) will also have a base greater than the base (of the latter)."
+    ]
+  },
+  {
+    "prop_n": 25,
+    "prop_stmt": "If two triangles have two sides equal to two sides, respectively, but (one) has ",
+    "arg_i": 9,
+    "role": "step",
+    "lf": "deduction",
+    "en": "For then the base BC would also have been less than the base EF [Prop. 1.24].",
+    "deps": [
+      "prop.24"
+    ],
+    "dep_content": [
+      "Prop.24: If two triangles have two sides equal to two sides, respectively, but (one) has the angle encompassed by the equal straight-lines greater than the (corresponding) angle (in the other), then (the former triangle) will also have a base greater than the base (of the latter)."
+    ]
+  },
+  {
+    "prop_n": 26,
+    "prop_stmt": "If two triangles have two angles equal to two angles, respectively, and one side",
+    "arg_i": 9,
+    "role": "step",
+    "lf": "construction",
+    "en": "For if AB is unequal to DE then one of them is greater.",
+    "deps": [
+      "cn.5"
+    ],
+    "dep_content": [
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  },
+  {
+    "prop_n": 26,
+    "prop_stmt": "If two triangles have two angles equal to two angles, respectively, and one side",
+    "arg_i": 10,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let AB be greater, and let BG be made equal to DE [Prop. 1.3], and let GC have been joined.",
+    "deps": [
+      "prop.3"
+    ],
+    "dep_content": [
+      "Prop.3: For two given unequal straight-lines, to cut off from the greater a straight-line equal to the lesser."
+    ]
+  },
+  {
+    "prop_n": 26,
+    "prop_stmt": "If two triangles have two angles equal to two angles, respectively, and one side",
+    "arg_i": 12,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And angle GBC is equal to angle DEF.",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 26,
+    "prop_stmt": "If two triangles have two angles equal to two angles, respectively, and one side",
+    "arg_i": 13,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, the base GC is equal to the base DF, and triangle GBC is equal to triangle DEF, and the remaining angles subtended by the equal sides will be equal to the (corresponding) remaining angles [Prop.",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 26,
+    "prop_stmt": "If two triangles have two angles equal to two angles, respectively, and one side",
+    "arg_i": 14,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, GCB (is equal) to DFE.",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 26,
+    "prop_stmt": "If two triangles have two angles equal to two angles, respectively, and one side",
+    "arg_i": 15,
+    "role": "step",
+    "lf": "deduction",
+    "en": "But, DFE was assumed (to be) equal to BCA.",
+    "deps": [
+      "cn.5"
+    ],
+    "dep_content": [
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  },
+  {
+    "prop_n": 26,
+    "prop_stmt": "If two triangles have two angles equal to two angles, respectively, and one side",
+    "arg_i": 16,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, BCG is also equal to BCA, the lesser to the greater.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 26,
+    "prop_stmt": "If two triangles have two angles equal to two angles, respectively, and one side",
+    "arg_i": 17,
+    "role": "step",
+    "lf": "deduction",
+    "en": "The very thing (is) impossible.",
+    "deps": [
+      "cn.5"
+    ],
+    "dep_content": [
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  },
+  {
+    "prop_n": 26,
+    "prop_stmt": "If two triangles have two angles equal to two angles, respectively, and one side",
+    "arg_i": 22,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And angle ABC is equal to angle DEF.",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 26,
+    "prop_stmt": "If two triangles have two angles equal to two angles, respectively, and one side",
+    "arg_i": 23,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, the base AC is equal to the base DF, and the remaining angle BAC is equal to the remaining angle EDF [Prop. 1.4].",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 26,
+    "prop_stmt": "If two triangles have two angles equal to two angles, respectively, and one side",
+    "arg_i": 28,
+    "role": "step",
+    "lf": "construction",
+    "en": "For if BC is unequal to EF then one of them is greater.",
+    "deps": [
+      "cn.5"
+    ],
+    "dep_content": [
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  },
+  {
+    "prop_n": 26,
+    "prop_stmt": "If two triangles have two angles equal to two angles, respectively, and one side",
+    "arg_i": 30,
+    "role": "construction",
+    "lf": "construction",
+    "en": "And let BH be made equal to EF [Prop. 1.3], and let AH have been joined.",
+    "deps": [
+      "prop.3"
+    ],
+    "dep_content": [
+      "Prop.3: For two given unequal straight-lines, to cut off from the greater a straight-line equal to the lesser."
+    ]
+  },
+  {
+    "prop_n": 26,
+    "prop_stmt": "If two triangles have two angles equal to two angles, respectively, and one side",
+    "arg_i": 32,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And the angles they encompass (are also equal).",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 26,
+    "prop_stmt": "If two triangles have two angles equal to two angles, respectively, and one side",
+    "arg_i": 33,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, the base AH is equal to the base DF, and the triangle ABH is equal to the triangle DEF, and the remaining angles subtended by the equal sides will be equal to the (corresponding) remaining angle",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 26,
+    "prop_stmt": "If two triangles have two angles equal to two angles, respectively, and one side",
+    "arg_i": 34,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, angle BHA is equal to EFD.",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 26,
+    "prop_stmt": "If two triangles have two angles equal to two angles, respectively, and one side",
+    "arg_i": 36,
+    "role": "step",
+    "lf": "deduction",
+    "en": "So, in triangle AHC, the external angle BHA is equal to the internal and opposite angle BCA.",
+    "deps": [
+      "prop.16"
+    ],
+    "dep_content": [
+      "Prop.16: For any triangle, when one of the sides is produced, the external angle is greater than each of the internal and opposite angles."
+    ]
+  },
+  {
+    "prop_n": 26,
+    "prop_stmt": "If two triangles have two angles equal to two angles, respectively, and one side",
+    "arg_i": 37,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "The very thing (is) impossible [Prop. 1.16].",
+    "deps": [
+      "prop.16"
+    ],
+    "dep_content": [
+      "Prop.16: For any triangle, when one of the sides is produced, the external angle is greater than each of the internal and opposite angles."
+    ]
+  },
+  {
+    "prop_n": 26,
+    "prop_stmt": "If two triangles have two angles equal to two angles, respectively, and one side",
+    "arg_i": 43,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, the base AC is equal to the base DF, and triangle ABC (is) equal to triangle DEF, and the remaining angle BAC (is) equal to the remaining angle EDF [Prop. 1.4].",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 27,
+    "prop_stmt": "If a straight-line falling across two straight-lines makes the alternate angles ",
+    "arg_i": 0,
+    "role": "construction",
+    "lf": "hypothesis",
+    "en": "For let the straight-line EF, falling across the two straight-lines AB and CD, make the alternate angles AEF and EFD equal to one another.",
+    "deps": [
+      "def.8",
+      "def.9"
+    ],
+    "dep_content": [
+      "Def.8: And a plane angle is the inclination of the lines to one another, when two lines in a plane meet one another, and are not lying in a straight-line.",
+      "Def.9: And when the lines containing the angle are straight then the angle is called rectilinear."
+    ]
+  },
+  {
+    "prop_n": 27,
+    "prop_stmt": "If a straight-line falling across two straight-lines makes the alternate angles ",
+    "arg_i": 2,
+    "role": "step",
+    "lf": "deduction",
+    "en": "For if not, being produced, AB and CD will certainly meet together: either in the direction of B and D, or (in the direction) of A and C [Def. 1.23].",
+    "deps": [
+      "def.23"
+    ],
+    "dep_content": [
+      "Def.23: Parallel lines are straight-lines which, being in the same plane, and being produced to infinity in each direction, meet with one another in neither (of these directions)."
+    ]
+  },
+  {
+    "prop_n": 27,
+    "prop_stmt": "If a straight-line falling across two straight-lines makes the alternate angles ",
+    "arg_i": 3,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let them have been produced, and let them meet together in the direction of B and D at (point) G.",
+    "deps": [
+      "post.2"
+    ],
+    "dep_content": [
+      "Post.2: And to produce a finite straight-line continuously in a straight-line."
+    ]
+  },
+  {
+    "prop_n": 27,
+    "prop_stmt": "If a straight-line falling across two straight-lines makes the alternate angles ",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "So, for the triangle GEF, the external angle AEF is equal to the interior and opposite (angle) EFG.",
+    "deps": [
+      "prop.16"
+    ],
+    "dep_content": [
+      "Prop.16: For any triangle, when one of the sides is produced, the external angle is greater than each of the internal and opposite angles."
+    ]
+  },
+  {
+    "prop_n": 27,
+    "prop_stmt": "If a straight-line falling across two straight-lines makes the alternate angles ",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "deduction",
+    "en": "The very thing is impossible [Prop. 1.16].",
+    "deps": [
+      "prop.16"
+    ],
+    "dep_content": [
+      "Prop.16: For any triangle, when one of the sides is produced, the external angle is greater than each of the internal and opposite angles."
+    ]
+  },
+  {
+    "prop_n": 27,
+    "prop_stmt": "If a straight-line falling across two straight-lines makes the alternate angles ",
+    "arg_i": 6,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, being produced, AB and CD will not meet together in the direction of B and D.",
+    "deps": [
+      "prop.16"
+    ],
+    "dep_content": [
+      "Prop.16: For any triangle, when one of the sides is produced, the external angle is greater than each of the internal and opposite angles."
+    ]
+  },
+  {
+    "prop_n": 27,
+    "prop_stmt": "If a straight-line falling across two straight-lines makes the alternate angles ",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "deduction",
+    "en": "Similarly, it can be shown that neither (will they meet together) in (the direction of) A and C.",
+    "deps": [
+      "def.23"
+    ],
+    "dep_content": [
+      "Def.23: Parallel lines are straight-lines which, being in the same plane, and being produced to infinity in each direction, meet with one another in neither (of these directions)."
+    ]
+  },
+  {
+    "prop_n": 27,
+    "prop_stmt": "If a straight-line falling across two straight-lines makes the alternate angles ",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "application_of_definition",
+    "en": "But (straight-lines) meeting in neither direction are parallel [Def. 1.23].",
+    "deps": [
+      "def.23"
+    ],
+    "dep_content": [
+      "Def.23: Parallel lines are straight-lines which, being in the same plane, and being produced to infinity in each direction, meet with one another in neither (of these directions)."
+    ]
+  },
+  {
+    "prop_n": 27,
+    "prop_stmt": "If a straight-line falling across two straight-lines makes the alternate angles ",
+    "arg_i": 9,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, AB and CD are parallel.",
+    "deps": [
+      "def.23"
+    ],
+    "dep_content": [
+      "Def.23: Parallel lines are straight-lines which, being in the same plane, and being produced to infinity in each direction, meet with one another in neither (of these directions)."
+    ]
+  },
+  {
+    "prop_n": 28,
+    "prop_stmt": "If a straight-line falling across two straight-lines makes the external angle eq",
+    "arg_i": 2,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For since (in the first case) EGB is equal to GHD, but EGB is equal to AGH [Prop. 1.15], AGH is thus also equal to GHD.",
+    "deps": [
+      "cn.1",
+      "prop.15"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another.",
+      "Prop.15: If two straight-lines cut one another then they make the vertically opposite angles equal to one another."
+    ]
+  },
+  {
+    "prop_n": 28,
+    "prop_stmt": "If a straight-line falling across two straight-lines makes the external angle eq",
+    "arg_i": 4,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, AB is parallel to CD [Prop. 1.27].",
+    "deps": [
+      "prop.27"
+    ],
+    "dep_content": [
+      "Prop.27: If a straight-line falling across two straight-lines makes the alternate angles equal to one another then the (two) straight-lines will be parallel to one another."
+    ]
+  },
+  {
+    "prop_n": 28,
+    "prop_stmt": "If a straight-line falling across two straight-lines makes the external angle eq",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Again, since (in the second case, the sum of) BGH and GHD is equal to two right-angles, and (the sum of) AGH and BGH is also equal to two right-angles [Prop. 1.13], (the sum of) AGH and BGH is thus eq",
+    "deps": [
+      "cn.1",
+      "prop.13"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another.",
+      "Prop.13: If a straight-line stood on a(nother) straight-line makes angles, it will certainly either make two rightangles, or (angles whose sum is) equal to two rightangles."
+    ]
+  },
+  {
+    "prop_n": 28,
+    "prop_stmt": "If a straight-line falling across two straight-lines makes the external angle eq",
+    "arg_i": 6,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let BGH have been subtracted from both.",
+    "deps": [
+      "cn.3"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 28,
+    "prop_stmt": "If a straight-line falling across two straight-lines makes the external angle eq",
+    "arg_i": 7,
+    "role": "conclusion",
+    "lf": "application_of_common_notion",
+    "en": "Thus, the remainder AGH is equal to the remainder GHD.",
+    "deps": [
+      "cn.3"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 28,
+    "prop_stmt": "If a straight-line falling across two straight-lines makes the external angle eq",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And they are alternate (angles).",
+    "deps": [
+      "prop.27"
+    ],
+    "dep_content": [
+      "Prop.27: If a straight-line falling across two straight-lines makes the alternate angles equal to one another then the (two) straight-lines will be parallel to one another."
+    ]
+  },
+  {
+    "prop_n": 28,
+    "prop_stmt": "If a straight-line falling across two straight-lines makes the external angle eq",
+    "arg_i": 9,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, AB is parallel to CD [Prop. 1.27].",
+    "deps": [
+      "prop.27"
+    ],
+    "dep_content": [
+      "Prop.27: If a straight-line falling across two straight-lines makes the alternate angles equal to one another then the (two) straight-lines will be parallel to one another."
+    ]
+  },
+  {
+    "prop_n": 29,
+    "prop_stmt": "A straight-line falling across parallel straight-lines makes the alternate angle",
+    "arg_i": 4,
+    "role": "construction",
+    "lf": "application_of_common_notion",
+    "en": "Let BGH have been added to both.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 29,
+    "prop_stmt": "A straight-line falling across parallel straight-lines makes the alternate angle",
+    "arg_i": 5,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, (the sum of) AGH and BGH is greater than (the sum of) BGH and GHD.",
+    "deps": [
+      "prop.13"
+    ],
+    "dep_content": [
+      "Prop.13: If a straight-line stood on a(nother) straight-line makes angles, it will certainly either make two rightangles, or (angles whose sum is) equal to two rightangles."
+    ]
+  },
+  {
+    "prop_n": 29,
+    "prop_stmt": "A straight-line falling across parallel straight-lines makes the alternate angle",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "But, (the sum of) AGH and BGH is equal to two right-angles [Prop. 1.13].",
+    "deps": [
+      "cn.3",
+      "prop.13"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†",
+      "Prop.13: If a straight-line stood on a(nother) straight-line makes angles, it will certainly either make two rightangles, or (angles whose sum is) equal to two rightangles."
+    ]
+  },
+  {
+    "prop_n": 29,
+    "prop_stmt": "A straight-line falling across parallel straight-lines makes the alternate angle",
+    "arg_i": 7,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, (the sum of) BGH and GHD is [also] less than two right-angles.",
+    "deps": [
+      "post.5"
+    ],
+    "dep_content": [
+      "Post.5: And that if a straight-line falling across two (other) straight-lines makes internal angles on the same side (of itself whose sum is) less than two right-angles, then the two (other) straight-lines, being produced to infinity, meet on that side (of the original straight-line) that the (sum of the internal angles) is less than two right-angles (and do not meet on the other side).‡"
+    ]
+  },
+  {
+    "prop_n": 29,
+    "prop_stmt": "A straight-line falling across parallel straight-lines makes the alternate angle",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "application_of_postulate",
+    "en": "But (straight-lines) being produced to infinity from (internal angles whose sum is) less than two right-angles meet together [Post. 5].",
+    "deps": [
+      "post.5"
+    ],
+    "dep_content": [
+      "Post.5: And that if a straight-line falling across two (other) straight-lines makes internal angles on the same side (of itself whose sum is) less than two right-angles, then the two (other) straight-lines, being produced to infinity, meet on that side (of the original straight-line) that the (sum of the internal angles) is less than two right-angles (and do not meet on the other side).‡"
+    ]
+  },
+  {
+    "prop_n": 29,
+    "prop_stmt": "A straight-line falling across parallel straight-lines makes the alternate angle",
+    "arg_i": 9,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, AB and CD, being produced to infinity, will meet together.",
+    "deps": [
+      "def.23"
+    ],
+    "dep_content": [
+      "Def.23: Parallel lines are straight-lines which, being in the same plane, and being produced to infinity in each direction, meet with one another in neither (of these directions)."
+    ]
+  },
+  {
+    "prop_n": 29,
+    "prop_stmt": "A straight-line falling across parallel straight-lines makes the alternate angle",
+    "arg_i": 10,
+    "role": "step",
+    "lf": "application_of_definition",
+    "en": "But they do not meet, on account of them (initially) being assumed parallel (to one another) [Def. 1.23].",
+    "deps": [
+      "def.23"
+    ],
+    "dep_content": [
+      "Def.23: Parallel lines are straight-lines which, being in the same plane, and being produced to infinity in each direction, meet with one another in neither (of these directions)."
+    ]
+  },
+  {
+    "prop_n": 29,
+    "prop_stmt": "A straight-line falling across parallel straight-lines makes the alternate angle",
+    "arg_i": 11,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, AGH is not unequal to GHD.",
+    "deps": [
+      "prop.13",
+      "def.23"
+    ],
+    "dep_content": [
+      "Prop.13: If a straight-line stood on a(nother) straight-line makes angles, it will certainly either make two rightangles, or (angles whose sum is) equal to two rightangles.",
+      "Def.23: Parallel lines are straight-lines which, being in the same plane, and being produced to infinity in each direction, meet with one another in neither (of these directions)."
+    ]
+  },
+  {
+    "prop_n": 29,
+    "prop_stmt": "A straight-line falling across parallel straight-lines makes the alternate angle",
+    "arg_i": 12,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, (it is) equal.",
+    "deps": [
+      "prop.15"
+    ],
+    "dep_content": [
+      "Prop.15: If two straight-lines cut one another then they make the vertically opposite angles equal to one another."
+    ]
+  },
+  {
+    "prop_n": 29,
+    "prop_stmt": "A straight-line falling across parallel straight-lines makes the alternate angle",
+    "arg_i": 13,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "But, AGH is equal to EGB [Prop. 1.15].",
+    "deps": [
+      "cn.1",
+      "prop.15"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another.",
+      "Prop.15: If two straight-lines cut one another then they make the vertically opposite angles equal to one another."
+    ]
+  },
+  {
+    "prop_n": 29,
+    "prop_stmt": "A straight-line falling across parallel straight-lines makes the alternate angle",
+    "arg_i": 14,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And EGB is thus also equal to GHD.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 29,
+    "prop_stmt": "A straight-line falling across parallel straight-lines makes the alternate angle",
+    "arg_i": 15,
+    "role": "construction",
+    "lf": "application_of_common_notion",
+    "en": "Let BGH be added to both.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 29,
+    "prop_stmt": "A straight-line falling across parallel straight-lines makes the alternate angle",
+    "arg_i": 16,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, (the sum of) EGB and BGH is equal to (the sum of) BGH and GHD.",
+    "deps": [
+      "prop.13"
+    ],
+    "dep_content": [
+      "Prop.13: If a straight-line stood on a(nother) straight-line makes angles, it will certainly either make two rightangles, or (angles whose sum is) equal to two rightangles."
+    ]
+  },
+  {
+    "prop_n": 29,
+    "prop_stmt": "A straight-line falling across parallel straight-lines makes the alternate angle",
+    "arg_i": 17,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "But, (the sum of) EGB and BGH is equal to two rightangles [Prop. 1.13].",
+    "deps": [
+      "cn.1",
+      "prop.13"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another.",
+      "Prop.13: If a straight-line stood on a(nother) straight-line makes angles, it will certainly either make two rightangles, or (angles whose sum is) equal to two rightangles."
+    ]
+  },
+  {
+    "prop_n": 29,
+    "prop_stmt": "A straight-line falling across parallel straight-lines makes the alternate angle",
+    "arg_i": 18,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, (the sum of) BGH and GHD is also equal to two right-angles.",
+    "deps": [
+      "prop.13",
+      "cn.1"
+    ],
+    "dep_content": [
+      "Prop.13: If a straight-line stood on a(nother) straight-line makes angles, it will certainly either make two rightangles, or (angles whose sum is) equal to two rightangles.",
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 30,
+    "prop_stmt": "(Straight-lines) parallel to the same straight-line are also parallel to one ano",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "For let the straight-line GK fall across (AB, CD, and EF).",
+    "deps": [
+      "post.2"
+    ],
+    "dep_content": [
+      "Post.2: And to produce a finite straight-line continuously in a straight-line."
+    ]
+  },
+  {
+    "prop_n": 30,
+    "prop_stmt": "(Straight-lines) parallel to the same straight-line are also parallel to one ano",
+    "arg_i": 3,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "And since the straight-line GK has fallen across the parallel straight-lines AB and EF, (angle) AGK (is) thus equal to GHF [Prop. 1.29].",
+    "deps": [
+      "prop.29"
+    ],
+    "dep_content": [
+      "Prop.29: A straight-line falling across parallel straight-lines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles."
+    ]
+  },
+  {
+    "prop_n": 30,
+    "prop_stmt": "(Straight-lines) parallel to the same straight-line are also parallel to one ano",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Again, since the straight-line GK has fallen across the parallel straight-lines EF and CD, (angle) GHF is equal to GKD [Prop. 1.29].",
+    "deps": [
+      "prop.29"
+    ],
+    "dep_content": [
+      "Prop.29: A straight-line falling across parallel straight-lines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles."
+    ]
+  },
+  {
+    "prop_n": 30,
+    "prop_stmt": "(Straight-lines) parallel to the same straight-line are also parallel to one ano",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "application_of_common_notion",
+    "en": "But AGK was also shown (to be) equal to GHF.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 30,
+    "prop_stmt": "(Straight-lines) parallel to the same straight-line are also parallel to one ano",
+    "arg_i": 6,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, AGK is also equal to GKD.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 30,
+    "prop_stmt": "(Straight-lines) parallel to the same straight-line are also parallel to one ano",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And they are alternate (angles).",
+    "deps": [
+      "prop.27"
+    ],
+    "dep_content": [
+      "Prop.27: If a straight-line falling across two straight-lines makes the alternate angles equal to one another then the (two) straight-lines will be parallel to one another."
+    ]
+  },
+  {
+    "prop_n": 30,
+    "prop_stmt": "(Straight-lines) parallel to the same straight-line are also parallel to one ano",
+    "arg_i": 8,
+    "role": "qed",
+    "lf": "application_of_prior_result",
+    "en": "Thus, AB is parallel to CD [Prop. 1.27]. [Thus, (straight-lines) parallel to the same straightline are also parallel to one another.] (Which is) the very thing it was required to show.",
+    "deps": [
+      "prop.27"
+    ],
+    "dep_content": [
+      "Prop.27: If a straight-line falling across two straight-lines makes the alternate angles equal to one another then the (two) straight-lines will be parallel to one another."
+    ]
+  },
+  {
+    "prop_n": 31,
+    "prop_stmt": "To draw a straight-line parallel to a given straight-line, through a given point",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let the point D have been taken a random on BC, and let AD have been joined.",
+    "deps": [
+      "post.1"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point."
+    ]
+  },
+  {
+    "prop_n": 31,
+    "prop_stmt": "To draw a straight-line parallel to a given straight-line, through a given point",
+    "arg_i": 3,
+    "role": "construction",
+    "lf": "construction",
+    "en": "And let (angle) DAE, equal to angle ADC, have been constructed on the straight-line DA at the point A on it [Prop. 1.23].",
+    "deps": [
+      "prop.23"
+    ],
+    "dep_content": [
+      "Prop.23: To construct a rectilinear angle equal to a given rectilinear angle at a (given) point on a given straight-line."
+    ]
+  },
+  {
+    "prop_n": 31,
+    "prop_stmt": "To draw a straight-line parallel to a given straight-line, through a given point",
+    "arg_i": 4,
+    "role": "construction",
+    "lf": "construction",
+    "en": "And let the straightline AF have been produced in a straight-line with EA.",
+    "deps": [
+      "post.2"
+    ],
+    "dep_content": [
+      "Post.2: And to produce a finite straight-line continuously in a straight-line."
+    ]
+  },
+  {
+    "prop_n": 31,
+    "prop_stmt": "To draw a straight-line parallel to a given straight-line, through a given point",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "And since the straight-line AD, (in) falling across the two straight-lines BC and EF, has made the alternate angles EAD and ADC equal to one another, EAF is thus parallel to BC [Prop. 1.27].",
+    "deps": [
+      "prop.27"
+    ],
+    "dep_content": [
+      "Prop.27: If a straight-line falling across two straight-lines makes the alternate angles equal to one another then the (two) straight-lines will be parallel to one another."
+    ]
+  },
+  {
+    "prop_n": 32,
+    "prop_stmt": "In any triangle, (if) one of the sides (is) produced (then) the external angle i",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "For let CE have been drawn through point C parallel to the straight-line AB [Prop. 1.31].",
+    "deps": [
+      "prop.31"
+    ],
+    "dep_content": [
+      "Prop.31: To draw a straight-line parallel to a given straight-line, through a given point."
+    ]
+  },
+  {
+    "prop_n": 32,
+    "prop_stmt": "In any triangle, (if) one of the sides (is) produced (then) the external angle i",
+    "arg_i": 3,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "And since AB is parallel to CE, and AC has fallen across them, the alternate angles BAC and ACE are equal to one another [Prop. 1.29].",
+    "deps": [
+      "prop.29"
+    ],
+    "dep_content": [
+      "Prop.29: A straight-line falling across parallel straight-lines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles."
+    ]
+  },
+  {
+    "prop_n": 32,
+    "prop_stmt": "In any triangle, (if) one of the sides (is) produced (then) the external angle i",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Again, since AB is parallel to CE, and the straight-line BD has fallen across them, the external angle ECD is equal to the internal and opposite (angle) ABC [Prop. 1.29].",
+    "deps": [
+      "prop.29"
+    ],
+    "dep_content": [
+      "Prop.29: A straight-line falling across parallel straight-lines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles."
+    ]
+  },
+  {
+    "prop_n": 32,
+    "prop_stmt": "In any triangle, (if) one of the sides (is) produced (then) the external angle i",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "application_of_common_notion",
+    "en": "But ACE was also shown (to be) equal to BAC.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 32,
+    "prop_stmt": "In any triangle, (if) one of the sides (is) produced (then) the external angle i",
+    "arg_i": 6,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, the whole angle ACD is equal to the (sum of the) two internal and opposite (angles) BAC and ABC.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 32,
+    "prop_stmt": "In any triangle, (if) one of the sides (is) produced (then) the external angle i",
+    "arg_i": 7,
+    "role": "construction",
+    "lf": "application_of_common_notion",
+    "en": "Let ACB have been added to both.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 32,
+    "prop_stmt": "In any triangle, (if) one of the sides (is) produced (then) the external angle i",
+    "arg_i": 8,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, (the sum of) ACD and ACB is equal to the (sum of the) three (angles) ABC, BCA, and CAB.",
+    "deps": [
+      "prop.13"
+    ],
+    "dep_content": [
+      "Prop.13: If a straight-line stood on a(nother) straight-line makes angles, it will certainly either make two rightangles, or (angles whose sum is) equal to two rightangles."
+    ]
+  },
+  {
+    "prop_n": 32,
+    "prop_stmt": "In any triangle, (if) one of the sides (is) produced (then) the external angle i",
+    "arg_i": 9,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "But, (the sum of) ACD and ACB is equal to two right-angles [Prop. 1.13].",
+    "deps": [
+      "cn.1",
+      "prop.13"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another.",
+      "Prop.13: If a straight-line stood on a(nother) straight-line makes angles, it will certainly either make two rightangles, or (angles whose sum is) equal to two rightangles."
+    ]
+  },
+  {
+    "prop_n": 32,
+    "prop_stmt": "In any triangle, (if) one of the sides (is) produced (then) the external angle i",
+    "arg_i": 10,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, (the sum of) ACB, CBA, and CAB is also equal to two right-angles.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  }
+]

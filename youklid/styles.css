@@ -179,7 +179,10 @@ body[data-lang="gr"] .map-node-label {
 .view { display: none; }
 .view.active { display: block; }
 
-#text-view {
+/* Only display:grid when active — plain #text-view { display:grid } would win
+   over .view { display:none } due to higher specificity, making the hidden
+   stub on youklidmap.html push the map down by a full viewport height. */
+#text-view.active {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr auto;

@@ -1,0 +1,65 @@
+[
+  {
+    "prop_n": 26,
+    "arg_i": 16,
+    "issue": "WRONG",
+    "current_deps": [
+      "cn.1"
+    ],
+    "proposed_deps": [
+      "cn.5"
+    ],
+    "unclear": false,
+    "note": "Concludes BCG = BCA (the lesser = the greater). This is a contradiction requiring C.N.5 (whole > part), not C.N.1."
+  },
+  {
+    "prop_n": 29,
+    "arg_i": 5,
+    "issue": "WRONG",
+    "current_deps": [
+      "prop.13"
+    ],
+    "proposed_deps": [],
+    "unclear": false,
+    "note": "This is a conclusion from adding (C.N.2), not from Prop.13. Step 5 incorrectly cites Prop.13; the conclusion follows from step 4 (C.N.2) applied to angle sums."
+  },
+  {
+    "prop_n": 29,
+    "arg_i": 12,
+    "issue": "WRONG",
+    "current_deps": [
+      "prop.15"
+    ],
+    "proposed_deps": [
+      "cn.1"
+    ],
+    "unclear": false,
+    "note": "Step 11 concludes AGH is not unequal to GHD (i.e., equal). Step 12 must apply C.N.1 (things equal to same = equal) from the contradiction in step 11, not Prop.15."
+  },
+  {
+    "prop_n": 29,
+    "arg_i": 14,
+    "issue": "WRONG",
+    "current_deps": [
+      "cn.2"
+    ],
+    "proposed_deps": [
+      "cn.1"
+    ],
+    "unclear": false,
+    "note": "From step 13 (AGH = EGB) and step 12 (AGH = GHD), we get EGB = GHD by C.N.1 (transitive), not C.N.2 (addition)."
+  },
+  {
+    "prop_n": 29,
+    "arg_i": 16,
+    "issue": "WRONG",
+    "current_deps": [
+      "prop.13"
+    ],
+    "proposed_deps": [
+      "cn.2"
+    ],
+    "unclear": false,
+    "note": "Step 15 adds BGH to both sides (C.N.2). Step 16 concludes equality. This is the result of C.N.2, not Prop.13."
+  }
+]

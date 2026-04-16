@@ -1,0 +1,56 @@
+[
+  {
+    "prop_n": 9,
+    "arg_i": 5,
+    "issue": "WRONG",
+    "current_deps": ["cn.1"],
+    "proposed_deps": [],
+    "unclear": false,
+    "note": "C.N.1 is about things equal to same thing being equal to each other (transitivity). Here we have AD = AE and CF is common (same segment). The statement 'the two (straight-lines) DA, AF are equal to the two (straight-lines) EA, AF, respectively' is simply restating these equalities plus the common segment. This is basic setup for SAS, not an application of C.N.1. The common notion is not needed here — this is just organizing the given data."
+  },
+  {
+    "prop_n": 11,
+    "arg_i": 4,
+    "issue": "WRONG",
+    "current_deps": ["cn.2"],
+    "proposed_deps": [],
+    "unclear": false,
+    "note": "C.N.2 is 'add equals to equals → wholes equal'. The statement 'the two (straight-lines) DC, CF are equal to the two (straight-lines), EC, CF, respectively' is setting up two pairs: DC = EC (given) and CF is common. This is not adding anything — it's just restating the givens for SAS setup. Like arg_i 5 of Prop 9, this should not cite C.N.2."
+  },
+  {
+    "prop_n": 11,
+    "arg_i": 5,
+    "issue": "WRONG",
+    "current_deps": ["prop.1"],
+    "proposed_deps": [],
+    "unclear": false,
+    "note": "The claim 'the base DF is equal to the base FE' follows because FDE is equilateral (constructed by Prop.1). An equilateral triangle has all three sides equal. This is a direct consequence of the definition of equilateral, not Prop.1 itself. Either cite the definition of equilateral or omit the citation — Prop.1 says HOW to construct it, not that it IS equilateral."
+  },
+  {
+    "prop_n": 12,
+    "arg_i": 4,
+    "issue": "WRONG",
+    "current_deps": ["cn.1"],
+    "proposed_deps": ["prop.8"],
+    "unclear": false,
+    "note": "The statement 'For since GH is equal to HE, and HC (is) common, the two (straight-lines) GH, HC are equal to the two (straight-lines) EH, HC, respectively, and the base CG is equal to the base CE' is a complete SAS argument (two sides and included angle equal). The concluding claim about bases requires Prop.8 (SSS congruence for bases), not C.N.1. C.N.1 is about transitivity of equality, not triangle congruence."
+  },
+  {
+    "prop_n": 16,
+    "arg_i": 5,
+    "issue": "WRONG",
+    "current_deps": ["prop.15", "prop.4"],
+    "proposed_deps": ["prop.15"],
+    "unclear": false,
+    "note": "The statement 'angle AEB is equal to angle FEC' follows only from Prop.15 (vertical angles). Prop.4 (SAS congruence) is cited but not used here — this step only establishes angle equality, not triangle congruence. Prop.4 will be needed later for the full SAS argument, but not for this step."
+  },
+  {
+    "prop_n": 16,
+    "arg_i": 9,
+    "issue": "WRONG",
+    "current_deps": ["prop.10"],
+    "proposed_deps": ["cn.5"],
+    "unclear": false,
+    "note": "The conclusion 'ACD is greater than BAE' follows from the fact that ECD > ECF (by C.N.5, whole > part) combined with the prior step showing BAE = ECF. Therefore ACD = ECD > ECF = BAE, so ACD > BAE. The key justification is C.N.5, not Prop.10 (which was used earlier to bisect)."
+  }
+]

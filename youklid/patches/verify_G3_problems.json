@@ -1,0 +1,92 @@
+[
+  {
+    "prop_n": 17,
+    "arg_i": 5,
+    "issue": "WRONG",
+    "current_deps": ["prop.13"],
+    "proposed_deps": ["cn.2", "cn.1"],
+    "unclear": false,
+    "note": "Conclusion that ACD+ACB sum > ABC+BCA sum should follow from CN.2 (adding ACB to the inequality from arg_i=3) and CN.1 (transitivity). Prop.13 does not justify the inequality itself."
+  },
+  {
+    "prop_n": 17,
+    "arg_i": 6,
+    "issue": "EXTRA",
+    "current_deps": ["cn.3", "prop.13"],
+    "proposed_deps": ["prop.13"],
+    "unclear": false,
+    "note": "CN.3 (subtract equals) is extraneous. The step only requires Prop.13 to establish that ACD+ACB = 2 right angles (a straight angle). No subtraction is performed here."
+  },
+  {
+    "prop_n": 17,
+    "arg_i": 8,
+    "issue": "MISSING",
+    "current_deps": ["prop.16"],
+    "proposed_deps": ["prop.16", "prop.13", "cn.2"],
+    "unclear": true,
+    "note": "Similarly-we-can-show step should mirror the proof of arg_i=2-6. The analogous cases require Prop.16 (exterior angle), Prop.13 (straight angle sum), and CN.2 (adding angles). Prop.16 alone is insufficient."
+  },
+  {
+    "prop_n": 18,
+    "arg_i": 5,
+    "issue": "MISSING",
+    "current_deps": ["cn.5"],
+    "proposed_deps": ["cn.1", "cn.5"],
+    "unclear": false,
+    "note": "To conclude ABD > ACB requires transitivity: ABD = ADB (from arg_i=4, Prop.5) and ADB > ACB (from arg_i=3, Prop.16). CN.1 (transitivity) is needed before CN.5 applies."
+  },
+  {
+    "prop_n": 20,
+    "arg_i": 8,
+    "issue": "MISSING",
+    "current_deps": ["cn.2"],
+    "proposed_deps": ["cn.1"],
+    "unclear": false,
+    "note": "To show BA+AC > BC requires: DB > BC (arg_i=6, Prop.19) and DB = BA+AC (by construction, arg_i=3). CN.1 (transitivity) must chain these. CN.2 (adding equals) does not apply here; the inequality is not created by addition."
+  },
+  {
+    "prop_n": 20,
+    "arg_i": 9,
+    "issue": "MISSING",
+    "current_deps": ["prop.19"],
+    "proposed_deps": ["prop.19", "prop.20", "cn.1"],
+    "unclear": true,
+    "note": "Similarly-we-can-show step should mirror args 3-8 structure. Analogous cases require construction (Post.2, Prop.3), isosceles reasoning (Prop.5), and transitivity (CN.1), not just Prop.19."
+  },
+  {
+    "prop_n": 21,
+    "arg_i": 12,
+    "issue": "WRONG",
+    "current_deps": ["cn.5"],
+    "proposed_deps": ["cn.1"],
+    "unclear": false,
+    "note": "Step concludes BDC much greater than BAC. This requires transitivity: BDC > CEB (arg_i=10) and CEB > BAC (arg_i=11) implies BDC > BAC via CN.1, not CN.5 (whole > part)."
+  },
+  {
+    "prop_n": 22,
+    "arg_i": 12,
+    "issue": "WRONG",
+    "current_deps": ["def.16"],
+    "proposed_deps": ["cn.1"],
+    "unclear": false,
+    "note": "Step: FD=FK (by Def.15) and FD=A (construction) implies FK=A. This is CN.1 (transitivity), not Def.16. Def.16 only names the center; the radius equality comes from Def.15."
+  },
+  {
+    "prop_n": 24,
+    "arg_i": 10,
+    "issue": "MISSING",
+    "current_deps": ["prop.5", "cn.5"],
+    "proposed_deps": ["prop.5", "cn.1", "cn.5"],
+    "unclear": false,
+    "note": "Prop.5 gives DGF = DFG (isosceles). To show DFG > EGF requires: DGF > EGF (from prior reasoning) and DFG = DGF. CN.1 (transitivity) chains these before CN.5 applies."
+  },
+  {
+    "prop_n": 24,
+    "arg_i": 11,
+    "issue": "WRONG",
+    "current_deps": ["prop.19"],
+    "proposed_deps": ["cn.5"],
+    "unclear": false,
+    "note": "Step concludes EFG much greater than EGF. EFG = DFG + angle CEG, and DFG > EGF, so EFG > EGF by CN.5 (whole > part), not Prop.19 (which relates side lengths to angles)."
+  }
+]

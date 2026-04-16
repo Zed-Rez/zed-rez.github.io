@@ -1,0 +1,978 @@
+[
+  {
+    "prop_n": 33,
+    "prop_stmt": "Straight-lines joining equal and parallel (straightlines) on the same sides are ",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let BC have been joined.",
+    "deps": [
+      "post.1"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point."
+    ]
+  },
+  {
+    "prop_n": 33,
+    "prop_stmt": "Straight-lines joining equal and parallel (straightlines) on the same sides are ",
+    "arg_i": 3,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "And since AB is parallel to CD, and BC has fallen across them, the alternate angles ABC and BCD are equal to one another And since AB is equal to CD, and BC [Prop. 1.29]. is common, the two (straight-",
+    "deps": [
+      "cn.2",
+      "prop.29",
+      "prop.4"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal.",
+      "Prop.29: A straight-line falling across parallel straight-lines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles.",
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 33,
+    "prop_stmt": "Straight-lines joining equal and parallel (straightlines) on the same sides are ",
+    "arg_i": 4,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, the base AC is equal to the base BD, and triangle ABC is equal to triangle DCB‡, and the remaining angles will be equal to the corresponding remaining angles subtended by the equal sides [Prop. ",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 33,
+    "prop_stmt": "Straight-lines joining equal and parallel (straightlines) on the same sides are ",
+    "arg_i": 5,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, angle ACB is equal to CBD.",
+    "deps": [
+      "prop.27"
+    ],
+    "dep_content": [
+      "Prop.27: If a straight-line falling across two straight-lines makes the alternate angles equal to one another then the (two) straight-lines will be parallel to one another."
+    ]
+  },
+  {
+    "prop_n": 33,
+    "prop_stmt": "Straight-lines joining equal and parallel (straightlines) on the same sides are ",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Also, since the straight-line BC, (in) falling across the two straight-lines AC and BD, has made the alternate angles (ACB and CBD) equal to one another, AC is thus parallel to BD [Prop. 1.27].",
+    "deps": [
+      "prop.27"
+    ],
+    "dep_content": [
+      "Prop.27: If a straight-line falling across two straight-lines makes the alternate angles equal to one another then the (two) straight-lines will be parallel to one another."
+    ]
+  },
+  {
+    "prop_n": 33,
+    "prop_stmt": "Straight-lines joining equal and parallel (straightlines) on the same sides are ",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And (AC) was also shown (to be) equal to (BD).",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 34,
+    "prop_stmt": "In parallelogrammic figures the opposite sides and angles are equal to one anoth",
+    "arg_i": 2,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For since AB is parallel to CD, and the straight-line BC has fallen across them, the alternate angles ABC and BCD are equal to one another [Prop. 1.29].",
+    "deps": [
+      "prop.29"
+    ],
+    "dep_content": [
+      "Prop.29: A straight-line falling across parallel straight-lines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles."
+    ]
+  },
+  {
+    "prop_n": 34,
+    "prop_stmt": "In parallelogrammic figures the opposite sides and angles are equal to one anoth",
+    "arg_i": 3,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Again, since AC is parallel to BD, and BC has fallen across them, the alternate angles ACB and CBD are equal to one another [Prop. 1.29].",
+    "deps": [
+      "prop.29"
+    ],
+    "dep_content": [
+      "Prop.29: A straight-line falling across parallel straight-lines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles."
+    ]
+  },
+  {
+    "prop_n": 34,
+    "prop_stmt": "In parallelogrammic figures the opposite sides and angles are equal to one anoth",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "deduction",
+    "en": "So ABC and BCD are two triangles having the two angles ABC and BCA equal to the two (angles) BCD and CBD, respectively, and one side equal to one side—the (one) by the equal angles and common to them,",
+    "deps": [
+      "prop.26"
+    ],
+    "dep_content": [
+      "Prop.26: If two triangles have two angles equal to two angles, respectively, and one side equal to one side—in fact, either that by the equal angles, or that subtending one of the equal angles—then (the triangles) will also have the remaining sides equal to the [corresponding] remaining sides, and the remaining angle (equal) to the remaining angle."
+    ]
+  },
+  {
+    "prop_n": 34,
+    "prop_stmt": "In parallelogrammic figures the opposite sides and angles are equal to one anoth",
+    "arg_i": 5,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, they will also have the remaining sides equal to the corresponding remaining (sides), and the remaining angle (equal) to the remaining angle [Prop. 1.26].",
+    "deps": [
+      "prop.26"
+    ],
+    "dep_content": [
+      "Prop.26: If two triangles have two angles equal to two angles, respectively, and one side equal to one side—in fact, either that by the equal angles, or that subtending one of the equal angles—then (the triangles) will also have the remaining sides equal to the [corresponding] remaining sides, and the remaining angle (equal) to the remaining angle."
+    ]
+  },
+  {
+    "prop_n": 34,
+    "prop_stmt": "In parallelogrammic figures the opposite sides and angles are equal to one anoth",
+    "arg_i": 6,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, side AB is equal to CD, and AC to BD.",
+    "deps": [
+      "prop.26"
+    ],
+    "dep_content": [
+      "Prop.26: If two triangles have two angles equal to two angles, respectively, and one side equal to one side—in fact, either that by the equal angles, or that subtending one of the equal angles—then (the triangles) will also have the remaining sides equal to the [corresponding] remaining sides, and the remaining angle (equal) to the remaining angle."
+    ]
+  },
+  {
+    "prop_n": 34,
+    "prop_stmt": "In parallelogrammic figures the opposite sides and angles are equal to one anoth",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "deduction",
+    "en": "Furthermore, angle BAC is equal to CDB.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 34,
+    "prop_stmt": "In parallelogrammic figures the opposite sides and angles are equal to one anoth",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And since angle ABC is equal to BCD, and CBD to ACB, the whole (angle) ABD is thus equal to the whole (angle) ACD.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 34,
+    "prop_stmt": "In parallelogrammic figures the opposite sides and angles are equal to one anoth",
+    "arg_i": 9,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And BAC was also shown (to be) equal to CDB.",
+    "deps": [
+      "prop.26"
+    ],
+    "dep_content": [
+      "Prop.26: If two triangles have two angles equal to two angles, respectively, and one side equal to one side—in fact, either that by the equal angles, or that subtending one of the equal angles—then (the triangles) will also have the remaining sides equal to the [corresponding] remaining sides, and the remaining angle (equal) to the remaining angle."
+    ]
+  },
+  {
+    "prop_n": 34,
+    "prop_stmt": "In parallelogrammic figures the opposite sides and angles are equal to one anoth",
+    "arg_i": 11,
+    "role": "step",
+    "lf": "conclusion_statement",
+    "en": "And, I also say that a diagonal cuts them in half.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 34,
+    "prop_stmt": "In parallelogrammic figures the opposite sides and angles are equal to one anoth",
+    "arg_i": 12,
+    "role": "step",
+    "lf": "deduction",
+    "en": "For since AB is equal to CD, and BC (is) common, the two (straight-lines) AB, BC are equal to the two (straightlines) DC, CB†, respectively.",
+    "deps": [
+      "prop.29",
+      "prop.26"
+    ],
+    "dep_content": [
+      "Prop.29: A straight-line falling across parallel straight-lines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles.",
+      "Prop.26: If two triangles have two angles equal to two angles, respectively, and one side equal to one side—in fact, either that by the equal angles, or that subtending one of the equal angles—then (the triangles) will also have the remaining sides equal to the [corresponding] remaining sides, and the remaining angle (equal) to the remaining angle."
+    ]
+  },
+  {
+    "prop_n": 34,
+    "prop_stmt": "In parallelogrammic figures the opposite sides and angles are equal to one anoth",
+    "arg_i": 13,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "And angle ABC is equal to angle BCD.",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 34,
+    "prop_stmt": "In parallelogrammic figures the opposite sides and angles are equal to one anoth",
+    "arg_i": 14,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, the base AC (is) also equal to DB, and triangle ABC is equal to triangle BCD [Prop. 1.4].",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 34,
+    "prop_stmt": "In parallelogrammic figures the opposite sides and angles are equal to one anoth",
+    "arg_i": 15,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, the diagonal BC cuts the parallelogram ACDB‡ in half.",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 35,
+    "prop_stmt": "Parallelograms which are on the same base and between the same parallels are equ",
+    "arg_i": 2,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For since ABCD is a parallelogram, AD is equal to BC [Prop. 1.34].",
+    "deps": [
+      "prop.34"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 35,
+    "prop_stmt": "Parallelograms which are on the same base and between the same parallels are equ",
+    "arg_i": 3,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "So, for the same (reasons), EF is also equal to BC.",
+    "deps": [
+      "prop.34"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 35,
+    "prop_stmt": "Parallelograms which are on the same base and between the same parallels are equ",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "application_of_common_notion",
+    "en": "So AD is also equal to EF.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 35,
+    "prop_stmt": "Parallelograms which are on the same base and between the same parallels are equ",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And DE is common.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 35,
+    "prop_stmt": "Parallelograms which are on the same base and between the same parallels are equ",
+    "arg_i": 6,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, the whole (straight-line) AE is equal to the whole (straight-line) DF.",
+    "deps": [
+      "prop.34"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 35,
+    "prop_stmt": "Parallelograms which are on the same base and between the same parallels are equ",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And AB is also equal to DC.",
+    "deps": [
+      "prop.34"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 35,
+    "prop_stmt": "Parallelograms which are on the same base and between the same parallels are equ",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "deduction",
+    "en": "So the two (straight-lines) EA, AB are equal to the two (straight-lines) FD, DC, respectively.",
+    "deps": [
+      "prop.29"
+    ],
+    "dep_content": [
+      "Prop.29: A straight-line falling across parallel straight-lines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles."
+    ]
+  },
+  {
+    "prop_n": 35,
+    "prop_stmt": "Parallelograms which are on the same base and between the same parallels are equ",
+    "arg_i": 9,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "And angle FDC is equal to angle EAB, the external to the internal [Prop. 1.29].",
+    "deps": [
+      "prop.29",
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.29: A straight-line falling across parallel straight-lines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles.",
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 35,
+    "prop_stmt": "Parallelograms which are on the same base and between the same parallels are equ",
+    "arg_i": 10,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, the base EB is equal to the base FC, and triangle EAB will be equal to triangle DFC [Prop. 1.4].",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 35,
+    "prop_stmt": "Parallelograms which are on the same base and between the same parallels are equ",
+    "arg_i": 11,
+    "role": "construction",
+    "lf": "application_of_common_notion",
+    "en": "Let DGE have been taken away from both.",
+    "deps": [
+      "cn.3"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 35,
+    "prop_stmt": "Parallelograms which are on the same base and between the same parallels are equ",
+    "arg_i": 12,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, the remaining trapezium ABGD is equal to the remaining trapezium EGCF.",
+    "deps": [
+      "cn.3"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 35,
+    "prop_stmt": "Parallelograms which are on the same base and between the same parallels are equ",
+    "arg_i": 13,
+    "role": "construction",
+    "lf": "application_of_common_notion",
+    "en": "Let triangle GBC have been added to both.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 35,
+    "prop_stmt": "Parallelograms which are on the same base and between the same parallels are equ",
+    "arg_i": 14,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, the whole parallelogram ABCD is equal to the whole parallelogram EBCF.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 36,
+    "prop_stmt": "Parallelograms which are on equal bases and between the same parallels are equal",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "For let BE and CH have been joined.",
+    "deps": [
+      "post.1"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point."
+    ]
+  },
+  {
+    "prop_n": 36,
+    "prop_stmt": "Parallelograms which are on equal bases and between the same parallels are equal",
+    "arg_i": 3,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "And since BC is equal to FG, but FG is equal to EH [Prop. 1.34], BC is thus equal to EH.",
+    "deps": [
+      "cn.1",
+      "prop.34"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another.",
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 36,
+    "prop_stmt": "Parallelograms which are on equal bases and between the same parallels are equal",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "But (straight-lines) joining equal and parallel (straight-lines) on the same sides are (themselves) equal and parallel [Prop. 1.33] [thus, EB and HC are also equal and parallel].",
+    "deps": [
+      "prop.33"
+    ],
+    "dep_content": [
+      "Prop.33: Straight-lines joining equal and parallel (straightlines) on the same sides are themselves also equal and parallel."
+    ]
+  },
+  {
+    "prop_n": 36,
+    "prop_stmt": "Parallelograms which are on equal bases and between the same parallels are equal",
+    "arg_i": 6,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, EBCH is a parallelogram [Prop. 1.34], and is equal to ABCD.",
+    "deps": [
+      "prop.34",
+      "prop.35"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half.",
+      "Prop.35: Parallelograms which are on the same base and between the same parallels are equal† to one another."
+    ]
+  },
+  {
+    "prop_n": 36,
+    "prop_stmt": "Parallelograms which are on equal bases and between the same parallels are equal",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "deduction",
+    "en": "For it has the same base, BC, as (ABCD), and is between the same parallels, BC and AH, as (ABCD) [Prop. 1.35].",
+    "deps": [
+      "prop.34",
+      "prop.35"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half.",
+      "Prop.35: Parallelograms which are on the same base and between the same parallels are equal† to one another."
+    ]
+  },
+  {
+    "prop_n": 36,
+    "prop_stmt": "Parallelograms which are on equal bases and between the same parallels are equal",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "So, for the same (reasons), EFGH is also equal to the same (parallelogram) EBCH [Prop. 1.34].",
+    "deps": [
+      "cn.1",
+      "prop.34"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another.",
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 36,
+    "prop_stmt": "Parallelograms which are on equal bases and between the same parallels are equal",
+    "arg_i": 9,
+    "role": "step",
+    "lf": "deduction",
+    "en": "So that the parallelogram ABCD is also equal to EFGH.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 37,
+    "prop_stmt": "Triangles which are on the same base and between the same parallels are equal to",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let AD have been produced in both directions to E and F, and let the (straight-line) BE have been drawn through B parallel to CA [Prop. 1.31], and let the (straight-line) CF have been drawn through C ",
+    "deps": [
+      "prop.31"
+    ],
+    "dep_content": [
+      "Prop.31: To draw a straight-line parallel to a given straight-line, through a given point."
+    ]
+  },
+  {
+    "prop_n": 37,
+    "prop_stmt": "Triangles which are on the same base and between the same parallels are equal to",
+    "arg_i": 3,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, EBCA and DBCF are both parallelograms, and are equal.",
+    "deps": [
+      "prop.35"
+    ],
+    "dep_content": [
+      "Prop.35: Parallelograms which are on the same base and between the same parallels are equal† to one another."
+    ]
+  },
+  {
+    "prop_n": 37,
+    "prop_stmt": "Triangles which are on the same base and between the same parallels are equal to",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For they are on the same base BC, and between the same parallels BC and EF [Prop. 1.35].",
+    "deps": [
+      "prop.35"
+    ],
+    "dep_content": [
+      "Prop.35: Parallelograms which are on the same base and between the same parallels are equal† to one another."
+    ]
+  },
+  {
+    "prop_n": 37,
+    "prop_stmt": "Triangles which are on the same base and between the same parallels are equal to",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And the triangle ABC is half of the parallelogram EBCA.",
+    "deps": [
+      "prop.34"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 37,
+    "prop_stmt": "Triangles which are on the same base and between the same parallels are equal to",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For the diagonal AB cuts the latter in half [Prop. 1.34].",
+    "deps": [
+      "prop.34"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 37,
+    "prop_stmt": "Triangles which are on the same base and between the same parallels are equal to",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And the triangle DBC (is) half of the parallelogram DBCF.",
+    "deps": [
+      "cn.3",
+      "prop.34"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†",
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 37,
+    "prop_stmt": "Triangles which are on the same base and between the same parallels are equal to",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "application_of_common_notion",
+    "en": "For the diagonal DC cuts the latter in half [Prop. 1.34]. [And the halves of equal things are equal to one another.]† Thus, triangle ABC is equal to triangle DBC.",
+    "deps": [
+      "prop.34"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 38,
+    "prop_stmt": "Triangles which are on equal bases and between the same parallels are equal to o",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "For let AD have been produced in both directions to G and H, and let the (straight-line) BG have been drawn through B parallel to CA [Prop. 1.31], and let the (straight-line) FH have been drawn throug",
+    "deps": [
+      "prop.31"
+    ],
+    "dep_content": [
+      "Prop.31: To draw a straight-line parallel to a given straight-line, through a given point."
+    ]
+  },
+  {
+    "prop_n": 38,
+    "prop_stmt": "Triangles which are on equal bases and between the same parallels are equal to o",
+    "arg_i": 3,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, GBCA and DEFH are each parallelograms.",
+    "deps": [
+      "def.22"
+    ],
+    "dep_content": [
+      "Def.22: And of the quadrilateral figures: a square is that which is right-angled and equilateral, a rectangle that which is right-angled but not equilateral, a rhombus that which is equilateral but not right-angled, and a rhomboid that having opposite sides and angles equal to one another which is neither right-angled nor equilateral. And let quadrilateral figures besides these be called trapezia."
+    ]
+  },
+  {
+    "prop_n": 38,
+    "prop_stmt": "Triangles which are on equal bases and between the same parallels are equal to o",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And GBCA is equal to DEFH.",
+    "deps": [
+      "prop.36"
+    ],
+    "dep_content": [
+      "Prop.36: Parallelograms which are on equal bases and between the same parallels are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 38,
+    "prop_stmt": "Triangles which are on equal bases and between the same parallels are equal to o",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For they are on the equal bases BC and EF, and between the same parallels BF and GH [Prop. 1.36].",
+    "deps": [
+      "prop.34",
+      "prop.36"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half.",
+      "Prop.36: Parallelograms which are on equal bases and between the same parallels are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 38,
+    "prop_stmt": "Triangles which are on equal bases and between the same parallels are equal to o",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And triangle ABC is half of the parallelogram GBCA.",
+    "deps": [
+      "prop.34"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 38,
+    "prop_stmt": "Triangles which are on equal bases and between the same parallels are equal to o",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For the diagonal AB cuts the latter in half [Prop. 1.34].",
+    "deps": [
+      "prop.34"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 38,
+    "prop_stmt": "Triangles which are on equal bases and between the same parallels are equal to o",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And triangle FED (is) half of parallelogram DEFH.",
+    "deps": [
+      "cn.3"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 38,
+    "prop_stmt": "Triangles which are on equal bases and between the same parallels are equal to o",
+    "arg_i": 9,
+    "role": "step",
+    "lf": "application_of_common_notion",
+    "en": "For the diagonal DF cuts the latter in half. [And the halves of equal things are equal to one another.] Thus, triangle ABC is equal to triangle DEF.",
+    "deps": [
+      "prop.34",
+      "cn.3"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half.",
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 39,
+    "prop_stmt": "Equal triangles which are on the same base, and on the same side, are also betwe",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "For let AD have been joined.",
+    "deps": [
+      "post.1"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point."
+    ]
+  },
+  {
+    "prop_n": 39,
+    "prop_stmt": "Equal triangles which are on the same base, and on the same side, are also betwe",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "construction",
+    "en": "For, if not, let AE have been drawn through point A parallel to the straight-line BC [Prop. 1.31], and let EC have been joined.",
+    "deps": [
+      "prop.31"
+    ],
+    "dep_content": [
+      "Prop.31: To draw a straight-line parallel to a given straight-line, through a given point."
+    ]
+  },
+  {
+    "prop_n": 39,
+    "prop_stmt": "Equal triangles which are on the same base, and on the same side, are also betwe",
+    "arg_i": 5,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, triangle ABC is equal to triangle EBC.",
+    "deps": [
+      "prop.37"
+    ],
+    "dep_content": [
+      "Prop.37: Triangles which are on the same base and between the same parallels are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 39,
+    "prop_stmt": "Equal triangles which are on the same base, and on the same side, are also betwe",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For it is on the same base as it, BC, and between But ABC is equal to the same parallels [Prop. 1.37].",
+    "deps": [
+      "prop.37"
+    ],
+    "dep_content": [
+      "Prop.37: Triangles which are on the same base and between the same parallels are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 39,
+    "prop_stmt": "Equal triangles which are on the same base, and on the same side, are also betwe",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "assertion",
+    "en": "DBC.",
+    "deps": [
+      "cn.5"
+    ],
+    "dep_content": [
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  },
+  {
+    "prop_n": 39,
+    "prop_stmt": "Equal triangles which are on the same base, and on the same side, are also betwe",
+    "arg_i": 8,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, DBC is also equal to EBC, the greater to the lesser.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 39,
+    "prop_stmt": "Equal triangles which are on the same base, and on the same side, are also betwe",
+    "arg_i": 9,
+    "role": "step",
+    "lf": "deduction",
+    "en": "The very thing is impossible.",
+    "deps": [
+      "cn.5"
+    ],
+    "dep_content": [
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  },
+  {
+    "prop_n": 40,
+    "prop_stmt": "Equal triangles which are on equal bases, and on the same side, are also between",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "For let AD have been joined.",
+    "deps": [
+      "post.1"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point."
+    ]
+  },
+  {
+    "prop_n": 40,
+    "prop_stmt": "Equal triangles which are on equal bases, and on the same side, are also between",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "construction",
+    "en": "For if not, let AF have been drawn through A parallel to BE [Prop. 1.31], and let FE have been joined.",
+    "deps": [
+      "post.1",
+      "prop.31"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point.",
+      "Prop.31: To draw a straight-line parallel to a given straight-line, through a given point."
+    ]
+  },
+  {
+    "prop_n": 40,
+    "prop_stmt": "Equal triangles which are on equal bases, and on the same side, are also between",
+    "arg_i": 5,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, triangle ABC is equal to triangle FCE.",
+    "deps": [
+      "prop.38"
+    ],
+    "dep_content": [
+      "Prop.38: Triangles which are on equal bases and between the same parallels are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 40,
+    "prop_stmt": "Equal triangles which are on equal bases, and on the same side, are also between",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For they are on equal bases, BC and CE, and between the same parallels, BE and AF [Prop. 1.38].",
+    "deps": [
+      "prop.38"
+    ],
+    "dep_content": [
+      "Prop.38: Triangles which are on equal bases and between the same parallels are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 40,
+    "prop_stmt": "Equal triangles which are on equal bases, and on the same side, are also between",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "assertion",
+    "en": "But, triangle ABC is equal to [triangle] DCE.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 40,
+    "prop_stmt": "Equal triangles which are on equal bases, and on the same side, are also between",
+    "arg_i": 8,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, [triangle] DCE is also equal to triangle FCE, the greater to the lesser.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 40,
+    "prop_stmt": "Equal triangles which are on equal bases, and on the same side, are also between",
+    "arg_i": 9,
+    "role": "step",
+    "lf": "deduction",
+    "en": "The very thing is impossible.",
+    "deps": [
+      "cn.5"
+    ],
+    "dep_content": [
+      "C.N.5: And the whole [is] greater than the part."
+    ]
+  }
+]

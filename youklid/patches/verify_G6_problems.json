@@ -1,0 +1,155 @@
+[
+  {
+    "prop_n": 41,
+    "arg_i": 5,
+    "issue": "WRONG",
+    "current_deps": [
+      "prop.34"
+    ],
+    "proposed_deps": [
+      "prop.41"
+    ],
+    "unclear": false,
+    "note": "Conclusion about parallelogram being double triangle area should cite Prop.41, not Prop.34 (diagonal bisection)"
+  },
+  {
+    "prop_n": 41,
+    "arg_i": 6,
+    "issue": "EXTRA",
+    "current_deps": [
+      "cn.1",
+      "cn.2",
+      "prop.34"
+    ],
+    "proposed_deps": [
+      "prop.34"
+    ],
+    "unclear": false,
+    "note": "Step only applies Prop.34 (diagonal bisection); CN.1 and CN.2 not needed here"
+  },
+  {
+    "prop_n": 42,
+    "arg_i": 9,
+    "issue": "MISSING",
+    "current_deps": [
+      "cn.2"
+    ],
+    "proposed_deps": [
+      "prop.41"
+    ],
+    "unclear": false,
+    "note": "Parallelogram double triangle needs Prop.41 (or context from arg 10)"
+  },
+  {
+    "prop_n": 43,
+    "arg_i": 5,
+    "issue": "WRONG",
+    "current_deps": [
+      "cn.2"
+    ],
+    "proposed_deps": [
+      "prop.34"
+    ],
+    "unclear": false,
+    "note": "Triangle equality from diagonal bisection should cite Prop.34, not CN.2"
+  },
+  {
+    "prop_n": 44,
+    "arg_i": 10,
+    "issue": "WRONG",
+    "current_deps": [
+      "def.22"
+    ],
+    "proposed_deps": [
+      "post.2"
+    ],
+    "unclear": false,
+    "note": "Producing/extending lines to points should cite Post.2, not Def.22"
+  },
+  {
+    "prop_n": 44,
+    "arg_i": 15,
+    "issue": "WRONG",
+    "current_deps": [
+      "prop.15"
+    ],
+    "proposed_deps": [
+      "cn.1"
+    ],
+    "unclear": false,
+    "note": "Transitivity chain (LB=BF from 13, BF=C from 14, so LB=C) should cite CN.1 not Prop.15"
+  },
+  {
+    "prop_n": 45,
+    "arg_i": 11,
+    "issue": "WRONG",
+    "current_deps": [
+      "cn.1"
+    ],
+    "proposed_deps": [
+      "cn.2"
+    ],
+    "unclear": false,
+    "note": "Adding angle HGL to both sides should cite CN.2 (add equals), not CN.1"
+  },
+  {
+    "prop_n": 45,
+    "arg_i": 19,
+    "issue": "WRONG",
+    "current_deps": [
+      "cn.2"
+    ],
+    "proposed_deps": [
+      "def.22"
+    ],
+    "unclear": false,
+    "note": "Declaring KFLM a parallelogram should cite definition or construction properties, not CN.2"
+  },
+  {
+    "prop_n": 46,
+    "arg_i": 4,
+    "issue": "WRONG",
+    "current_deps": [
+      "prop.33"
+    ],
+    "proposed_deps": [
+      "prop.31",
+      "def.22"
+    ],
+    "unclear": false,
+    "note": "Parallelogram formed by two pairs of parallels should reference the construction (Prop.31) or definition, not Prop.33"
+  },
+  {
+    "prop_n": 46,
+    "arg_i": 9,
+    "issue": "EXTRA",
+    "current_deps": [
+      "prop.29"
+    ],
+    "proposed_deps": [],
+    "unclear": false,
+    "note": "Introductory claim/transition; no dependency citation needed"
+  },
+  {
+    "prop_n": 46,
+    "arg_i": 11,
+    "issue": "EXTRA",
+    "current_deps": [
+      "cn.3"
+    ],
+    "proposed_deps": [],
+    "unclear": false,
+    "note": "Hypothesis/recall of construction fact; no dependency citation needed"
+  },
+  {
+    "prop_n": 47,
+    "arg_i": 9,
+    "issue": "EXTRA",
+    "current_deps": [
+      "prop.4"
+    ],
+    "proposed_deps": [],
+    "unclear": false,
+    "note": "Statement of equal sides from square construction; Prop.4 (triangle congruence) not applicable here"
+  }
+]

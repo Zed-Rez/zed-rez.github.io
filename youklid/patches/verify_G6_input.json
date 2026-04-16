@@ -1,0 +1,1428 @@
+[
+  {
+    "prop_n": 41,
+    "prop_stmt": "If a parallelogram has the same base as a triangle, and is between the same para",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "For let AC have been joined.",
+    "deps": [
+      "post.1"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point."
+    ]
+  },
+  {
+    "prop_n": 41,
+    "prop_stmt": "If a parallelogram has the same base as a triangle, and is between the same para",
+    "arg_i": 3,
+    "role": "step",
+    "lf": "deduction",
+    "en": "So triangle ABC is equal to triangle EBC.",
+    "deps": [
+      "prop.37"
+    ],
+    "dep_content": [
+      "Prop.37: Triangles which are on the same base and between the same parallels are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 41,
+    "prop_stmt": "If a parallelogram has the same base as a triangle, and is between the same para",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For it is on the same base, BC, as (EBC), and between the same parallels, BC and AE [Prop. 1.37].",
+    "deps": [
+      "prop.37"
+    ],
+    "dep_content": [
+      "Prop.37: Triangles which are on the same base and between the same parallels are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 41,
+    "prop_stmt": "If a parallelogram has the same base as a triangle, and is between the same para",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "deduction",
+    "en": "But, parallelogram ABCD is double (the area) of triangle ABC.",
+    "deps": [
+      "prop.34"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 41,
+    "prop_stmt": "If a parallelogram has the same base as a triangle, and is between the same para",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For the diagonal AC cuts the former in half [Prop. 1.34].",
+    "deps": [
+      "cn.1",
+      "cn.2",
+      "prop.34"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another.",
+      "C.N.2: And if equal things are added to equal things then the wholes are equal.",
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 41,
+    "prop_stmt": "If a parallelogram has the same base as a triangle, and is between the same para",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "deduction",
+    "en": "So parallelogram ABCD is also double (the area) of triangle EBC.",
+    "deps": [
+      "prop.37",
+      "prop.34"
+    ],
+    "dep_content": [
+      "Prop.37: Triangles which are on the same base and between the same parallels are equal to one another.",
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 42,
+    "prop_stmt": "To construct a parallelogram equal to a given triangle in a given rectilinear an",
+    "arg_i": 2,
+    "role": "step",
+    "lf": "construction",
+    "en": "D A G F H B E C Let BC have been cut in half at E [Prop. 1.10], and let AE have been joined.",
+    "deps": [
+      "post.1",
+      "prop.10"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point.",
+      "Prop.10: To cut a given finite straight-line in half."
+    ]
+  },
+  {
+    "prop_n": 42,
+    "prop_stmt": "To construct a parallelogram equal to a given triangle in a given rectilinear an",
+    "arg_i": 3,
+    "role": "construction",
+    "lf": "construction",
+    "en": "And let (angle) CEF, equal to angle D, have been constructed at the point E on the straight-line EC [Prop. 1.23].",
+    "deps": [
+      "post.1",
+      "prop.23"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point.",
+      "Prop.23: To construct a rectilinear angle equal to a given rectilinear angle at a (given) point on a given straight-line."
+    ]
+  },
+  {
+    "prop_n": 42,
+    "prop_stmt": "To construct a parallelogram equal to a given triangle in a given rectilinear an",
+    "arg_i": 4,
+    "role": "construction",
+    "lf": "construction",
+    "en": "And let AG have been drawn through A parallel to EC [Prop. 1.31], and let CG have been drawn through C parallel to EF [Prop. 1.31].",
+    "deps": [
+      "post.1",
+      "prop.31"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point.",
+      "Prop.31: To draw a straight-line parallel to a given straight-line, through a given point."
+    ]
+  },
+  {
+    "prop_n": 42,
+    "prop_stmt": "To construct a parallelogram equal to a given triangle in a given rectilinear an",
+    "arg_i": 5,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, FECG is a parallelogram.",
+    "deps": [
+      "def.22"
+    ],
+    "dep_content": [
+      "Def.22: And of the quadrilateral figures: a square is that which is right-angled and equilateral, a rectangle that which is right-angled but not equilateral, a rhombus that which is equilateral but not right-angled, and a rhomboid that having opposite sides and angles equal to one another which is neither right-angled nor equilateral. And let quadrilateral figures besides these be called trapezia."
+    ]
+  },
+  {
+    "prop_n": 42,
+    "prop_stmt": "To construct a parallelogram equal to a given triangle in a given rectilinear an",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And since BE is equal to EC, triangle ABE is also equal to triangle AEC.",
+    "deps": [
+      "prop.38"
+    ],
+    "dep_content": [
+      "Prop.38: Triangles which are on equal bases and between the same parallels are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 42,
+    "prop_stmt": "To construct a parallelogram equal to a given triangle in a given rectilinear an",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For they are on the equal bases, BE and EC, and between the same parallels, BC and AG [Prop. 1.38].",
+    "deps": [
+      "cn.2",
+      "prop.38"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal.",
+      "Prop.38: Triangles which are on equal bases and between the same parallels are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 42,
+    "prop_stmt": "To construct a parallelogram equal to a given triangle in a given rectilinear an",
+    "arg_i": 8,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, triangle ABC is double (the area) of triangle AEC.",
+    "deps": [
+      "prop.41"
+    ],
+    "dep_content": [
+      "Prop.41: If a parallelogram has the same base as a triangle, and is between the same parallels, then the parallelogram is double (the area) of the triangle."
+    ]
+  },
+  {
+    "prop_n": 42,
+    "prop_stmt": "To construct a parallelogram equal to a given triangle in a given rectilinear an",
+    "arg_i": 9,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And parallelogram FECG is also double (the area) of triangle AEC.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 42,
+    "prop_stmt": "To construct a parallelogram equal to a given triangle in a given rectilinear an",
+    "arg_i": 10,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For it has the same base as (AEC), and is between the same parallels as (AEC) [Prop. 1.41].",
+    "deps": [
+      "cn.1",
+      "prop.41"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another.",
+      "Prop.41: If a parallelogram has the same base as a triangle, and is between the same parallels, then the parallelogram is double (the area) of the triangle."
+    ]
+  },
+  {
+    "prop_n": 42,
+    "prop_stmt": "To construct a parallelogram equal to a given triangle in a given rectilinear an",
+    "arg_i": 11,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, parallelogram FECG is equal to triangle ABC.",
+    "deps": [
+      "prop.41",
+      "cn.1"
+    ],
+    "dep_content": [
+      "Prop.41: If a parallelogram has the same base as a triangle, and is between the same parallels, then the parallelogram is double (the area) of the triangle.",
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 42,
+    "prop_stmt": "To construct a parallelogram equal to a given triangle in a given rectilinear an",
+    "arg_i": 12,
+    "role": "step",
+    "lf": "deduction",
+    "en": "(FECG) also has the angle CEF equal to the given (angle) D.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 43,
+    "prop_stmt": "For any parallelogram, the complements of the parallelograms about the diagonal ",
+    "arg_i": 3,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For since ABCD is a parallelogram, and AC its diagonal, triangle ABC is equal to triangle ACD [Prop. 1.34].",
+    "deps": [
+      "prop.34"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 43,
+    "prop_stmt": "For any parallelogram, the complements of the parallelograms about the diagonal ",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Again, since EH is a parallelogram, and AK is its diagonal, triangle AEK is equal to triangle AHK [Prop. 1.34].",
+    "deps": [
+      "prop.34"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 43,
+    "prop_stmt": "For any parallelogram, the complements of the parallelograms about the diagonal ",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "So, for the same (reasons), triangle KFC is also equal to (triangle) KGC.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 43,
+    "prop_stmt": "For any parallelogram, the complements of the parallelograms about the diagonal ",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "application_of_common_notion",
+    "en": "Therefore, since triangle AEK is equal to triangle AHK, and KFC to KGC, triangle AEK plus KGC is equal to triangle AHK plus KFC.",
+    "deps": [
+      "cn.3"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 43,
+    "prop_stmt": "For any parallelogram, the complements of the parallelograms about the diagonal ",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "And the whole triangle ABC is also equal to the whole (triangle) ADC.",
+    "deps": [
+      "prop.34"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 43,
+    "prop_stmt": "For any parallelogram, the complements of the parallelograms about the diagonal ",
+    "arg_i": 8,
+    "role": "conclusion",
+    "lf": "application_of_common_notion",
+    "en": "Thus, the remaining complement BK is equal to the remaining complement KD.",
+    "deps": [
+      "cn.3"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 44,
+    "prop_stmt": "To apply a parallelogram equal to a given triangle to a given straight-line in a",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let the parallelogram BEFG, equal to the triangle C, have been constructed in the angle EBG, which is equal to D [Prop. 1.42].",
+    "deps": [
+      "prop.42"
+    ],
+    "dep_content": [
+      "Prop.42: To construct a parallelogram equal to a given triangle in a given rectilinear angle."
+    ]
+  },
+  {
+    "prop_n": 44,
+    "prop_stmt": "To apply a parallelogram equal to a given triangle to a given straight-line in a",
+    "arg_i": 3,
+    "role": "construction",
+    "lf": "construction",
+    "en": "And let it have been placed so that BE is straight-on to AB.† And let FG have been drawn through to H, and let AH have been drawn through A parallel to either of BG or EF [Prop. 1.31], and let HB have",
+    "deps": [
+      "post.2",
+      "prop.31"
+    ],
+    "dep_content": [
+      "Post.2: And to produce a finite straight-line continuously in a straight-line.",
+      "Prop.31: To draw a straight-line parallel to a given straight-line, through a given point."
+    ]
+  },
+  {
+    "prop_n": 44,
+    "prop_stmt": "To apply a parallelogram equal to a given triangle to a given straight-line in a",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "And since the straight-line HF falls across the parallels AH and EF, the (sum of the) angles AHF and HFE is thus equal to two right-angles [Prop. 1.29].",
+    "deps": [
+      "prop.29"
+    ],
+    "dep_content": [
+      "Prop.29: A straight-line falling across parallel straight-lines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles."
+    ]
+  },
+  {
+    "prop_n": 44,
+    "prop_stmt": "To apply a parallelogram equal to a given triangle to a given straight-line in a",
+    "arg_i": 5,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, (the sum of) BHG and GFE is less than two right-angles.",
+    "deps": [
+      "cn.3"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 44,
+    "prop_stmt": "To apply a parallelogram equal to a given triangle to a given straight-line in a",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "application_of_postulate",
+    "en": "And (straight-lines) produced to infinity from (internal angles whose sum is) less than two right-angles meet together [Post. 5].",
+    "deps": [
+      "post.5"
+    ],
+    "dep_content": [
+      "Post.5: And that if a straight-line falling across two (other) straight-lines makes internal angles on the same side (of itself whose sum is) less than two right-angles, then the two (other) straight-lines, being produced to infinity, meet on that side (of the original straight-line) that the (sum of the internal angles) is less than two right-angles (and do not meet on the other side).‡"
+    ]
+  },
+  {
+    "prop_n": 44,
+    "prop_stmt": "To apply a parallelogram equal to a given triangle to a given straight-line in a",
+    "arg_i": 7,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, being produced, HB and FE will meet together.",
+    "deps": [
+      "post.5"
+    ],
+    "dep_content": [
+      "Post.5: And that if a straight-line falling across two (other) straight-lines makes internal angles on the same side (of itself whose sum is) less than two right-angles, then the two (other) straight-lines, being produced to infinity, meet on that side (of the original straight-line) that the (sum of the internal angles) is less than two right-angles (and do not meet on the other side).‡"
+    ]
+  },
+  {
+    "prop_n": 44,
+    "prop_stmt": "To apply a parallelogram equal to a given triangle to a given straight-line in a",
+    "arg_i": 8,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let them have been produced, and let them meet together at K.",
+    "deps": [
+      "prop.31"
+    ],
+    "dep_content": [
+      "Prop.31: To draw a straight-line parallel to a given straight-line, through a given point."
+    ]
+  },
+  {
+    "prop_n": 44,
+    "prop_stmt": "To apply a parallelogram equal to a given triangle to a given straight-line in a",
+    "arg_i": 9,
+    "role": "construction",
+    "lf": "construction",
+    "en": "And let KL have been drawn through point K parallel to either of EA or FH [Prop. 1.31].",
+    "deps": [
+      "post.2",
+      "prop.31"
+    ],
+    "dep_content": [
+      "Post.2: And to produce a finite straight-line continuously in a straight-line.",
+      "Prop.31: To draw a straight-line parallel to a given straight-line, through a given point."
+    ]
+  },
+  {
+    "prop_n": 44,
+    "prop_stmt": "To apply a parallelogram equal to a given triangle to a given straight-line in a",
+    "arg_i": 10,
+    "role": "construction",
+    "lf": "construction",
+    "en": "And let HA and GB have been produced to points L and M (respectively).",
+    "deps": [
+      "def.22"
+    ],
+    "dep_content": [
+      "Def.22: And of the quadrilateral figures: a square is that which is right-angled and equilateral, a rectangle that which is right-angled but not equilateral, a rhombus that which is equilateral but not right-angled, and a rhomboid that having opposite sides and angles equal to one another which is neither right-angled nor equilateral. And let quadrilateral figures besides these be called trapezia."
+    ]
+  },
+  {
+    "prop_n": 44,
+    "prop_stmt": "To apply a parallelogram equal to a given triangle to a given straight-line in a",
+    "arg_i": 11,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, HLKF is a parallelogram, and HK its diagonal.",
+    "deps": [
+      "def.22"
+    ],
+    "dep_content": [
+      "Def.22: And of the quadrilateral figures: a square is that which is right-angled and equilateral, a rectangle that which is right-angled but not equilateral, a rhombus that which is equilateral but not right-angled, and a rhomboid that having opposite sides and angles equal to one another which is neither right-angled nor equilateral. And let quadrilateral figures besides these be called trapezia."
+    ]
+  },
+  {
+    "prop_n": 44,
+    "prop_stmt": "To apply a parallelogram equal to a given triangle to a given straight-line in a",
+    "arg_i": 12,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And AG and ME (are) parallelograms, and LB and BF the so-called complements, about HK.",
+    "deps": [
+      "prop.43"
+    ],
+    "dep_content": [
+      "Prop.43: For any parallelogram, the complements of the parallelograms about the diagonal are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 44,
+    "prop_stmt": "To apply a parallelogram equal to a given triangle to a given straight-line in a",
+    "arg_i": 13,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, LB is equal to BF [Prop. 1.43].",
+    "deps": [
+      "prop.42",
+      "prop.43"
+    ],
+    "dep_content": [
+      "Prop.42: To construct a parallelogram equal to a given triangle in a given rectilinear angle.",
+      "Prop.43: For any parallelogram, the complements of the parallelograms about the diagonal are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 44,
+    "prop_stmt": "To apply a parallelogram equal to a given triangle to a given straight-line in a",
+    "arg_i": 14,
+    "role": "step",
+    "lf": "deduction",
+    "en": "But, BF is equal to triangle C.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 44,
+    "prop_stmt": "To apply a parallelogram equal to a given triangle to a given straight-line in a",
+    "arg_i": 15,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, LB is also equal to C.",
+    "deps": [
+      "prop.15"
+    ],
+    "dep_content": [
+      "Prop.15: If two straight-lines cut one another then they make the vertically opposite angles equal to one another."
+    ]
+  },
+  {
+    "prop_n": 44,
+    "prop_stmt": "To apply a parallelogram equal to a given triangle to a given straight-line in a",
+    "arg_i": 16,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Also, since angle GBE is equal to ABM [Prop. 1.15], but GBE is equal to D, ABM is thus also equal to angle D.",
+    "deps": [
+      "cn.1",
+      "prop.15"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another.",
+      "Prop.15: If two straight-lines cut one another then they make the vertically opposite angles equal to one another."
+    ]
+  },
+  {
+    "prop_n": 45,
+    "prop_stmt": "To construct a parallelogram equal to a given rectilinear figure in a given rect",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let DB have been joined, and let the parallelogram FH, equal to the triangle ABD, have been constructed in the angle HKF, which is equal to E [Prop. 1.42].",
+    "deps": [
+      "prop.42"
+    ],
+    "dep_content": [
+      "Prop.42: To construct a parallelogram equal to a given triangle in a given rectilinear angle."
+    ]
+  },
+  {
+    "prop_n": 45,
+    "prop_stmt": "To construct a parallelogram equal to a given rectilinear figure in a given rect",
+    "arg_i": 3,
+    "role": "construction",
+    "lf": "construction",
+    "en": "And let the parallelogram GM, equal to the triangle DBC, have been applied to the straight-line GH in the angle GHM, which is equal to E [Prop. 1.44].",
+    "deps": [
+      "prop.44"
+    ],
+    "dep_content": [
+      "Prop.44: To apply a parallelogram equal to a given triangle to a given straight-line in a given rectilinear angle."
+    ]
+  },
+  {
+    "prop_n": 45,
+    "prop_stmt": "To construct a parallelogram equal to a given rectilinear figure in a given rect",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And since angle E is equal to each of (angles) HKF and GHM, (angle) HKF is thus also equal to GHM.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 45,
+    "prop_stmt": "To construct a parallelogram equal to a given rectilinear figure in a given rect",
+    "arg_i": 5,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let KHG have been added to both.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 45,
+    "prop_stmt": "To construct a parallelogram equal to a given rectilinear figure in a given rect",
+    "arg_i": 6,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, (the sum of) FKH and KHG is equal to (the sum of) KHG and GHM.",
+    "deps": [
+      "prop.29"
+    ],
+    "dep_content": [
+      "Prop.29: A straight-line falling across parallel straight-lines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles."
+    ]
+  },
+  {
+    "prop_n": 45,
+    "prop_stmt": "To construct a parallelogram equal to a given rectilinear figure in a given rect",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "But, (the sum of) FKH and KHG is equal to two right-angles Thus, (the sum of) KHG and GHM is [Prop. 1.29]. also equal to two right-angles.",
+    "deps": [
+      "prop.29"
+    ],
+    "dep_content": [
+      "Prop.29: A straight-line falling across parallel straight-lines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles."
+    ]
+  },
+  {
+    "prop_n": 45,
+    "prop_stmt": "To construct a parallelogram equal to a given rectilinear figure in a given rect",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "deduction",
+    "en": "So two straight-lines, KH and HM, not lying on the same side, make adjacent angles with some straight-line GH, at the point H on it, (whose sum is) equal to two right-angles.",
+    "deps": [
+      "prop.14"
+    ],
+    "dep_content": [
+      "Prop.14: If two straight-lines, not lying on the same side, make adjacent angles (whose sum is) equal to two right-angles with some straight-line, at a point on it, then the two straight-lines will be straight-on (with respect) to one another."
+    ]
+  },
+  {
+    "prop_n": 45,
+    "prop_stmt": "To construct a parallelogram equal to a given rectilinear figure in a given rect",
+    "arg_i": 9,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, KH is straight-on to HM [Prop. 1.14].",
+    "deps": [
+      "prop.14",
+      "prop.29"
+    ],
+    "dep_content": [
+      "Prop.14: If two straight-lines, not lying on the same side, make adjacent angles (whose sum is) equal to two right-angles with some straight-line, at a point on it, then the two straight-lines will be straight-on (with respect) to one another.",
+      "Prop.29: A straight-line falling across parallel straight-lines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles."
+    ]
+  },
+  {
+    "prop_n": 45,
+    "prop_stmt": "To construct a parallelogram equal to a given rectilinear figure in a given rect",
+    "arg_i": 10,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "And since the straightline HG falls across the parallels KM and FG, the alternate angles MHG and HGF are equal to one another [Prop. 1.29].",
+    "deps": [
+      "cn.2",
+      "prop.29"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal.",
+      "Prop.29: A straight-line falling across parallel straight-lines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles."
+    ]
+  },
+  {
+    "prop_n": 45,
+    "prop_stmt": "To construct a parallelogram equal to a given rectilinear figure in a given rect",
+    "arg_i": 11,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let HGL have been added to both.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 45,
+    "prop_stmt": "To construct a parallelogram equal to a given rectilinear figure in a given rect",
+    "arg_i": 12,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, (the sum of) MHG and HGL is equal to (the sum of) HGF and HGL.",
+    "deps": [
+      "prop.29"
+    ],
+    "dep_content": [
+      "Prop.29: A straight-line falling across parallel straight-lines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles."
+    ]
+  },
+  {
+    "prop_n": 45,
+    "prop_stmt": "To construct a parallelogram equal to a given rectilinear figure in a given rect",
+    "arg_i": 13,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "But, (the sum of) MHG and HGL is equal to two right-angles [Prop. 1.29].",
+    "deps": [
+      "cn.1",
+      "prop.29"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another.",
+      "Prop.29: A straight-line falling across parallel straight-lines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles."
+    ]
+  },
+  {
+    "prop_n": 45,
+    "prop_stmt": "To construct a parallelogram equal to a given rectilinear figure in a given rect",
+    "arg_i": 14,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, (the sum of) HGF and HGL is also equal to two right-angles.",
+    "deps": [
+      "prop.14"
+    ],
+    "dep_content": [
+      "Prop.14: If two straight-lines, not lying on the same side, make adjacent angles (whose sum is) equal to two right-angles with some straight-line, at a point on it, then the two straight-lines will be straight-on (with respect) to one another."
+    ]
+  },
+  {
+    "prop_n": 45,
+    "prop_stmt": "To construct a parallelogram equal to a given rectilinear figure in a given rect",
+    "arg_i": 15,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, FG is straight-on to GL [Prop. 1.14].",
+    "deps": [
+      "prop.14",
+      "prop.30",
+      "prop.34"
+    ],
+    "dep_content": [
+      "Prop.14: If two straight-lines, not lying on the same side, make adjacent angles (whose sum is) equal to two right-angles with some straight-line, at a point on it, then the two straight-lines will be straight-on (with respect) to one another.",
+      "Prop.30: (Straight-lines) parallel to the same straight-line are also parallel to one another.",
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 45,
+    "prop_stmt": "To construct a parallelogram equal to a given rectilinear figure in a given rect",
+    "arg_i": 16,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "And since FK is equal and parallel to HG [Prop. 1.34], but also HG to ML [Prop. 1.34], KF is thus also equal and parallel to ML [Prop. 1.30].",
+    "deps": [
+      "prop.30",
+      "prop.34"
+    ],
+    "dep_content": [
+      "Prop.30: (Straight-lines) parallel to the same straight-line are also parallel to one another.",
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 45,
+    "prop_stmt": "To construct a parallelogram equal to a given rectilinear figure in a given rect",
+    "arg_i": 17,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And the straight-lines KM and FL join them.",
+    "deps": [
+      "prop.33"
+    ],
+    "dep_content": [
+      "Prop.33: Straight-lines joining equal and parallel (straightlines) on the same sides are themselves also equal and parallel."
+    ]
+  },
+  {
+    "prop_n": 45,
+    "prop_stmt": "To construct a parallelogram equal to a given rectilinear figure in a given rect",
+    "arg_i": 18,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, KM and FL are equal and parallel as well [Prop. 1.33].",
+    "deps": [
+      "prop.33"
+    ],
+    "dep_content": [
+      "Prop.33: Straight-lines joining equal and parallel (straightlines) on the same sides are themselves also equal and parallel."
+    ]
+  },
+  {
+    "prop_n": 45,
+    "prop_stmt": "To construct a parallelogram equal to a given rectilinear figure in a given rect",
+    "arg_i": 19,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, KFLM is a parallelogram.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 45,
+    "prop_stmt": "To construct a parallelogram equal to a given rectilinear figure in a given rect",
+    "arg_i": 20,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And since triangle ABD is equal to parallelogram FH, and DBC to GM, the whole rectilinear figure ABCD is thus equal to the whole parallelogram KFLM.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 46,
+    "prop_stmt": "To describe a square on a given straight-line.",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "Let AC have been drawn at right-angles to the straight-line AB from the point A on it [Prop. 1.11], and let AD have been made equal to AB [Prop. 1.3].",
+    "deps": [
+      "prop.11",
+      "prop.3"
+    ],
+    "dep_content": [
+      "Prop.11: To draw a straight-line at right-angles to a given straight-line from a given point on it.",
+      "Prop.3: For two given unequal straight-lines, to cut off from the greater a straight-line equal to the lesser."
+    ]
+  },
+  {
+    "prop_n": 46,
+    "prop_stmt": "To describe a square on a given straight-line.",
+    "arg_i": 3,
+    "role": "construction",
+    "lf": "construction",
+    "en": "And let DE have been drawn through point D parallel to AB [Prop. 1.31], and let BE have been drawn through point B parallel to AD [Prop. 1.31].",
+    "deps": [
+      "prop.31"
+    ],
+    "dep_content": [
+      "Prop.31: To draw a straight-line parallel to a given straight-line, through a given point."
+    ]
+  },
+  {
+    "prop_n": 46,
+    "prop_stmt": "To describe a square on a given straight-line.",
+    "arg_i": 4,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, ADEB is a parallelogram.",
+    "deps": [
+      "prop.33"
+    ],
+    "dep_content": [
+      "Prop.33: Straight-lines joining equal and parallel (straightlines) on the same sides are themselves also equal and parallel."
+    ]
+  },
+  {
+    "prop_n": 46,
+    "prop_stmt": "To describe a square on a given straight-line.",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "Therefore, AB is equal to DE, and AD to BE [Prop. 1.34].",
+    "deps": [
+      "prop.34"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 46,
+    "prop_stmt": "To describe a square on a given straight-line.",
+    "arg_i": 7,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, the four (sides) BA, AD, DE, and EB are equal to one another.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 46,
+    "prop_stmt": "To describe a square on a given straight-line.",
+    "arg_i": 8,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, the parallelogram ADEB is equilateral.",
+    "deps": [
+      "prop.34",
+      "cn.1"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half.",
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 46,
+    "prop_stmt": "To describe a square on a given straight-line.",
+    "arg_i": 9,
+    "role": "step",
+    "lf": "deduction",
+    "en": "So I say that (it is) also right-angled.",
+    "deps": [
+      "prop.29"
+    ],
+    "dep_content": [
+      "Prop.29: A straight-line falling across parallel straight-lines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles."
+    ]
+  },
+  {
+    "prop_n": 46,
+    "prop_stmt": "To describe a square on a given straight-line.",
+    "arg_i": 10,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For since the straight-line AD falls across the parallels AB and DE, the (sum of the) angles BAD and ADE is equal to two right-angles [Prop. 1.29].",
+    "deps": [
+      "prop.29"
+    ],
+    "dep_content": [
+      "Prop.29: A straight-line falling across parallel straight-lines makes the alternate angles equal to one another, the external (angle) equal to the internal and opposite (angle), and the (sum of the) internal (angles) on the same side equal to two right-angles."
+    ]
+  },
+  {
+    "prop_n": 46,
+    "prop_stmt": "To describe a square on a given straight-line.",
+    "arg_i": 11,
+    "role": "step",
+    "lf": "hypothesis",
+    "en": "But BAD (is a) right-angle.",
+    "deps": [
+      "cn.3"
+    ],
+    "dep_content": [
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 46,
+    "prop_stmt": "To describe a square on a given straight-line.",
+    "arg_i": 12,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, ADE (is) also a right-angle.",
+    "deps": [
+      "prop.34"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 46,
+    "prop_stmt": "To describe a square on a given straight-line.",
+    "arg_i": 13,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "And for parallelogrammic figures, the opposite sides and angles are equal to one another Thus, each of the opposite angles ABE [Prop. 1.34]. and BED (are) also right-angles.",
+    "deps": [
+      "prop.34"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half."
+    ]
+  },
+  {
+    "prop_n": 46,
+    "prop_stmt": "To describe a square on a given straight-line.",
+    "arg_i": 14,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, ADEB is rightangled.",
+    "deps": [
+      "prop.34",
+      "cn.3"
+    ],
+    "dep_content": [
+      "Prop.34: In parallelogrammic figures the opposite sides and angles are equal to one another, and a diagonal cuts them in half.",
+      "C.N.3: And if equal things are subtracted from equal things then the remainders are equal.†"
+    ]
+  },
+  {
+    "prop_n": 46,
+    "prop_stmt": "To describe a square on a given straight-line.",
+    "arg_i": 15,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And it was also shown (to be) equilateral.",
+    "deps": [
+      "def.22"
+    ],
+    "dep_content": [
+      "Def.22: And of the quadrilateral figures: a square is that which is right-angled and equilateral, a rectangle that which is right-angled but not equilateral, a rhombus that which is equilateral but not right-angled, and a rhomboid that having opposite sides and angles equal to one another which is neither right-angled nor equilateral. And let quadrilateral figures besides these be called trapezia."
+    ]
+  },
+  {
+    "prop_n": 46,
+    "prop_stmt": "To describe a square on a given straight-line.",
+    "arg_i": 16,
+    "role": "conclusion",
+    "lf": "application_of_definition",
+    "en": "Thus, (ADEB) is a square [Def. 1.22].",
+    "deps": [
+      "def.22"
+    ],
+    "dep_content": [
+      "Def.22: And of the quadrilateral figures: a square is that which is right-angled and equilateral, a rectangle that which is right-angled but not equilateral, a rhombus that which is equilateral but not right-angled, and a rhomboid that having opposite sides and angles equal to one another which is neither right-angled nor equilateral. And let quadrilateral figures besides these be called trapezia."
+    ]
+  },
+  {
+    "prop_n": 47,
+    "prop_stmt": "In right-angled triangles, the square on the side subtending the right-angle is ",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "For let the square BDEC have been described on BC, and (the squares) GB and HC on AB and AC And let AL have been (respectively) [Prop. 1.46]. drawn through point A parallel to either of BD or CE [Prop",
+    "deps": [
+      "prop.31",
+      "prop.46"
+    ],
+    "dep_content": [
+      "Prop.31: To draw a straight-line parallel to a given straight-line, through a given point.",
+      "Prop.46: To describe a square on a given straight-line."
+    ]
+  },
+  {
+    "prop_n": 47,
+    "prop_stmt": "In right-angled triangles, the square on the side subtending the right-angle is ",
+    "arg_i": 3,
+    "role": "construction",
+    "lf": "construction",
+    "en": "And let AD and FC have been joined.",
+    "deps": [
+      "post.1"
+    ],
+    "dep_content": [
+      "Post.1: Let it have been postulated† to draw a straight-line from any point to any point."
+    ]
+  },
+  {
+    "prop_n": 47,
+    "prop_stmt": "In right-angled triangles, the square on the side subtending the right-angle is ",
+    "arg_i": 4,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And since angles BAC and BAG are each right-angles, then two straight-lines AC and AG, not lying on the same side, make the adjacent angles with some straight-line BA, at the point A on it, (whose sum",
+    "deps": [
+      "def.10",
+      "prop.13"
+    ],
+    "dep_content": [
+      "Def.10: And when a straight-line stood upon (another) straight-line makes adjacent angles (which are) equal to one another, each of the equal angles is a right-angle, and the former straight-line is called a perpendicular to that upon which it stands.",
+      "Prop.13: If a straight-line stood on a(nother) straight-line makes angles, it will certainly either make two rightangles, or (angles whose sum is) equal to two rightangles."
+    ]
+  },
+  {
+    "prop_n": 47,
+    "prop_stmt": "In right-angled triangles, the square on the side subtending the right-angle is ",
+    "arg_i": 5,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, CA is straight-on to AG [Prop. 1.14].",
+    "deps": [
+      "prop.14"
+    ],
+    "dep_content": [
+      "Prop.14: If two straight-lines, not lying on the same side, make adjacent angles (whose sum is) equal to two right-angles with some straight-line, at a point on it, then the two straight-lines will be straight-on (with respect) to one another."
+    ]
+  },
+  {
+    "prop_n": 47,
+    "prop_stmt": "In right-angled triangles, the square on the side subtending the right-angle is ",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "So, for the same (reasons), BA is also straight-on to AH.",
+    "deps": [
+      "prop.14"
+    ],
+    "dep_content": [
+      "Prop.14: If two straight-lines, not lying on the same side, make adjacent angles (whose sum is) equal to two right-angles with some straight-line, at a point on it, then the two straight-lines will be straight-on (with respect) to one another."
+    ]
+  },
+  {
+    "prop_n": 47,
+    "prop_stmt": "In right-angled triangles, the square on the side subtending the right-angle is ",
+    "arg_i": 7,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And since angle DBC is equal to FBA, for (they are) both right-angles, let ABC have been added to both.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 47,
+    "prop_stmt": "In right-angled triangles, the square on the side subtending the right-angle is ",
+    "arg_i": 8,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, the whole (angle) DBA is equal to the whole (angle) FBC.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 47,
+    "prop_stmt": "In right-angled triangles, the square on the side subtending the right-angle is ",
+    "arg_i": 9,
+    "role": "step",
+    "lf": "hypothesis",
+    "en": "And since DB is equal to BC, and FB to BA, the two (straight-lines) DB, BA are equal to the two (straight-lines) CB, BF,† respectively.",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 47,
+    "prop_stmt": "In right-angled triangles, the square on the side subtending the right-angle is ",
+    "arg_i": 10,
+    "role": "step",
+    "lf": "deduction",
+    "en": "And angle DBA (is) equal to angle FBC.",
+    "deps": [
+      "prop.4"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles."
+    ]
+  },
+  {
+    "prop_n": 47,
+    "prop_stmt": "In right-angled triangles, the square on the side subtending the right-angle is ",
+    "arg_i": 11,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, the base AD [is] equal to the base FC, and the triangle ABD is equal to the triangle FBC [Prop. 1.4].",
+    "deps": [
+      "prop.4",
+      "prop.41"
+    ],
+    "dep_content": [
+      "Prop.4: If two triangles have two sides equal to two sides, respectively, and have the angle(s) enclosed by the equal straight-lines equal, then they will also have the base equal to the base, and the triangle will be equal to the triangle, and the remaining angles subtended by the equal sides will be equal to the corresponding remaining angles.",
+      "Prop.41: If a parallelogram has the same base as a triangle, and is between the same parallels, then the parallelogram is double (the area) of the triangle."
+    ]
+  },
+  {
+    "prop_n": 47,
+    "prop_stmt": "In right-angled triangles, the square on the side subtending the right-angle is ",
+    "arg_i": 12,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "And parallelogram BL [is] double (the area) of triangle ABD.",
+    "deps": [
+      "prop.41"
+    ],
+    "dep_content": [
+      "Prop.41: If a parallelogram has the same base as a triangle, and is between the same parallels, then the parallelogram is double (the area) of the triangle."
+    ]
+  },
+  {
+    "prop_n": 47,
+    "prop_stmt": "In right-angled triangles, the square on the side subtending the right-angle is ",
+    "arg_i": 13,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "For they have the same base, BD, and are between the same parallels, BD and AL [Prop. 1.41].",
+    "deps": [
+      "prop.41"
+    ],
+    "dep_content": [
+      "Prop.41: If a parallelogram has the same base as a triangle, and is between the same parallels, then the parallelogram is double (the area) of the triangle."
+    ]
+  },
+  {
+    "prop_n": 47,
+    "prop_stmt": "In right-angled triangles, the square on the side subtending the right-angle is ",
+    "arg_i": 14,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "And square GB is double (the area) of triangle FBC.",
+    "deps": [
+      "prop.41"
+    ],
+    "dep_content": [
+      "Prop.41: If a parallelogram has the same base as a triangle, and is between the same parallels, then the parallelogram is double (the area) of the triangle."
+    ]
+  },
+  {
+    "prop_n": 47,
+    "prop_stmt": "In right-angled triangles, the square on the side subtending the right-angle is ",
+    "arg_i": 15,
+    "role": "step",
+    "lf": "application_of_common_notion",
+    "en": "For again they have the same base, FB, and are between the same parallels, FB and GC [Prop. 1.41]. [And the doubles of equal things are equal to one another.]‡ Thus, the parallelogram BL is also equal",
+    "deps": [
+      "prop.41"
+    ],
+    "dep_content": [
+      "Prop.41: If a parallelogram has the same base as a triangle, and is between the same parallels, then the parallelogram is double (the area) of the triangle."
+    ]
+  },
+  {
+    "prop_n": 47,
+    "prop_stmt": "In right-angled triangles, the square on the side subtending the right-angle is ",
+    "arg_i": 16,
+    "role": "step",
+    "lf": "deduction",
+    "en": "So, similarly, AE and BK being joined, the parallelogram CL can be shown (to be) equal to the square HC.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 47,
+    "prop_stmt": "In right-angled triangles, the square on the side subtending the right-angle is ",
+    "arg_i": 17,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, the whole square BDEC is equal to the (sum of the) two squares GB and HC.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 48,
+    "prop_stmt": "If the square on one of the sides of a triangle is equal to the (sum of the) squ",
+    "arg_i": 2,
+    "role": "construction",
+    "lf": "construction",
+    "en": "For let AD have been drawn from point A at rightangles to the straight-line AC [Prop. 1.11], and let AD have been made equal to BA [Prop. 1.3], and let DC have been joined.",
+    "deps": [
+      "prop.11",
+      "prop.3"
+    ],
+    "dep_content": [
+      "Prop.11: To draw a straight-line at right-angles to a given straight-line from a given point on it.",
+      "Prop.3: For two given unequal straight-lines, to cut off from the greater a straight-line equal to the lesser."
+    ]
+  },
+  {
+    "prop_n": 48,
+    "prop_stmt": "If the square on one of the sides of a triangle is equal to the (sum of the) squ",
+    "arg_i": 3,
+    "role": "step",
+    "lf": "deduction",
+    "en": "Since DA is equal to AB, the square on DA is thus also equal to the square on AB.† Let the square on AC have been added to both.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 48,
+    "prop_stmt": "If the square on one of the sides of a triangle is equal to the (sum of the) squ",
+    "arg_i": 4,
+    "role": "conclusion",
+    "lf": "application_of_common_notion",
+    "en": "Thus, the (sum of the) squares on DA and AC is equal to the (sum of the) squares on BA and AC.",
+    "deps": [
+      "cn.2"
+    ],
+    "dep_content": [
+      "C.N.2: And if equal things are added to equal things then the wholes are equal."
+    ]
+  },
+  {
+    "prop_n": 48,
+    "prop_stmt": "If the square on one of the sides of a triangle is equal to the (sum of the) squ",
+    "arg_i": 5,
+    "role": "step",
+    "lf": "application_of_prior_result",
+    "en": "But, the (square) on DC is equal to the (sum of the squares) on DA and AC.",
+    "deps": [
+      "prop.47"
+    ],
+    "dep_content": [
+      "Prop.47: In right-angled triangles, the square on the side subtending the right-angle is equal to the (sum of the) squares on the sides containing the right-angle."
+    ]
+  },
+  {
+    "prop_n": 48,
+    "prop_stmt": "If the square on one of the sides of a triangle is equal to the (sum of the) squ",
+    "arg_i": 6,
+    "role": "step",
+    "lf": "hypothesis",
+    "en": "For angle DAC is a right-angle [Prop. 1.47].",
+    "deps": [
+      "prop.47"
+    ],
+    "dep_content": [
+      "Prop.47: In right-angled triangles, the square on the side subtending the right-angle is equal to the (sum of the) squares on the sides containing the right-angle."
+    ]
+  },
+  {
+    "prop_n": 48,
+    "prop_stmt": "If the square on one of the sides of a triangle is equal to the (sum of the) squ",
+    "arg_i": 8,
+    "role": "step",
+    "lf": "hypothesis",
+    "en": "For (that) was assumed.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 48,
+    "prop_stmt": "If the square on one of the sides of a triangle is equal to the (sum of the) squ",
+    "arg_i": 9,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, the square on DC is equal to the square on BC.",
+    "deps": [
+      "cn.4"
+    ],
+    "dep_content": [
+      "C.N.4: And things coinciding with one another are equal to one another."
+    ]
+  },
+  {
+    "prop_n": 48,
+    "prop_stmt": "If the square on one of the sides of a triangle is equal to the (sum of the) squ",
+    "arg_i": 12,
+    "role": "step",
+    "lf": "hypothesis",
+    "en": "And the base DC is equal to the base BC.",
+    "deps": [
+      "prop.8"
+    ],
+    "dep_content": [
+      "Prop.8: If two triangles have two sides equal to two sides, respectively, and also have the base equal to the base, then they will also have equal the angles encompassed by the equal straight-lines."
+    ]
+  },
+  {
+    "prop_n": 48,
+    "prop_stmt": "If the square on one of the sides of a triangle is equal to the (sum of the) squ",
+    "arg_i": 13,
+    "role": "conclusion",
+    "lf": "application_of_prior_result",
+    "en": "Thus, angle DAC [is] equal to angle BAC [Prop. 1.8].",
+    "deps": [
+      "prop.8"
+    ],
+    "dep_content": [
+      "Prop.8: If two triangles have two sides equal to two sides, respectively, and also have the base equal to the base, then they will also have equal the angles encompassed by the equal straight-lines."
+    ]
+  },
+  {
+    "prop_n": 48,
+    "prop_stmt": "If the square on one of the sides of a triangle is equal to the (sum of the) squ",
+    "arg_i": 14,
+    "role": "step",
+    "lf": "deduction",
+    "en": "But DAC is a right-angle.",
+    "deps": [
+      "cn.1"
+    ],
+    "dep_content": [
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  },
+  {
+    "prop_n": 48,
+    "prop_stmt": "If the square on one of the sides of a triangle is equal to the (sum of the) squ",
+    "arg_i": 15,
+    "role": "conclusion",
+    "lf": "deduction",
+    "en": "Thus, BAC is also a right-angle.",
+    "deps": [
+      "prop.8",
+      "cn.1"
+    ],
+    "dep_content": [
+      "Prop.8: If two triangles have two sides equal to two sides, respectively, and also have the base equal to the base, then they will also have equal the angles encompassed by the equal straight-lines.",
+      "C.N.1: Things equal to the same thing are also equal to one another."
+    ]
+  }
+]
