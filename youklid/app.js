@@ -55,15 +55,21 @@ async function init() {
   applyTheme();
   applyLang();
 
+  // Map page (youklidmap.html) always starts in map view
+  if (document.body.dataset.initMap) STATE.view = 'map';
+
   // Deep-link via hash: #prop.5, #prop.5.a3, #post.1, #def.15, #cn.2, or map: #map/prop.4
   parseHash(location.hash);
+
+  // Re-enforce map view after parseHash (parseHash may override STATE.view from hash)
+  if (document.body.dataset.initMap) STATE.view = 'map';
 
   bindGlobal();
   renderProp();
   buildMapSidebar();
 
   // initial view
-  setView(location.hash.startsWith('#map') ? 'map' : 'text');
+  setView(STATE.view);
 }
 
 // ============================================================
@@ -115,29 +121,35 @@ function bindGlobal() {
   // Theme
   $('#theme-btn').addEventListener('click', toggleTheme);
 
-  // Prop nav
-  $('#prev-prop').addEventListener('click', () => setProp(STATE.currentProp - 1));
-  $('#next-prop').addEventListener('click', () => setProp(STATE.currentProp + 1));
-  // Arg nav
-  $('#prev-arg').addEventListener('click', () => setArg(STATE.currentArg - 1, {wrap: true}));
-  $('#next-arg').addEventListener('click', () => setArg(STATE.currentArg + 1, {wrap: true}));
+  // Prop nav (text page only — elements absent on map page)
+  const _prevProp = $('#prev-prop'), _nextProp = $('#next-prop');
+  if (_prevProp) _prevProp.addEventListener('click', () => setProp(STATE.currentProp - 1));
+  if (_nextProp) _nextProp.addEventListener('click', () => setProp(STATE.currentProp + 1));
+  // Arg nav (text page only)
+  const _prevArg = $('#prev-arg'), _nextArg = $('#next-arg');
+  if (_prevArg) _prevArg.addEventListener('click', () => setArg(STATE.currentArg - 1, {wrap: true}));
+  if (_nextArg) _nextArg.addEventListener('click', () => setArg(STATE.currentArg + 1, {wrap: true}));
 
-  // Map mode toggle
-  $('#map-mode-local').addEventListener('click', () => {
+  // Map mode toggle (map page only)
+  const _mapLocal = $('#map-mode-local'), _mapGlobal = $('#map-mode-global');
+  if (_mapLocal) _mapLocal.addEventListener('click', () => {
     STATE.mapMode = 'local';
     $$('.map-mode-btn').forEach(b => b.classList.toggle('active', b.id === 'map-mode-local'));
     $$('.map-mode-btn').forEach(b => b.setAttribute('aria-pressed', b.id === 'map-mode-local' ? 'true' : 'false'));
     renderMap();
   });
-  $('#map-mode-global').addEventListener('click', () => {
+  if (_mapGlobal) _mapGlobal.addEventListener('click', () => {
     STATE.mapMode = 'global';
     $$('.map-mode-btn').forEach(b => b.classList.toggle('active', b.id === 'map-mode-global'));
     $$('.map-mode-btn').forEach(b => b.setAttribute('aria-pressed', b.id === 'map-mode-global' ? 'true' : 'false'));
     renderMap();
   });
 
-  // Brand
-  $('#home-link').addEventListener('click', (e) => { e.preventDefault(); setProp(1); setArg(0); });
+  // Brand — on text page override click to stay in-app; on map page, href="./index.html" handles it
+  const _homeLink = $('#home-link');
+  if (_homeLink && !document.body.dataset.initMap) {
+    _homeLink.addEventListener('click', (e) => { e.preventDefault(); setProp(1); setArg(0); });
+  }
 
   // Keyboard
   document.addEventListener('keydown', (e) => {
@@ -156,7 +168,16 @@ function bindGlobal() {
       }
     }
     if (e.key === 'l' || e.key === 'L') { setLang(STATE.lang === 'en' ? 'gr' : 'en'); e.preventDefault(); }
-    if (e.key === 'm' || e.key === 'M') { setView(STATE.view === 'map' ? 'text' : 'map'); e.preventDefault(); }
+    if (e.key === 'm' || e.key === 'M') {
+      // M navigates between the two dedicated pages rather than toggling in-page views
+      if (document.body.dataset.initMap) {
+        window.location.href = `./index.html#prop.${STATE.currentProp}`;
+      } else {
+        const mapDest = STATE.currentMapRef ? `#map/${STATE.currentMapRef}` : '#map';
+        window.location.href = `./youklidmap.html${mapDest}`;
+      }
+      e.preventDefault();
+    }
     if (e.key === 't' || e.key === 'T') { toggleTheme(); e.preventDefault(); }
   });
 
@@ -280,6 +301,7 @@ function currentProp() {
 }
 
 function renderProp() {
+  if (!$('#prop-kind')) return; // not on the text page (youklidmap.html)
   const p = currentProp();
   const lang = STATE.lang;
   // Chrome always English; only the body of the enunciation / arguments switches to Greek.
@@ -373,8 +395,12 @@ function renderProp() {
       li.appendChild(note);
     }
 
-    li.addEventListener('click', () => setArg(i));
-    li.addEventListener('dblclick', (ev) => { ev.preventDefault(); toggleDepsPopover(i); });
+    li.addEventListener('click', (ev) => {
+      // Don't intercept clicks on interactive children (citations, fitz markers, the popover itself)
+      if (ev.target.closest('.fitz-marker, a.cite, .borrowed-star, .deps-popover')) return;
+      setArg(i);
+      toggleDepsPopover(i);
+    });
     list.appendChild(li);
   });
 
@@ -486,17 +512,34 @@ function refLinkClick(ev, ref) {
   const [kind, nStr] = ref.split('.');
   const n = parseInt(nStr, 10);
   if (kind === 'prop') {
-    setProp(n);
+    if (document.body.dataset.initMap) {
+      // On map page: navigate to text page for this proposition
+      window.location.href = `./index.html#prop.${n}`;
+    } else {
+      setProp(n);
+    }
   } else {
-    // open map view on this foundation
-    STATE.currentMapRef = ref;
-    setView('map');
+    if (document.body.dataset.initMap) {
+      // Already on map page: update selection in-place
+      STATE.currentMapRef = ref;
+      renderMap();
+      updateHash();
+    } else {
+      // On text page: navigate to map page for this foundation
+      window.location.href = `./youklidmap.html#map/${ref}`;
+    }
   }
 }
 
 function refToHash(ref) {
-  if (ref.startsWith('prop.')) return `#${ref}`;
-  return `#map/${ref}`;
+  if (ref.startsWith('prop.')) {
+    // On map page: links to propositions go to the text page
+    if (document.body.dataset.initMap) return `./index.html#${ref}`;
+    return `#${ref}`;
+  }
+  // Foundation ref: on map page stay in-page; on text page go to map page
+  if (document.body.dataset.initMap) return `#map/${ref}`;
+  return `./youklidmap.html#map/${ref}`;
 }
 function refToShort(ref) {
   const [k, n] = ref.split('.');
@@ -660,6 +703,7 @@ document.addEventListener('keydown', (e) => {
 // ============================================================
 
 function buildMapSidebar() {
+  if (!$('#map-list-posts')) return; // not on the map page
   const data = STATE.data;
   const mkItem = (ref, label) => {
     const b = document.createElement('button');
@@ -680,6 +724,7 @@ function buildMapSidebar() {
 }
 
 function renderMap() {
+  if (!$('#map-svg')) return; // not on the map page
   const data = STATE.data;
   // Default selection = post.1
   if (!STATE.currentMapRef) STATE.currentMapRef = 'post.1';

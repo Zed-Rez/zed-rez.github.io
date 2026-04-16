@@ -146,6 +146,24 @@ body[data-lang="gr"] .map-node-label {
 .tabs .tab:hover:not([aria-pressed="true"]),
 .lang-toggle .lang:hover:not([aria-pressed="true"]) { color: var(--ink); }
 
+/* ── Cross-page navigation links (text ↔ map) ── */
+.map-page-link,
+.map-back-link {
+  justify-self: end;
+  font-family: var(--font-serif-en);
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding: 0.35rem 0.95rem;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--panel-edge);
+  transition: background 120ms, color 120ms;
+  white-space: nowrap;
+}
+.map-page-link:hover,
+.map-back-link:hover { color: var(--ink); }
+
 #theme-btn {
   background: transparent; border: 1px solid var(--rule);
   color: var(--ink); width: 2.2rem; height: 2.2rem;
@@ -692,6 +710,34 @@ body[data-lang="gr"] .map-selected-text { font-style: normal; }
   #site-footer .kbd-hint { display: none; }
 }
 
+/* ── Two-column layout: figure beside arguments on wide screens ─ */
+
+/* Default (mobile / medium): stacked — figure above arguments */
+.prop-content-grid {
+  display: flex;
+  flex-direction: column;
+}
+.prop-figure-col { order: -1; /* sits above main col on narrow screens */ }
+.prop-main-col   { order:  0; }
+
+/* Wide screen: side-by-side, figure column is sticky */
+@media (min-width: 1100px) {
+  .prop-content-grid {
+    display: grid;
+    grid-template-columns: 1fr minmax(260px, 400px);
+    grid-template-areas: "main figure";
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .prop-main-col   { grid-area: main; }
+  .prop-figure-col {
+    grid-area: figure;
+    position: sticky;
+    top: 5.5rem;   /* clears the sticky top-bar */
+    order: 0;
+  }
+}
+
 /* ── Live figure ─────────────────────────────────────────── */
 .prop-figure {
   width: 100%;
@@ -702,6 +748,12 @@ body[data-lang="gr"] .map-selected-text { font-style: normal; }
   background: var(--panel);
   padding: 0.5rem;
   box-sizing: border-box;
+}
+@media (min-width: 1100px) {
+  .prop-figure {
+    max-width: 100%;
+    margin: 0;
+  }
 }
 .prop-figure[hidden] { display: none; }
 .youklid-figure { width: 100%; height: auto; display: block; }
@@ -723,12 +775,29 @@ body[data-lang="gr"] .map-selected-text { font-style: normal; }
 .fig-label-bottom-left  { text-anchor: end;   dominant-baseline: hanging; transform: translate(-5px, 5px); }
 .fig-label-bottom-right { text-anchor: start; dominant-baseline: hanging; transform: translate(5px, 5px); }
 
+/* Congruence marks */
+.fig-tick line {
+  stroke: var(--ink);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  opacity: 0.9;
+}
+.fig-arc path {
+  stroke: var(--ink);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  fill: none;
+  opacity: 0.85;
+}
+
 /* Animation states */
 .fig-new  { filter: drop-shadow(0 0 5px var(--accent, #c8a87a)); }
 .fig-emph .fig-segment,
 .fig-emph .fig-dot     { stroke: var(--accent, #c8a87a); }
 .fig-emph .fig-polygon { fill-opacity: 0.18; }
 .fig-emph .fig-label   { fill: var(--accent, #c8a87a); font-weight: 600; }
+.fig-emph .fig-tick line,
+.fig-emph .fig-arc path { stroke: var(--accent, #c8a87a); opacity: 1; }
 
 /* ── Borrowed-axiom marker ───────────────────────────────── */
 .has-borrowed-axiom {
