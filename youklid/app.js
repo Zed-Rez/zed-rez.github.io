@@ -451,7 +451,7 @@ function renderProp() {
   });
 
   // Nav enable/disable
-  $('#prev-prop').disabled = STATE.currentProp <= 1;
+  $('#prev-prop').disabled = false; // always enabled — ‹ on prop 1 navigates to cn.html
   $('#next-prop').disabled = STATE.currentProp >= STATE.data.propositions.length;
 
   STATE.popoverForArg = null; // close any stale popover when prop changes
