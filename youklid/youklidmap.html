@@ -37,17 +37,17 @@
 
 <!-- =========================== MAP VIEW =========================== -->
 <div id="map-view" class="view active">
-  <section id="map-canvas-wrap">
-    <div id="map-info-strip">
-      <div class="map-kind" id="map-selected-kind"></div>
-      <h1 id="map-selected-title">Dependency Map</h1>
-      <p id="map-selected-text" class="map-selected-text"></p>
-      <div id="map-fitz-note" class="prop-enunciation-note" hidden>
-        <span class="fitz-pop-sym">†</span>
-        <span class="fitz-note-text"></span>
-      </div>
-      <a id="map-goto-text" href="./index.html" hidden>→ View proof</a>
+  <div id="map-info-strip">
+    <div class="map-kind" id="map-selected-kind"></div>
+    <h1 id="map-selected-title">Dependency Map</h1>
+    <p id="map-selected-text" class="map-selected-text"></p>
+    <div id="map-fitz-note" class="prop-enunciation-note" hidden>
+      <span class="fitz-pop-sym">†</span>
+      <span class="fitz-note-text"></span>
     </div>
+    <a id="map-goto-text" href="./index.html" hidden>→ View proof</a>
+  </div>
+  <section id="map-canvas-wrap">
     <svg id="map-svg" aria-label="Dependency map" preserveAspectRatio="xMidYMid meet"></svg>
   </section>
 </div>

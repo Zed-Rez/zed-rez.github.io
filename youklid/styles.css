@@ -548,12 +548,10 @@ body[data-view="map"] #site-footer { display: none; }
   border-bottom: 1px solid var(--rule);
   background: var(--bg);
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 0.75rem;
-  flex-wrap: nowrap;
-  height: 2.75rem;
+  flex-wrap: wrap;
   flex-shrink: 0;
-  overflow: hidden;
 }
 #map-info-strip .map-kind {
   font-family: var(--font-mono);
@@ -567,11 +565,6 @@ body[data-view="map"] #site-footer { display: none; }
   font-weight: 500;
   margin: 0;
   font-family: var(--font-serif-en);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  flex: 1 1 0;
-  min-width: 0;
 }
 #map-info-strip .map-selected-text {
   display: none;
