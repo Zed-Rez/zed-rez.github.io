@@ -158,7 +158,9 @@ function parseHash(h) {
 function updateHash() {
   if (STATE.view === 'map') {
     const ref = STATE.currentMapRef || '';
-    location.hash = ref ? `map/${ref}` : 'map';
+    const hash = '#' + (ref ? `map/${ref}` : 'map');
+    if (history.replaceState) history.replaceState(null, '', hash);
+    else location.hash = hash;
   } else {
     location.hash = `prop.${STATE.currentProp}${STATE.currentArg ? `.a${STATE.currentArg}` : ''}`;
   }
@@ -1025,6 +1027,7 @@ function drawFullGraph() {
   svg.innerHTML = '';
   const W = Math.max(700, document.documentElement.clientWidth);
   const mapWrap = $('#map-canvas-wrap');
+  const savedScroll = mapWrap ? mapWrap.scrollTop : 0;
 
   const ns  = 'http://www.w3.org/2000/svg';
   const data = STATE.data;
@@ -1195,8 +1198,8 @@ function drawFullGraph() {
     svg.appendChild(tl);
   });
 
-  // ── Scroll: start at proposition layers (foundations above, scroll up) ─
-  if (mapWrap) mapWrap.scrollTop = N_found * layerH;
+  // ── Scroll: preserve position on re-render; on first load start at prop layers ─
+  if (mapWrap) mapWrap.scrollTop = savedScroll > 0 ? savedScroll : N_found * layerH;
 }
 
 // ============================================================
