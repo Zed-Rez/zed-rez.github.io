@@ -19,6 +19,7 @@ const STATE = {
   currentMapRef: null,
   mapMode: 'local',      // 'local' | 'global'
   popoverForArg: null,   // index of argument whose inline deps popover is currently open, or null
+  mapDrawn: false,       // true after first drawFullGraph(); used to preserve scroll on re-render
 };
 
 const KIND_LABEL = {
@@ -1002,7 +1003,7 @@ function computeCriticalEdges(data, N) {
     const ref = `prop.${n}`;
     ancestors[ref] = new Set();
     const p = props[n - 1];
-    (p ? p.deps || [] : []).forEach(depRef => {
+    (p ? p.deps_aggregated || [] : []).forEach(depRef => {
       ancestors[ref].add(depRef);
       (ancestors[depRef] || new Set()).forEach(a => ancestors[ref].add(a));
     });
@@ -1013,7 +1014,7 @@ function computeCriticalEdges(data, N) {
   for (let n = 1; n <= N; n++) {
     const ref = `prop.${n}`;
     const p = props[n - 1];
-    const allDeps = p ? p.deps || [] : [];
+    const allDeps = p ? p.deps_aggregated || [] : [];
     allDeps.forEach(d => {
       const redundant = allDeps.some(d2 => d2 !== d && ancestors[d2] && ancestors[d2].has(d));
       if (!redundant) critical.add(`${d}->${ref}`);
@@ -1027,7 +1028,7 @@ function drawFullGraph() {
   svg.innerHTML = '';
   const W = Math.max(700, document.documentElement.clientWidth);
   const mapWrap = $('#map-canvas-wrap');
-  const savedScroll = mapWrap ? mapWrap.scrollTop : 0;
+  const savedScroll = (mapWrap && STATE.mapDrawn) ? mapWrap.scrollTop : null;
 
   const ns  = 'http://www.w3.org/2000/svg';
   const data = STATE.data;
@@ -1130,7 +1131,7 @@ function drawFullGraph() {
   props.forEach(p => {
     const ref = `prop.${p.n}`;
     const from = posMap[ref];
-    (p.deps || []).forEach(dep => {
+    (p.deps_aggregated || []).forEach(dep => {
       if (dep.startsWith('prop.')) return;
       const to = posMap[dep];
       if (from && to) makeEdgePath(from, to, criticalEdges.has(`${dep}->${ref}`));
@@ -1142,13 +1143,11 @@ function drawFullGraph() {
   boldPaths.forEach(el => svg.appendChild(el));
 
   // ── Draw nodes ────────────────────────────────────────────────────────
-  const selectedRef = STATE.currentMapRef || null;
   function makeNode(ref, label, kindClass) {
     const pos = posMap[ref];
     if (!pos) return;
-    const isSeed = ref === selectedRef;
     const g = document.createElementNS(ns, 'g');
-    const cls = ['node', kindClass, isSeed ? 'seed' : ''].filter(Boolean).join(' ');
+    const cls = ['node', kindClass].filter(Boolean).join(' ');
     g.setAttribute('class', cls);
     g.setAttribute('transform', `translate(${pos.x}, ${pos.y})`);
     g.setAttribute('data-map-ref', ref);
@@ -1198,8 +1197,9 @@ function drawFullGraph() {
     svg.appendChild(tl);
   });
 
-  // ── Scroll: preserve position on re-render; on first load start at prop layers ─
-  if (mapWrap) mapWrap.scrollTop = savedScroll > 0 ? savedScroll : N_found * layerH;
+  // ── Scroll: first draw → position at prop layers; re-renders → preserve position ─
+  if (mapWrap) mapWrap.scrollTop = (savedScroll !== null) ? savedScroll : N_found * layerH;
+  STATE.mapDrawn = true;
 }
 
 // ============================================================
@@ -1260,15 +1260,15 @@ function highlightMapNode(ref) {
     const n = parseInt(ref.split('.')[1], 10);
     const p = data.propositions[n - 1];
     if (p) {
-      (p.deps || []).forEach(d => adjacent.add(d));
+      (p.deps_aggregated || []).forEach(d => adjacent.add(d));
       data.propositions.forEach((pp, i) => {
-        if ((pp.deps || []).includes(ref)) adjacent.add(`prop.${i + 1}`);
+        if ((pp.deps_aggregated || []).includes(ref)) adjacent.add(`prop.${i + 1}`);
       });
     }
   } else {
     // Foundation ref: highlight all props that directly depend on it
     data.propositions.forEach((pp, i) => {
-      if ((pp.deps || []).includes(ref)) adjacent.add(`prop.${i + 1}`);
+      if ((pp.deps_aggregated || []).includes(ref)) adjacent.add(`prop.${i + 1}`);
     });
   }
 

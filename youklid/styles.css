@@ -523,8 +523,9 @@ ol.arguments li.argument.unclear::after {
    Map view
    ====================================== */
 
-/* Map page: hide footer so total height == 100vh, no outer page scroll */
+/* Map page: no outer page scroll — all scrolling is inside #map-canvas-wrap */
 body[data-view="map"] #site-footer { display: none; }
+body[data-view="map"] { overflow: hidden; }
 
 #map-view {
   display: none;
