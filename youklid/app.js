@@ -1116,7 +1116,7 @@ function drawFullGraph() {
     (isCritical ? boldPaths : thinPaths).push(path);
   }
 
-  // Prop → prop dep edges
+  // Prop → prop dep edges only — foundations shown as nodes + highlights, not lines
   props.forEach(p => {
     const ref = `prop.${p.n}`;
     const pg = propGraph[ref];
@@ -1125,16 +1125,6 @@ function drawFullGraph() {
     (pg.deps_props || []).forEach(depRef => {
       const to = posMap[depRef];
       if (from && to) makeEdgePath(from, to, criticalEdges.has(`${depRef}->${ref}`));
-    });
-  });
-  // Foundation → prop dep edges
-  props.forEach(p => {
-    const ref = `prop.${p.n}`;
-    const from = posMap[ref];
-    (p.deps_aggregated || []).forEach(dep => {
-      if (dep.startsWith('prop.')) return;
-      const to = posMap[dep];
-      if (from && to) makeEdgePath(from, to, criticalEdges.has(`${dep}->${ref}`));
     });
   });
 
