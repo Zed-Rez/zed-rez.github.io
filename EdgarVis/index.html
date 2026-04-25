@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>EDGAR Market Visualizer</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;color:#111;font-family:Garamond,Georgia,serif;overflow:hidden}
+#plot{width:100vw;height:100vh}
+#topbar{position:fixed;top:0;left:0;right:0;z-index:100;height:36px;
+  display:flex;align-items:center;gap:10px;padding:0 12px;
+  background:#fff;border-bottom:1px solid #ddd}
+#title{font-size:11px;color:#888;white-space:nowrap}
+#year-lbl{font-size:14px;font-weight:600;color:#111;min-width:38px;font-variant-numeric:tabular-nums}
+#yr-slider{flex:1;accent-color:#111;cursor:pointer;min-width:80px}
+#play-btn{background:#fff;border:1px solid #ccc;color:#333;
+  padding:2px 9px;font-size:11px;cursor:pointer;white-space:nowrap}
+#play-btn:hover{border-color:#111}
+#co-count{font-size:11px;color:#888;font-variant-numeric:tabular-nums}
+#insights-link{font-size:11px;color:#888;text-decoration:none;
+  padding:2px 8px;border:1px solid #ccc;margin-left:auto;white-space:nowrap}
+#insights-link:hover{color:#111;border-color:#111}
+#clbar{position:fixed;top:36px;left:50%;transform:translateX(-50%);
+  z-index:100;display:flex;gap:3px;align-items:center;
+  background:#fff;padding:3px 8px;border:1px solid #ddd;border-top:none}
+.clbtn{background:#fff;border:1px solid #ddd;color:#888;
+  padding:2px 8px;font-size:10px;cursor:pointer;white-space:nowrap}
+.clbtn:hover{border-color:#111;color:#111}
+.clbtn.active{border-color:#111;color:#111;font-weight:600}
+#cl-info{font-size:10px;color:#aaa;white-space:nowrap;margin-left:4px;font-variant-numeric:tabular-nums}
+#sw{position:fixed;top:76px;right:12px;z-index:200;width:220px}
+#sw-row{display:flex;gap:3px}
+#die-btn{background:#fff;border:1px solid #ccc;cursor:pointer;padding:0 7px;font-size:13px;flex-shrink:0}
+#die-btn:hover{border-color:#111}
+#si{flex:1;min-width:0;background:#fff;border:1px solid #ccc;
+  color:#111;padding:5px 8px;font-size:12px;outline:none}
+#si:focus{border-color:#111}
+#si::placeholder{color:#bbb}
+#sd{background:#fff;border:1px solid #ccc;border-top:none;
+  max-height:180px;overflow-y:auto;display:none}
+.si{padding:6px 8px;font-size:12px;cursor:pointer;border-bottom:1px solid #f0f0f0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.si:hover{background:#f5f5f5}
+#ip{position:fixed;bottom:12px;left:12px;z-index:200;
+  background:#fff;border:1px solid #ccc;padding:10px 12px 8px;width:236px;display:none}
+#ip h3{font-size:12px;color:#111;margin-bottom:7px;line-height:1.3;padding-right:14px;font-weight:600}
+.rg{display:grid;grid-template-columns:1fr auto;gap:2px 10px;font-size:11px}
+.rl{color:#888}.rv{color:#111;font-weight:500;text-align:right;font-variant-numeric:tabular-nums}
+.dv{margin-top:6px;padding-top:6px;border-top:1px solid #eee;font-size:10px}
+.dr{display:flex;justify-content:space-between;margin-top:3px;color:#aaa}
+.dp{color:#b00}.dn{color:#060}
+.cl-badge{display:inline-block;padding:1px 5px;border:1px solid #ddd;
+  font-size:10px;font-weight:600;margin-bottom:6px;color:#555}
+#ic{position:absolute;top:7px;right:8px;cursor:pointer;color:#bbb;font-size:13px}
+#ic:hover{color:#111}
+#ld{position:fixed;inset:0;z-index:999;background:#fff;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;font-size:11px;color:#aaa}
+#ld.hidden{display:none}
+.sp{width:22px;height:22px;border:1px solid #ddd;border-top-color:#555;
+  border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#colorkey{position:fixed;bottom:12px;right:12px;z-index:200;
+  font-size:10px;color:#888;line-height:1.8;text-align:right}
+#colorkey span{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:3px;vertical-align:middle}
+</style>
+</head>
+<body>
+
+<div id="ld"><div class="sp"></div><span>Loading</span></div>
+
+<div id="topbar">
+  <span id="title">EDGAR Market Visualizer</span>
+  <span id="year-lbl">—</span>
+  <input id="yr-slider" type="range" min="0" max="0" value="0" step="1">
+  <button id="play-btn">&#9654; Play</button>
+  <span id="co-count"></span>
+  <a id="insights-link" href="../EdgarInsights/">Insights →</a>
+</div>
+
+<div id="clbar">
+  <span style="font-size:10px;color:#6e7681;margin-right:2px">Slice:</span>
+  <button class="clbtn active" data-cl="-1">All</button>
+  <button class="clbtn" data-cl="0" id="cl0btn">—</button>
+  <button class="clbtn" data-cl="1" id="cl1btn">—</button>
+  <button class="clbtn" data-cl="2" id="cl2btn">—</button>
+  <button class="clbtn" id="clcomplete" title="Profitable · positive book · revenue · P/E in range">Profitable</button>
+  <span id="cl-info"></span>
+</div>
+
+<div id="colorkey">
+  <span style="background:#27ae60"></span>profitable<br>
+  <span style="background:#aaa"></span>no data<br>
+  <span style="background:#c0392b"></span>unprofitable<br>
+  <small>dot colour = net margin</small>
+</div>
+
+<div id="sw">
+  <div id="sw-row">
+    <button id="die-btn" title="Random oddity (≥ 80th percentile)">⚄</button>
+    <input id="si" placeholder="Search company…" autocomplete="off">
+  </div>
+  <div id="sd"></div>
+</div>
+
+<div id="ip">
+  <span id="ic" onclick="closeIP()">&#x2715;</span>
+  <h3 id="ipn"></h3>
+  <a id="ip-edgar" href="#" target="_blank" rel="noopener"
+     style="display:none;font-size:10px;color:#888;text-decoration:none;border-bottom:1px solid #ddd;margin-bottom:6px;display:inline-block">
+    SEC EDGAR ↗
+  </a>
+  <div id="ip-badge"></div>
+  <div class="rg" id="ipg"></div>
+  <div class="dv" id="ipd"></div>
+</div>
+
+<div id="plot"></div>
+
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+<script>
+var YEARS      = [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026];
+var CL_INFO    = {"0": {"label": "Profitable Mid-Cap", "n": 24409, "nm": 0.06274125686917922, "pb": 1.6179675041744142, "pe": 14.735224586288416, "rev": 1557000000.0}, "1": {"label": "Large-Cap / Diversified", "n": 30335, "nm": 0.05869999704321524, "pb": 1.2832695207531597, "pe": 14.219827024207918, "rev": 215991000.0}, "2": {"label": "Pre-Profit / Small-Cap", "n": 19866, "nm": -1.0, "pb": 1.7856366345613959, "pe": 9.174311926605505, "rev": 3154162.5}};
+var curIdx     = YEARS.indexOf(2026);
+if (curIdx < 0) curIdx = YEARS.length - 1;
+var curCluster = -1;  // -1 = all
+var curComplete = false;
+
+var playing = false, playTimer = null, _spikeCount = 0, abortCtrl = null;
+var _curFrame = null;
+var _spikePos = null;
+var _camEye = {x:1.5, y:1.5, z:1.1};
+
+// Populate cluster buttons with labels
+[0,1,2].forEach(function(c){
+  var btn = document.getElementById('cl'+c+'btn');
+  var info = CL_INFO[c];
+  if (btn && info) btn.textContent = info.label || ('Slice '+c);
+});
+
+// ── Cluster colours for badge ────────────────────────────────────────────────
+var CL_COLORS = ['#333','#333','#333'];
+var CL_BG     = ['#fff','#fff','#fff'];
+
+// ── Shared Plotly layout ──────────────────────────────────────────────────────
+var LAY = {
+  paper_bgcolor:'#fff', plot_bgcolor:'#fff',
+  margin:{l:0,r:0,t:36,b:0},
+  scene:{
+    bgcolor:'#fff',
+    xaxis:{title:{text:'Scale & Profitability',font:{color:'#555',size:9}},
+           backgroundcolor:'#f5f5f5',gridcolor:'#ddd',showbackground:true,
+           tickfont:{color:'#666',size:8},zeroline:false},
+    yaxis:{title:{text:'Growth Rate (↑ = lower)',font:{color:'#555',size:9}},
+           backgroundcolor:'#f5f5f5',gridcolor:'#ddd',showbackground:true,
+           tickfont:{color:'#666',size:8},zeroline:false},
+    zaxis:{
+      title:{text:'P/E',font:{color:'#555',size:9}},
+      backgroundcolor:'#f5f5f5',gridcolor:'#ddd',showbackground:true,
+      tickfont:{color:'#666',size:8},
+      tickvals:[0.3,0.7,1.0,1.3,1.7,2.0,2.3],
+      ticktext:['2×','5×','10×','20×','50×','100×','200×'],
+      zeroline:true,zerolinecolor:'#ccc',
+    },
+    camera:{eye:{x:1.5,y:1.5,z:1.1}}, aspectmode:'auto',
+  },
+  hoverlabel:{bgcolor:'#fff',bordercolor:'#ccc',font:{color:'#111',size:12}},
+  font:{color:'#333'},
+  showlegend:false,
+};
+
+// ── Init plot ─────────────────────────────────────────────────────────────────
+Plotly.newPlot('plot', [], LAY,
+  {responsive:true,displayModeBar:true,
+   modeBarButtonsToRemove:['lasso2d','select2d'],
+   toImageButtonOptions:{format:'png',filename:'edgar_market_visualizer',scale:2}}
+).then(function(){
+  document.getElementById('plot').on('plotly_click', onClik);
+  document.getElementById('plot').on('plotly_relayout', function(evt){
+    var eye = (evt['scene.camera']&&evt['scene.camera'].eye)
+              || evt['scene.camera.eye'];
+    if(!eye) return;
+    _camEye = eye;
+    updateSpikeWalls();
+  });
+  loadYear(curIdx);
+});
+
+// ── Slider + play ─────────────────────────────────────────────────────────────
+var sl = document.getElementById('yr-slider');
+sl.max = YEARS.length - 1;
+sl.value = curIdx;
+sl.addEventListener('input', function(){ curIdx=+this.value; loadYear(curIdx); stopPlay(); });
+document.getElementById('play-btn').addEventListener('click', function(){ playing?stopPlay():startPlay(); });
+function startPlay(){
+  playing=true; document.getElementById('play-btn').innerHTML='&#9646;&#9646; Pause';
+  playTimer=setInterval(function(){ curIdx=(curIdx+1)%YEARS.length; sl.value=curIdx; loadYear(curIdx); },950);
+}
+function stopPlay(){
+  playing=false; clearInterval(playTimer);
+  document.getElementById('play-btn').innerHTML='&#9654; Play';
+}
+
+// ── Cluster filter ────────────────────────────────────────────────────────────
+document.querySelectorAll('.clbtn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    // Complete toggle
+    if(btn.id === 'clcomplete'){
+      curComplete = !curComplete;
+      btn.classList.toggle('active', curComplete);
+      _frameCache = {};
+      loadYear(curIdx);
+      return;
+    }
+    document.querySelectorAll('.clbtn').forEach(function(b){
+      if(b.id !== 'clcomplete') b.classList.remove('active');
+    });
+    btn.classList.add('active');
+    curCluster = parseInt(btn.dataset.cl, 10);
+    var ci = document.getElementById('cl-info');
+    if (curCluster >= 0 && CL_INFO[curCluster]){
+      var inf = CL_INFO[curCluster];
+      var pe = inf.pe ? inf.pe.toFixed(1)+'×' : '—';
+      var nm = inf.nm ? (inf.nm*100).toFixed(1)+'%' : '—';
+      ci.textContent = inf.n.toLocaleString()+' companies · P/E '+pe+' · margin '+nm;
+    } else {
+      ci.textContent = '';
+    }
+    _frameCache = {};
+    loadYear(curIdx);
+  });
+});
+
+// ── Frame cache + fetch ───────────────────────────────────────────────────────
+var _frameCache = {};
+function loadYear(idx, onDone){
+  _spikePos = null; _spikeCount = 0; // renderFrame will react-clear traces
+  var yr = YEARS[idx];
+  document.getElementById('year-lbl').textContent = yr;
+  sl.value = idx;
+  var key = yr+':'+curCluster+':'+(curComplete?'1':'0');
+  if(_frameCache[key]){ renderFrame(_frameCache[key]); if(onDone) onDone(); return; }
+  if(abortCtrl) abortCtrl.abort();
+  abortCtrl = new AbortController();
+  var suffix = '';
+  if(curCluster>=0) suffix += '_c'+curCluster;
+  if(curComplete)   suffix += '_complete';
+  var url = './data/frame_'+yr+suffix+'.json';
+  fetch(url,{signal:abortCtrl.signal})
+    .then(function(r){return r.json();})
+    .then(function(d){_frameCache[key]=d; renderFrame(d); if(onDone) onDone();})
+    .catch(function(e){if(e.name!=='AbortError') console.error(e);});
+}
+
+function renderFrame(d){
+  _curFrame = d;
+  var htxt = d.vertices.map(function(v){
+    return '<b>'+esc(v.name)+'</b><br>'+
+      'P/E: '+fmtPE(v.pe)+'<br>'+
+      'Net Margin: '+fmtPct(v.nm)+'<br>'+
+      'P/B: '+(v.pb!=null?v.pb.toFixed(1)+'×':'—');
+  });
+
+  var dots = {
+    type:'scatter3d', mode:'markers',
+    x:d.dots.x, y:d.dots.y, z:d.dots.z,
+    customdata:d.vertices,
+    text:d.vertices.map(function(v){return v.name;}),
+    hovertext:htxt,
+    name:'', showlegend:false,
+    hovertemplate:'%{hovertext}<extra></extra>',
+    marker:{
+      size:d.dots.size,
+      color:d.dots.color,
+      colorscale:[[0,'#c0392b'],[0.5,'#aaa'],[1,'#27ae60']],
+      cmin:-1, cmax:1,
+      showscale:false,
+      opacity:0.85,
+      line:{width:0},
+    },
+  };
+
+  _spikeCount = 0; // Plotly.react replaces all traces, spikes are gone
+  Plotly.react('plot', [dots], LAY);
+
+  document.getElementById('co-count').textContent = d.n.toLocaleString()+' companies';
+  document.getElementById('ld').classList.add('hidden');
+}
+
+// ── Click handler ─────────────────────────────────────────────────────────────
+function onClik(data){
+  if(!data||!data.points||!data.points.length) return;
+  var pt = null;
+  for(var i=0;i<data.points.length;i++){
+    if(data.points[i].customdata && data.points[i].customdata.cik != null){
+      pt = data.points[i]; break;
+    }
+  }
+  if(!pt) return;
+  // Pass exact 3D position from the clicked point so highlight lands precisely
+  fetchAndShowCo(pt.customdata.cik, YEARS[curIdx], {x:pt.x, y:pt.y, z:pt.z});
+}
+
+// ── Company info ──────────────────────────────────────────────────────────────
+function fetchAndShowCo(cik, preferYear, pos){
+  _ensureCompanyDetail().then(function(bundle){
+      var recs = bundle[String(cik)] || [];
+      if(!recs.length) return;
+      var rec = recs.find(function(r){return r.fy===preferYear;}) || recs[recs.length-1];
+      renderIP(rec);
+      clearSpikes();
+      drawSpikes(pos || {x:rec.ux, y:rec.uy,
+        z:rec.pe!=null&&rec.pe>0 ? Math.log10(rec.pe)+0.03 : 1.03});
+    }).catch(console.error);
+}
+
+function closeIP(){
+  document.getElementById('ip').style.display='none';
+  document.getElementById('ip-edgar').style.display='none';
+  clearSpikes();
+}
+
+function renderIP(rec){
+  document.getElementById('ipn').textContent = rec.name || '—';
+  var cikStr = String(rec.cik).padStart(10,'0');
+  document.getElementById('ip-edgar').href =
+    'https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK='+cikStr+'&type=10-K&dateb=&owner=include&count=10';
+  document.getElementById('ip-edgar').style.display = 'inline';
+
+  // Cluster badge
+  var cl = rec.cl >= 0 ? rec.cl : -1;
+  var badgeHtml = '';
+  if (cl >= 0 && CL_INFO[cl]){
+    var col = CL_COLORS[cl], bg = CL_BG[cl];
+    badgeHtml = '<span class="cl-badge" style="color:'+col+';background:'+bg+'">'+CL_INFO[cl].label+'</span>';
+  }
+  document.getElementById('ip-badge').innerHTML = badgeHtml;
+
+  var rows = [];
+  rows.push(['FY', rec.fy]);
+  if(rec.rev!=null)       rows.push(['Revenue',    fmtM(rec.rev)]);
+  else if(rec.ast!=null)  rows.push(['Assets',     fmtM(rec.ast)]);
+  if(rec.nm!=null)        rows.push(['Net Margin', fmtPct(rec.nm)]);
+  else if(rec.ni!=null)   rows.push(['Net Income', (rec.ni<0?'(':'')+fmtM(Math.abs(rec.ni))+(rec.ni<0?')':'')]);
+  if(rec.pe!=null&&rec.pe>0)          rows.push(['P/E',  rec.pe.toFixed(1)+'×']);
+  else if(rec.ni!=null&&rec.ni<=0)    rows.push(['P/E',  'unprofitable']);
+  if(rec.pb!=null&&rec.pb>0)          rows.push(['P/B',  rec.pb.toFixed(1)+'×']);
+  else if(rec.eq!=null&&rec.eq<0)     rows.push(['Equity','negative book']);
+  if(rec.rg!=null) rows.push(['Rev Growth', fmtPct(rec.rg)]);
+  if(rec.roe!=null) rows.push(['ROE', fmtPct(rec.roe)]);
+  if(rec.de!=null&&rec.eq!=null&&rec.eq>0) rows.push(['D/E', rec.de.toFixed(1)+'×']);
+  if(rec.mdp!=null) rows.push(['Outlier %ile', rec.mdp.toFixed(0)+'th']);
+  document.getElementById('ipg').innerHTML = rows.map(function(r){
+    return '<span class="rl">'+r[0]+'</span><span class="rv">'+esc(String(r[1]))+'</span>';
+  }).join('');
+
+  var dvs = rec.devs ? Object.entries(rec.devs)
+    .filter(function(e){return e[1]!=null;})
+    .sort(function(a,b){return Math.abs(b[1])-Math.abs(a[1]);})
+    .slice(0,4) : [];
+  var dvh = dvs.length
+    ? '<div style="color:#6e7681;margin-bottom:3px">Top deviations from sector peers (σ)</div>'+
+      dvs.map(function(e){
+        var s=e[1]>=0?'+':'', cls=Math.abs(e[1])<1?'':(e[1]>0?' class="dp"':' class="dn"');
+        return '<div class="dr"><span>'+e[0]+'</span><span'+cls+'>'+s+e[1].toFixed(2)+'σ</span></div>';
+      }).join('')
+    : '';
+  document.getElementById('ipd').innerHTML = dvh;
+  document.getElementById('ip').style.display='block';
+}
+
+// ── Spike lines ───────────────────────────────────────────────────────────────
+function clearSpikes(){
+  if(_spikeCount === 0) return;
+  var idxs = [];
+  for(var i=1; i<=_spikeCount; i++) idxs.push(i);
+  Plotly.deleteTraces('plot', idxs).catch(function(){});
+  _spikeCount = 0;
+}
+function _spikeWalls(){
+  if(!_curFrame||!_curFrame.dots) return null;
+  var xs=_curFrame.dots.x, ys=_curFrame.dots.y;
+  return {
+    xmin:Math.min.apply(null,xs)-0.3, xmax:Math.max.apply(null,xs)+0.3,
+    ymin:Math.min.apply(null,ys)-0.3, ymax:Math.max.apply(null,ys)+0.3,
+  };
+}
+function drawSpikes(pos){
+  if(!pos||pos.x==null||pos.y==null) return;
+  _spikePos=pos;
+  var px=pos.x, py=pos.y, pz=pos.z||1.0;
+  var w=_spikeWalls(); if(!w) return;
+  var xwall=_camEye.x>=0 ? w.xmin : w.xmax;
+  var ywall=_camEye.y>=0 ? w.ymin : w.ymax;
+  var zfloor=0.28;
+  var ln=function(x1,y1,z1,x2,y2,z2){
+    return {type:'scatter3d',mode:'lines',
+            x:[x1,x2],y:[y1,y2],z:[z1,z2],
+            line:{color:'#333',width:1.5},
+            hoverinfo:'skip',showlegend:false,name:'spk'};
+  };
+  var traces=[
+    ln(px,py,zfloor, px,py,pz),    // vertical drop
+    ln(xwall,py,pz,  px,py,pz),    // x-wall
+    ln(px,ywall,pz,  px,py,pz),    // y-wall
+  ];
+  function addSpikes(){
+    Plotly.addTraces('plot',traces).then(function(){ _spikeCount=3; });
+  }
+  if(_spikeCount>0){ clearSpikes(); setTimeout(addSpikes,30); }
+  else { addSpikes(); }
+}
+function updateSpikeWalls(){
+  if(!_spikePos||_spikeCount!==3) return;
+  var w=_spikeWalls(); if(!w) return;
+  var px=_spikePos.x, py=_spikePos.y;
+  var xwall=_camEye.x>=0 ? w.xmin : w.xmax;
+  var ywall=_camEye.y>=0 ? w.ymin : w.ymax;
+  // Restyle: trace 1=x-proj, 2=vertical, 3=y-proj
+  Plotly.restyle('plot',
+    {x:[[xwall,px],[px,px],[px,px]],
+     y:[[py,py],  [py,py],[ywall,py]]},
+    [1,2,3]).catch(function(){});
+}
+
+// ── Search ────────────────────────────────────────────────────────────────────
+var _st=null;
+document.getElementById('si').addEventListener('input',function(){
+  clearTimeout(_st); var q=this.value.trim();
+  if(q.length<2){document.getElementById('sd').style.display='none';return;}
+  _st=setTimeout(function(){
+    if(_companyIndex){ showResults(_searchLocal(q)); return; }
+    fetch('./data/companies.json').then(function(r){return r.json();})
+      .then(function(arr){ _companyIndex = arr; showResults(_searchLocal(q)); })
+      .catch(console.error);
+  },200);
+});
+document.getElementById('si').addEventListener('keydown',function(e){
+  if(e.key==='Escape') document.getElementById('sd').style.display='none';
+});
+function showResults(ms){
+  var el=document.getElementById('sd');
+  el.innerHTML=ms.length
+    ? ms.map(function(m){return '<div class="si" onclick="pickCik('+m.cik+')">'+esc(m.name)+'</div>';}).join('')
+    : '<div class="si" style="color:#6e7681">No results</div>';
+  el.style.display='block';
+}
+function pickCik(cik){
+  document.getElementById('sd').style.display='none';
+  fetchAndShowCo(cik, YEARS[curIdx]);
+}
+document.addEventListener('click',function(e){
+  if(!document.getElementById('sw').contains(e.target))
+    document.getElementById('sd').style.display='none';
+});
+
+
+// ── Die button ────────────────────────────────────────────────────────────────
+document.getElementById('die-btn').addEventListener('click', function(){
+  this.disabled = true;
+  var btn = this;
+  _ensureRandomPool().then(function(pool){
+      var d = pool.length ? pool[Math.floor(Math.random()*pool.length)] : {};
+      if(!d.cik){ btn.disabled=false; return; }
+      var idx = YEARS.indexOf(d.fy);
+      if(idx < 0) idx = YEARS.length - 1;
+      curIdx = idx; sl.value = idx;
+      loadYear(idx, function(){
+        fetchAndShowCo(d.cik, d.fy);
+        btn.disabled = false;
+      });
+    })
+    .catch(function(){ btn.disabled = false; });
+});
+
+// ── Format helpers ────────────────────────────────────────────────────────────
+function fmtPct(v){ return v!=null?(v*100).toFixed(1)+'%':'—'; }
+function fmtPE(v){ return v==null?'—':v<=0?'loss':v.toFixed(1)+'×'; }
+function fmtM(v){
+  if(v==null) return '—';
+  var a=Math.abs(v), s=v<0?'(':'' , e=v<0?')':'';
+  if(a>=1e12) return s+'$'+(a/1e12).toFixed(2)+'T'+e;
+  if(a>=1e9)  return s+'$'+(a/1e9).toFixed(2)+'B'+e;
+  if(a>=1e6)  return s+'$'+(a/1e6).toFixed(2)+'M'+e;
+  return s+'$'+a.toFixed(0)+e;
+}
+function esc(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ── Static-build helpers ─────────────────────────────────────────────────────
+var _companyIndex = null;            // [{cik,name},...]
+var _companyDetailPromise = null;    // Promise<bundle>
+var _randomPoolPromise = null;       // Promise<[{cik,name,fy},...]>
+
+function _searchLocal(q){
+  var ql = q.toLowerCase();
+  if(ql.length < 2) return [];
+  var out = [];
+  for(var i=0; i<_companyIndex.length && out.length < 25; i++){
+    var c = _companyIndex[i];
+    if(c.name.toLowerCase().indexOf(ql) !== -1) out.push(c);
+  }
+  out.sort(function(a,b){ return a.name.localeCompare(b.name); });
+  return out;
+}
+function _ensureCompanyDetail(){
+  if(_companyDetailPromise) return _companyDetailPromise;
+  _companyDetailPromise = fetch('./data/companies_detail.json').then(function(r){return r.json();});
+  return _companyDetailPromise;
+}
+function _ensureRandomPool(){
+  if(_randomPoolPromise) return _randomPoolPromise;
+  _randomPoolPromise = fetch('./data/random_pool.json').then(function(r){return r.json();});
+  return _randomPoolPromise;
+}
+</script>
+</body>
+</html>

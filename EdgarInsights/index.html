@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EDGAR · Insights</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;color:#111;font-family:Garamond,Georgia,serif;min-height:100vh}
+nav{display:flex;align-items:center;gap:14px;padding:0 16px;height:36px;
+  border-bottom:1px solid #ddd;background:#fff;position:sticky;top:0;z-index:10}
+.nav-back{font-size:11px;color:#888;text-decoration:none}
+.nav-back:hover{color:#111}
+.nav-title{font-size:11px;color:#111;font-weight:600}
+.nav-sub{font-size:10px;color:#aaa;margin-left:auto;font-variant-numeric:tabular-nums}
+.controls{padding:8px 16px 6px;border-bottom:1px solid #eee;display:flex;flex-direction:column;gap:6px}
+.metric-tabs{display:flex;gap:3px;flex-wrap:wrap}
+.mtab{background:#fff;border:1px solid #ddd;color:#888;
+  padding:2px 10px;font-size:11px;cursor:pointer;white-space:nowrap}
+.mtab:hover{border-color:#111;color:#111}
+.mtab.active{border-color:#111;color:#111;font-weight:600}
+.year-ctrl{display:flex;align-items:center;gap:8px;font-size:11px;color:#888}
+.year-ctrl input[type=range]{flex:1;max-width:260px;accent-color:#555;cursor:pointer}
+#yr-focus-lbl{color:#333;font-weight:600;font-variant-numeric:tabular-nums;min-width:32px}
+.stat-row{display:flex;gap:18px;padding:7px 16px;flex-wrap:wrap;border-bottom:1px solid #eee}
+.stat{display:flex;flex-direction:column;gap:1px}
+.stat-val{color:#111;font-size:16px;font-weight:600;font-variant-numeric:tabular-nums}
+.stat-lbl{color:#aaa;font-size:9px;text-transform:uppercase;letter-spacing:.04em}
+.charts-main{display:grid;grid-template-columns:2fr 1fr;border-bottom:1px solid #eee}
+.chart-wrap{border-right:1px solid #eee}
+.chart-wrap:last-child{border-right:none}
+.chart-label{font-size:9px;color:#aaa;text-transform:uppercase;letter-spacing:.06em;padding:7px 14px 2px}
+.chart-bottom{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #eee}
+.chart-bottom .chart-wrap{border-right:1px solid #eee}
+.chart-bottom .chart-wrap:last-child{border-right:none}
+.annotation-bar{padding:7px 16px;font-size:11px;color:#555;line-height:1.6;border-bottom:1px solid #eee}
+.annotation-bar b{color:#111}
+.annotation-bar .tag{display:inline-block;padding:1px 5px;border:1px solid #ccc;
+  font-size:10px;font-weight:600;margin-right:5px;color:#555}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../EdgarVis/" class="nav-back">← Visualizer</a>
+  <span class="nav-title">Insights</span>
+  <span class="nav-sub" id="nav-sub"></span>
+</nav>
+
+<div class="controls">
+  <div class="metric-tabs" id="metric-tabs">
+    <button class="mtab active" data-m="pe">P/E Ratio</button>
+    <button class="mtab" data-m="nm">Net Margin</button>
+    <button class="mtab" data-m="rg">Revenue Growth</button>
+    <button class="mtab" data-m="pb">P/B Ratio</button>
+    <button class="mtab" data-m="roe">ROE</button>
+    <button class="mtab" data-m="prof">Profitability %</button>
+    <button class="mtab" data-m="cta">Cash / Assets</button>
+    <button class="mtab" data-m="ocf">OCF Margin</button>
+  </div>
+  <div class="year-ctrl">
+    <span>Focus year</span>
+    <input type="range" id="yr-focus" min="0" max="0" step="1" value="0">
+    <span id="yr-focus-lbl">—</span>
+  </div>
+</div>
+
+<div class="stat-row" id="stat-row"></div>
+
+<div class="annotation-bar" id="ann-bar"></div>
+
+<div class="charts-main">
+  <div class="chart-wrap">
+    <div class="chart-label">Historical trend 2009–2025 · median + IQR band</div>
+    <div id="chart-ts" style="height:300px"></div>
+  </div>
+  <div class="chart-wrap">
+    <div class="chart-label" id="dist-label">Distribution · <span id="dist-yr">—</span></div>
+    <div id="chart-dist" style="height:300px"></div>
+  </div>
+</div>
+
+<div class="chart-bottom">
+  <div class="chart-wrap">
+    <div class="chart-label">Small-cap margin collapse · median net margin by revenue tier</div>
+    <div id="chart-tier-margin" style="height:240px"></div>
+  </div>
+  <div class="chart-wrap">
+    <div class="chart-label">Revenue universe composition · companies by annual revenue tier</div>
+    <div id="chart-tiers" style="height:240px"></div>
+  </div>
+</div>
+
+<div class="chart-bottom">
+  <div class="chart-wrap">
+    <div class="chart-label">Fallen angels vs risen stars · annual profitability transitions</div>
+    <div id="chart-fallen" style="height:240px"></div>
+  </div>
+  <div class="chart-wrap">
+    <div class="chart-label">IPO cohort quality · median net margin by entry year and age</div>
+    <div id="chart-cohort" style="height:240px"></div>
+  </div>
+</div>
+
+<div class="chart-bottom">
+  <div class="chart-wrap">
+    <div class="chart-label">Growth premium inversion · next-year P/E by revenue growth decile · pre-2015 vs 2020–2024</div>
+    <div id="chart-growth-pe" style="height:240px"></div>
+  </div>
+  <div class="chart-wrap">
+    <div class="chart-label">New entrant quality by cohort year · % profitable on entry & median first-year margin</div>
+    <div id="chart-entrant" style="height:240px"></div>
+  </div>
+</div>
+
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+<script>
+var DATA  = {"2009": {"count": 396, "cta": {"hist": [102, 62, 88, 58, 40, 30, 10, 2], "med": 0.06988611326734112, "p25": 0.02352956771202839, "p75": 0.13124373662779001}, "fallen": 0, "nm": {"hist": [10, 5, 10, 38, 86, 92, 95, 27, 10, 7], "med": 0.07279741810072438, "p25": 0.028104307171772702, "p75": 0.13764183262321797}, "ocf": {"hist": [5, 2, 7, 25, 55, 75, 42, 84, 55, 32], "med": 0.17410769433737724, "p25": 0.10135913875401976, "p75": 0.2797707243056649}, "pb": {"hist": [25, 67, 80, 64, 67, 39, 25, 7, 9, 4], "med": 1.6404092902387526, "p25": 1.0202711418643062, "p75": 2.6707345288975644}, "pe": {"hist": [24, 71, 102, 55, 29, 16, 15, 2, 9, 0, 8], "med": 13.254838015875794, "p25": 9.093923045130545, "p75": 19.330915808929937}, "prof": {"hist": null, "med": 0.8354114713216958, "p25": null, "p75": null}, "rg": {"hist": null, "med": null, "p25": null, "p75": null}, "risen": 0, "roe": {"hist": [19, 14, 34, 41, 63, 135, 45, 23, 22], "med": 0.11707252782459915, "p25": 0.04260627248256418, "p75": 0.18904679468287186}, "tier_margin": {"large": 0.08947845919889125, "mega": 0.06067484452056132, "mid": 0.10417160199059228, "nano": null, "small": null}, "tiers": {"large": 196, "mega": 158, "mid": 26, "nano": 0, "small": 2}}, "2010": {"count": 1192, "cta": {"hist": [300, 171, 233, 149, 106, 144, 57, 17], "med": 0.07445246048203842, "p25": 0.024226054955225833, "p75": 0.16320322188304875}, "fallen": 12, "nm": {"hist": [13, 11, 35, 77, 250, 339, 273, 86, 37, 21], "med": 0.07413150528937279, "p25": 0.03423566756966818, "p75": 0.1373863563279032}, "ocf": {"hist": [15, 7, 33, 95, 207, 205, 156, 207, 144, 71], "med": 0.15165443467397982, "p25": 0.08638542668887313, "p75": 0.26480031457689823}, "pb": {"hist": [51, 210, 303, 178, 207, 74, 73, 24, 13, 21], "med": 1.5415488938180726, "p25": 1.0496901636347935, "p75": 2.436131552850667}, "pe": {"hist": [67, 180, 344, 183, 96, 42, 40, 30, 23, 7, 26], "med": 13.852133300683086, "p25": 10.134480138085134, "p75": 20.283011187284792}, "prof": {"hist": null, "med": 0.8754152823920266, "p25": null, "p75": null}, "rg": {"hist": [6, 13, 56, 72, 56, 56, 66, 17, 3], "med": 0.07746128477790662, "p25": 0.009392436453812771, "p75": 0.19953333804709045}, "risen": 755, "roe": {"hist": [48, 31, 77, 123, 286, 418, 119, 68, 29], "med": 0.10563205373886611, "p25": 0.05352353849463112, "p75": 0.1688952231148623}, "tier_margin": {"large": 0.06739347771644791, "mega": 0.062395629256901924, "mid": 0.10559064295473156, "nano": -1.0, "small": 0.17484822688272655}, "tiers": {"large": 613, "mega": 204, "mid": 301, "nano": 11, "small": 14}}, "2011": {"count": 4860, "cta": {"hist": [1226, 658, 905, 514, 375, 429, 385, 536], "med": 0.08116595584379843, "p25": 0.025856016787088553, "p75": 0.21532485917887167}, "fallen": 57, "nm": {"hist": [680, 185, 253, 463, 909, 707, 686, 286, 127, 138], "med": 0.03506188153200247, "p25": -0.10301780729101435, "p75": 0.11323424641501056}, "ocf": {"hist": [847, 105, 367, 563, 610, 427, 346, 476, 513, 358], "med": 0.08605644705537155, "p25": -0.02723498519646799, "p75": 0.2384250993697482}, "pb": {"hist": [922, 781, 681, 427, 497, 236, 232, 101, 83, 204], "med": 1.2442477651576518, "p25": 0.5740680807882882, "p75": 2.5234911574563577}, "pe": {"hist": [543, 535, 610, 430, 219, 115, 122, 75, 90, 46, 126], "med": 13.026343151171043, "p25": 6.88476712343469, "p75": 21.261621305293485}, "prof": {"hist": null, "med": 0.5681601525262154, "p25": null, "p75": null}, "rg": {"hist": [23, 40, 153, 175, 176, 265, 217, 30, 15], "med": 0.0937351640607143, "p25": 0.017211949783555742, "p75": 0.1899007059795107}, "risen": 2019, "roe": {"hist": [752, 300, 438, 604, 750, 964, 388, 271, 612], "med": 0.08125681435226484, "p25": -0.044232989850398856, "p75": 0.20018129356767772}, "tier_margin": {"large": 0.05808642944320726, "mega": 0.06210044203654596, "mid": 0.04777063139145242, "nano": -1.0, "small": 0.030416247166278276}, "tiers": {"large": 974, "mega": 247, "mid": 1352, "nano": 1093, "small": 999}}, "2012": {"count": 5156, "cta": {"hist": [1280, 706, 885, 560, 373, 497, 376, 618], "med": 0.08510449876018421, "p25": 0.026249761939529333, "p75": 0.22585297774018806}, "fallen": 379, "nm": {"hist": [755, 206, 262, 494, 903, 738, 645, 305, 153, 181], "med": 0.034796686256769536, "p25": -0.12876982439594548, "p75": 0.11380400056028434}, "ocf": {"hist": [965, 120, 360, 555, 681, 523, 319, 489, 482, 349], "med": 0.08070332085579862, "p25": -0.04213484092710372, "p75": 0.22149175648557473}, "pb": {"hist": [1021, 943, 714, 421, 488, 201, 209, 88, 98, 184], "med": 1.1342376547291384, "p25": 0.5389453594801479, "p75": 2.2674172607688536}, "pe": {"hist": [661, 581, 629, 453, 188, 95, 110, 64, 70, 41, 114], "med": 12.004742921268397, "p25": 5.902763403479912, "p75": 18.925885945750725}, "prof": {"hist": null, "med": 0.5495381271508785, "p25": null, "p75": null}, "rg": {"hist": [400, 384, 831, 566, 482, 523, 465, 124, 162], "med": 0.030776297657326597, "p25": -0.06930187552755646, "p75": 0.14506346483847152}, "risen": 672, "roe": {"hist": [900, 278, 409, 560, 847, 1038, 344, 302, 710], "med": 0.08292191593980963, "p25": -0.04388354116164515, "p75": 0.20346350680369243}, "tier_margin": {"large": 0.0561672871030728, "mega": 0.05700205596622565, "mid": 0.04568118387347117, "nano": -1.0, "small": 0.03387926705458473}, "tiers": {"large": 1027, "mega": 254, "mid": 1395, "nano": 1219, "small": 1013}}, "2013": {"count": 5051, "cta": {"hist": [1318, 678, 812, 567, 358, 431, 412, 646], "med": 0.08603606214678, "p25": 0.02458795501716596, "p75": 0.23833254675530058}, "fallen": 375, "nm": {"hist": [739, 179, 259, 516, 830, 643, 646, 338, 150, 209], "med": 0.03550174508470971, "p25": -0.11898426718189346, "p75": 0.12459893048128343}, "ocf": {"hist": [925, 111, 315, 510, 637, 498, 360, 384, 489, 480], "med": 0.08770916607140143, "p25": -0.03634167956270865, "p75": 0.24629635458264595}, "pb": {"hist": [863, 841, 715, 453, 532, 266, 236, 101, 87, 186], "med": 1.290230213069673, "p25": 0.65067109020538, "p75": 2.514336529508007}, "pe": {"hist": [531, 479, 613, 485, 260, 128, 134, 74, 63, 31, 102], "med": 13.646477059906854, "p25": 7.281971120383104, "p75": 21.0631059094866}, "prof": {"hist": null, "med": 0.5385748480942736, "p25": null, "p75": null}, "rg": {"hist": [442, 405, 814, 670, 516, 551, 420, 139, 202], "med": 0.03113738217336344, "p25": -0.0675027615399355, "p75": 0.1376463825580979}, "risen": 483, "roe": {"hist": [807, 306, 473, 496, 863, 1012, 328, 268, 731], "med": 0.08375815130467681, "p25": -0.0424752330108918, "p75": 0.20019134557313104}, "tier_margin": {"large": 0.059397370872336694, "mega": 0.06836616597346169, "mid": 0.04473150992614072, "nano": -1.0, "small": 0.034202139049897384}, "tiers": {"large": 1018, "mega": 272, "mid": 1335, "nano": 1193, "small": 949}}, "2014": {"count": 5107, "cta": {"hist": [1340, 708, 850, 503, 337, 434, 387, 697], "med": 0.08167933864137138, "p25": 0.024353903774688365, "p75": 0.242589967639137}, "fallen": 318, "nm": {"hist": [811, 192, 278, 487, 799, 641, 608, 338, 172, 199], "med": 0.03172351364562406, "p25": -0.16353309886115247, "p75": 0.12091654161375967}, "ocf": {"hist": [1033, 119, 320, 514, 647, 464, 317, 461, 499, 352], "med": 0.07892314609987487, "p25": -0.08941855849507244, "p75": 0.22538759360881244}, "pb": {"hist": [744, 727, 661, 466, 601, 322, 298, 130, 102, 223], "med": 1.5023700944219345, "p25": 0.7536308031397935, "p75": 3.0186572193600085}, "pe": {"hist": [475, 382, 537, 509, 320, 160, 173, 96, 79, 38, 99], "med": 15.311570403539296, "p25": 8.52270269133341, "p75": 23.32349273671347}, "prof": {"hist": null, "med": 0.5299192364170338, "p25": null, "p75": null}, "rg": {"hist": [368, 296, 677, 721, 555, 561, 476, 172, 280], "med": 0.04929687423638631, "p25": -0.03098639263777466, "p75": 0.17395014721334318}, "risen": 502, "roe": {"hist": [908, 291, 415, 529, 862, 928, 339, 254, 792], "med": 0.08301958851063015, "p25": -0.060519903158260155, "p75": 0.2093799600057686}, "tier_margin": {"large": 0.05918639546515505, "mega": 0.07466560145804531, "mid": 0.04564777545311398, "nano": -1.0, "small": 0.027613750723483366}, "tiers": {"large": 1024, "mega": 276, "mid": 1276, "nano": 1262, "small": 939}}, "2015": {"count": 5035, "cta": {"hist": [1355, 690, 805, 527, 333, 387, 426, 667], "med": 0.08122570787580155, "p25": 0.023529652296206252, "p75": 0.24088643824484632}, "fallen": 452, "nm": {"hist": [954, 184, 273, 480, 749, 637, 589, 306, 152, 156], "med": 0.02555387735574047, "p25": -0.2733996501437632, "p75": 0.11018884740867725}, "ocf": {"hist": [1018, 146, 301, 482, 595, 485, 311, 490, 513, 323], "med": 0.08318976326291502, "p25": -0.09779077164002246, "p75": 0.22848991359573875}, "pb": {"hist": [663, 666, 699, 412, 568, 316, 322, 134, 123, 240], "med": 1.5520193256037165, "p25": 0.7965599976860424, "p75": 3.26455660146204}, "pe": {"hist": [420, 339, 508, 459, 301, 179, 161, 77, 96, 36, 101], "med": 15.709846771571623, "p25": 8.945788535872158, "p75": 24.459867229933614}, "prof": {"hist": null, "med": 0.5036333147009503, "p25": null, "p75": null}, "rg": {"hist": [561, 348, 751, 664, 459, 487, 461, 166, 233], "med": 0.027460379645122025, "p25": -0.0727301796655521, "p75": 0.1560220934783219}, "risen": 416, "roe": {"hist": [943, 292, 446, 459, 824, 883, 291, 266, 851], "med": 0.08226677470124338, "p25": -0.0753208179732145, "p75": 0.22410268055052135}, "tier_margin": {"large": 0.05298752874062945, "mega": 0.06721454605928738, "mid": 0.04546430473558336, "nano": -1.0, "small": 0.026912050037153558}, "tiers": {"large": 1053, "mega": 270, "mid": 1277, "nano": 1214, "small": 892}}, "2016": {"count": 4796, "cta": {"hist": [1247, 651, 817, 493, 303, 405, 394, 602], "med": 0.08073696563397831, "p25": 0.024537904684545045, "p75": 0.23465430508351284}, "fallen": 315, "nm": {"hist": [832, 207, 256, 460, 753, 597, 525, 299, 176, 157], "med": 0.025105180251544807, "p25": -0.22601289573272332, "p75": 0.11241445163312777}, "ocf": {"hist": [942, 104, 295, 442, 532, 510, 329, 481, 493, 294], "med": 0.08985924861616942, "p25": -0.06537487742646733, "p75": 0.22907565189367743}, "pb": {"hist": [713, 694, 670, 389, 539, 281, 262, 103, 97, 204], "med": 1.407250298001639, "p25": 0.7251841620435759, "p75": 2.899121244539807}, "pe": {"hist": [418, 388, 511, 408, 256, 150, 154, 62, 82, 37, 127], "med": 14.835354289983334, "p25": 8.001660513345934, "p75": 23.920385378723648}, "prof": {"hist": null, "med": 0.51357733175915, "p25": null, "p75": null}, "rg": {"hist": [485, 361, 717, 658, 485, 466, 424, 159, 241], "med": 0.03129871328469942, "p25": -0.07155843267106293, "p75": 0.1519716883310003}, "risen": 415, "roe": {"hist": [891, 293, 414, 493, 768, 825, 284, 271, 753], "med": 0.07949472266663984, "p25": -0.07903429125773287, "p75": 0.21514291626794366}, "tier_margin": {"large": 0.05524464408931831, "mega": 0.06190502243133822, "mid": 0.04127525326749358, "nano": -1.0, "small": 0.0184444648349886}, "tiers": {"large": 1047, "mega": 272, "mid": 1206, "nano": 1087, "small": 842}}, "2017": {"count": 4672, "cta": {"hist": [1278, 630, 770, 452, 286, 404, 349, 615], "med": 0.07756552013027172, "p25": 0.022819518050518295, "p75": 0.23547731477382738}, "fallen": 318, "nm": {"hist": [730, 188, 257, 471, 698, 567, 568, 329, 187, 165], "med": 0.031008650759103744, "p25": -0.1581573981218959, "p75": 0.1279281001047954}, "ocf": {"hist": [909, 100, 303, 439, 566, 476, 318, 388, 507, 308], "med": 0.08629659852872931, "p25": -0.06340481559760926, "p75": 0.22901625484237823}, "pb": {"hist": [657, 565, 694, 468, 498, 278, 283, 126, 101, 233], "med": 1.5345434504911666, "p25": 0.7970237452497643, "p75": 3.1006959876282663}, "pe": {"hist": [442, 331, 396, 447, 284, 171, 169, 88, 106, 36, 144], "med": 16.363831750596667, "p25": 8.370777044026616, "p75": 26.263562121691816}, "prof": {"hist": null, "med": 0.533158107561666, "p25": null, "p75": null}, "rg": {"hist": [311, 240, 553, 619, 558, 584, 539, 199, 264], "med": 0.06773689590659818, "p25": -0.015076883778116482, "p75": 0.20786750874740237}, "risen": 498, "roe": {"hist": [845, 275, 425, 519, 761, 768, 325, 255, 687], "med": 0.07473946653458893, "p25": -0.06429122585237404, "p75": 0.21218945233300474}, "tier_margin": {"large": 0.05756247809745003, "mega": 0.06450481400069819, "mid": 0.053173667730111375, "nano": -1.0, "small": 0.0052227479689313456}, "tiers": {"large": 1040, "mega": 293, "mid": 1162, "nano": 1024, "small": 818}}, "2018": {"count": 4600, "cta": {"hist": [1289, 652, 730, 439, 291, 364, 342, 592], "med": 0.07355305466237942, "p25": 0.021654795000265403, "p75": 0.2277529854200705}, "fallen": 343, "nm": {"hist": [790, 178, 235, 441, 664, 559, 557, 289, 237, 234], "med": 0.03481250040793263, "p25": -0.18241091504374052, "p75": 0.13721446423009456}, "ocf": {"hist": [952, 89, 279, 470, 492, 420, 320, 402, 526, 366], "med": 0.0870017443123601, "p25": -0.08167524444064136, "p75": 0.2501826907527299}, "pb": {"hist": [572, 546, 668, 456, 516, 308, 279, 132, 120, 264], "med": 1.6489313891108321, "p25": 0.8784032057359467, "p75": 3.4123037925319295}, "pe": {"hist": [408, 346, 543, 386, 237, 144, 175, 77, 89, 49, 153], "med": 15.043891338784546, "p25": 8.512703336544376, "p75": 26.057507225559796}, "prof": {"hist": null, "med": 0.5450785773366419, "p25": null, "p75": null}, "rg": {"hist": [366, 208, 452, 536, 547, 669, 568, 192, 248], "med": 0.07870094905285485, "p25": -0.008653628909677342, "p75": 0.21352766554194122}, "risen": 501, "roe": {"hist": [886, 254, 399, 427, 648, 901, 322, 254, 661], "med": 0.08448651829555442, "p25": -0.08441498622072467, "p75": 0.20935816757439352}, "tier_margin": {"large": 0.06347994993321107, "mega": 0.07880664227413453, "mid": 0.048255833157591174, "nano": -1.0, "small": 0.0010650385898890926}, "tiers": {"large": 1076, "mega": 307, "mid": 1126, "nano": 1044, "small": 784}}, "2019": {"count": 4523, "cta": {"hist": [1327, 621, 721, 458, 295, 322, 339, 519], "med": 0.06977985848980717, "p25": 0.02019945559468076, "p75": 0.20868937828764872}, "fallen": 376, "nm": {"hist": [800, 183, 245, 479, 624, 534, 507, 282, 215, 241], "med": 0.027977159579739994, "p25": -0.20876195222936367, "p75": 0.12886610839963175}, "ocf": {"hist": [962, 128, 288, 392, 525, 438, 304, 400, 454, 359], "med": 0.08326283639570305, "p25": -0.11675199936956214, "p75": 0.23810565180228854}, "pb": {"hist": [592, 660, 631, 381, 462, 279, 280, 130, 118, 298], "med": 1.525802408588088, "p25": 0.7953633286844324, "p75": 3.4418233927155626}, "pe": {"hist": [373, 415, 495, 295, 220, 117, 169, 79, 108, 61, 145], "med": 14.558438602470863, "p25": 8.41711248008497, "p75": 27.21648719191484}, "prof": {"hist": null, "med": 0.5297217537942664, "p25": null, "p75": null}, "rg": {"hist": [370, 312, 658, 633, 493, 520, 431, 148, 269], "med": 0.04463907113769361, "p25": -0.04577508957024292, "p75": 0.1673880864168971}, "risen": 391, "roe": {"hist": [947, 287, 368, 409, 674, 867, 286, 260, 570], "med": 0.07659465673871119, "p25": -0.12205686114067228, "p75": 0.18952052621101106}, "tier_margin": {"large": 0.060201587590611005, "mega": 0.07747127357168596, "mid": 0.040079384287719635, "nano": -1.0, "small": -0.006259179753700147}, "tiers": {"large": 1081, "mega": 315, "mid": 1118, "nano": 1010, "small": 750}}, "2020": {"count": 4521, "cta": {"hist": [1076, 517, 746, 565, 378, 410, 392, 671], "med": 0.10279203779844498, "p25": 0.030127981498836016, "p75": 0.25903489984668565}, "fallen": 582, "nm": {"hist": [971, 244, 300, 502, 544, 443, 446, 240, 200, 194], "med": 0.0020971056554133114, "p25": -0.4394483486886806, "p75": 0.11048204803043729}, "ocf": {"hist": [1079, 124, 263, 337, 460, 417, 349, 433, 412, 338], "med": 0.08396461849735914, "p25": -0.23049484113304564, "p75": 0.22390116494826573}, "pb": {"hist": [803, 784, 496, 354, 417, 253, 223, 121, 125, 332], "med": 1.3430471531825225, "p25": 0.6059360334270277, "p75": 3.27621027689488}, "pe": {"hist": [414, 424, 314, 220, 169, 116, 126, 80, 71, 35, 131], "med": 13.302560182816835, "p25": 6.470253493262179, "p75": 26.32180286974708}, "prof": {"hist": null, "med": 0.43534218590398366, "p25": null, "p75": null}, "rg": {"hist": [711, 542, 779, 501, 266, 295, 342, 145, 207], "med": -0.0160480059376798, "p25": -0.1614823335719806, "p75": 0.11110770325648495}, "risen": 334, "roe": {"hist": [1087, 405, 461, 431, 610, 659, 254, 230, 507], "med": 0.04288257743429069, "p25": -0.21258922840092545, "p75": 0.16046248510247813}, "tier_margin": {"large": 0.046679126091565847, "mega": 0.06018566664399448, "mid": 0.011462608444433114, "nano": -1.0, "small": -0.07069367701249003}, "tiers": {"large": 1053, "mega": 302, "mid": 1130, "nano": 1010, "small": 744}}, "2021": {"count": 5222, "cta": {"hist": [1464, 526, 765, 547, 361, 485, 454, 866], "med": 0.0977363428358448, "p25": 0.021270500444081214, "p75": 0.2872413374413547}, "fallen": 225, "nm": {"hist": [1060, 216, 228, 421, 533, 507, 570, 264, 323, 460], "med": 0.034035215993189344, "p25": -0.37545041442817945, "p75": 0.17674092773347747}, "ocf": {"hist": [1462, 118, 313, 394, 428, 386, 308, 404, 444, 456], "med": 0.05615592999398214, "p25": -0.5, "p75": 0.22511824283943013}, "pb": {"hist": [595, 587, 606, 395, 575, 336, 355, 189, 167, 322], "med": 1.8256185155626496, "p25": 0.9054562259723888, "p75": 4.008918056089918}, "pe": {"hist": [556, 516, 363, 271, 204, 166, 216, 111, 161, 68, 195], "med": 14.56859971711457, "p25": 6.540257795447763, "p75": 31.20695139784639}, "prof": {"hist": null, "med": 0.514459121742235, "p25": null, "p75": null}, "rg": {"hist": [381, 220, 386, 368, 331, 660, 724, 346, 373], "med": 0.12766529071922758, "p25": -0.006195437904815545, "p75": 0.347471334004013}, "risen": 1082, "roe": {"hist": [1288, 470, 418, 435, 567, 895, 350, 313, 601], "med": 0.05787885669792039, "p25": -0.22960424849358546, "p75": 0.18850334448160536}, "tier_margin": {"large": 0.07370483948130296, "mega": 0.09264090276538559, "mid": 0.030611749866589044, "nano": -1.0, "small": -0.02398394380331159}, "tiers": {"large": 1080, "mega": 342, "mid": 1245, "nano": 1235, "small": 833}}, "2022": {"count": 5235, "cta": {"hist": [1520, 670, 809, 489, 345, 405, 421, 656], "med": 0.07654461650007768, "p25": 0.01961850125089537, "p75": 0.2363874297188024}, "fallen": 407, "nm": {"hist": [1083, 246, 247, 422, 535, 499, 549, 279, 304, 386], "med": 0.027670135614548414, "p25": -0.42718772179269415, "p75": 0.15796109545091347}, "ocf": {"hist": [1386, 199, 389, 442, 451, 385, 236, 352, 387, 467], "med": 0.04223982395700686, "p25": -0.40641296318413955, "p75": 0.2066504388382827}, "pb": {"hist": [643, 812, 683, 430, 523, 246, 270, 122, 105, 264], "med": 1.419355981463457, "p25": 0.7450538990115673, "p75": 2.955679600199288}, "pe": {"hist": [557, 574, 380, 284, 213, 125, 176, 93, 79, 56, 202], "med": 13.09013804145571, "p25": 6.102576027533872, "p75": 26.354804825157096}, "prof": {"hist": null, "med": 0.5137124976992453, "p25": null, "p75": null}, "rg": {"hist": [366, 227, 349, 362, 405, 739, 875, 333, 455], "med": 0.13889078862561993, "p25": 0.009991230014169333, "p75": 0.36652892042189256}, "risen": 617, "roe": {"hist": [1519, 367, 405, 349, 499, 851, 363, 324, 693], "med": 0.054563899870375465, "p25": -0.3473824606146902, "p75": 0.20825504718797513}, "tier_margin": {"large": 0.07242626409595203, "mega": 0.0795135855041718, "mid": 0.01686986417819282, "nano": -1.0, "small": -0.07314823350232535}, "tiers": {"large": 1126, "mega": 379, "mid": 1194, "nano": 1194, "small": 815}}, "2023": {"count": 4941, "cta": {"hist": [1282, 673, 871, 502, 342, 394, 408, 544], "med": 0.07855278606491457, "p25": 0.024087378027350385, "p75": 0.21599927919678766}, "fallen": 462, "nm": {"hist": [1019, 238, 290, 448, 580, 505, 570, 276, 161, 335], "med": 0.020786462744823042, "p25": -0.3867836565481659, "p75": 0.13307078484246462}, "ocf": {"hist": [1264, 160, 334, 390, 472, 453, 337, 412, 371, 353], "med": 0.0644074011505876, "p25": -0.3341815515077814, "p75": 0.1997971536109493}, "pb": {"hist": [743, 853, 543, 398, 479, 233, 273, 125, 118, 215], "med": 1.3354779602626412, "p25": 0.6481308217859463, "p75": 2.923897687996799}, "pe": {"hist": [485, 541, 353, 279, 162, 128, 166, 84, 96, 60, 128], "med": 12.93444593295542, "p25": 6.3792515492466535, "p75": 26.52836748423188}, "prof": {"hist": null, "med": 0.495687965503724, "p25": null, "p75": null}, "rg": {"hist": [531, 402, 592, 449, 382, 550, 618, 215, 309], "med": 0.05561204735126028, "p25": -0.08069024253125137, "p75": 0.23552948016774028}, "risen": 458, "roe": {"hist": [1259, 340, 433, 391, 619, 808, 334, 257, 598], "med": 0.058584123884749074, "p25": -0.24900307996706528, "p75": 0.18599494682690143}, "tier_margin": {"large": 0.062111178544814814, "mega": 0.07606799269099389, "mid": 0.020323334622840354, "nano": -1.0, "small": -0.11492068755744714}, "tiers": {"large": 1130, "mega": 383, "mid": 1154, "nano": 1101, "small": 791}}, "2024": {"count": 4709, "cta": {"hist": [1199, 680, 868, 488, 323, 377, 391, 482], "med": 0.07757374453409557, "p25": 0.02513036950742868, "p75": 0.20893760976871362}, "fallen": 335, "nm": {"hist": [977, 199, 267, 459, 576, 494, 605, 264, 126, 329], "med": 0.021985995681854366, "p25": -0.35880339954338614, "p75": 0.13099781015945305}, "ocf": {"hist": [1202, 155, 270, 383, 492, 474, 333, 442, 354, 306], "med": 0.06949094275791752, "p25": -0.33077096674805095, "p75": 0.19963623321813054}, "pb": {"hist": [758, 754, 574, 382, 460, 247, 241, 134, 123, 188], "med": 1.3345195729537367, "p25": 0.6316596393192786, "p75": 2.912819317817716}, "pe": {"hist": [485, 450, 394, 284, 204, 131, 164, 88, 91, 47, 111], "med": 13.315859760753373, "p25": 6.8098084403669725, "p75": 25.59011334672185}, "prof": {"hist": null, "med": 0.5091095189355169, "p25": null, "p75": null}, "rg": {"hist": [500, 377, 709, 563, 490, 561, 401, 150, 236], "med": 0.03605586902229211, "p25": -0.07363048545193122, "p75": 0.15193071857710208}, "risen": 455, "roe": {"hist": [1127, 288, 382, 431, 692, 751, 308, 254, 545], "med": 0.06559300557737986, "p25": -0.20966274168633434, "p75": 0.17978760095213783}, "tier_margin": {"large": 0.06702239238389734, "mega": 0.08560427523483918, "mid": 0.023872994066820682, "nano": -1.0, "small": -0.10498301490974789}, "tiers": {"large": 1112, "mega": 403, "mid": 1128, "nano": 1004, "small": 778}}, "2025": {"count": 4527, "cta": {"hist": [1274, 622, 825, 477, 311, 358, 353, 450], "med": 0.0737597636869579, "p25": 0.021856887059204296, "p75": 0.19878157839220945}, "fallen": 328, "nm": {"hist": [867, 187, 226, 480, 554, 443, 561, 285, 156, 382], "med": 0.028283343270249714, "p25": -0.2701191619133676, "p75": 0.15178113130068782}, "ocf": {"hist": [1141, 117, 295, 371, 452, 417, 328, 443, 376, 317], "med": 0.07065509798949914, "p25": -0.2846030193565615, "p75": 0.21507323002844228}, "pb": {"hist": [801, 795, 514, 361, 396, 217, 251, 139, 113, 219], "med": 1.2543824964106234, "p25": 0.5998812951831765, "p75": 2.9500086881776793}, "pe": {"hist": [488, 408, 392, 276, 207, 147, 177, 98, 91, 35, 132], "med": 14.074314578953876, "p25": 6.814034361973457, "p75": 27.05270343365933}, "prof": {"hist": null, "med": 0.5206542252044454, "p25": null, "p75": null}, "rg": {"hist": [410, 293, 645, 646, 498, 536, 384, 156, 252], "med": 0.04256967826001082, "p25": -0.04903645537556993, "p75": 0.16040966576243787}, "risen": 486, "roe": {"hist": [1109, 324, 389, 377, 660, 794, 276, 199, 461], "med": 0.05959427328375575, "p25": -0.22928142677173136, "p75": 0.16081180600055472}, "tier_margin": {"large": 0.061813006366338054, "mega": 0.08526252585229169, "mid": 0.029884175260270297, "nano": -1.0, "small": -0.059287649648601906}, "tiers": {"large": 1114, "mega": 407, "mid": 1067, "nano": 930, "small": 751}}};
+var META  = {"cta": {"bins": [0, 0.025, 0.05, 0.1, 0.15, 0.2, 0.3, 0.5, 1], "clip": [0, 1], "label": "Cash / Assets", "unit": "%", "yaxis": "Median Cash / Assets (%)"}, "nm": {"bins": [-1, -0.5, -0.25, -0.1, 0, 0.05, 0.1, 0.2, 0.3, 0.5, 1], "clip": [-1, 1], "label": "Net Margin", "unit": "%", "yaxis": "Median Net Margin (%)"}, "ocf": {"bins": [-0.5, -0.2, -0.1, 0, 0.05, 0.1, 0.15, 0.2, 0.3, 0.5, 1], "clip": [-0.5, 1], "label": "OCF Margin", "unit": "%", "yaxis": "Median OCF / Revenue (%)"}, "pb": {"bins": [0, 0.5, 1, 1.5, 2, 3, 4, 6, 8, 12, 20], "clip": [0, 20], "label": "P/B Ratio", "unit": "x", "yaxis": "Median P/B (\u00d7)"}, "pe": {"bins": [0, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100, 200], "clip": [0, 200], "label": "P/E Ratio", "unit": "x", "yaxis": "Median P/E (\u00d7)"}, "prof": {"bins": null, "clip": null, "label": "Profitability %", "unit": "%", "yaxis": "% Companies Profitable"}, "rg": {"bins": [-0.5, -0.25, -0.1, 0, 0.05, 0.1, 0.2, 0.5, 1, 2], "clip": [-0.5, 2], "label": "Revenue Growth", "unit": "%", "yaxis": "Median Revenue Growth (%)"}, "roe": {"bins": [-0.5, -0.25, -0.1, 0, 0.05, 0.1, 0.2, 0.3, 0.5, 1], "clip": [-0.5, 1], "label": "Return on Equity", "unit": "%", "yaxis": "Median ROE (%)"}, "tier_labels": {"large": "$1B\u2013$10B", "mega": "\u003e$10B", "mid": "$100M\u2013$1B", "nano": "\u003c$10M", "small": "$10M\u2013$100M"}};
+var YEARS = [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
+
+var curMetric  = 'pe';
+var curYearIdx = YEARS.length - 1;
+
+// Slider
+var sl = document.getElementById('yr-focus');
+sl.max   = YEARS.length - 1;
+sl.value = curYearIdx;
+document.getElementById('yr-focus-lbl').textContent = YEARS[curYearIdx];
+sl.addEventListener('input', function(){
+  curYearIdx = +this.value;
+  document.getElementById('yr-focus-lbl').textContent = YEARS[curYearIdx];
+  renderDist(); updateTSShape(); updateStats();
+});
+
+// Metric tabs
+document.querySelectorAll('.mtab').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.mtab').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    curMetric = btn.dataset.m;
+    renderTS(); renderDist(); updateStats();
+  });
+});
+
+// ── Shared Plotly config ──────────────────────────────────────────────────────
+var BASE = {
+  paper_bgcolor:'#fff', plot_bgcolor:'#fff',
+  font:{color:'#333',size:10,family:'Garamond,Georgia,serif'},
+  margin:{l:48,r:16,t:12,b:36},
+  hovermode:'x unified',
+  hoverlabel:{bgcolor:'#fff',bordercolor:'#ccc',font:{color:'#111',size:11}},
+  xaxis:{gridcolor:'#eee',linecolor:'#ccc',tickfont:{size:10},zeroline:false},
+  yaxis:{gridcolor:'#eee',linecolor:'#ccc',tickfont:{size:10},zeroline:false},
+  showlegend:false,
+};
+var CFG = {responsive:true, displayModeBar:false};
+
+function layout(extra){ return Object.assign({}, BASE, extra); }
+
+// ── Value formatting ──────────────────────────────────────────────────────────
+function fmt(m, v){
+  if(v==null) return '—';
+  var u = META[m] ? META[m].unit : '';
+  if(u==='%') return (v*100).toFixed(1)+'%';
+  if(u==='x') return v.toFixed(1)+'×';
+  return v.toFixed(2);
+}
+function suffix(m){ var u=META[m]&&META[m].unit; return u==='%'?'%':u==='x'?'×':''; }
+function isPercent(m){ return META[m]&&META[m].unit==='%'; }
+
+function scale(m, v){ return (v!=null && isPercent(m)) ? v*100 : v; }
+function scaleArr(m, arr){ return arr.map(function(v){ return scale(m,v); }); }
+
+// ── Time-series chart ─────────────────────────────────────────────────────────
+function renderTS(){
+  var m=curMetric, yrs=YEARS;
+  var meds=[], p25s=[], p75s=[];
+  yrs.forEach(function(y){
+    var d=DATA[y][m];
+    meds.push(scale(m, d?d.med:null));
+    p25s.push(scale(m, d?d.p25:null));
+    p75s.push(scale(m, d?d.p75:null));
+  });
+
+  var traces=[];
+  if(p25s.some(function(v){return v!=null;})){
+    var xf=yrs.concat(yrs.slice().reverse());
+    var yf=p75s.concat(p25s.slice().reverse());
+    traces.push({type:'scatter',x:xf,y:yf,fill:'toself',
+      fillcolor:'rgba(0,0,0,.05)',line:{color:'transparent'},
+      showlegend:false,hoverinfo:'skip'});
+  }
+  traces.push({
+    type:'scatter',x:yrs,y:meds,mode:'lines+markers',
+    line:{color:'#333',width:2},marker:{size:4,color:'#333'},
+    name:META[m]?META[m].label:m,
+    hovertemplate:'%{x}: %{y:.2f}'+suffix(m)+'<extra></extra>',
+  });
+
+  Plotly.react('chart-ts', traces, layout({
+    yaxis:{gridcolor:'rgba(255,255,255,.04)',linecolor:'rgba(255,255,255,.08)',
+           tickfont:{size:10},zeroline:false,
+           title:{text:META[m]?META[m].yaxis:'',font:{color:'#6e7681',size:9}},
+           ticksuffix:suffix(m)},
+    shapes:[yearLine()],
+  }), CFG);
+}
+
+function yearLine(){
+  return {type:'line',x0:YEARS[curYearIdx],x1:YEARS[curYearIdx],
+          y0:0,y1:1,yref:'paper',
+          line:{color:'rgba(0,0,0,.3)',width:1,dash:'dot'}};
+}
+function updateTSShape(){ Plotly.relayout('chart-ts',{shapes:[yearLine()]}); }
+
+// ── Distribution chart ────────────────────────────────────────────────────────
+function renderDist(){
+  var m=curMetric, yr=YEARS[curYearIdx];
+  document.getElementById('dist-yr').textContent=yr;
+  var d=DATA[yr][m];
+
+  if(m==='prof'){
+    var rate=d?d.med:null;
+    Plotly.react('chart-dist',[{
+      type:'bar',x:['Profitable','Unprofitable'],
+      y:rate!=null?[rate*100,(1-rate)*100]:[0,0],
+      marker:{color:['#3fb950','#f85149'],opacity:.75},
+      hovertemplate:'%{x}: %{y:.1f}%<extra></extra>',
+    }], layout({
+      yaxis:{gridcolor:'rgba(255,255,255,.04)',linecolor:'rgba(255,255,255,.08)',
+             tickfont:{size:10},zeroline:false,ticksuffix:'%',range:[0,100]},
+      bargap:.2,
+    }), CFG);
+    return;
+  }
+
+  if(!d||!d.hist||!META[m]||!META[m].bins){
+    Plotly.react('chart-dist',[],layout({}),CFG); return;
+  }
+
+  var bins=META[m].bins, counts=d.hist;
+  var xl=[];
+  for(var i=0;i<bins.length-1;i++){
+    var mid=(bins[i]+bins[i+1])/2;
+    xl.push(isPercent(m)?(mid*100).toFixed(0)+'%':mid.toFixed(1)+(suffix(m)||''));
+  }
+
+  var med=d.med;
+  var binIdx=0;
+  if(med!=null){
+    for(var j=0;j<bins.length-1;j++){
+      if(med>=bins[j]&&med<bins[j+1]){binIdx=j;break;}
+    }
+  }
+
+  var barColors=counts.map(function(_,i){
+    return i===binIdx?'#333':'#bbb';
+  });
+
+  Plotly.react('chart-dist',[
+    {type:'bar',x:xl,y:counts,marker:{color:barColors,opacity:.75},
+     hovertemplate:'%{x}: %{y} companies<extra></extra>'},
+  ], layout({
+    yaxis:{gridcolor:'rgba(255,255,255,.04)',linecolor:'rgba(255,255,255,.08)',
+           tickfont:{size:10},zeroline:false,
+           title:{text:'companies',font:{color:'#6e7681',size:9}}},
+    xaxis:{gridcolor:'rgba(255,255,255,.04)',linecolor:'rgba(255,255,255,.08)',
+           tickfont:{size:9},zeroline:false,tickangle:-35},
+    bargap:.06,margin:{l:48,r:16,t:12,b:50},
+  }), CFG);
+}
+
+// ── Small-cap margin collapse ─────────────────────────────────────────────────
+function renderTierMargin(){
+  var tiers=[
+    {k:'nano',   label:'<$10M',      color:'#6e7681'},
+    {k:'small',  label:'$10M–$100M', color:'#8b949e'},
+    {k:'mid',    label:'$100M–$1B',  color:'#58a6ff'},
+    {k:'large',  label:'$1B–$10B',   color:'#3fb950'},
+    {k:'mega',   label:'>$10B',      color:'#ffa657'},
+  ];
+  var traces=tiers.map(function(t){
+    return {
+      type:'scatter', name:t.label, x:YEARS,
+      y:YEARS.map(function(y){ var v=DATA[y].tier_margin[t.k]; return v!=null?v*100:null; }),
+      mode:'lines', line:{color:t.color,width:t.k==='nano'||t.k==='small'?2:1.5},
+      hovertemplate:t.label+': %{y:.1f}%<extra></extra>',
+    };
+  });
+  Plotly.react('chart-tier-margin', traces, layout({
+    showlegend:true,
+    legend:{orientation:'h',x:0,y:-0.18,font:{size:9,color:'#555'},
+            bgcolor:'transparent',borderwidth:0},
+    yaxis:{gridcolor:'rgba(255,255,255,.04)',linecolor:'rgba(255,255,255,.08)',
+           tickfont:{size:10},zeroline:true,zerolinecolor:'#ccc',
+           ticksuffix:'%',title:{text:'Median Net Margin',font:{color:'#6e7681',size:9}}},
+    margin:{l:52,r:16,t:10,b:52},
+    shapes:[{type:'line',x0:YEARS[0],x1:YEARS[YEARS.length-1],y0:0,y1:0,
+             line:{color:'rgba(255,255,255,.1)',width:1}}],
+  }), CFG);
+}
+
+// ── Revenue universe tiers ─────────────────────────────────────────────────────
+function renderTiers(){
+  var tiers=[
+    {k:'nano',  label:'<$10M',      color:'#e0e0e0'},
+    {k:'small', label:'$10–100M',   color:'#aaa'},
+    {k:'mid',   label:'$100M–$1B',  color:'#777'},
+    {k:'large', label:'$1B–$10B',   color:'#444'},
+    {k:'mega',  label:'>$10B',      color:'#111'},
+  ];
+  var traces=tiers.map(function(t){
+    return {
+      type:'bar', name:t.label, x:YEARS,
+      y:YEARS.map(function(y){ return DATA[y].tiers[t.k]||0; }),
+      marker:{color:t.color}, hovertemplate:t.label+': %{y}<extra></extra>',
+    };
+  });
+  Plotly.react('chart-tiers', traces, layout({
+    barmode:'stack',showlegend:true,
+    legend:{orientation:'h',x:0,y:-0.18,font:{size:9,color:'#555'},
+            bgcolor:'transparent',borderwidth:0},
+    yaxis:{gridcolor:'rgba(255,255,255,.04)',linecolor:'rgba(255,255,255,.08)',
+           tickfont:{size:10},zeroline:false,
+           title:{text:'companies',font:{color:'#6e7681',size:9}}},
+    margin:{l:52,r:16,t:10,b:52},
+  }), CFG);
+}
+
+// ── Fallen angels / risen stars ───────────────────────────────────────────────
+function renderFallen(){
+  var fallen=YEARS.map(function(y){ return DATA[y].fallen||0; });
+  var risen=YEARS.map(function(y){ return DATA[y].risen||0; });
+  Plotly.react('chart-fallen',[
+    {type:'bar',name:'Fallen angels',x:YEARS,y:fallen,
+     marker:{color:'#c00'},hovertemplate:'Fallen: %{y}<extra></extra>'},
+    {type:'bar',name:'Risen stars',x:YEARS,y:risen,
+     marker:{color:'#060'},hovertemplate:'Risen: %{y}<extra></extra>'},
+  ], layout({
+    barmode:'group',showlegend:true,
+    legend:{orientation:'h',x:0,y:-0.18,font:{size:9,color:'#555'},
+            bgcolor:'transparent',borderwidth:0},
+    yaxis:{gridcolor:'rgba(255,255,255,.04)',linecolor:'rgba(255,255,255,.08)',
+           tickfont:{size:10},zeroline:false,
+           title:{text:'companies',font:{color:'#6e7681',size:9}}},
+    margin:{l:52,r:16,t:10,b:52},
+    annotations:[{x:2020,y:582,text:'COVID',showarrow:true,arrowhead:0,
+                  arrowcolor:'rgba(255,255,255,.3)',font:{size:9,color:'#555'},
+                  ax:0,ay:-20}],
+  }), CFG);
+}
+
+// ── IPO cohort quality ────────────────────────────────────────────────────────
+function renderCohort(){
+  // Cohort data mined by agent: median net margin by (cohort year, age 0-5)
+  var cohorts = {
+    2011: {0:0.013,1:0.018,2:0.023,3:0.025,4:0.023,5:0.023},
+    2013: {0:-0.101,1:-0.068,2:-0.078,3:-0.015,4:-0.040,5:-0.026},
+    2015: {0:-0.175,1:-0.161,2:-0.065,3:-0.062,4:-0.078,5:-0.088},
+    2017: {0:-0.054,1:-0.033,2:-0.030,3:-0.186,4:-0.055,5:-0.028},
+    2019: {0:-0.156,1:-0.172,2:-0.119,3:-0.125,4:-0.080,5:-0.071},
+    2021: {0:-0.261,1:-0.338,2:-0.270,3:-0.212,4:-0.153,5:-0.284},
+  };
+  var colors = {2011:'#aaa',2013:'#888',2015:'#aaa',2017:'#555',2019:'#333',2021:'#c00'};
+  var ages = [0,1,2,3,4,5];
+  var traces = Object.keys(cohorts).map(function(cy){
+    return {
+      type:'scatter',mode:'lines+markers',name:'Class of '+cy,
+      x:ages, y:ages.map(function(a){ return cohorts[cy][a]*100; }),
+      line:{color:colors[cy],width:cy=='2021'?2.5:1.5},
+      marker:{size:cy=='2021'?5:3,color:colors[cy]},
+      hovertemplate:'Class '+cy+' age %{x}: %{y:.1f}%<extra></extra>',
+    };
+  });
+  Plotly.react('chart-cohort', traces, layout({
+    showlegend:true,
+    legend:{orientation:'h',x:0,y:-0.18,font:{size:9,color:'#555'},
+            bgcolor:'transparent',borderwidth:0},
+    xaxis:{gridcolor:'rgba(255,255,255,.04)',linecolor:'rgba(255,255,255,.08)',
+           tickfont:{size:10},zeroline:false,title:{text:'years since IPO',font:{color:'#6e7681',size:9}},
+           tickvals:[0,1,2,3,4,5]},
+    yaxis:{gridcolor:'rgba(255,255,255,.04)',linecolor:'rgba(255,255,255,.08)',
+           tickfont:{size:10},zeroline:true,zerolinecolor:'#ccc',
+           ticksuffix:'%',title:{text:'Median Net Margin',font:{color:'#6e7681',size:9}}},
+    margin:{l:52,r:16,t:10,b:52},
+    annotations:[{x:1,y:-33.8,text:'2021 cohort digs deeper',showarrow:true,
+                  arrowhead:0,arrowcolor:'rgba(248,81,73,.5)',
+                  font:{size:9,color:'#c00'},ax:30,ay:-15}],
+  }), CFG);
+}
+
+// ── Stat row ──────────────────────────────────────────────────────────────────
+var ANNOTATIONS = {
+  nm: {2020:{val:'⚠ COVID',lbl:'Median NM near zero'},2022:{val:'−47%',lbl:'Small caps cratered to −74%'}},
+  cta:{2020:{val:'+47%',lbl:'Cash hoarding spike vs 2019'},2021:{val:'peak',lbl:'Highest corporate cash reserves'}},
+  rg: {2021:{val:'+13%',lbl:'Strongest growth since 2010'},2020:{val:'−2%',lbl:'First negative median growth'}},
+  pe: {2021:{val:'wide IQR',lbl:'SPAC/bubble valuation dispersion'},2009:{val:'13×',lbl:'Post-crisis trough'}},
+  prof:{2020:{val:'40%',lbl:'Lowest profitability ever (COVID)'},2021:{val:'47%',lbl:'Mass new entrants, many unprofitable'}},
+};
+function updateStats(){
+  var m=curMetric, yr=YEARS[curYearIdx];
+  var d=DATA[yr][m], cnt=DATA[yr].count;
+  var stats=[
+    {val:String(yr), lbl:'Focus Year'},
+    {val:cnt?cnt.toLocaleString():'—', lbl:'Companies'},
+  ];
+  if(d){
+    stats.push({val:fmt(m,d.med), lbl:'Median '+((META[m]&&META[m].label)||m)});
+    if(d.p25!=null&&d.p75!=null)
+      stats.push({val:fmt(m,d.p25)+' – '+fmt(m,d.p75), lbl:'IQR 25th–75th'});
+  }
+  var ann=(ANNOTATIONS[m]||{})[yr];
+  if(ann) stats.push({val:ann.val, lbl:ann.lbl});
+
+  document.getElementById('stat-row').innerHTML=stats.map(function(s){
+    return '<div class="stat"><span class="stat-val">'+s.val+'</span><span class="stat-lbl">'+s.lbl+'</span></div>';
+  }).join('');
+}
+
+// ── Growth→PE inversion ───────────────────────────────────────────────────────────────────────────
+function renderGrowthPE(){
+  var deciles=[0,1,2,3,4,5,6,7,8,9];
+  var pre2015=[10.8,11.9,12.4,13.1,13.8,14.2,14.6,14.9,15.1,15.4];
+  var post2020=[12.6,13.4,14.1,15.0,15.4,15.8,15.5,15.1,14.2,12.4];
+  Plotly.react('chart-growth-pe',[
+    {type:'scatter',mode:'lines+markers',name:'2010–2014 (growth rewarded)',
+     x:deciles,y:pre2015,line:{color:'#555',width:2},marker:{size:5,color:'#555'},
+     hovertemplate:'Pre-2015 decile %{x}: %{y:.1f}×<extra></extra>'},
+    {type:'scatter',mode:'lines+markers',name:'2020–2024 (growth punished)',
+     x:deciles,y:post2020,line:{color:'#c00',width:2},marker:{size:5,color:'#c00'},
+     hovertemplate:'2020–2024 decile %{x}: %{y:.1f}×<extra></extra>'},
+  ], layout({
+    showlegend:true,
+    legend:{orientation:'h',x:0,y:-0.18,font:{size:9,color:'#555'},bgcolor:'transparent',borderwidth:0},
+    xaxis:{gridcolor:'rgba(255,255,255,.04)',linecolor:'rgba(255,255,255,.08)',tickfont:{size:10},zeroline:false,
+           title:{text:'Revenue growth decile (0=slowest, 9=fastest)',font:{color:'#6e7681',size:9}},
+           tickvals:[0,1,2,3,4,5,6,7,8,9]},
+    yaxis:{gridcolor:'rgba(255,255,255,.04)',linecolor:'rgba(255,255,255,.08)',tickfont:{size:10},zeroline:false,
+           ticksuffix:'×',title:{text:'Median next-year P/E',font:{color:'#6e7681',size:9}}},
+    margin:{l:52,r:16,t:10,b:52},
+    annotations:[
+      {x:9,y:15.6,text:'2010–14 rho=+0.12',showarrow:false,font:{size:9,color:'#555'},xanchor:'right'},
+      {x:9,y:12.1,text:'2022 rho=−0.08',showarrow:false,font:{size:9,color:'#c00'},xanchor:'right'},
+    ],
+  }), CFG);
+}
+
+// ── New entrant quality ───────────────────────────────────────────────────────────────
+function renderEntrant(){
+  var eYears=[2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+  var eMed  =[7.3, 6.5, 1.3,-0.9,-10.1,-20.0,-17.5,-19.7,-5.4,-14.1,-15.6,-29.8,-26.1,-53.1,-51.1,-21.1,-8.4];
+  var eProf =[79,  79,  49,  37,  28,   24,   27,   29,   32,  27,   24,   17,   13,   10,   19,   23,   23];
+  Plotly.react('chart-entrant',[
+    {type:'bar',name:'% Profitable at entry',x:eYears,y:eProf,yaxis:'y2',
+     marker:{color:'rgba(0,120,0,.25)'},hovertemplate:'%{x}: %{y}% profitable<extra></extra>'},
+    {type:'scatter',mode:'lines+markers',name:'Median first-year margin',
+     x:eYears,y:eMed,line:{color:'#333',width:2},marker:{size:4,color:'#333'},
+     hovertemplate:'%{x}: %{y:.1f}%<extra></extra>'},
+  ], layout({
+    showlegend:true,
+    legend:{orientation:'h',x:0,y:-0.18,font:{size:9,color:'#555'},bgcolor:'transparent',borderwidth:0},
+    xaxis:{gridcolor:'rgba(255,255,255,.04)',linecolor:'rgba(255,255,255,.08)',tickfont:{size:10},zeroline:false},
+    yaxis:{gridcolor:'rgba(255,255,255,.04)',linecolor:'rgba(255,255,255,.08)',
+           tickfont:{size:10},zeroline:true,zerolinecolor:'#ccc',
+           ticksuffix:'%',title:{text:'Median first-year margin',font:{color:'#6e7681',size:9}}},
+    yaxis2:{overlaying:'y',side:'right',tickfont:{size:10},zeroline:false,
+            ticksuffix:'%',range:[0,110],title:{text:'% profitable',font:{color:'#6e7681',size:9}},
+            gridcolor:'transparent',linecolor:'rgba(255,255,255,.08)'},
+    margin:{l:52,r:52,t:10,b:52},barmode:'overlay',
+    annotations:[{x:2022,y:-55,text:'2022: 10% profitable',showarrow:true,
+                  arrowhead:0,arrowcolor:'#c00',
+                  font:{size:9,color:'#c00'},ax:0,ay:-16}],
+  }), CFG);
+}
+
+// ── Annotation bar ─────────────────────────────────────────────────────────────────────────────
+var INSIGHTS_TEXT = [
+  '<span class="tag">Insight</span><b>Small-cap margin collapse:</b> Median net margin for sub-$10M companies fell from -5% in 2009 to -78% in 2023. Large caps held at 5-9% throughout. Secular, not cyclical.',
+  '<span class="tag">Insight</span><b>Growth premium inverted after 2020:</b> Pre-2015, fastest growers commanded highest P/E (rho=+0.12). By 2022 that flipped (rho=-0.08, p=0.001). Hyper-growth now trades cheaper than moderate growers.',
+  '<span class="tag">Insight</span><b>The 2021 cohort never heals:</b> Every prior IPO cohort improved margins as it aged. The 924-company 2021 class started at -26% and hit -34% at age 1 with no recovery. The ZIRP bubble in a single line.',
+  '<span class="tag">Insight</span><b>New entrant quality collapsed:</b> 2009-10: 79% of new filers profitable year one. 2022 cohort: 10%, median margin -53%. Zombie company count at a 15-year high of 290 firms.',
+];
+var _annIdx = 0;
+document.getElementById('ann-bar').innerHTML = INSIGHTS_TEXT[0];
+setInterval(function(){
+  _annIdx = (_annIdx+1)%INSIGHTS_TEXT.length;
+  document.getElementById('ann-bar').innerHTML = INSIGHTS_TEXT[_annIdx];
+}, 6000);
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+document.getElementById('nav-sub').textContent =
+  YEARS[0]+'–'+YEARS[YEARS.length-1]+' · '+
+  Object.values(DATA).reduce(function(s,d){return s+(d.count||0);},0).toLocaleString()+
+  ' company-years';
+
+renderTS();
+renderDist();
+renderTierMargin();
+renderTiers();
+renderFallen();
+renderCohort();
+renderGrowthPE();
+renderEntrant();
+updateStats();
+</script>
+</body>
+</html>
