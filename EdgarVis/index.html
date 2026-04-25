@@ -303,8 +303,9 @@ function onClik(data){
 
 // ── Company info ──────────────────────────────────────────────────────────────
 function fetchAndShowCo(cik, preferYear, pos){
-  _ensureCompanyDetail().then(function(bundle){
-      var recs = bundle[String(cik)] || [];
+  fetch('./data/company_'+cik+'.json')
+    .then(function(r){return r.json();})
+    .then(function(recs){
       if(!recs.length) return;
       var rec = recs.find(function(r){return r.fy===preferYear;}) || recs[recs.length-1];
       renderIP(rec);
@@ -416,11 +417,17 @@ function updateSpikeWalls(){
   var px=_spikePos.x, py=_spikePos.y;
   var xwall=_camEye.x>=0 ? w.xmin : w.xmax;
   var ywall=_camEye.y>=0 ? w.ymin : w.ymax;
-  // Restyle: trace 1=x-proj, 2=vertical, 3=y-proj
+  // Hide a wall projection when camera is within ~32 deg of that axis (line foreshortens to nothing).
+  var COS_THRESHOLD=0.85;
+  var r=Math.sqrt(_camEye.x*_camEye.x+_camEye.y*_camEye.y+_camEye.z*_camEye.z)||1;
+  var nx=Math.abs(_camEye.x)/r, ny=Math.abs(_camEye.y)/r;
+  var showX=nx<COS_THRESHOLD, showY=ny<COS_THRESHOLD;
+  // Restyle: trace 1=vertical, 2=x-proj, 3=y-proj (must match drawSpikes order)
   Plotly.restyle('plot',
-    {x:[[xwall,px],[px,px],[px,px]],
-     y:[[py,py],  [py,py],[ywall,py]]},
-    [1,2,3]).catch(function(){});
+    {x:[[xwall,px],[px,px]],
+     y:[[py,py],  [ywall,py]],
+     visible:[showX,showY]},
+    [2,3]).catch(function(){});
 }
 
 // ── Search ────────────────────────────────────────────────────────────────────
@@ -490,7 +497,6 @@ function esc(s){
 
 // ── Static-build helpers ─────────────────────────────────────────────────────
 var _companyIndex = null;            // [{cik,name},...]
-var _companyDetailPromise = null;    // Promise<bundle>
 var _randomPoolPromise = null;       // Promise<[{cik,name,fy},...]>
 
 function _searchLocal(q){
@@ -503,11 +509,6 @@ function _searchLocal(q){
   }
   out.sort(function(a,b){ return a.name.localeCompare(b.name); });
   return out;
-}
-function _ensureCompanyDetail(){
-  if(_companyDetailPromise) return _companyDetailPromise;
-  _companyDetailPromise = fetch('./data/companies_detail.json').then(function(r){return r.json();});
-  return _companyDetailPromise;
 }
 function _ensureRandomPool(){
   if(_randomPoolPromise) return _randomPoolPromise;
