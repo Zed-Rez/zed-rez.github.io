@@ -1,0 +1,62 @@
+name: validate
+
+# Runs on every push to main and on pull requests targeting main.
+# Catches the kind of silent breakage that's easy to miss on a pure-static
+# push-to-deploy site:
+#   - invalid HTML/CSS that browsers silently swallow but degrades the page
+#   - dead internal links (e.g. /EdgarVis/index.html → moved subpage)
+#   - dead external links (linkedin, arxiv, github URLs that rotted)
+#   - accidentally committed large files (data files belong in source repos,
+#     not in this website repo — see SKILL.md)
+#
+# All checks run in non-blocking mode for now: they post warnings but won't
+# stop a merge. Flip `continue-on-error: false` once existing issues are
+# cleaned up to make CI a hard gate.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate HTML5
+        uses: Cyb3r-Jak3/html5validator-action@v7
+        continue-on-error: true
+        with:
+          root: .
+          blacklist: 'EdgarVis/data node_modules .git'
+
+      - name: Check links (internal + external)
+        uses: lycheeverse/lychee-action@v2
+        continue-on-error: true
+        with:
+          args: >-
+            --no-progress
+            --max-concurrency 8
+            --accept 200,429
+            --exclude-path EdgarVis/data
+            --exclude-path .git
+            './**/*.html'
+          fail: false
+
+      - name: Warn on oversized files (>5MB outside data dirs)
+        run: |
+          big=$(find . -type f -size +5M \
+            ! -path './.git/*' \
+            ! -path './EdgarVis/data/*' \
+            ! -path './GridSmart/assets/*' || true)
+          if [ -n "$big" ]; then
+            echo "::warning::Files >5MB outside expected data dirs — consider moving to a source repo or object storage:"
+            echo "$big"
+          else
+            echo "No oversized files outside data dirs."
+          fi
