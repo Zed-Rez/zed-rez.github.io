@@ -248,7 +248,7 @@ function loadYear(idx, onDone){
   var suffix = '';
   if(curCluster>=0) suffix += '_c'+curCluster;
   if(curComplete)   suffix += '_complete';
-  var url = './data/frame_'+yr+suffix+'.json';
+  var url = '/EDGARVis/data/frame_'+yr+suffix+'.json';
   fetch(url,{signal:abortCtrl.signal})
     .then(function(r){return r.json();})
     .then(function(d){_frameCache[key]=d; renderFrame(d); if(onDone) onDone();})
@@ -306,7 +306,7 @@ function onClik(data){
 
 // ── Company info ──────────────────────────────────────────────────────────────
 function fetchAndShowCo(cik, preferYear, pos){
-  fetch('./data/company_'+cik+'.json')
+  fetch('/EDGARVis/data/company_'+cik+'.json')
     .then(function(r){return r.json();})
     .then(function(recs){
       if(!recs.length) return;
@@ -440,7 +440,7 @@ document.getElementById('si').addEventListener('input',function(){
   if(q.length<2){document.getElementById('sd').style.display='none';return;}
   _st=setTimeout(function(){
     if(_companyIndex){ showResults(_searchLocal(q)); return; }
-    fetch('./data/companies.json').then(function(r){return r.json();})
+    fetch('/EDGARVis/data/companies.json').then(function(r){return r.json();})
       .then(function(arr){ _companyIndex = arr; showResults(_searchLocal(q)); })
       .catch(console.error);
   },200);
@@ -515,7 +515,7 @@ function _searchLocal(q){
 }
 function _ensureRandomPool(){
   if(_randomPoolPromise) return _randomPoolPromise;
-  _randomPoolPromise = fetch('./data/random_pool.json').then(function(r){return r.json();});
+  _randomPoolPromise = fetch('/EDGARVis/data/random_pool.json').then(function(r){return r.json();});
   return _randomPoolPromise;
 }
 </script>
