@@ -15,8 +15,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Reza Ramji — Princeton Classics & Math">
   <meta name="twitter:image" content="https://rezaramji.com/og-image.jpg">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
   <style>
     body { margin: 1em; font-family: 'EB Garamond', Garamond, Georgia, serif; }
@@ -56,12 +56,13 @@
   <p>I started with <a href="/youklid/">Youklid</a> [<a href="https://github.com/Zed-Rez/youklid">github</a>], an attempt to find some new mappings of ideas in euclid's elements & test using AI on verification of mathematical steps in parallel. </p>
   <p>Recently, extended this with lean using <a href="https://github.com/loganrjmurphy/LeanEuclid">Murphy et alia's lean euclid</a> to test translation autoformalization locally using Qwen2.5-Coder-7B-Instruct on an orin nano super (however, memorization forced me to use GPT-4o instead; 
     interestingly, while translation choice did not show statistically significant difference, prompting choices (id est, providing autoformalization exempla in the correct translation in the prompt) were. 
-    Probably this suggests mathematicians hoping to utilize autoformalization in their own writing especially with small models should 'lean' some of their work manually so compiling agents can adapt to their writing style. I also had claude compile these findings into a <a href="EUCLID HERE">longerform explanation</a> for the interested.   
+    Probably this suggests mathematicians hoping to utilize autoformalization in their own writing especially with small models should 'lean' some of their work manually so compiling agents can adapt to their writing style. I also had claude compile these findings into a <a href="/euclid/">longerform explanation</a> for the interested.   
   </p>
     <h3>language model testing & refining</h3>
       <p>I  made this <a href="/lleval/">llm-eval</a> [<a href="https://github.com/Zed-Rez/llmeval">source</a>] A/B benchmarking harness for LLMs to verify <a href="https://arxiv.org/abs/2512.14982">this paper.</a> 
-       <!-- Also tested an improvement to Princeton's Logion project (essentially adding weighting to the types of errors that could appear rather than treating all typos by simply character length) tested this locally on an old laptop showing significantly better performance (outside of the fine-tuned data set at n=333)  
+       <!-- Also tested an improvement to Princeton's Logion project (essentially adding weighting to the types of errors that could appear rather than treating all typos by simply character length) tested this locally on an old laptop showing significantly better performance (outside of the fine-tuned data set at n=333)
     -->
+     Also tested an <a href="/logion/">improvement to Princeton's Logion</a> [<a href="https://github.com/Zed-Rez/logion-wlev">source</a>] — adding weighted edit distances to the types of errors that could appear rather than treating all typos by simply character length.
         </p>
     <h3>Data Visualization & AI assisted data cleaning</h3>
     <a href="/EdgarVis/">EdgarVis</a> [<a href="https://github.com/Zed-Rez/EDGARVis">source</a>] — 3D UMAP of the US public equity from SEC EDGAR 10-K filings; ~12k companies × 17 years; highly recommend the die by the search bar to find odd companies
