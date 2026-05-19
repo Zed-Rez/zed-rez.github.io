@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Logion with Weighted Levenshtein — Reza Ramji</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
+  <style>body{max-width:70ch;margin:2em auto;padding:0 1em;font-family:'EB Garamond',Garamond,Georgia,serif;}img{max-width:100%}</style>
+</head>
+<body>
+
+<h1>Logion with Weighted Levenshtein</h1>
+
+<!-- Algorithmic improvements to Logion (Cowen-Breen, Brooks, Graziosi, Haubold; Princeton / Cambridge, ACL ALP-2023) — a BERT-based system for detecting and emending textual errors in premodern Greek. -->
+
+<p>[<a href="https://github.com/Zed-Rez/logion-wlev">source</a>] · extends <a href="https://github.com/charliecb/Logion">Logion</a></p>
+
+<hr>
+
+<h2>Changes</h2>
+
+<!-- Weighted Levenshtein filter: The original Logion uses a binary indicator for whether two tokens are within classical Levenshtein distance k. This treats every single-character edit as equally probable. In Byzantine scribal practice that is wrong — itacism (η/ι/υ/ει/οι all merging to /i/), post-vocalic beta (β↔υ), and visual confusions in minuscule script (γ/τ, λ/μ, β/ν, ρ/π) drive most copying errors. The weighted filter assigns substitution costs from documented confusion classes and produces a continuous weight rather than a binary gate. -->
+
+<!-- Chance-fit-scaled temperature: Instead of a fixed T=1 softmax, the temperature adapts per-token based on the observed word's chance under the language model. High-chance positions get sharper softmax; low-chance (likely-error) positions get flatter softmax to expose orthographic siblings. Empirically verified inert on the paper's evaluation protocol (McNemar p=1.00). -->
+
+<h2>Ablation Results (<em>n</em>=200)</h2>
+
+<table border="1">
+  <caption>Per-component ablation on the §4.1 artificial-corruption protocol</caption>
+  <thead>
+    <tr><th>Condition</th><th>Top-1</th><th>Top-5</th><th>McNemar <em>p</em></th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Baseline</td><td>37.5%</td><td>69.5%</td><td>—</td></tr>
+    <tr><td>All improvements</td><td>36.0%</td><td>66.0%</td><td>0.63</td></tr>
+    <tr><td>No CF-temperature</td><td>37.5%</td><td>69.0%</td><td>1.00</td></tr>
+    <tr><td><strong>No weighted Lev</strong></td><td><strong>33.5%</strong></td><td>67.5%</td><td><strong>0.057</strong></td></tr>
+    <tr><td>No extras</td><td>37.0%</td><td>68.0%</td><td>1.00</td></tr>
+  </tbody>
+</table>
+
+<!-- The weighted Levenshtein filter is the only component approaching statistical significance — removing it drops top-1 by 4pp (McNemar p=0.057, discordant counts b=11, c=3). Wilson 95% CIs overlap but the paired test captures the directionality. -->
+
+<p><img src="fig_ablation.png" alt="Ablation bar chart showing top-1 accuracy across conditions, with error bars showing Wilson 95% CIs" width="800" height="512"></p>
+
+<p><img src="fig_topk.png" alt="Top-k accuracy curves for baseline vs improved at k=1, 5, 10" width="800" height="512"></p>
+
+<h2>Variants Evaluation</h2>
+
+<!-- On a separate dataset of 333 known manuscript variants, the recommended configuration outperforms baseline at top-1 (16.5% vs 14.4%) and top-5 (42.3% vs 35.7%), with larger gains in the distribution the weighted filter was designed for. -->
+
+<h2>Out-of-Corpus Deployment</h2>
+
+<!-- The improved model was deployed on Photius's Bibliotheca (codices 70, 92, 161, 165, 213) — a ~2,100-word out-of-corpus passage with documented transmission ambiguity across two manuscript families. The system produces a tiered emendation shortlist annotated with the orthographic operation (itacism, visual confusion, etc.) and context window for each candidate. -->
+
+<p><a href="/">← back</a></p>
+
+</body>
+</html>

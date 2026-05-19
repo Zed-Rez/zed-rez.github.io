@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Autoformalization Study — Reza Ramji</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
+  <style>body{max-width:70ch;margin:2em auto;padding:0 1em;font-family:'EB Garamond',Garamond,Georgia,serif;}</style>
+</head>
+<body>
+
+<h1>Few-Shot Prompt Style Dominates Translation Choice in Autoformalization</h1>
+
+<!-- intro: Does the English translation of a mathematical text affect autoformalization success? We test this on Euclid's Elements using three translations — Heath (1908), Fitzpatrick (2007), and a modern paraphrase — formalized into Lean 4 by GPT-4o. An initial uncontrolled comparison found an 8.4pp advantage for Fitzpatrick (p=0.008), but adversarial review identified a prompt-translation confound. -->
+
+<hr>
+
+<h2>The Problem</h2>
+
+<!-- Autoformalization translates informal mathematics into verified formal languages. If a model formalizes from English, does the quality or register of the English matter? Euclid's Elements is a natural experiment: the same propositions exist in radically different translations spanning centuries. We compare archaic Victorian prose (Heath), modern academic mathematics with explicit variables (Fitzpatrick), and minimal contemporary statements. -->
+
+<h2>Contamination</h2>
+
+<!-- Qwen2.5-Coder-7B-Instruct (Q4_K_M, local inference on Jetson Orin Nano Super) achieves its highest compile rate — 62.8% — with no input text at all (just "Proposition N"), every output uses LeanEuclid-specific predicates exclusively. The model has memorized the benchmark, masking all input effects. GPT-4o passes the contamination check: 10% compile rate from empty input vs 67.9% from full text. -->
+
+<h2>Counterbalanced Design</h2>
+
+<!-- Phase 2 prompt used Fitzpatrick-style few-shot examples for all conditions — confounding prompt with translation. Phase 3 creates three prompt templates (Fitzpatrick, Heath, Modern) for a fully crossed 3x3 design. -->
+
+<table border="1">
+  <caption>Compilation rates by translation &times; prompt style (Book I)</caption>
+  <thead>
+    <tr><th></th><th>Fitzpatrick prompt</th><th>Heath prompt</th><th>Modern prompt</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Fitzpatrick</strong></td><td><strong>76.3%</strong></td><td>60.0%</td><td>45.9%</td></tr>
+    <tr><td><strong>Heath</strong></td><td>67.9%</td><td>65.5%</td><td>52.6%</td></tr>
+    <tr><td><strong>Modern</strong></td><td>73.5%</td><td>63.2%</td><td>46.8%</td></tr>
+  </tbody>
+</table>
+
+<!-- The Phase 2 finding (Fitzpatrick > Heath by 8.4pp) appears only in the Fitzpatrick-prompt column. With Heath or Modern prompts, the effect reverses. -->
+
+<h2>Results</h2>
+
+<!-- Mixed-effects linear regression with proposition as random intercept (N=2,653 observations across 143 propositions): -->
+
+<table border="1">
+  <caption>Mixed-effects model coefficients</caption>
+  <thead>
+    <tr><th>Predictor</th><th>Coefficient</th><th><em>p</em></th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Translation (Fitzpatrick vs Heath)</td><td>+0.010</td><td>0.603</td></tr>
+    <tr><td>Translation (Modern vs Heath)</td><td>+0.009</td><td>0.665</td></tr>
+    <tr><td><strong>Prompt (Heath vs Fitzpatrick)</strong></td><td><strong>&minus;0.097</strong></td><td><strong>&lt;0.001</strong></td></tr>
+    <tr><td><strong>Prompt (Modern vs Fitzpatrick)</strong></td><td><strong>&minus;0.242</strong></td><td><strong>&lt;0.001</strong></td></tr>
+  </tbody>
+</table>
+
+<!-- Translation has no significant effect (p=0.60). Prompt style drives a 24pp range (72.6% vs 48.4%, p<0.001). Adding a prompt x translation interaction does not improve model fit (AIC increases by 4.3). On 100 independent UniGeo theorems, Heath outperforms Fitzpatrick by 6.2pp — the opposite direction of the original claim. -->
+
+<h2>Takeaway</h2>
+
+<!-- Few-shot prompt style, not translation register, is the primary lever for autoformalization on Euclidean geometry. Studies using a single prompt template cannot distinguish translation effects from prompt-style matching. We recommend counterbalanced prompt designs and contamination audits via empty-input probes as standard practice. -->
+
+<p><small>Built on <a href="https://github.com/Zed-Rez/youklid">Youklid</a> and the <a href="https://github.com/loganamurphy/LeanEuclid">LeanEuclid</a> benchmark (Murphy et al., 2024).</small></p>
+
+<p><a href="/">← back</a></p>
+
+</body>
+</html>
