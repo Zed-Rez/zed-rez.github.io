@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listen to the Chain</title>
+  <meta name="description" content="Real-time sonification of USDC transfers on Ethereum. Each transaction becomes a tone on a pentatonic scale.">
+  <meta property="og:title" content="Listen to the Chain">
+  <meta property="og:description" content="USDC transfers on Ethereum, sonified in real time">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a0f;
+      color: #908a7a;
+      font-family: 'EB Garamond', serif;
+      overflow: hidden;
+      height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+    #ui {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+    #header {
+      position: absolute;
+      top: 1.8em;
+      left: 2em;
+    }
+    #header h1 {
+      font-size: 1.4em;
+      font-weight: 400;
+      color: #b8b0a0;
+      letter-spacing: 0.03em;
+    }
+    #header .sub {
+      font-size: 0.85em;
+      color: #504a3e;
+      font-style: italic;
+      margin-top: 0.15em;
+    }
+    #stats {
+      position: absolute;
+      top: 2em;
+      right: 2em;
+      text-align: right;
+      font-size: 0.85em;
+      color: #3e3a32;
+      line-height: 1.7;
+    }
+    #status {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #2a2822;
+      font-style: italic;
+      font-size: 1.05em;
+      transition: opacity 0.5s;
+    }
+    #log {
+      position: absolute;
+      bottom: 3.5em;
+      left: 0;
+      width: 55%;
+      max-width: 32em;
+      padding: 1.2em 2em 0.5em;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15em;
+      background: linear-gradient(to right, rgba(10,10,15,0.85) 70%, transparent);
+      border-radius: 0 4px 4px 0;
+    }
+    .tx {
+      font-size: 0.82em;
+      color: #3a362e;
+      white-space: nowrap;
+      opacity: 0;
+      animation: txIn 0.4s ease forwards;
+    }
+    .tx .amt {
+      color: #6a6454;
+      display: inline-block;
+      min-width: 7em;
+      text-align: right;
+      margin-right: 1.2em;
+    }
+    .tx .addr { color: #2e2c26; font-size: 0.92em; }
+    .tx.whale .amt { color: #9a8e6e; }
+    @keyframes txIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    #controls {
+      position: absolute;
+      bottom: 1.8em;
+      right: 2em;
+      display: flex;
+      gap: 1.8em;
+      align-items: center;
+      pointer-events: all;
+    }
+    #controls label {
+      font-size: 0.78em;
+      color: #3e3a32;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 70px;
+      height: 2px;
+      background: #2a2822;
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #6a6454;
+    }
+    #threshold-val {
+      min-width: 3.5em;
+      display: inline-block;
+    }
+    #splash {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #0a0a0f;
+      z-index: 100;
+      cursor: pointer;
+      transition: opacity 1.2s ease;
+    }
+    #splash.gone { opacity: 0; pointer-events: none; }
+    #splash h1 {
+      font-size: 2.4em;
+      font-weight: 400;
+      color: #b8b0a0;
+      letter-spacing: 0.05em;
+    }
+    #splash p {
+      color: #504a3e;
+      font-style: italic;
+      font-size: 1.05em;
+      margin-top: 0.3em;
+    }
+    #splash .hint {
+      color: #2a2822;
+      font-size: 0.85em;
+      margin-top: 4em;
+    }
+    #sim-badge {
+      display: none;
+      position: absolute;
+      top: 2em;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.75em;
+      color: #4a3a2a;
+      font-style: italic;
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+
+  <div id="ui">
+    <div id="header">
+      <h1>Listen to the Chain</h1>
+      <div class="sub">USDC on Ethereum</div>
+    </div>
+    <div id="stats">
+      <div id="s-block"></div>
+      <div id="s-rate"></div>
+      <div id="s-vol"></div>
+    </div>
+    <div id="status">connecting…</div>
+    <div id="sim-badge">simulated data</div>
+    <div id="log"></div>
+    <div id="controls">
+      <label>volume <input type="range" id="vol-slider" min="0" max="100" value="35"></label>
+      <label>min <span id="threshold-val">$100</span> <input type="range" id="thresh-slider" min="0" max="6" step="0.5" value="2"></label>
+    </div>
+  </div>
+
+  <div id="splash">
+    <h1>Listen to the Chain</h1>
+    <p>USDC transfers on Ethereum, sonified</p>
+    <p class="hint">click anywhere to begin</p>
+  </div>
+
+  <script>
+    /* ─── config ─── */
+    const USDC = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48';
+    const TRANSFER = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
+    const RPCS = [
+      'https://ethereum-rpc.publicnode.com',
+      'https://eth.llamarpc.com',
+      'https://rpc.ankr.com/eth',
+      'https://eth.drpc.org'
+    ];
+    const PENTATONIC = [
+      130.81, 146.83, 164.81, 196.00, 220.00,
+      261.63, 293.66, 329.63, 392.00, 440.00,
+      523.25, 587.33, 659.26, 783.99, 880.00,
+      1046.50
+    ];
+
+    let ctx, cvs, dpr;
+    let audio, master, comp, verb, verbGain;
+    let bubbles = [], seen = new Set(), rpcIdx = 0, lastBlock = null;
+    let totalVol = 0, txTimes = [], simulating = false;
+    let soundQ = [], lastSound = 0;
+
+    /* ─── utilities ─── */
+    const lerp = (v, a, b, c, d) => c + (d - c) * ((v - a) / (b - a));
+    const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+    const fmt = n => n >= 1e6 ? `$${(n/1e6).toFixed(1)}M` : n >= 1e3 ? `$${(n/1e3).toFixed(1)}K` : n >= 1 ? `$${n.toFixed(0)}` : `$${n.toFixed(2)}`;
+    const shortAddr = a => a.slice(0, 6) + '…' + a.slice(-4);
+    const randAddr = () => '0x' + Array.from({length:40}, () => '0123456789abcdef'[Math.random()*16|0]).join('');
+
+    /* ─── audio engine ─── */
+    function initAudio() {
+      audio = new (window.AudioContext || window.webkitAudioContext)();
+
+      comp = audio.createDynamicsCompressor();
+      comp.threshold.value = -18;
+      comp.knee.value = 24;
+      comp.ratio.value = 8;
+      comp.attack.value = 0.004;
+      comp.release.value = 0.25;
+
+      master = audio.createGain();
+      master.gain.value = 0.35;
+
+      // convolution reverb from noise impulse
+      const len = audio.sampleRate * 3;
+      const impulse = audio.createBuffer(2, len, audio.sampleRate);
+      for (let ch = 0; ch < 2; ch++) {
+        const d = impulse.getChannelData(ch);
+        for (let i = 0; i < len; i++) {
+          d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.8);
+        }
+      }
+      verb = audio.createConvolver();
+      verb.buffer = impulse;
+
+      verbGain = audio.createGain();
+      verbGain.gain.value = 0.25;
+
+      comp.connect(master);
+      verb.connect(verbGain);
+      verbGain.connect(master);
+      master.connect(audio.destination);
+    }
+
+    function playTone(amount) {
+      if (!audio || audio.state === 'suspended') return;
+      const now = audio.currentTime;
+      const lg = Math.log10(Math.max(amount, 0.01));
+      const ni = clamp(Math.round(lerp(lg, -1, 7, PENTATONIC.length - 1, 0)), 0, PENTATONIC.length - 1);
+      const freq = PENTATONIC[ni];
+      const dur = lerp(lg, -1, 7, 0.5, 3.2);
+      const vol = lerp(lg, -1, 7, 0.05, 0.18);
+
+      const makeOsc = (f, gain, decayMul) => {
+        const o = audio.createOscillator();
+        const g = audio.createGain();
+        o.type = 'sine';
+        o.frequency.value = f;
+        g.gain.setValueAtTime(0, now);
+        g.gain.linearRampToValueAtTime(gain, now + 0.01);
+        g.gain.exponentialRampToValueAtTime(0.0001, now + dur * decayMul);
+        o.connect(g);
+        g.connect(comp);
+        g.connect(verb);
+        o.start(now);
+        o.stop(now + dur * decayMul + 0.05);
+      };
+
+      makeOsc(freq, vol, 1.0);
+      makeOsc(freq * 2, vol * 0.22, 0.55);
+      makeOsc(freq * 3, vol * 0.08, 0.3);
+
+      // chord for whales
+      if (amount >= 500000) {
+        makeOsc(freq * 1.5, vol * 0.15, 0.8);
+      }
+    }
+
+    function queueSound(amount) {
+      soundQ.push({ amount, time: Date.now() });
+    }
+
+    function processSoundQueue() {
+      const now = Date.now();
+      if (soundQ.length > 0 && now - lastSound >= 150) {
+        const s = soundQ.shift();
+        playTone(s.amount);
+        lastSound = now;
+      }
+      requestAnimationFrame(processSoundQueue);
+    }
+
+    /* ─── canvas ─── */
+    function initCanvas() {
+      cvs = document.getElementById('c');
+      ctx = cvs.getContext('2d');
+      resize();
+      window.addEventListener('resize', resize);
+    }
+
+    function resize() {
+      dpr = window.devicePixelRatio || 1;
+      cvs.width = window.innerWidth * dpr;
+      cvs.height = window.innerHeight * dpr;
+      cvs.style.width = window.innerWidth + 'px';
+      cvs.style.height = window.innerHeight + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function addBubble(amount) {
+      if (amount < 1) return;
+      const lg = Math.log10(Math.max(amount, 1));
+      const r = clamp(lerp(lg, 0, 7, 3, 55), 3, 65);
+      const w = window.innerWidth, h = window.innerHeight;
+      bubbles.push({
+        x: Math.random() * (w - r * 2) + r,
+        y: Math.random() * (h * 0.65 - r) + h * 0.08 + r,
+        r: 0, tr: r,
+        a: 0.7,
+        born: Date.now(),
+        life: lerp(lg, 0, 7, 3500, 8000),
+        lg
+      });
+    }
+
+    function renderLoop() {
+      const w = window.innerWidth, h = window.innerHeight;
+      ctx.clearRect(0, 0, w, h);
+      const now = Date.now();
+
+      bubbles = bubbles.filter(b => now - b.born < b.life);
+
+      for (const b of bubbles) {
+        const age = (now - b.born) / b.life;
+        // grow fast, hold, then fade
+        b.r = age < 0.08 ? b.tr * (age / 0.08) : b.tr;
+        const alpha = age < 0.08
+          ? (age / 0.08) * b.a
+          : b.a * Math.pow(1 - (age - 0.08) / 0.92, 1.5);
+
+        if (alpha < 0.002) continue;
+
+        const warmth = clamp(lerp(b.lg, 0, 7, 0, 30), 0, 30);
+        const base = 170 + warmth;
+
+        // filled glow
+        const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
+        g.addColorStop(0, `rgba(${base+20}, ${base+10}, ${base-10}, ${alpha * 0.45})`);
+        g.addColorStop(0.4, `rgba(${base+10}, ${base}, ${base-15}, ${alpha * 0.2})`);
+        g.addColorStop(1, `rgba(${base}, ${base-10}, ${base-25}, 0)`);
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+        ctx.fillStyle = g;
+        ctx.fill();
+
+        // ring
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(${base+10}, ${base+5}, ${base-5}, ${alpha * 0.45})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      requestAnimationFrame(renderLoop);
+    }
+
+    /* ─── chain listener ─── */
+    async function rpc(method, params) {
+      const errors = [];
+      for (let i = 0; i < RPCS.length; i++) {
+        const url = RPCS[(rpcIdx + i) % RPCS.length];
+        try {
+          const r = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ jsonrpc: '2.0', method, params: params || [], id: 1 })
+          });
+          const d = await r.json();
+          if (d.error) throw new Error(d.error.message);
+          rpcIdx = (rpcIdx + i) % RPCS.length;
+          return d.result;
+        } catch (e) {
+          errors.push(e.message);
+        }
+      }
+      throw new Error('all RPCs failed: ' + errors.join('; '));
+    }
+
+    function parseLog(log) {
+      const from = '0x' + log.topics[1].slice(26);
+      const to = '0x' + log.topics[2].slice(26);
+      const amount = Number(BigInt(log.data)) / 1e6;
+      return { from, to, amount, hash: log.transactionHash, logIdx: log.logIndex, block: parseInt(log.blockNumber, 16) };
+    }
+
+    let pollFails = 0;
+    async function poll() {
+      try {
+        const fromBlock = lastBlock
+          ? '0x' + Math.max(lastBlock + 1, 0).toString(16)
+          : 'latest';
+
+        const logs = await rpc('eth_getLogs', [{
+          fromBlock,
+          toBlock: 'latest',
+          address: USDC,
+          topics: [TRANSFER]
+        }]);
+
+        const fresh = [];
+        let maxBlock = lastBlock || 0;
+        for (const l of (logs || [])) {
+          const key = l.transactionHash + l.logIndex;
+          if (seen.has(key)) continue;
+          seen.add(key);
+          const tx = parseLog(l);
+          if (tx.amount > 0) fresh.push(tx);
+          if (tx.block > maxBlock) maxBlock = tx.block;
+        }
+
+        if (seen.size > 5000) {
+          const arr = [...seen];
+          seen = new Set(arr.slice(-2500));
+        }
+
+        if (maxBlock > 0) lastBlock = maxBlock;
+        pollFails = 0;
+
+        if (fresh.length) scheduleTxs(fresh);
+        updateStats(fresh, maxBlock);
+        document.getElementById('status').style.opacity = '0';
+        if (maxBlock > 0) document.getElementById('s-block').textContent = 'block ' + maxBlock.toLocaleString();
+
+      } catch (e) {
+        console.warn('poll:', e.message);
+        pollFails++;
+        if (pollFails >= 3 && !simulating) startSimulation();
+        document.getElementById('status').textContent = simulating ? '' : 'reconnecting…';
+        document.getElementById('status').style.opacity = '1';
+      }
+    }
+
+    function scheduleTxs(txs) {
+      // shuffle for natural arrival feel
+      for (let i = txs.length - 1; i > 0; i--) {
+        const j = Math.random() * (i + 1) | 0;
+        [txs[i], txs[j]] = [txs[j], txs[i]];
+      }
+      const threshold = Math.pow(10, parseFloat(document.getElementById('thresh-slider').value));
+      const spread = Math.min(4500 / Math.max(txs.length, 1), 400);
+
+      txs.forEach((tx, i) => {
+        const delay = i * spread + Math.random() * spread * 0.4;
+        setTimeout(() => {
+          addBubble(tx.amount);
+          if (tx.amount >= threshold) queueSound(tx.amount);
+          if (tx.amount >= 1) addLogEntry(tx);
+        }, delay);
+      });
+    }
+
+    /* ─── simulation fallback ─── */
+    let simInterval;
+    function startSimulation() {
+      simulating = true;
+      document.getElementById('sim-badge').style.display = 'block';
+      document.getElementById('status').style.opacity = '0';
+
+      simInterval = setInterval(() => {
+        const n = 2 + Math.random() * 6 | 0;
+        const txs = [];
+        for (let i = 0; i < n; i++) {
+          const exp = Math.random() * 6 - 1;
+          const amount = Math.pow(10, exp) * (0.5 + Math.random());
+          txs.push({ from: randAddr(), to: randAddr(), amount, hash: randAddr(), block: 0 });
+        }
+        scheduleTxs(txs);
+        updateStats(txs, 0);
+      }, 4000 + Math.random() * 3000);
+
+      // keep trying real connection
+      const retryReal = setInterval(async () => {
+        try {
+          await rpc('eth_blockNumber');
+          clearInterval(simInterval);
+          clearInterval(retryReal);
+          simulating = false;
+          document.getElementById('sim-badge').style.display = 'none';
+          pollFails = 0;
+          lastBlock = null;
+          poll();
+        } catch (e) {}
+      }, 30000);
+    }
+
+    /* ─── ui ─── */
+    function addLogEntry(tx) {
+      const log = document.getElementById('log');
+      const el = document.createElement('div');
+      el.className = 'tx' + (tx.amount >= 100000 ? ' whale' : '');
+      el.innerHTML = `<span class="amt">${fmt(tx.amount)}</span><span class="addr">${shortAddr(tx.from)} → ${shortAddr(tx.to)}</span>`;
+      log.insertBefore(el, log.firstChild);
+
+      // fade older entries
+      const kids = log.children;
+      for (let i = 0; i < kids.length; i++) {
+        kids[i].style.opacity = Math.max(0.15, 1 - i * 0.07);
+      }
+      while (kids.length > 10) log.removeChild(log.lastChild);
+    }
+
+    function updateStats(txs, block) {
+      const now = Date.now();
+      txTimes.push(...txs.map(() => now));
+      txTimes = txTimes.filter(t => now - t < 60000);
+      totalVol += txs.reduce((s, t) => s + t.amount, 0);
+
+      document.getElementById('s-rate').textContent = txTimes.length + ' tx/min';
+      document.getElementById('s-vol').textContent = fmt(totalVol) + ' total';
+    }
+
+    /* ─── controls ─── */
+    document.getElementById('vol-slider').addEventListener('input', e => {
+      if (master) master.gain.value = (e.target.value / 100) * 0.6;
+    });
+
+    document.getElementById('thresh-slider').addEventListener('input', e => {
+      const v = Math.pow(10, parseFloat(e.target.value));
+      document.getElementById('threshold-val').textContent = fmt(v);
+    });
+
+    /* ─── start ─── */
+    document.getElementById('splash').addEventListener('click', () => {
+      document.getElementById('splash').classList.add('gone');
+      initAudio();
+      initCanvas();
+      renderLoop();
+      processSoundQueue();
+
+      poll();
+      setInterval(poll, 5000);
+
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) {
+          if (audio && audio.state === 'suspended') audio.resume();
+          poll();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
