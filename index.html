@@ -55,19 +55,16 @@
     <h3>Autoverification of Euclid's elements</h3>
   <p>I started with <a href="/youklid/">Youklid</a> [<a href="https://github.com/Zed-Rez/youklid">github</a>], an attempt to find some new mappings of ideas in euclid's elements & test using AI on verification of mathematical steps in parallel. </p>
   <p>Recently, extended this with lean using <a href="https://github.com/loganrjmurphy/LeanEuclid">Murphy et alia's lean euclid</a> to test translation autoformalization locally using Qwen2.5-Coder-7B-Instruct on an orin nano super (however, memorization forced me to use GPT-4o instead; 
-    interestingly, while translation choice did not show statistically significant difference, prompting choices (id est, providing autoformalization exempla in the correct translation in the prompt) were. 
-    Probably this suggests mathematicians hoping to utilize autoformalization in their own writing especially with small models should 'lean' some of their work manually so compiling agents can adapt to their writing style. I also had claude compile these findings into a <a href="/euclid/">longerform explanation</a> for the interested.   
+    Interestingly, while translation choice did not show a statistically significant difference, prompting choices were (id est, providing autoformalization exempla in the correct translation in the prompt). 
+    Probably this suggests mathematicians hoping to utilize autoformalization in their own writing, especially with small models, should 'lean' some of their work manually so compiling agents can adapt to their writing style. I also have a <a href="/euclid/"> longer form explanation</a> for the interested. </p>
+    <p><b>Thinking of pushing this further with a two-step proof generato: a powerful foundational model + cheaper autoformalizer prompted with human-checked runs of the foundational model's work, which would (I hypothesize) allow the analysis of a large model with some of the cost savings of a lightweight framework, or alternatively finetuning of deepseek-prover-v2 to lean in a specific bench(putnam?)</b>   
   </p>
     <h3>language model testing & refining</h3>
-      <p>I  made this <a href="/lleval/">llm-eval</a> [<a href="https://github.com/Zed-Rez/llmeval">source</a>] A/B benchmarking harness for LLMs to verify <a href="https://arxiv.org/abs/2512.14982">this paper.</a> 
-       <!-- Also tested an improvement to Princeton's Logion project (essentially adding weighting to the types of errors that could appear rather than treating all typos by simply character length) tested this locally on an old laptop showing significantly better performance (outside of the fine-tuned data set at n=333)
-    -->
-     Also tested an <a href="/logion/">improvement to Princeton's Logion</a> [<a href="https://github.com/Zed-Rez/logion-wlev">source</a>] — adding weighted edit distances to the types of errors that could appear rather than treating all typos by simply character length.
+      <p>I  made this <a href="/lleval/">llm-eval</a> [<a href="https://github.com/Zed-Rez/llmeval">source</a>] A/B benchmarking harness for LLMs to verify <a href="https://arxiv.org/abs/2512.14982">this paper(seems to still work on newer models, especially the picking from list of names benchmark).</a> 
+    I then also tested an <a href="/logion/">improvement to Princeton's Logion</a> [<a href="https://github.com/Zed-Rez/logion-wlev">source</a>], adding weighted Levenshtein, rather than treating all typos by simply character length. Statistically significant superiority under testing of Photius's Bibliotheca,<b>  could in the future retrain the system with this weighting in mind for an even more accurate model</b>
         </p>
     <h3>Data Visualization & AI assisted data cleaning</h3>
-    <a href="/EdgarVis/">EdgarVis</a> [<a href="https://github.com/Zed-Rez/EDGARVis">source</a>] — 3D UMAP of the US public equity from SEC EDGAR 10-K filings; ~12k companies × 17 years; highly recommend the die by the search bar to find odd companies
-
-
+    Made <a href="/EdgarVis/">EdgarVis</a> [<a href="https://github.com/Zed-Rez/EDGARVis">source</a>] a 3D UMAP of the US public equity from SEC EDGAR 10-K filings; ~12k companies × 17 years; highly recommend the die by the search bar to find odd companies. Planning to extend this 
   </section>
   <hr>
 <!-- 
@@ -75,7 +72,7 @@
     <h2>writings</h2>
 If someone is looking at this please let me on arXive...
   TO ADD: 
-  -Augustan bronze coinage and provincial military policy 
+  -Augustan bronze coinage and provincial military policy (perhaps submit for conferacne publication) 
   -that one paper in pyrophos 2025
 -maybe if the logion extension goes somewhere I could add that...?
 - that one paper about empire or whatever 
@@ -92,8 +89,7 @@ If someone is looking at this please let me on arXive...
       <li><a href="https://en.wikipedia.org/wiki/Wojtek_(bear)">wojtek</a> – the bear</li>
       <li><a href="https://proofwiki.org/wiki/ProofWiki:Jokes">math jokes</a> – wonderous to behold</li>
       <li><a href="https://emilka.xyz/">Emilka</a> — she love Poland</li>
-      <li><a href="https://nomoslabs.org">Phishing</a> – someone took this domain :(</li>
-      <li><a href="https://misut.net/home.html">Julian – a philosopher i met</a></li>
+      <li><a href="https://misut.net/home.html">Julian</a> – a philosopher i met once</li>
     </ul>
   </section>
 
