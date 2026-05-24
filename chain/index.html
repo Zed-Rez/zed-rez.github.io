@@ -14,8 +14,8 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: #0a0a0f;
-      color: #908a7a;
+      background: #f4f1eb;
+      color: #3a3530;
       font-family: 'EB Garamond', serif;
       overflow: hidden;
       height: 100vh;
@@ -41,12 +41,12 @@
     #header h1 {
       font-size: 1.4em;
       font-weight: 400;
-      color: #b8b0a0;
+      color: #2a2520;
       letter-spacing: 0.03em;
     }
     #header .sub {
       font-size: 0.85em;
-      color: #504a3e;
+      color: #8a8070;
       font-style: italic;
       margin-top: 0.15em;
     }
@@ -63,16 +63,16 @@
       display: flex;
       align-items: center;
       gap: 0.35em;
-      font-size: 0.72em;
-      color: #3e3a32;
+      font-size: 0.78em;
+      color: #5a5040;
       cursor: pointer;
       pointer-events: all;
       user-select: none;
       transition: opacity 0.3s;
     }
-    .legend-item.muted { opacity: 0.25; }
+    .legend-item.muted { opacity: 0.25; text-decoration: line-through; }
     .legend-dot {
-      width: 7px; height: 7px;
+      width: 8px; height: 8px;
       border-radius: 50%;
       flex-shrink: 0;
     }
@@ -82,7 +82,7 @@
       right: 2em;
       text-align: right;
       font-size: 0.85em;
-      color: #3e3a32;
+      color: #8a8070;
       line-height: 1.7;
     }
     #status {
@@ -90,50 +90,60 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: #2a2822;
+      color: #b0a898;
       font-style: italic;
       font-size: 1.05em;
       transition: opacity 0.5s;
     }
     #log {
       position: absolute;
-      bottom: 3.5em;
+      bottom: 4em;
       left: 0;
-      width: 55%;
-      max-width: 34em;
-      padding: 1.2em 2em 0.5em;
+      width: 50%;
+      max-width: 32em;
+      max-height: 40vh;
+      padding: 0.8em 2em 0.5em;
       display: flex;
       flex-direction: column;
-      gap: 0.15em;
-      background: linear-gradient(to right, rgba(10,10,15,0.85) 70%, transparent);
+      gap: 0.12em;
+      overflow-y: auto;
+      pointer-events: all;
+      background: linear-gradient(to right, rgba(244,241,235,0.92) 75%, transparent);
       border-radius: 0 4px 4px 0;
+      scrollbar-width: thin;
+      scrollbar-color: #c8c0b0 transparent;
     }
+    #log::-webkit-scrollbar { width: 4px; }
+    #log::-webkit-scrollbar-thumb { background: #c8c0b0; border-radius: 2px; }
+    #log::-webkit-scrollbar-track { background: transparent; }
     .tx {
-      font-size: 0.82em;
-      color: #3a362e;
+      font-size: 0.8em;
+      color: #5a5548;
       white-space: nowrap;
       opacity: 0;
       animation: txIn 0.4s ease forwards;
+      flex-shrink: 0;
     }
     .tx .chain-tag {
       display: inline-block;
-      min-width: 3em;
+      min-width: 3.2em;
       font-size: 0.85em;
+      font-weight: 500;
       margin-right: 0.5em;
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
     .tx .amt {
-      color: #6a6454;
+      color: #3a3530;
       display: inline-block;
       min-width: 7em;
       text-align: right;
       margin-right: 1.2em;
     }
-    .tx .addr { color: #2e2c26; font-size: 0.92em; }
-    .tx.whale .amt { color: #9a8e6e; }
+    .tx .addr { color: #9a9488; font-size: 0.92em; }
+    .tx.whale .amt { color: #1a1510; font-weight: 500; }
     @keyframes txIn {
-      from { opacity: 0; transform: translateY(6px); }
+      from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: translateY(0); }
     }
     #controls {
@@ -147,7 +157,7 @@
     }
     #controls label {
       font-size: 0.78em;
-      color: #3e3a32;
+      color: #8a8070;
       display: flex;
       align-items: center;
       gap: 0.5em;
@@ -157,7 +167,7 @@
       appearance: none;
       width: 70px;
       height: 2px;
-      background: #2a2822;
+      background: #c8c0b0;
       outline: none;
       cursor: pointer;
     }
@@ -166,60 +176,7 @@
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: #6a6454;
-    }
-    #threshold-val {
-      min-width: 3.5em;
-      display: inline-block;
-    }
-    #splash {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: #0a0a0f;
-      z-index: 100;
-      cursor: pointer;
-      transition: opacity 1.2s ease;
-    }
-    #splash.gone { opacity: 0; pointer-events: none; }
-    #splash h1 {
-      font-size: 2.4em;
-      font-weight: 400;
-      color: #b8b0a0;
-      letter-spacing: 0.05em;
-    }
-    #splash p {
-      color: #504a3e;
-      font-style: italic;
-      font-size: 1.05em;
-      margin-top: 0.3em;
-    }
-    #splash .hint {
-      color: #2a2822;
-      font-size: 0.85em;
-      margin-top: 4em;
-    }
-    #splash .chains {
-      display: flex;
-      gap: 1.5em;
-      margin-top: 1.8em;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    #splash .chain-pill {
-      display: flex;
-      align-items: center;
-      gap: 0.4em;
-      font-size: 0.8em;
-      color: #3e3a32;
-    }
-    #splash .chain-pill .dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
+      background: #6a6050;
     }
     #sim-badge {
       display: none;
@@ -228,10 +185,23 @@
       left: 50%;
       transform: translateX(-50%);
       font-size: 0.75em;
-      color: #4a3a2a;
+      color: #b0a090;
       font-style: italic;
       letter-spacing: 0.05em;
     }
+    #sources {
+      position: absolute;
+      bottom: 0.8em;
+      left: 2em;
+      font-size: 0.65em;
+      color: #b0a898;
+      pointer-events: all;
+    }
+    #sources a {
+      color: #8a8070;
+      text-decoration: none;
+    }
+    #sources a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -245,22 +215,21 @@
     <div id="legend"></div>
     <div id="stats">
       <div id="s-rate"></div>
-      <div id="s-vol"></div>
     </div>
     <div id="status">connecting…</div>
     <div id="sim-badge">simulated data</div>
     <div id="log"></div>
     <div id="controls">
       <label>volume <input type="range" id="vol-slider" min="0" max="100" value="35"></label>
-      <label>min <span id="threshold-val">$100</span> <input type="range" id="thresh-slider" min="0" max="6" step="0.5" value="2"></label>
     </div>
-  </div>
-
-  <div id="splash">
-    <h1>Listen to the Chain</h1>
-    <p>USDC transfers, sonified in real time</p>
-    <div class="chains" id="splash-chains"></div>
-    <p class="hint">click anywhere to begin</p>
+    <div id="sources">
+      data via <a href="https://www.circle.com/usdc" target="_blank">Circle USDC</a> ERC-20 Transfer logs ·
+      RPCs: <a href="https://publicnode.com" target="_blank">PublicNode</a>,
+      <a href="https://drpc.org" target="_blank">dRPC</a>,
+      <a href="https://www.ankr.com/rpc/" target="_blank">Ankr</a> ·
+      <a href="https://en.wikipedia.org/wiki/USD_Coin" target="_blank">USDC</a> ·
+      <a href="https://en.wikipedia.org/wiki/ERC-20" target="_blank">ERC-20</a>
+    </div>
   </div>
 
   <script>
@@ -270,61 +239,54 @@
         id: 'ethereum', name: 'Ethereum', short: 'ETH',
         usdc: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         rpcs: ['https://ethereum-rpc.publicnode.com','https://eth.drpc.org','https://rpc.ankr.com/eth','https://eth.llamarpc.com'],
-        color: [100, 140, 230],   // steel blue
+        color: [70, 110, 200],
         pan: -0.8,
-        baseNote: 0,
-        xZone: [0.03, 0.19]
+        baseNote: 0
       },
       {
         id: 'polygon', name: 'Polygon', short: 'POL',
         usdc: '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359',
         rpcs: ['https://polygon-bor-rpc.publicnode.com','https://polygon.drpc.org','https://rpc.ankr.com/polygon'],
-        color: [160, 80, 220],    // violet
+        color: [130, 50, 200],
         pan: -0.45,
-        baseNote: 2,
-        xZone: [0.19, 0.35]
+        baseNote: 2
       },
       {
         id: 'arbitrum', name: 'Arbitrum', short: 'ARB',
         usdc: '0xaf88d065e77c8cC2239327C5EDb3A432268e5831',
         rpcs: ['https://arbitrum-one-rpc.publicnode.com','https://arbitrum.drpc.org','https://rpc.ankr.com/arbitrum'],
-        color: [60, 180, 220],    // cyan
+        color: [30, 150, 190],
         pan: -0.1,
-        baseNote: 4,
-        xZone: [0.35, 0.51]
+        baseNote: 4
       },
       {
         id: 'optimism', name: 'Optimism', short: 'OPT',
         usdc: '0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85',
         rpcs: ['https://optimism-rpc.publicnode.com','https://optimism.drpc.org','https://rpc.ankr.com/optimism'],
-        color: [230, 60, 60],     // red
+        color: [210, 40, 40],
         pan: 0.2,
-        baseNote: 1,
-        xZone: [0.51, 0.67]
+        baseNote: 1
       },
       {
         id: 'base', name: 'Base', short: 'BASE',
         usdc: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
         rpcs: ['https://base-rpc.publicnode.com','https://base.drpc.org','https://rpc.ankr.com/base'],
-        color: [50, 130, 255],    // bright blue
+        color: [30, 100, 230],
         pan: 0.55,
-        baseNote: 3,
-        xZone: [0.67, 0.83]
+        baseNote: 3
       },
       {
         id: 'avalanche', name: 'Avalanche', short: 'AVAX',
         usdc: '0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E',
         rpcs: ['https://avalanche-c-chain-rpc.publicnode.com','https://avalanche.drpc.org','https://rpc.ankr.com/avalanche'],
-        color: [230, 120, 50],    // amber/orange
+        color: [210, 90, 30],
         pan: 0.9,
-        baseNote: 5,
-        xZone: [0.83, 0.98]
+        baseNote: 5
       }
     ];
 
     const TRANSFER = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
 
-    // pentatonic C major, 3 octaves
     const PENTATONIC = [
       130.81, 146.83, 164.81, 196.00, 220.00,
       261.63, 293.66, 329.63, 392.00, 440.00,
@@ -335,10 +297,9 @@
     let canvasCtx, cvs, dpr;
     let audio, master, comp, verb, verbGain;
     let bubbles = [], soundQ = [], lastSound = 0;
-    let totalVol = 0, txTimes = [];
+    let txTimes = [];
     let mutedChains = new Set();
 
-    // per-chain state
     const chainState = {};
     for (const ch of CHAINS) {
       chainState[ch.id] = {
@@ -404,7 +365,6 @@
       const dur = lerp(lg, -1, 7, 0.5, 3.2);
       const vol = lerp(lg, -1, 7, 0.04, 0.14);
 
-      // stereo panner per chain
       const panner = audio.createStereoPanner();
       panner.pan.value = chain.pan;
 
@@ -424,7 +384,6 @@
         o.stop(now + dur * decayMul + 0.05);
       };
 
-      // per-chain timbre: vary harmonic content
       const h2 = [0.22, 0.30, 0.15, 0.25, 0.18, 0.28][chain.baseNote] || 0.22;
       const h3 = [0.08, 0.04, 0.12, 0.06, 0.10, 0.05][chain.baseNote] || 0.08;
       const decay = [1.0, 0.85, 1.1, 0.9, 1.05, 0.8][chain.baseNote] || 1.0;
@@ -470,22 +429,20 @@
       canvasCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
+    /* #3 remove spatial zones — bubbles go anywhere */
     function addBubble(amount, chain) {
       if (amount < 1) return;
       if (mutedChains.has(chain.id)) return;
       const lg = Math.log10(Math.max(amount, 1));
-      const r = clamp(lerp(lg, 0, 7, 3, 50), 3, 60);
+      const r = clamp(lerp(lg, 0, 7, 4, 50), 4, 60);
       const w = window.innerWidth, h = window.innerHeight;
-
-      const [xMin, xMax] = chain.xZone;
-      const zoneW = (xMax - xMin) * w;
-      const x = xMin * w + Math.random() * zoneW;
-      const y = Math.random() * (h * 0.55 - r) + h * 0.1 + r;
+      const pad = r + 5;
 
       bubbles.push({
-        x, y,
+        x: pad + Math.random() * (w - pad * 2),
+        y: pad + Math.random() * (h * 0.6),
         r: 0, tr: r,
-        a: 0.75,
+        a: 0.8,
         born: Date.now(),
         life: lerp(lg, 0, 7, 3500, 8000),
         lg,
@@ -502,19 +459,6 @@
 
       bubbles = bubbles.filter(b => now - b.born < b.life);
 
-      // draw faint vertical zone dividers
-      canvasCtx.save();
-      for (let i = 1; i < CHAINS.length; i++) {
-        const x = CHAINS[i].xZone[0] * w;
-        canvasCtx.beginPath();
-        canvasCtx.moveTo(x, h * 0.05);
-        canvasCtx.lineTo(x, h * 0.75);
-        canvasCtx.strokeStyle = 'rgba(40,38,30,0.15)';
-        canvasCtx.lineWidth = 1;
-        canvasCtx.stroke();
-      }
-      canvasCtx.restore();
-
       for (const b of bubbles) {
         const age = (now - b.born) / b.life;
         b.r = age < 0.08 ? b.tr * (age / 0.08) : b.tr;
@@ -529,19 +473,26 @@
 
         const c = b.color;
 
-        const g = canvasCtx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
-        g.addColorStop(0, rgb(c, alpha * 0.5));
-        g.addColorStop(0.35, rgb(c, alpha * 0.25));
-        g.addColorStop(1, rgb(c, 0));
+        /* #1 filled-in circles on light background */
+        canvasCtx.beginPath();
+        canvasCtx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+        canvasCtx.fillStyle = rgb(c, alpha * 0.55);
+        canvasCtx.fill();
+
+        /* subtle inner highlight */
+        const g = canvasCtx.createRadialGradient(b.x - b.r * 0.2, b.y - b.r * 0.2, 0, b.x, b.y, b.r);
+        g.addColorStop(0, `rgba(255,255,255,${alpha * 0.2})`);
+        g.addColorStop(1, 'rgba(255,255,255,0)');
         canvasCtx.beginPath();
         canvasCtx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
         canvasCtx.fillStyle = g;
         canvasCtx.fill();
 
+        /* ring */
         canvasCtx.beginPath();
         canvasCtx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-        canvasCtx.strokeStyle = rgb(c, alpha * 0.5);
-        canvasCtx.lineWidth = 1;
+        canvasCtx.strokeStyle = rgb(c, alpha * 0.7);
+        canvasCtx.lineWidth = 1.2;
         canvasCtx.stroke();
       }
 
@@ -626,19 +577,20 @@
       }
     }
 
+    /* #2 min threshold fixed at $1 */
     function scheduleTxs(txs, chain) {
       for (let i = txs.length - 1; i > 0; i--) {
         const j = Math.random() * (i + 1) | 0;
         [txs[i], txs[j]] = [txs[j], txs[i]];
       }
-      const threshold = Math.pow(10, parseFloat(document.getElementById('thresh-slider').value));
       const spread = Math.min(4500 / Math.max(txs.length, 1), 350);
 
       txs.forEach((tx, i) => {
         const delay = i * spread + Math.random() * spread * 0.4;
         setTimeout(() => {
+          if (mutedChains.has(chain.id)) return;   /* #7 mute blocks ALL media */
           addBubble(tx.amount, chain);
-          if (tx.amount >= threshold) queueSound(tx.amount, chain);
+          if (tx.amount >= 1) queueSound(tx.amount, chain);
           if (tx.amount >= 1) addLogEntry(tx, chain);
         }, delay);
       });
@@ -694,41 +646,36 @@
     }
 
     /* ─── ui ─── */
+    /* #4 scrollable log, #7 muted chains excluded from log */
     function addLogEntry(tx, chain) {
+      if (mutedChains.has(chain.id)) return;
       const log = document.getElementById('log');
       const el = document.createElement('div');
       el.className = 'tx' + (tx.amount >= 100000 ? ' whale' : '');
-      el.innerHTML = `<span class="chain-tag" style="color:${rgb(chain.color, 0.6)}">${chain.short}</span><span class="amt">${fmt(tx.amount)}</span><span class="addr">${shortAddr(tx.from)} → ${shortAddr(tx.to)}</span>`;
+      el.dataset.chain = chain.id;
+      el.innerHTML = `<span class="chain-tag" style="color:${rgb(chain.color, 0.85)}">${chain.short}</span><span class="amt">${fmt(tx.amount)}</span><span class="addr">${shortAddr(tx.from)} → ${shortAddr(tx.to)}</span>`;
       log.insertBefore(el, log.firstChild);
 
-      const kids = log.children;
-      for (let i = 0; i < kids.length; i++) {
-        kids[i].style.opacity = Math.max(0.15, 1 - i * 0.065);
-      }
-      while (kids.length > 12) log.removeChild(log.lastChild);
+      while (log.children.length > 60) log.removeChild(log.lastChild);
     }
 
     function updateStats(txs) {
       const now = Date.now();
       txTimes.push(...txs.map(() => now));
       txTimes = txTimes.filter(t => now - t < 60000);
-      totalVol += txs.reduce((s, t) => s + t.amount, 0);
 
       document.getElementById('s-rate').textContent = txTimes.length + ' tx/min';
-      document.getElementById('s-vol').textContent = fmt(totalVol) + ' total';
     }
 
-    /* ─── legend ─── */
+    /* ─── legend with full mute across all media ─── */
     function buildLegend() {
       const legend = document.getElementById('legend');
-      const splashChains = document.getElementById('splash-chains');
 
       for (const ch of CHAINS) {
-        // main legend
         const item = document.createElement('div');
         item.className = 'legend-item';
         item.dataset.chain = ch.id;
-        item.innerHTML = `<span class="legend-dot" style="background:${rgb(ch.color, 0.8)}"></span>${ch.name}`;
+        item.innerHTML = `<span class="legend-dot" style="background:${rgb(ch.color, 0.9)}"></span>${ch.name}`;
         item.addEventListener('click', () => {
           if (mutedChains.has(ch.id)) {
             mutedChains.delete(ch.id);
@@ -736,15 +683,16 @@
           } else {
             mutedChains.add(ch.id);
             item.classList.add('muted');
+            /* #7 immediately remove existing log entries + bubbles for muted chain */
+            document.querySelectorAll(`.tx[data-chain="${ch.id}"]`).forEach(el => el.remove());
+            bubbles = bubbles.filter(b => {
+              const bc = JSON.stringify(b.color);
+              const cc = JSON.stringify(ch.color);
+              return bc !== cc;
+            });
           }
         });
         legend.appendChild(item);
-
-        // splash pills
-        const pill = document.createElement('div');
-        pill.className = 'chain-pill';
-        pill.innerHTML = `<span class="dot" style="background:${rgb(ch.color, 0.7)}"></span>${ch.name}`;
-        splashChains.appendChild(pill);
       }
     }
 
@@ -753,22 +701,18 @@
       if (master) master.gain.value = (e.target.value / 100) * 0.6;
     });
 
-    document.getElementById('thresh-slider').addEventListener('input', e => {
-      const v = Math.pow(10, parseFloat(e.target.value));
-      document.getElementById('threshold-val').textContent = fmt(v);
-    });
-
-    /* ─── start ─── */
+    /* ─── #6 auto-start: no splash, init on first user gesture ─── */
     buildLegend();
 
-    document.getElementById('splash').addEventListener('click', () => {
-      document.getElementById('splash').classList.add('gone');
+    let started = false;
+    function startApp() {
+      if (started) return;
+      started = true;
       initAudio();
       initCanvas();
       renderLoop();
       processSoundQueue();
 
-      // start polling each chain independently with staggered intervals
       CHAINS.forEach((chain, i) => {
         setTimeout(() => {
           pollChain(chain);
@@ -782,6 +726,34 @@
           CHAINS.forEach(ch => pollChain(ch));
         }
       });
+    }
+
+    /* start canvas + polling immediately, audio on first click */
+    initCanvas();
+    renderLoop();
+
+    CHAINS.forEach((chain, i) => {
+      setTimeout(() => {
+        pollChain(chain);
+        setInterval(() => pollChain(chain), 5000 + i * 400);
+      }, i * 800);
+    });
+
+    document.addEventListener('click', () => {
+      if (!audio) {
+        initAudio();
+        processSoundQueue();
+        document.getElementById('vol-slider').dispatchEvent(new Event('input'));
+      } else if (audio.state === 'suspended') {
+        audio.resume();
+      }
+    }, { once: false });
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        if (audio && audio.state === 'suspended') audio.resume();
+        CHAINS.forEach(ch => pollChain(ch));
+      }
     });
   </script>
 </body>
