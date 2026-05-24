@@ -393,8 +393,9 @@
       const w = window.innerWidth, h = window.innerHeight;
       const pad = r + 8;
 
-      /* evenly distribute across full viewport */
-      const x = pad + Math.random() * (w - pad * 2);
+      /* keep bubbles out of the left log panel (34% + buffer) */
+      const leftEdge = w * 0.36 + pad;
+      const x = leftEdge + Math.random() * (w - leftEdge - pad);
       const y = pad + Math.random() * (h - pad * 2);
 
       bubbles.push({
@@ -537,10 +538,13 @@
     }
 
     /*
-     * emit transactions as a tight burst — NOT staggered entry-by-entry.
-     * minimal 15ms spacing just to avoid browser choking.
-     * all three media (bubble, log, sound) fire together per tx.
+     * Spread transactions uniformly over the poll interval (~5s)
+     * so they flow in steadily rather than arriving in chunks.
+     * The chunking is from the API (we poll every ~5s and get a batch),
+     * so we distribute them evenly with slight jitter for natural feel.
      */
+    const POLL_INTERVAL = 5000;
+
     function emitTxs(txs, chain) {
       /* shuffle for natural feel */
       for (let i = txs.length - 1; i > 0; i--) {
@@ -548,19 +552,21 @@
         [txs[i], txs[j]] = [txs[j], txs[i]];
       }
 
-      const batchDelay = Math.min(15, 800 / Math.max(txs.length, 1));
+      /* spread uniformly across the poll interval */
+      const spacing = Math.max(40, POLL_INTERVAL / Math.max(txs.length, 1));
+      const jitter = spacing * 0.3;
 
       txs.forEach((tx, i) => {
+        const delay = i * spacing + (Math.random() - 0.5) * jitter;
         setTimeout(() => {
           if (mutedChains.has(chain.id)) return;
-          /* all three media at once */
+          /* all three media at once — no desync */
           addBubble(tx.amount, chain);
           if (tx.amount >= 1) addLogEntry(tx, chain);
           if (tx.amount >= 1) playTone(tx.amount, chain);
           /* track for stats */
           recentTxs.push({ time: Date.now(), amount: tx.amount, chainId: chain.id });
-          updateStats();
-        }, i * batchDelay);
+        }, Math.max(0, delay));
       });
     }
 
@@ -619,17 +625,31 @@
     }
 
     /* ─── stats: synced to active (unmuted) chains ─── */
+    let statsStartTime = Date.now();
+
     function updateStats() {
       const now = Date.now();
+      const elapsed = (now - statsStartTime) / 1000; /* seconds since start */
       recentTxs = recentTxs.filter(t => now - t.time < 60000);
+
+      /* wait 30s before showing rate so numbers are meaningful */
+      if (elapsed < 30) {
+        document.getElementById('stats-line').textContent = 'gathering data…';
+        return;
+      }
 
       /* only count unmuted chains */
       const active = recentTxs.filter(t => !mutedChains.has(t.chainId));
       const txCount = active.length;
-      const flowPerMin = active.reduce((s, t) => s + t.amount, 0);
+      const flowTotal = active.reduce((s, t) => s + t.amount, 0);
+
+      /* use actual window duration to compute per-minute rate */
+      const windowSecs = Math.min(elapsed, 60);
+      const txPerMin = Math.round(txCount / windowSecs * 60);
+      const flowPerMin = flowTotal / windowSecs * 60;
 
       document.getElementById('stats-line').textContent =
-        `${txCount.toLocaleString()} tx/min · ${fmt(flowPerMin)}/min`;
+        `${txPerMin.toLocaleString()} tx/min · ${fmt(flowPerMin)}/min`;
     }
 
     /* ─── legend (inline in header) ─── */
@@ -660,29 +680,40 @@
       }
     }
 
-    /* ─── boot: no splash, start immediately, audio on first click ─── */
+    /* ─── boot ─── */
     buildLegend();
     initCanvas();
     renderLoop();
 
+    /* init audio eagerly (will be suspended until user gesture) */
+    initAudio();
+
     CHAINS.forEach((chain, i) => {
       setTimeout(() => {
         pollChain(chain);
-        setInterval(() => pollChain(chain), 5000 + i * 300);
+        setInterval(() => pollChain(chain), POLL_INTERVAL + i * 300);
       }, i * 600);
     });
 
     /* stats refresh */
     setInterval(updateStats, 2000);
 
-    /* audio requires user gesture */
-    document.addEventListener('click', () => {
-      if (!audio) {
-        initAudio();
-      } else if (audio.state === 'suspended') {
-        audio.resume();
+    /* resume audio on first interaction + immediately re-poll for instant sound */
+    let audioResumed = false;
+    function resumeAudio() {
+      if (audioResumed) return;
+      if (audio && audio.state === 'suspended') {
+        audio.resume().then(() => {
+          audioResumed = true;
+          /* re-poll all chains immediately so sound starts right away */
+          CHAINS.forEach(ch => pollChain(ch));
+        });
+      } else {
+        audioResumed = true;
       }
-    }, { once: false });
+    }
+    document.addEventListener('click', resumeAudio);
+    document.addEventListener('keydown', resumeAudio);
 
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden) {
