@@ -393,8 +393,10 @@
       const w = window.innerWidth, h = window.innerHeight;
       const pad = r + 8;
 
-      /* keep bubbles out of the left log panel (34% + buffer) */
-      const leftEdge = w * 0.36 + pad;
+      /* keep bubbles out of the left log panel — read its actual width */
+      const logPanel = document.getElementById('log-panel');
+      const logRight = logPanel ? logPanel.getBoundingClientRect().right : 0;
+      const leftEdge = logRight + pad;
       const x = leftEdge + Math.random() * (w - leftEdge - pad);
       const y = pad + Math.random() * (h - pad * 2);
 
