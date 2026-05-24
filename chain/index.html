@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Listen to the Chain</title>
-  <meta name="description" content="Real-time sonification of USDC transfers on Ethereum. Each transaction becomes a tone on a pentatonic scale.">
+  <meta name="description" content="Real-time sonification of USDC transfers across Ethereum, Polygon, Arbitrum, Optimism, Base, and Avalanche.">
   <meta property="og:title" content="Listen to the Chain">
-  <meta property="og:description" content="USDC transfers on Ethereum, sonified in real time">
+  <meta property="og:description" content="USDC transfers across six blockchains, sonified in real time">
   <meta property="og:type" content="website">
   <link rel="icon" href="/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,6 +50,32 @@
       font-style: italic;
       margin-top: 0.15em;
     }
+    #legend {
+      position: absolute;
+      top: 5em;
+      left: 2em;
+      display: flex;
+      gap: 1.2em;
+      flex-wrap: wrap;
+      max-width: 55%;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35em;
+      font-size: 0.72em;
+      color: #3e3a32;
+      cursor: pointer;
+      pointer-events: all;
+      user-select: none;
+      transition: opacity 0.3s;
+    }
+    .legend-item.muted { opacity: 0.25; }
+    .legend-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
     #stats {
       position: absolute;
       top: 2em;
@@ -74,7 +100,7 @@
       bottom: 3.5em;
       left: 0;
       width: 55%;
-      max-width: 32em;
+      max-width: 34em;
       padding: 1.2em 2em 0.5em;
       display: flex;
       flex-direction: column;
@@ -88,6 +114,14 @@
       white-space: nowrap;
       opacity: 0;
       animation: txIn 0.4s ease forwards;
+    }
+    .tx .chain-tag {
+      display: inline-block;
+      min-width: 3em;
+      font-size: 0.85em;
+      margin-right: 0.5em;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
     .tx .amt {
       color: #6a6454;
@@ -169,6 +203,24 @@
       font-size: 0.85em;
       margin-top: 4em;
     }
+    #splash .chains {
+      display: flex;
+      gap: 1.5em;
+      margin-top: 1.8em;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    #splash .chain-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.4em;
+      font-size: 0.8em;
+      color: #3e3a32;
+    }
+    #splash .chain-pill .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+    }
     #sim-badge {
       display: none;
       position: absolute;
@@ -188,10 +240,10 @@
   <div id="ui">
     <div id="header">
       <h1>Listen to the Chain</h1>
-      <div class="sub">USDC on Ethereum</div>
+      <div class="sub">USDC across six networks</div>
     </div>
+    <div id="legend"></div>
     <div id="stats">
-      <div id="s-block"></div>
       <div id="s-rate"></div>
       <div id="s-vol"></div>
     </div>
@@ -206,20 +258,73 @@
 
   <div id="splash">
     <h1>Listen to the Chain</h1>
-    <p>USDC transfers on Ethereum, sonified</p>
+    <p>USDC transfers, sonified in real time</p>
+    <div class="chains" id="splash-chains"></div>
     <p class="hint">click anywhere to begin</p>
   </div>
 
   <script>
-    /* ─── config ─── */
-    const USDC = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48';
-    const TRANSFER = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
-    const RPCS = [
-      'https://ethereum-rpc.publicnode.com',
-      'https://eth.llamarpc.com',
-      'https://rpc.ankr.com/eth',
-      'https://eth.drpc.org'
+    /* ─── chain config ─── */
+    const CHAINS = [
+      {
+        id: 'ethereum', name: 'Ethereum', short: 'ETH',
+        usdc: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+        rpcs: ['https://ethereum-rpc.publicnode.com','https://eth.drpc.org','https://rpc.ankr.com/eth','https://eth.llamarpc.com'],
+        color: [100, 140, 230],   // steel blue
+        pan: -0.8,
+        baseNote: 0,
+        xZone: [0.03, 0.19]
+      },
+      {
+        id: 'polygon', name: 'Polygon', short: 'POL',
+        usdc: '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359',
+        rpcs: ['https://polygon-bor-rpc.publicnode.com','https://polygon.drpc.org','https://rpc.ankr.com/polygon'],
+        color: [160, 80, 220],    // violet
+        pan: -0.45,
+        baseNote: 2,
+        xZone: [0.19, 0.35]
+      },
+      {
+        id: 'arbitrum', name: 'Arbitrum', short: 'ARB',
+        usdc: '0xaf88d065e77c8cC2239327C5EDb3A432268e5831',
+        rpcs: ['https://arbitrum-one-rpc.publicnode.com','https://arbitrum.drpc.org','https://rpc.ankr.com/arbitrum'],
+        color: [60, 180, 220],    // cyan
+        pan: -0.1,
+        baseNote: 4,
+        xZone: [0.35, 0.51]
+      },
+      {
+        id: 'optimism', name: 'Optimism', short: 'OPT',
+        usdc: '0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85',
+        rpcs: ['https://optimism-rpc.publicnode.com','https://optimism.drpc.org','https://rpc.ankr.com/optimism'],
+        color: [230, 60, 60],     // red
+        pan: 0.2,
+        baseNote: 1,
+        xZone: [0.51, 0.67]
+      },
+      {
+        id: 'base', name: 'Base', short: 'BASE',
+        usdc: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
+        rpcs: ['https://base-rpc.publicnode.com','https://base.drpc.org','https://rpc.ankr.com/base'],
+        color: [50, 130, 255],    // bright blue
+        pan: 0.55,
+        baseNote: 3,
+        xZone: [0.67, 0.83]
+      },
+      {
+        id: 'avalanche', name: 'Avalanche', short: 'AVAX',
+        usdc: '0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E',
+        rpcs: ['https://avalanche-c-chain-rpc.publicnode.com','https://avalanche.drpc.org','https://rpc.ankr.com/avalanche'],
+        color: [230, 120, 50],    // amber/orange
+        pan: 0.9,
+        baseNote: 5,
+        xZone: [0.83, 0.98]
+      }
     ];
+
+    const TRANSFER = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
+
+    // pentatonic C major, 3 octaves
     const PENTATONIC = [
       130.81, 146.83, 164.81, 196.00, 220.00,
       261.63, 293.66, 329.63, 392.00, 440.00,
@@ -227,11 +332,25 @@
       1046.50
     ];
 
-    let ctx, cvs, dpr;
+    let canvasCtx, cvs, dpr;
     let audio, master, comp, verb, verbGain;
-    let bubbles = [], seen = new Set(), rpcIdx = 0, lastBlock = null;
-    let totalVol = 0, txTimes = [], simulating = false;
-    let soundQ = [], lastSound = 0;
+    let bubbles = [], soundQ = [], lastSound = 0;
+    let totalVol = 0, txTimes = [];
+    let mutedChains = new Set();
+
+    // per-chain state
+    const chainState = {};
+    for (const ch of CHAINS) {
+      chainState[ch.id] = {
+        rpcIdx: 0,
+        lastBlock: null,
+        seen: new Set(),
+        pollFails: 0,
+        simulating: false,
+        simInterval: null,
+        connected: false
+      };
+    }
 
     /* ─── utilities ─── */
     const lerp = (v, a, b, c, d) => c + (d - c) * ((v - a) / (b - a));
@@ -239,22 +358,22 @@
     const fmt = n => n >= 1e6 ? `$${(n/1e6).toFixed(1)}M` : n >= 1e3 ? `$${(n/1e3).toFixed(1)}K` : n >= 1 ? `$${n.toFixed(0)}` : `$${n.toFixed(2)}`;
     const shortAddr = a => a.slice(0, 6) + '…' + a.slice(-4);
     const randAddr = () => '0x' + Array.from({length:40}, () => '0123456789abcdef'[Math.random()*16|0]).join('');
+    const rgb = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
 
     /* ─── audio engine ─── */
     function initAudio() {
       audio = new (window.AudioContext || window.webkitAudioContext)();
 
       comp = audio.createDynamicsCompressor();
-      comp.threshold.value = -18;
+      comp.threshold.value = -20;
       comp.knee.value = 24;
-      comp.ratio.value = 8;
-      comp.attack.value = 0.004;
+      comp.ratio.value = 10;
+      comp.attack.value = 0.003;
       comp.release.value = 0.25;
 
       master = audio.createGain();
       master.gain.value = 0.35;
 
-      // convolution reverb from noise impulse
       const len = audio.sampleRate * 3;
       const impulse = audio.createBuffer(2, len, audio.sampleRate);
       for (let ch = 0; ch < 2; ch++) {
@@ -267,7 +386,7 @@
       verb.buffer = impulse;
 
       verbGain = audio.createGain();
-      verbGain.gain.value = 0.25;
+      verbGain.gain.value = 0.22;
 
       comp.connect(master);
       verb.connect(verbGain);
@@ -275,14 +394,19 @@
       master.connect(audio.destination);
     }
 
-    function playTone(amount) {
+    function playTone(amount, chain) {
       if (!audio || audio.state === 'suspended') return;
+      if (mutedChains.has(chain.id)) return;
       const now = audio.currentTime;
       const lg = Math.log10(Math.max(amount, 0.01));
       const ni = clamp(Math.round(lerp(lg, -1, 7, PENTATONIC.length - 1, 0)), 0, PENTATONIC.length - 1);
       const freq = PENTATONIC[ni];
       const dur = lerp(lg, -1, 7, 0.5, 3.2);
-      const vol = lerp(lg, -1, 7, 0.05, 0.18);
+      const vol = lerp(lg, -1, 7, 0.04, 0.14);
+
+      // stereo panner per chain
+      const panner = audio.createStereoPanner();
+      panner.pan.value = chain.pan;
 
       const makeOsc = (f, gain, decayMul) => {
         const o = audio.createOscillator();
@@ -293,31 +417,37 @@
         g.gain.linearRampToValueAtTime(gain, now + 0.01);
         g.gain.exponentialRampToValueAtTime(0.0001, now + dur * decayMul);
         o.connect(g);
-        g.connect(comp);
-        g.connect(verb);
+        g.connect(panner);
+        panner.connect(comp);
+        panner.connect(verb);
         o.start(now);
         o.stop(now + dur * decayMul + 0.05);
       };
 
-      makeOsc(freq, vol, 1.0);
-      makeOsc(freq * 2, vol * 0.22, 0.55);
-      makeOsc(freq * 3, vol * 0.08, 0.3);
+      // per-chain timbre: vary harmonic content
+      const h2 = [0.22, 0.30, 0.15, 0.25, 0.18, 0.28][chain.baseNote] || 0.22;
+      const h3 = [0.08, 0.04, 0.12, 0.06, 0.10, 0.05][chain.baseNote] || 0.08;
+      const decay = [1.0, 0.85, 1.1, 0.9, 1.05, 0.8][chain.baseNote] || 1.0;
 
-      // chord for whales
+      makeOsc(freq, vol, decay);
+      makeOsc(freq * 2, vol * h2, 0.55 * decay);
+      makeOsc(freq * 3, vol * h3, 0.3 * decay);
+
       if (amount >= 500000) {
-        makeOsc(freq * 1.5, vol * 0.15, 0.8);
+        makeOsc(freq * 1.5, vol * 0.15, 0.8 * decay);
       }
     }
 
-    function queueSound(amount) {
-      soundQ.push({ amount, time: Date.now() });
+    function queueSound(amount, chain) {
+      soundQ.push({ amount, chain, time: Date.now() });
+      if (soundQ.length > 30) soundQ.splice(0, soundQ.length - 30);
     }
 
     function processSoundQueue() {
       const now = Date.now();
-      if (soundQ.length > 0 && now - lastSound >= 150) {
+      if (soundQ.length > 0 && now - lastSound >= 100) {
         const s = soundQ.shift();
-        playTone(s.amount);
+        playTone(s.amount, s.chain);
         lastSound = now;
       }
       requestAnimationFrame(processSoundQueue);
@@ -326,7 +456,7 @@
     /* ─── canvas ─── */
     function initCanvas() {
       cvs = document.getElementById('c');
-      ctx = cvs.getContext('2d');
+      canvasCtx = cvs.getContext('2d');
       resize();
       window.addEventListener('resize', resize);
     }
@@ -337,35 +467,56 @@
       cvs.height = window.innerHeight * dpr;
       cvs.style.width = window.innerWidth + 'px';
       cvs.style.height = window.innerHeight + 'px';
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      canvasCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
-    function addBubble(amount) {
+    function addBubble(amount, chain) {
       if (amount < 1) return;
+      if (mutedChains.has(chain.id)) return;
       const lg = Math.log10(Math.max(amount, 1));
-      const r = clamp(lerp(lg, 0, 7, 3, 55), 3, 65);
+      const r = clamp(lerp(lg, 0, 7, 3, 50), 3, 60);
       const w = window.innerWidth, h = window.innerHeight;
+
+      const [xMin, xMax] = chain.xZone;
+      const zoneW = (xMax - xMin) * w;
+      const x = xMin * w + Math.random() * zoneW;
+      const y = Math.random() * (h * 0.55 - r) + h * 0.1 + r;
+
       bubbles.push({
-        x: Math.random() * (w - r * 2) + r,
-        y: Math.random() * (h * 0.65 - r) + h * 0.08 + r,
+        x, y,
         r: 0, tr: r,
-        a: 0.7,
+        a: 0.75,
         born: Date.now(),
         life: lerp(lg, 0, 7, 3500, 8000),
-        lg
+        lg,
+        color: chain.color,
+        vy: -(0.02 + Math.random() * 0.04),
+        vx: (Math.random() - 0.5) * 0.03
       });
     }
 
     function renderLoop() {
       const w = window.innerWidth, h = window.innerHeight;
-      ctx.clearRect(0, 0, w, h);
+      canvasCtx.clearRect(0, 0, w, h);
       const now = Date.now();
 
       bubbles = bubbles.filter(b => now - b.born < b.life);
 
+      // draw faint vertical zone dividers
+      canvasCtx.save();
+      for (let i = 1; i < CHAINS.length; i++) {
+        const x = CHAINS[i].xZone[0] * w;
+        canvasCtx.beginPath();
+        canvasCtx.moveTo(x, h * 0.05);
+        canvasCtx.lineTo(x, h * 0.75);
+        canvasCtx.strokeStyle = 'rgba(40,38,30,0.15)';
+        canvasCtx.lineWidth = 1;
+        canvasCtx.stroke();
+      }
+      canvasCtx.restore();
+
       for (const b of bubbles) {
         const age = (now - b.born) / b.life;
-        // grow fast, hold, then fade
         b.r = age < 0.08 ? b.tr * (age / 0.08) : b.tr;
         const alpha = age < 0.08
           ? (age / 0.08) * b.a
@@ -373,35 +524,37 @@
 
         if (alpha < 0.002) continue;
 
-        const warmth = clamp(lerp(b.lg, 0, 7, 0, 30), 0, 30);
-        const base = 170 + warmth;
+        b.x += b.vx;
+        b.y += b.vy;
 
-        // filled glow
-        const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
-        g.addColorStop(0, `rgba(${base+20}, ${base+10}, ${base-10}, ${alpha * 0.45})`);
-        g.addColorStop(0.4, `rgba(${base+10}, ${base}, ${base-15}, ${alpha * 0.2})`);
-        g.addColorStop(1, `rgba(${base}, ${base-10}, ${base-25}, 0)`);
-        ctx.beginPath();
-        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-        ctx.fillStyle = g;
-        ctx.fill();
+        const c = b.color;
 
-        // ring
-        ctx.beginPath();
-        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(${base+10}, ${base+5}, ${base-5}, ${alpha * 0.45})`;
-        ctx.lineWidth = 1;
-        ctx.stroke();
+        const g = canvasCtx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
+        g.addColorStop(0, rgb(c, alpha * 0.5));
+        g.addColorStop(0.35, rgb(c, alpha * 0.25));
+        g.addColorStop(1, rgb(c, 0));
+        canvasCtx.beginPath();
+        canvasCtx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+        canvasCtx.fillStyle = g;
+        canvasCtx.fill();
+
+        canvasCtx.beginPath();
+        canvasCtx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+        canvasCtx.strokeStyle = rgb(c, alpha * 0.5);
+        canvasCtx.lineWidth = 1;
+        canvasCtx.stroke();
       }
 
       requestAnimationFrame(renderLoop);
     }
 
-    /* ─── chain listener ─── */
-    async function rpc(method, params) {
+    /* ─── per-chain RPC ─── */
+    async function chainRpc(chain, method, params) {
+      const st = chainState[chain.id];
+      const rpcs = chain.rpcs;
       const errors = [];
-      for (let i = 0; i < RPCS.length; i++) {
-        const url = RPCS[(rpcIdx + i) % RPCS.length];
+      for (let i = 0; i < rpcs.length; i++) {
+        const url = rpcs[(st.rpcIdx + i) % rpcs.length];
         try {
           const r = await fetch(url, {
             method: 'POST',
@@ -410,13 +563,13 @@
           });
           const d = await r.json();
           if (d.error) throw new Error(d.error.message);
-          rpcIdx = (rpcIdx + i) % RPCS.length;
+          st.rpcIdx = (st.rpcIdx + i) % rpcs.length;
           return d.result;
         } catch (e) {
           errors.push(e.message);
         }
       }
-      throw new Error('all RPCs failed: ' + errors.join('; '));
+      throw new Error(`${chain.name}: all RPCs failed`);
     }
 
     function parseLog(log) {
@@ -426,123 +579,136 @@
       return { from, to, amount, hash: log.transactionHash, logIdx: log.logIndex, block: parseInt(log.blockNumber, 16) };
     }
 
-    let pollFails = 0;
-    async function poll() {
+    async function pollChain(chain) {
+      const st = chainState[chain.id];
       try {
-        const fromBlock = lastBlock
-          ? '0x' + Math.max(lastBlock + 1, 0).toString(16)
+        const fromBlock = st.lastBlock
+          ? '0x' + Math.max(st.lastBlock + 1, 0).toString(16)
           : 'latest';
 
-        const logs = await rpc('eth_getLogs', [{
+        const logs = await chainRpc(chain, 'eth_getLogs', [{
           fromBlock,
           toBlock: 'latest',
-          address: USDC,
+          address: chain.usdc,
           topics: [TRANSFER]
         }]);
 
         const fresh = [];
-        let maxBlock = lastBlock || 0;
+        let maxBlock = st.lastBlock || 0;
         for (const l of (logs || [])) {
           const key = l.transactionHash + l.logIndex;
-          if (seen.has(key)) continue;
-          seen.add(key);
+          if (st.seen.has(key)) continue;
+          st.seen.add(key);
           const tx = parseLog(l);
+          tx.chain = chain;
           if (tx.amount > 0) fresh.push(tx);
           if (tx.block > maxBlock) maxBlock = tx.block;
         }
 
-        if (seen.size > 5000) {
-          const arr = [...seen];
-          seen = new Set(arr.slice(-2500));
+        if (st.seen.size > 3000) {
+          const arr = [...st.seen];
+          st.seen = new Set(arr.slice(-1500));
         }
 
-        if (maxBlock > 0) lastBlock = maxBlock;
-        pollFails = 0;
+        if (maxBlock > 0) st.lastBlock = maxBlock;
+        st.pollFails = 0;
+        st.connected = true;
 
-        if (fresh.length) scheduleTxs(fresh);
-        updateStats(fresh, maxBlock);
-        document.getElementById('status').style.opacity = '0';
-        if (maxBlock > 0) document.getElementById('s-block').textContent = 'block ' + maxBlock.toLocaleString();
+        if (fresh.length) scheduleTxs(fresh, chain);
+        updateStats(fresh);
+        updateConnectionStatus();
 
       } catch (e) {
-        console.warn('poll:', e.message);
-        pollFails++;
-        if (pollFails >= 3 && !simulating) startSimulation();
-        document.getElementById('status').textContent = simulating ? '' : 'reconnecting…';
-        document.getElementById('status').style.opacity = '1';
+        console.warn(`poll ${chain.name}:`, e.message);
+        st.pollFails++;
+        if (st.pollFails >= 4 && !st.simulating) startChainSim(chain);
+        updateConnectionStatus();
       }
     }
 
-    function scheduleTxs(txs) {
-      // shuffle for natural arrival feel
+    function scheduleTxs(txs, chain) {
       for (let i = txs.length - 1; i > 0; i--) {
         const j = Math.random() * (i + 1) | 0;
         [txs[i], txs[j]] = [txs[j], txs[i]];
       }
       const threshold = Math.pow(10, parseFloat(document.getElementById('thresh-slider').value));
-      const spread = Math.min(4500 / Math.max(txs.length, 1), 400);
+      const spread = Math.min(4500 / Math.max(txs.length, 1), 350);
 
       txs.forEach((tx, i) => {
         const delay = i * spread + Math.random() * spread * 0.4;
         setTimeout(() => {
-          addBubble(tx.amount);
-          if (tx.amount >= threshold) queueSound(tx.amount);
-          if (tx.amount >= 1) addLogEntry(tx);
+          addBubble(tx.amount, chain);
+          if (tx.amount >= threshold) queueSound(tx.amount, chain);
+          if (tx.amount >= 1) addLogEntry(tx, chain);
         }, delay);
       });
     }
 
-    /* ─── simulation fallback ─── */
-    let simInterval;
-    function startSimulation() {
-      simulating = true;
+    /* ─── simulation fallback per chain ─── */
+    function startChainSim(chain) {
+      const st = chainState[chain.id];
+      st.simulating = true;
       document.getElementById('sim-badge').style.display = 'block';
-      document.getElementById('status').style.opacity = '0';
 
-      simInterval = setInterval(() => {
-        const n = 2 + Math.random() * 6 | 0;
+      st.simInterval = setInterval(() => {
+        const n = 1 + Math.random() * 4 | 0;
         const txs = [];
         for (let i = 0; i < n; i++) {
           const exp = Math.random() * 6 - 1;
           const amount = Math.pow(10, exp) * (0.5 + Math.random());
-          txs.push({ from: randAddr(), to: randAddr(), amount, hash: randAddr(), block: 0 });
+          txs.push({ from: randAddr(), to: randAddr(), amount, hash: randAddr(), block: 0, chain });
         }
-        scheduleTxs(txs);
-        updateStats(txs, 0);
-      }, 4000 + Math.random() * 3000);
+        scheduleTxs(txs, chain);
+        updateStats(txs);
+      }, 5000 + Math.random() * 4000);
 
-      // keep trying real connection
-      const retryReal = setInterval(async () => {
+      const retryId = setInterval(async () => {
         try {
-          await rpc('eth_blockNumber');
-          clearInterval(simInterval);
-          clearInterval(retryReal);
-          simulating = false;
-          document.getElementById('sim-badge').style.display = 'none';
-          pollFails = 0;
-          lastBlock = null;
-          poll();
+          await chainRpc(chain, 'eth_blockNumber');
+          clearInterval(st.simInterval);
+          clearInterval(retryId);
+          st.simulating = false;
+          st.pollFails = 0;
+          st.lastBlock = null;
+          st.connected = true;
+          updateConnectionStatus();
+          pollChain(chain);
         } catch (e) {}
       }, 30000);
     }
 
+    function updateConnectionStatus() {
+      const anyConnected = CHAINS.some(ch => chainState[ch.id].connected);
+      const allSim = CHAINS.every(ch => chainState[ch.id].simulating);
+      const statusEl = document.getElementById('status');
+      const simEl = document.getElementById('sim-badge');
+
+      if (anyConnected) {
+        statusEl.style.opacity = '0';
+      } else {
+        statusEl.textContent = 'connecting…';
+        statusEl.style.opacity = '1';
+      }
+
+      simEl.style.display = allSim ? 'block' : 'none';
+    }
+
     /* ─── ui ─── */
-    function addLogEntry(tx) {
+    function addLogEntry(tx, chain) {
       const log = document.getElementById('log');
       const el = document.createElement('div');
       el.className = 'tx' + (tx.amount >= 100000 ? ' whale' : '');
-      el.innerHTML = `<span class="amt">${fmt(tx.amount)}</span><span class="addr">${shortAddr(tx.from)} → ${shortAddr(tx.to)}</span>`;
+      el.innerHTML = `<span class="chain-tag" style="color:${rgb(chain.color, 0.6)}">${chain.short}</span><span class="amt">${fmt(tx.amount)}</span><span class="addr">${shortAddr(tx.from)} → ${shortAddr(tx.to)}</span>`;
       log.insertBefore(el, log.firstChild);
 
-      // fade older entries
       const kids = log.children;
       for (let i = 0; i < kids.length; i++) {
-        kids[i].style.opacity = Math.max(0.15, 1 - i * 0.07);
+        kids[i].style.opacity = Math.max(0.15, 1 - i * 0.065);
       }
-      while (kids.length > 10) log.removeChild(log.lastChild);
+      while (kids.length > 12) log.removeChild(log.lastChild);
     }
 
-    function updateStats(txs, block) {
+    function updateStats(txs) {
       const now = Date.now();
       txTimes.push(...txs.map(() => now));
       txTimes = txTimes.filter(t => now - t < 60000);
@@ -550,6 +716,36 @@
 
       document.getElementById('s-rate').textContent = txTimes.length + ' tx/min';
       document.getElementById('s-vol').textContent = fmt(totalVol) + ' total';
+    }
+
+    /* ─── legend ─── */
+    function buildLegend() {
+      const legend = document.getElementById('legend');
+      const splashChains = document.getElementById('splash-chains');
+
+      for (const ch of CHAINS) {
+        // main legend
+        const item = document.createElement('div');
+        item.className = 'legend-item';
+        item.dataset.chain = ch.id;
+        item.innerHTML = `<span class="legend-dot" style="background:${rgb(ch.color, 0.8)}"></span>${ch.name}`;
+        item.addEventListener('click', () => {
+          if (mutedChains.has(ch.id)) {
+            mutedChains.delete(ch.id);
+            item.classList.remove('muted');
+          } else {
+            mutedChains.add(ch.id);
+            item.classList.add('muted');
+          }
+        });
+        legend.appendChild(item);
+
+        // splash pills
+        const pill = document.createElement('div');
+        pill.className = 'chain-pill';
+        pill.innerHTML = `<span class="dot" style="background:${rgb(ch.color, 0.7)}"></span>${ch.name}`;
+        splashChains.appendChild(pill);
+      }
     }
 
     /* ─── controls ─── */
@@ -563,6 +759,8 @@
     });
 
     /* ─── start ─── */
+    buildLegend();
+
     document.getElementById('splash').addEventListener('click', () => {
       document.getElementById('splash').classList.add('gone');
       initAudio();
@@ -570,13 +768,18 @@
       renderLoop();
       processSoundQueue();
 
-      poll();
-      setInterval(poll, 5000);
+      // start polling each chain independently with staggered intervals
+      CHAINS.forEach((chain, i) => {
+        setTimeout(() => {
+          pollChain(chain);
+          setInterval(() => pollChain(chain), 5000 + i * 400);
+        }, i * 800);
+      });
 
       document.addEventListener('visibilitychange', () => {
         if (!document.hidden) {
           if (audio && audio.state === 'suspended') audio.resume();
-          poll();
+          CHAINS.forEach(ch => pollChain(ch));
         }
       });
     });
