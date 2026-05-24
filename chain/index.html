@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Listen to the Chain</title>
-  <meta name="description" content="Real-time sonification of USDC transfers across Ethereum, Polygon, Arbitrum, Optimism, Base, and Avalanche.">
+  <meta name="description" content="Real-time sonification of USDC transfers across nine blockchains.">
   <meta property="og:title" content="Listen to the Chain">
-  <meta property="og:description" content="USDC transfers across six blockchains, sonified in real time">
+  <meta property="og:description" content="USDC transfers across nine blockchains, sonified in real time">
   <meta property="og:type" content="website">
   <link rel="icon" href="/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,175 +32,138 @@
       width: 100%; height: 100%;
       pointer-events: none;
       z-index: 10;
+      display: flex;
+      flex-direction: column;
     }
+
+    /* ─── compact header: single row ─── */
     #header {
-      position: absolute;
-      top: 1.8em;
-      left: 2em;
+      padding: 0.6em 1.2em 0.35em;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.15em 0.8em;
+      background: linear-gradient(to bottom, rgba(244,241,235,0.96) 70%, transparent);
     }
     #header h1 {
-      font-size: 1.4em;
-      font-weight: 400;
+      font-size: 0.9em;
+      font-weight: 500;
       color: #2a2520;
-      letter-spacing: 0.03em;
-    }
-    #header .sub {
-      font-size: 0.85em;
-      color: #8a8070;
-      font-style: italic;
-      margin-top: 0.15em;
-    }
-    #legend {
-      position: absolute;
-      top: 5em;
-      left: 2em;
-      display: flex;
-      gap: 1.2em;
-      flex-wrap: wrap;
-      max-width: 55%;
+      letter-spacing: 0.02em;
+      margin-right: 0.3em;
     }
     .legend-item {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 0.35em;
-      font-size: 0.78em;
+      gap: 0.25em;
+      font-size: 0.7em;
       color: #5a5040;
       cursor: pointer;
       pointer-events: all;
       user-select: none;
       transition: opacity 0.3s;
     }
-    .legend-item.muted { opacity: 0.25; text-decoration: line-through; }
+    .legend-item.muted { opacity: 0.2; text-decoration: line-through; }
     .legend-dot {
-      width: 8px; height: 8px;
+      width: 6px; height: 6px;
       border-radius: 50%;
       flex-shrink: 0;
     }
-    #stats {
-      position: absolute;
-      top: 2em;
-      right: 2em;
-      text-align: right;
-      font-size: 0.85em;
-      color: #8a8070;
-      line-height: 1.7;
-    }
-    #status {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #b0a898;
+    #stats-line {
+      width: 100%;
+      font-size: 0.68em;
+      color: #9a9080;
       font-style: italic;
-      font-size: 1.05em;
-      transition: opacity 0.5s;
+      margin-top: -0.1em;
     }
-    #log {
-      position: absolute;
-      bottom: 4em;
+
+    /* ─── full-height left log panel ─── */
+    #log-panel {
+      position: fixed;
+      top: 3em;
       left: 0;
-      width: 50%;
-      max-width: 32em;
-      max-height: 40vh;
-      padding: 0.8em 2em 0.5em;
-      display: flex;
-      flex-direction: column;
-      gap: 0.12em;
+      bottom: 1.5em;
+      width: 34%;
+      max-width: 28em;
+      min-width: 16em;
       overflow-y: auto;
       pointer-events: all;
-      background: linear-gradient(to right, rgba(244,241,235,0.92) 75%, transparent);
-      border-radius: 0 4px 4px 0;
+      padding: 0.4em 1.5em 0.5em;
+      background: linear-gradient(to right, rgba(244,241,235,0.88) 80%, transparent);
+      display: flex;
+      flex-direction: column;
+      gap: 0.08em;
       scrollbar-width: thin;
-      scrollbar-color: #c8c0b0 transparent;
+      scrollbar-color: #d0c8b8 transparent;
+      z-index: 10;
     }
-    #log::-webkit-scrollbar { width: 4px; }
-    #log::-webkit-scrollbar-thumb { background: #c8c0b0; border-radius: 2px; }
-    #log::-webkit-scrollbar-track { background: transparent; }
+    #log-panel::-webkit-scrollbar { width: 3px; }
+    #log-panel::-webkit-scrollbar-thumb { background: #d0c8b8; border-radius: 2px; }
+    #log-panel::-webkit-scrollbar-track { background: transparent; }
     .tx {
-      font-size: 0.8em;
+      font-size: 0.76em;
       color: #5a5548;
       white-space: nowrap;
       opacity: 0;
-      animation: txIn 0.4s ease forwards;
+      animation: txIn 0.3s ease forwards;
       flex-shrink: 0;
+      line-height: 1.5;
     }
     .tx .chain-tag {
       display: inline-block;
       min-width: 3.2em;
       font-size: 0.85em;
       font-weight: 500;
-      margin-right: 0.5em;
+      margin-right: 0.4em;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
     }
     .tx .amt {
       color: #3a3530;
       display: inline-block;
-      min-width: 7em;
+      min-width: 6em;
       text-align: right;
-      margin-right: 1.2em;
+      margin-right: 0.8em;
     }
-    .tx .addr { color: #9a9488; font-size: 0.92em; }
+    .tx .addr { color: #a09888; font-size: 0.9em; }
     .tx.whale .amt { color: #1a1510; font-weight: 500; }
     @keyframes txIn {
-      from { opacity: 0; transform: translateY(4px); }
+      from { opacity: 0; transform: translateY(3px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    #controls {
-      position: absolute;
-      bottom: 1.8em;
-      right: 2em;
-      display: flex;
-      gap: 1.8em;
-      align-items: center;
-      pointer-events: all;
-    }
-    #controls label {
-      font-size: 0.78em;
-      color: #8a8070;
-      display: flex;
-      align-items: center;
-      gap: 0.5em;
-    }
-    input[type="range"] {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 70px;
-      height: 2px;
-      background: #c8c0b0;
-      outline: none;
-      cursor: pointer;
-    }
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #6a6050;
+
+    #status {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: #b0a898;
+      font-style: italic;
+      font-size: 1.05em;
+      transition: opacity 0.5s;
+      z-index: 10;
+      pointer-events: none;
     }
     #sim-badge {
       display: none;
-      position: absolute;
-      top: 2em;
+      position: fixed;
+      top: 4em;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 0.75em;
+      font-size: 0.72em;
       color: #b0a090;
       font-style: italic;
-      letter-spacing: 0.05em;
+      z-index: 10;
     }
     #sources {
-      position: absolute;
-      bottom: 0.8em;
-      left: 2em;
-      font-size: 0.65em;
-      color: #b0a898;
+      position: fixed;
+      bottom: 0.5em;
+      left: 1.5em;
+      font-size: 0.6em;
+      color: #b8b0a0;
       pointer-events: all;
+      z-index: 10;
     }
-    #sources a {
-      color: #8a8070;
-      text-decoration: none;
-    }
+    #sources a { color: #908878; text-decoration: none; }
     #sources a:hover { text-decoration: underline; }
   </style>
 </head>
@@ -210,105 +173,106 @@
   <div id="ui">
     <div id="header">
       <h1>Listen to the Chain</h1>
-      <div class="sub">USDC across six networks</div>
-    </div>
-    <div id="legend"></div>
-    <div id="stats">
-      <div id="s-rate"></div>
-    </div>
-    <div id="status">connecting…</div>
-    <div id="sim-badge">simulated data</div>
-    <div id="log"></div>
-    <div id="controls">
-      <label>volume <input type="range" id="vol-slider" min="0" max="100" value="35"></label>
-    </div>
-    <div id="sources">
-      data via <a href="https://www.circle.com/usdc" target="_blank">Circle USDC</a> ERC-20 Transfer logs ·
-      RPCs: <a href="https://publicnode.com" target="_blank">PublicNode</a>,
-      <a href="https://drpc.org" target="_blank">dRPC</a>,
-      <a href="https://www.ankr.com/rpc/" target="_blank">Ankr</a> ·
-      <a href="https://en.wikipedia.org/wiki/USD_Coin" target="_blank">USDC</a> ·
-      <a href="https://en.wikipedia.org/wiki/ERC-20" target="_blank">ERC-20</a>
+      <!-- legend items injected here -->
+      <div id="stats-line"></div>
     </div>
   </div>
 
+  <div id="log-panel"></div>
+  <div id="status">connecting…</div>
+  <div id="sim-badge">simulated data</div>
+
+  <div id="sources">
+    data: <a href="https://developers.circle.com/stablecoins/usdc-contract-addresses" target="_blank">Circle USDC</a> ERC-20 Transfer logs ·
+    RPCs: <a href="https://publicnode.com" target="_blank">PublicNode</a>,
+    <a href="https://drpc.org" target="_blank">dRPC</a>,
+    <a href="https://www.ankr.com/rpc/" target="_blank">Ankr</a>
+  </div>
+
   <script>
-    /* ─── chain config ─── */
+    /* ─── chain config: native Circle USDC on all major EVM chains ─── */
     const CHAINS = [
       {
         id: 'ethereum', name: 'Ethereum', short: 'ETH',
         usdc: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         rpcs: ['https://ethereum-rpc.publicnode.com','https://eth.drpc.org','https://rpc.ankr.com/eth','https://eth.llamarpc.com'],
-        color: [70, 110, 200],
-        pan: -0.8,
-        baseNote: 0
+        color: [80, 110, 195], pan: -0.9, baseNote: 0
       },
       {
         id: 'polygon', name: 'Polygon', short: 'POL',
         usdc: '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359',
         rpcs: ['https://polygon-bor-rpc.publicnode.com','https://polygon.drpc.org','https://rpc.ankr.com/polygon'],
-        color: [130, 50, 200],
-        pan: -0.45,
-        baseNote: 2
+        color: [145, 40, 200], pan: -0.6, baseNote: 1
       },
       {
         id: 'arbitrum', name: 'Arbitrum', short: 'ARB',
         usdc: '0xaf88d065e77c8cC2239327C5EDb3A432268e5831',
         rpcs: ['https://arbitrum-one-rpc.publicnode.com','https://arbitrum.drpc.org','https://rpc.ankr.com/arbitrum'],
-        color: [30, 150, 190],
-        pan: -0.1,
-        baseNote: 4
+        color: [10, 160, 185], pan: -0.3, baseNote: 2
       },
       {
         id: 'optimism', name: 'Optimism', short: 'OPT',
         usdc: '0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85',
         rpcs: ['https://optimism-rpc.publicnode.com','https://optimism.drpc.org','https://rpc.ankr.com/optimism'],
-        color: [210, 40, 40],
-        pan: 0.2,
-        baseNote: 1
+        color: [220, 30, 35], pan: -0.1, baseNote: 3
       },
       {
         id: 'base', name: 'Base', short: 'BASE',
         usdc: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
         rpcs: ['https://base-rpc.publicnode.com','https://base.drpc.org','https://rpc.ankr.com/base'],
-        color: [30, 100, 230],
-        pan: 0.55,
-        baseNote: 3
+        color: [20, 70, 235], pan: 0.1, baseNote: 4
       },
       {
         id: 'avalanche', name: 'Avalanche', short: 'AVAX',
         usdc: '0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E',
         rpcs: ['https://avalanche-c-chain-rpc.publicnode.com','https://avalanche.drpc.org','https://rpc.ankr.com/avalanche'],
-        color: [210, 90, 30],
-        pan: 0.9,
-        baseNote: 5
+        color: [220, 100, 20], pan: 0.3, baseNote: 5
+      },
+      {
+        id: 'celo', name: 'Celo', short: 'CELO',
+        usdc: '0xcebA9300f2b948710d2653dD7B07f33A8B32118C',
+        rpcs: ['https://forno.celo.org','https://celo.drpc.org','https://rpc.ankr.com/celo'],
+        color: [30, 165, 60], pan: 0.5, baseNote: 6
+      },
+      {
+        id: 'zksync', name: 'zkSync', short: 'ZK',
+        usdc: '0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4',
+        rpcs: ['https://mainnet.era.zksync.io','https://zksync.drpc.org','https://rpc.ankr.com/zksync_era'],
+        color: [170, 65, 155], pan: 0.7, baseNote: 7
+      },
+      {
+        id: 'sonic', name: 'Sonic', short: 'SONIC',
+        usdc: '0x29219dd400f2Bf60E5a23d13Be72B486D4038894',
+        rpcs: ['https://rpc.soniclabs.com','https://sonic.drpc.org'],
+        color: [175, 155, 15], pan: 0.9, baseNote: 8
       }
     ];
 
     const TRANSFER = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
 
+    /* pentatonic C major across 5 octaves for dramatic pitch range */
     const PENTATONIC = [
+      65.41, 73.42, 82.41, 98.00, 110.00,
       130.81, 146.83, 164.81, 196.00, 220.00,
       261.63, 293.66, 329.63, 392.00, 440.00,
       523.25, 587.33, 659.26, 783.99, 880.00,
-      1046.50
+      1046.50, 1174.66, 1318.51, 1567.98, 1760.00
     ];
 
     let canvasCtx, cvs, dpr;
     let audio, master, comp, verb, verbGain;
-    let bubbles = [], soundQ = [], lastSound = 0;
-    let txTimes = [];
+    let bubbles = [];
     let mutedChains = new Set();
+
+    /* rolling stats: { time, amount, chainId } */
+    let recentTxs = [];
 
     const chainState = {};
     for (const ch of CHAINS) {
       chainState[ch.id] = {
-        rpcIdx: 0,
-        lastBlock: null,
-        seen: new Set(),
-        pollFails: 0,
-        simulating: false,
-        simInterval: null,
+        rpcIdx: 0, lastBlock: null,
+        seen: new Set(), pollFails: 0,
+        simulating: false, simInterval: null,
         connected: false
       };
     }
@@ -321,19 +285,19 @@
     const randAddr = () => '0x' + Array.from({length:40}, () => '0123456789abcdef'[Math.random()*16|0]).join('');
     const rgb = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
 
-    /* ─── audio engine ─── */
+    /* ─── audio ─── */
     function initAudio() {
       audio = new (window.AudioContext || window.webkitAudioContext)();
 
       comp = audio.createDynamicsCompressor();
-      comp.threshold.value = -20;
-      comp.knee.value = 24;
-      comp.ratio.value = 10;
+      comp.threshold.value = -22;
+      comp.knee.value = 20;
+      comp.ratio.value = 12;
       comp.attack.value = 0.003;
-      comp.release.value = 0.25;
+      comp.release.value = 0.2;
 
       master = audio.createGain();
-      master.gain.value = 0.35;
+      master.gain.value = 0.6;   /* max volume, no slider */
 
       const len = audio.sampleRate * 3;
       const impulse = audio.createBuffer(2, len, audio.sampleRate);
@@ -355,15 +319,22 @@
       master.connect(audio.destination);
     }
 
+    let lastToneTime = 0;
     function playTone(amount, chain) {
       if (!audio || audio.state === 'suspended') return;
       if (mutedChains.has(chain.id)) return;
+      /* minimum 50ms between tones to prevent overload */
+      const wall = Date.now();
+      if (wall - lastToneTime < 50) return;
+      lastToneTime = wall;
+
       const now = audio.currentTime;
       const lg = Math.log10(Math.max(amount, 0.01));
-      const ni = clamp(Math.round(lerp(lg, -1, 7, PENTATONIC.length - 1, 0)), 0, PENTATONIC.length - 1);
+      /* map across 5-octave pentatonic: large=$→low, small$→high */
+      const ni = clamp(Math.round(lerp(lg, -1, 8, PENTATONIC.length - 1, 0)), 0, PENTATONIC.length - 1);
       const freq = PENTATONIC[ni];
-      const dur = lerp(lg, -1, 7, 0.5, 3.2);
-      const vol = lerp(lg, -1, 7, 0.04, 0.14);
+      const dur = lerp(lg, -1, 8, 0.4, 4.0);
+      const vol = lerp(lg, -1, 8, 0.03, 0.16);
 
       const panner = audio.createStereoPanner();
       panner.pan.value = chain.pan;
@@ -374,7 +345,7 @@
         o.type = 'sine';
         o.frequency.value = f;
         g.gain.setValueAtTime(0, now);
-        g.gain.linearRampToValueAtTime(gain, now + 0.01);
+        g.gain.linearRampToValueAtTime(gain, now + 0.008);
         g.gain.exponentialRampToValueAtTime(0.0001, now + dur * decayMul);
         o.connect(g);
         g.connect(panner);
@@ -384,9 +355,9 @@
         o.stop(now + dur * decayMul + 0.05);
       };
 
-      const h2 = [0.22, 0.30, 0.15, 0.25, 0.18, 0.28][chain.baseNote] || 0.22;
-      const h3 = [0.08, 0.04, 0.12, 0.06, 0.10, 0.05][chain.baseNote] || 0.08;
-      const decay = [1.0, 0.85, 1.1, 0.9, 1.05, 0.8][chain.baseNote] || 1.0;
+      const h2 = [0.22, 0.30, 0.15, 0.25, 0.18, 0.28, 0.20, 0.24, 0.16][chain.baseNote] || 0.22;
+      const h3 = [0.08, 0.04, 0.12, 0.06, 0.10, 0.05, 0.09, 0.07, 0.11][chain.baseNote] || 0.08;
+      const decay = [1.0, 0.85, 1.1, 0.9, 1.05, 0.8, 0.95, 1.0, 0.88][chain.baseNote] || 1.0;
 
       makeOsc(freq, vol, decay);
       makeOsc(freq * 2, vol * h2, 0.55 * decay);
@@ -395,21 +366,6 @@
       if (amount >= 500000) {
         makeOsc(freq * 1.5, vol * 0.15, 0.8 * decay);
       }
-    }
-
-    function queueSound(amount, chain) {
-      soundQ.push({ amount, chain, time: Date.now() });
-      if (soundQ.length > 30) soundQ.splice(0, soundQ.length - 30);
-    }
-
-    function processSoundQueue() {
-      const now = Date.now();
-      if (soundQ.length > 0 && now - lastSound >= 100) {
-        const s = soundQ.shift();
-        playTone(s.amount, s.chain);
-        lastSound = now;
-      }
-      requestAnimationFrame(processSoundQueue);
     }
 
     /* ─── canvas ─── */
@@ -429,26 +385,29 @@
       canvasCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
-    /* #3 remove spatial zones — bubbles go anywhere */
     function addBubble(amount, chain) {
       if (amount < 1) return;
       if (mutedChains.has(chain.id)) return;
       const lg = Math.log10(Math.max(amount, 1));
-      const r = clamp(lerp(lg, 0, 7, 4, 50), 4, 60);
+      const r = clamp(lerp(lg, 0, 7, 4, 55), 4, 60);
       const w = window.innerWidth, h = window.innerHeight;
-      const pad = r + 5;
+      const pad = r + 8;
+
+      /* evenly distribute across full viewport */
+      const x = pad + Math.random() * (w - pad * 2);
+      const y = pad + Math.random() * (h - pad * 2);
 
       bubbles.push({
-        x: pad + Math.random() * (w - pad * 2),
-        y: pad + Math.random() * (h * 0.6),
+        x, y,
         r: 0, tr: r,
         a: 0.8,
         born: Date.now(),
         life: lerp(lg, 0, 7, 3500, 8000),
         lg,
         color: chain.color,
-        vy: -(0.02 + Math.random() * 0.04),
-        vx: (Math.random() - 0.5) * 0.03
+        /* very gentle drift, will be clamped to viewport */
+        vy: -(0.01 + Math.random() * 0.025),
+        vx: (Math.random() - 0.5) * 0.02
       });
     }
 
@@ -461,49 +420,53 @@
 
       for (const b of bubbles) {
         const age = (now - b.born) / b.life;
-        b.r = age < 0.08 ? b.tr * (age / 0.08) : b.tr;
-        const alpha = age < 0.08
-          ? (age / 0.08) * b.a
-          : b.a * Math.pow(1 - (age - 0.08) / 0.92, 1.5);
+        b.r = age < 0.06 ? b.tr * (age / 0.06) : b.tr;
+        const alpha = age < 0.06
+          ? (age / 0.06) * b.a
+          : b.a * Math.pow(1 - (age - 0.06) / 0.94, 1.5);
 
         if (alpha < 0.002) continue;
 
-        b.x += b.vx;
-        b.y += b.vy;
+        /* drift but clamp to viewport */
+        b.x = clamp(b.x + b.vx, b.r + 4, w - b.r - 4);
+        b.y = clamp(b.y + b.vy, b.r + 4, h - b.r - 4);
 
         const c = b.color;
 
-        /* #1 filled-in circles on light background */
+        /* solid filled circle — high opacity for light bg */
         canvasCtx.beginPath();
         canvasCtx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-        canvasCtx.fillStyle = rgb(c, alpha * 0.55);
+        canvasCtx.fillStyle = rgb(c, alpha * 0.45);
         canvasCtx.fill();
 
-        /* subtle inner highlight */
-        const g = canvasCtx.createRadialGradient(b.x - b.r * 0.2, b.y - b.r * 0.2, 0, b.x, b.y, b.r);
-        g.addColorStop(0, `rgba(255,255,255,${alpha * 0.2})`);
+        /* inner highlight for depth */
+        const g = canvasCtx.createRadialGradient(
+          b.x - b.r * 0.25, b.y - b.r * 0.25, 0,
+          b.x, b.y, b.r
+        );
+        g.addColorStop(0, `rgba(255,255,255,${alpha * 0.35})`);
+        g.addColorStop(0.6, `rgba(255,255,255,${alpha * 0.08})`);
         g.addColorStop(1, 'rgba(255,255,255,0)');
         canvasCtx.beginPath();
         canvasCtx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
         canvasCtx.fillStyle = g;
         canvasCtx.fill();
 
-        /* ring */
+        /* crisp ring */
         canvasCtx.beginPath();
         canvasCtx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-        canvasCtx.strokeStyle = rgb(c, alpha * 0.7);
-        canvasCtx.lineWidth = 1.2;
+        canvasCtx.strokeStyle = rgb(c, alpha * 0.85);
+        canvasCtx.lineWidth = 1.5;
         canvasCtx.stroke();
       }
 
       requestAnimationFrame(renderLoop);
     }
 
-    /* ─── per-chain RPC ─── */
+    /* ─── RPC ─── */
     async function chainRpc(chain, method, params) {
       const st = chainState[chain.id];
       const rpcs = chain.rpcs;
-      const errors = [];
       for (let i = 0; i < rpcs.length; i++) {
         const url = rpcs[(st.rpcIdx + i) % rpcs.length];
         try {
@@ -516,9 +479,7 @@
           if (d.error) throw new Error(d.error.message);
           st.rpcIdx = (st.rpcIdx + i) % rpcs.length;
           return d.result;
-        } catch (e) {
-          errors.push(e.message);
-        }
+        } catch (e) {}
       }
       throw new Error(`${chain.name}: all RPCs failed`);
     }
@@ -538,8 +499,7 @@
           : 'latest';
 
         const logs = await chainRpc(chain, 'eth_getLogs', [{
-          fromBlock,
-          toBlock: 'latest',
+          fromBlock, toBlock: 'latest',
           address: chain.usdc,
           topics: [TRANSFER]
         }]);
@@ -565,8 +525,7 @@
         st.pollFails = 0;
         st.connected = true;
 
-        if (fresh.length) scheduleTxs(fresh, chain);
-        updateStats(fresh);
+        if (fresh.length) emitTxs(fresh, chain);
         updateConnectionStatus();
 
       } catch (e) {
@@ -577,26 +536,35 @@
       }
     }
 
-    /* #2 min threshold fixed at $1 */
-    function scheduleTxs(txs, chain) {
+    /*
+     * emit transactions as a tight burst — NOT staggered entry-by-entry.
+     * minimal 15ms spacing just to avoid browser choking.
+     * all three media (bubble, log, sound) fire together per tx.
+     */
+    function emitTxs(txs, chain) {
+      /* shuffle for natural feel */
       for (let i = txs.length - 1; i > 0; i--) {
         const j = Math.random() * (i + 1) | 0;
         [txs[i], txs[j]] = [txs[j], txs[i]];
       }
-      const spread = Math.min(4500 / Math.max(txs.length, 1), 350);
+
+      const batchDelay = Math.min(15, 800 / Math.max(txs.length, 1));
 
       txs.forEach((tx, i) => {
-        const delay = i * spread + Math.random() * spread * 0.4;
         setTimeout(() => {
-          if (mutedChains.has(chain.id)) return;   /* #7 mute blocks ALL media */
+          if (mutedChains.has(chain.id)) return;
+          /* all three media at once */
           addBubble(tx.amount, chain);
-          if (tx.amount >= 1) queueSound(tx.amount, chain);
           if (tx.amount >= 1) addLogEntry(tx, chain);
-        }, delay);
+          if (tx.amount >= 1) playTone(tx.amount, chain);
+          /* track for stats */
+          recentTxs.push({ time: Date.now(), amount: tx.amount, chainId: chain.id });
+          updateStats();
+        }, i * batchDelay);
       });
     }
 
-    /* ─── simulation fallback per chain ─── */
+    /* ─── simulation fallback ─── */
     function startChainSim(chain) {
       const st = chainState[chain.id];
       st.simulating = true;
@@ -610,8 +578,7 @@
           const amount = Math.pow(10, exp) * (0.5 + Math.random());
           txs.push({ from: randAddr(), to: randAddr(), amount, hash: randAddr(), block: 0, chain });
         }
-        scheduleTxs(txs, chain);
-        updateStats(txs);
+        emitTxs(txs, chain);
       }, 5000 + Math.random() * 4000);
 
       const retryId = setInterval(async () => {
@@ -634,42 +601,41 @@
       const allSim = CHAINS.every(ch => chainState[ch.id].simulating);
       const statusEl = document.getElementById('status');
       const simEl = document.getElementById('sim-badge');
-
-      if (anyConnected) {
-        statusEl.style.opacity = '0';
-      } else {
-        statusEl.textContent = 'connecting…';
-        statusEl.style.opacity = '1';
-      }
-
+      statusEl.style.opacity = anyConnected ? '0' : '1';
       simEl.style.display = allSim ? 'block' : 'none';
     }
 
-    /* ─── ui ─── */
-    /* #4 scrollable log, #7 muted chains excluded from log */
+    /* ─── log panel (full height) ─── */
     function addLogEntry(tx, chain) {
       if (mutedChains.has(chain.id)) return;
-      const log = document.getElementById('log');
+      const log = document.getElementById('log-panel');
       const el = document.createElement('div');
       el.className = 'tx' + (tx.amount >= 100000 ? ' whale' : '');
       el.dataset.chain = chain.id;
-      el.innerHTML = `<span class="chain-tag" style="color:${rgb(chain.color, 0.85)}">${chain.short}</span><span class="amt">${fmt(tx.amount)}</span><span class="addr">${shortAddr(tx.from)} → ${shortAddr(tx.to)}</span>`;
+      el.innerHTML = `<span class="chain-tag" style="color:${rgb(chain.color, 0.9)}">${chain.short}</span><span class="amt">${fmt(tx.amount)}</span><span class="addr">${shortAddr(tx.from)} → ${shortAddr(tx.to)}</span>`;
       log.insertBefore(el, log.firstChild);
 
-      while (log.children.length > 60) log.removeChild(log.lastChild);
+      while (log.children.length > 120) log.removeChild(log.lastChild);
     }
 
-    function updateStats(txs) {
+    /* ─── stats: synced to active (unmuted) chains ─── */
+    function updateStats() {
       const now = Date.now();
-      txTimes.push(...txs.map(() => now));
-      txTimes = txTimes.filter(t => now - t < 60000);
+      recentTxs = recentTxs.filter(t => now - t.time < 60000);
 
-      document.getElementById('s-rate').textContent = txTimes.length + ' tx/min';
+      /* only count unmuted chains */
+      const active = recentTxs.filter(t => !mutedChains.has(t.chainId));
+      const txCount = active.length;
+      const flowPerMin = active.reduce((s, t) => s + t.amount, 0);
+
+      document.getElementById('stats-line').textContent =
+        `${txCount.toLocaleString()} tx/min · ${fmt(flowPerMin)}/min`;
     }
 
-    /* ─── legend with full mute across all media ─── */
+    /* ─── legend (inline in header) ─── */
     function buildLegend() {
-      const legend = document.getElementById('legend');
+      const header = document.getElementById('header');
+      const statsLine = document.getElementById('stats-line');
 
       for (const ch of CHAINS) {
         const item = document.createElement('div');
@@ -683,67 +649,36 @@
           } else {
             mutedChains.add(ch.id);
             item.classList.add('muted');
-            /* #7 immediately remove existing log entries + bubbles for muted chain */
+            /* immediately purge this chain from all media */
             document.querySelectorAll(`.tx[data-chain="${ch.id}"]`).forEach(el => el.remove());
-            bubbles = bubbles.filter(b => {
-              const bc = JSON.stringify(b.color);
-              const cc = JSON.stringify(ch.color);
-              return bc !== cc;
-            });
+            const cc = JSON.stringify(ch.color);
+            bubbles = bubbles.filter(b => JSON.stringify(b.color) !== cc);
           }
+          updateStats();
         });
-        legend.appendChild(item);
+        header.insertBefore(item, statsLine);
       }
     }
 
-    /* ─── controls ─── */
-    document.getElementById('vol-slider').addEventListener('input', e => {
-      if (master) master.gain.value = (e.target.value / 100) * 0.6;
-    });
-
-    /* ─── #6 auto-start: no splash, init on first user gesture ─── */
+    /* ─── boot: no splash, start immediately, audio on first click ─── */
     buildLegend();
-
-    let started = false;
-    function startApp() {
-      if (started) return;
-      started = true;
-      initAudio();
-      initCanvas();
-      renderLoop();
-      processSoundQueue();
-
-      CHAINS.forEach((chain, i) => {
-        setTimeout(() => {
-          pollChain(chain);
-          setInterval(() => pollChain(chain), 5000 + i * 400);
-        }, i * 800);
-      });
-
-      document.addEventListener('visibilitychange', () => {
-        if (!document.hidden) {
-          if (audio && audio.state === 'suspended') audio.resume();
-          CHAINS.forEach(ch => pollChain(ch));
-        }
-      });
-    }
-
-    /* start canvas + polling immediately, audio on first click */
     initCanvas();
     renderLoop();
 
     CHAINS.forEach((chain, i) => {
       setTimeout(() => {
         pollChain(chain);
-        setInterval(() => pollChain(chain), 5000 + i * 400);
-      }, i * 800);
+        setInterval(() => pollChain(chain), 5000 + i * 300);
+      }, i * 600);
     });
 
+    /* stats refresh */
+    setInterval(updateStats, 2000);
+
+    /* audio requires user gesture */
     document.addEventListener('click', () => {
       if (!audio) {
         initAudio();
-        processSoundQueue();
-        document.getElementById('vol-slider').dispatchEvent(new Event('input'));
       } else if (audio.state === 'suspended') {
         audio.resume();
       }
