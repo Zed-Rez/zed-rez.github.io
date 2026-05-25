@@ -271,6 +271,7 @@
     ];
 
     const TRANSFER = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
+    const ZERO_ADDR = '0x0000000000000000000000000000000000000000';
 
     /* pentatonic C major across 5 octaves for dramatic pitch range */
     const PENTATONIC = [
@@ -538,7 +539,7 @@
           st.seen.add(key);
           const tx = parseLog(l);
           tx.chain = chain;
-          if (tx.amount > 0) fresh.push(tx);
+          if (tx.amount > 0 && tx.from !== ZERO_ADDR && tx.to !== ZERO_ADDR) fresh.push(tx);
           if (tx.block > maxBlock) maxBlock = tx.block;
         }
 
@@ -571,6 +572,15 @@
     const POLL_INTERVAL = 5000;
 
     function emitTxs(txs, chain) {
+      /* deduplicate: one event per tx hash (a single swap/bridge
+         can emit multiple Transfer events; keep the largest) */
+      const byHash = new Map();
+      for (const tx of txs) {
+        const prev = byHash.get(tx.hash);
+        if (!prev || tx.amount > prev.amount) byHash.set(tx.hash, tx);
+      }
+      txs = [...byHash.values()];
+
       /* shuffle for natural feel */
       for (let i = txs.length - 1; i > 0; i--) {
         const j = Math.random() * (i + 1) | 0;
