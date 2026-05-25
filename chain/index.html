@@ -51,7 +51,11 @@
       color: #2a2520;
       letter-spacing: 0.02em;
       margin-right: 0.3em;
+      cursor: pointer;
+      pointer-events: all;
+      transition: opacity 0.3s;
     }
+    #header h1:hover { opacity: 0.6; }
     .legend-item {
       display: inline-flex;
       align-items: center;
@@ -75,7 +79,12 @@
       color: #9a9080;
       font-style: italic;
       margin-top: -0.1em;
+      pointer-events: all;
+      cursor: pointer;
+      transition: color 0.3s;
     }
+    #stats-line:hover { color: #5a5040; }
+    #stats-line.paused { color: #b07040; }
 
     /* ─── full-height left log panel ─── */
     #log-panel {
@@ -83,19 +92,20 @@
       top: 3em;
       left: 0;
       bottom: 1.5em;
-      width: 34%;
-      max-width: 28em;
-      min-width: 16em;
+      width: fit-content;
       overflow-y: auto;
       pointer-events: all;
-      padding: 0.4em 1.5em 0.5em;
-      background: linear-gradient(to right, rgba(244,241,235,0.88) 80%, transparent);
+      padding: 0.4em 0.6em 0.5em 1.5em;
+      background: linear-gradient(to right, rgba(244,241,235,0.88) 95%, transparent);
       display: flex;
       flex-direction: column;
       gap: 0.08em;
       scrollbar-width: thin;
       scrollbar-color: #d0c8b8 transparent;
       z-index: 10;
+    }
+    #log-panel.hidden {
+      display: none !important;
     }
     #log-panel::-webkit-scrollbar { width: 3px; }
     #log-panel::-webkit-scrollbar-thumb { background: #d0c8b8; border-radius: 2px; }
@@ -391,12 +401,13 @@
       const lg = Math.log10(Math.max(amount, 1));
       const r = clamp(lerp(lg, 0, 7, 4, 55), 4, 60);
       const w = window.innerWidth, h = window.innerHeight;
-      const pad = r + 8;
+      const pad = r + 4;
 
-      /* keep bubbles out of the left log panel — read its actual width */
+      /* keep bubbles out of the left log panel (when visible) */
       const logPanel = document.getElementById('log-panel');
-      const logRight = logPanel ? logPanel.getBoundingClientRect().right : 0;
-      const leftEdge = logRight + pad;
+      const logRight = (logPanel && !logPanel.classList.contains('hidden'))
+        ? logPanel.getBoundingClientRect().right : 0;
+      const leftEdge = logRight > 0 ? logRight + pad : pad;
       const x = leftEdge + Math.random() * (w - leftEdge - pad);
       const y = pad + Math.random() * (h - pad * 2);
 
@@ -408,8 +419,8 @@
         life: lerp(lg, 0, 7, 3500, 8000),
         lg,
         color: chain.color,
-        /* very gentle drift, will be clamped to viewport */
-        vy: -(0.01 + Math.random() * 0.025),
+        /* gentle bidirectional drift, clamped to viewport */
+        vy: (Math.random() < 0.5 ? -1 : 1) * (0.005 + Math.random() * 0.015),
         vx: (Math.random() - 0.5) * 0.02
       });
     }
@@ -613,7 +624,30 @@
       simEl.style.display = allSim ? 'block' : 'none';
     }
 
-    /* ─── log panel (full height) ─── */
+    /* ─── log panel (full height) with scroll-pause ─── */
+    let logLive = true;
+
+    /* detect user scroll: if they scroll down, pause; near top = live */
+    document.getElementById('log-panel').addEventListener('scroll', () => {
+      const log = document.getElementById('log-panel');
+      if (log.scrollTop <= 5) {
+        logLive = true;
+        document.getElementById('stats-line').classList.remove('paused');
+      } else if (logLive) {
+        logLive = false;
+        document.getElementById('stats-line').classList.add('paused');
+      }
+    });
+
+    /* click stats line → return to live */
+    document.getElementById('stats-line').addEventListener('click', (e) => {
+      e.stopPropagation();
+      logLive = true;
+      const log = document.getElementById('log-panel');
+      log.scrollTo({ top: 0, behavior: 'smooth' });
+      document.getElementById('stats-line').classList.remove('paused');
+    });
+
     function addLogEntry(tx, chain) {
       if (mutedChains.has(chain.id)) return;
       const log = document.getElementById('log-panel');
@@ -621,7 +655,15 @@
       el.className = 'tx' + (tx.amount >= 100000 ? ' whale' : '');
       el.dataset.chain = chain.id;
       el.innerHTML = `<span class="chain-tag" style="color:${rgb(chain.color, 0.9)}">${chain.short}</span><span class="amt">${fmt(tx.amount)}</span><span class="addr">${shortAddr(tx.from)} → ${shortAddr(tx.to)}</span>`;
-      log.insertBefore(el, log.firstChild);
+
+      if (!logLive) {
+        /* paused: add entry at top but adjust scroll so visible lines stay put */
+        const prevH = log.scrollHeight;
+        log.insertBefore(el, log.firstChild);
+        log.scrollTop += log.scrollHeight - prevH;
+      } else {
+        log.insertBefore(el, log.firstChild);
+      }
 
       while (log.children.length > 120) log.removeChild(log.lastChild);
     }
@@ -650,8 +692,9 @@
       const txPerMin = Math.round(txCount / windowSecs * 60);
       const flowPerMin = flowTotal / windowSecs * 60;
 
-      document.getElementById('stats-line').textContent =
-        `${txPerMin.toLocaleString()} tx/min · ${fmt(flowPerMin)}/min`;
+      const statsEl = document.getElementById('stats-line');
+      const rateText = `${txPerMin.toLocaleString()} tx/min · ${fmt(flowPerMin)}/min`;
+      statsEl.textContent = logLive ? rateText : `${rateText}  · paused — click to resume`;
     }
 
     /* ─── legend (inline in header) ─── */
@@ -684,6 +727,15 @@
 
     /* ─── boot ─── */
     buildLegend();
+
+    /* ─── log toggle: click title to show/hide log panel ─── */
+    let logVisible = true;
+    document.querySelector('#header h1').addEventListener('click', (e) => {
+      e.stopPropagation();
+      logVisible = !logVisible;
+      document.getElementById('log-panel').classList.toggle('hidden', !logVisible);
+    });
+
     initCanvas();
     renderLoop();
 
