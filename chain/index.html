@@ -73,18 +73,27 @@
       border-radius: 50%;
       flex-shrink: 0;
     }
-    #stats-line {
+    #stats-row {
       width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.6em;
+      margin-top: -0.1em;
+    }
+    #stats-line {
       font-size: 0.68em;
       color: #9a9080;
       font-style: italic;
-      margin-top: -0.1em;
+    }
+    #back-link {
+      font-size: 0.68em;
+      color: #b0a898;
+      text-decoration: none;
       pointer-events: all;
-      cursor: pointer;
+      margin-left: auto;
       transition: color 0.3s;
     }
-    #stats-line:hover { color: #5a5040; }
-    #stats-line.paused { color: #b07040; }
+    #back-link:hover { color: #5a5040; }
 
     /* ─── full-height left log panel ─── */
     #log-panel {
@@ -184,7 +193,10 @@
     <div id="header">
       <h1>Listen to the Chain</h1>
       <!-- legend items injected here -->
-      <div id="stats-line"></div>
+      <div id="stats-row">
+        <div id="stats-line"></div>
+        <a href="https://rezaramji.com" id="back-link">← back</a>
+      </div>
     </div>
   </div>
 
@@ -630,22 +642,7 @@
     /* detect user scroll: if they scroll down, pause; near top = live */
     document.getElementById('log-panel').addEventListener('scroll', () => {
       const log = document.getElementById('log-panel');
-      if (log.scrollTop <= 5) {
-        logLive = true;
-        document.getElementById('stats-line').classList.remove('paused');
-      } else if (logLive) {
-        logLive = false;
-        document.getElementById('stats-line').classList.add('paused');
-      }
-    });
-
-    /* click stats line → return to live */
-    document.getElementById('stats-line').addEventListener('click', (e) => {
-      e.stopPropagation();
-      logLive = true;
-      const log = document.getElementById('log-panel');
-      log.scrollTo({ top: 0, behavior: 'smooth' });
-      document.getElementById('stats-line').classList.remove('paused');
+      logLive = log.scrollTop <= 5;
     });
 
     function addLogEntry(tx, chain) {
@@ -665,7 +662,7 @@
         log.insertBefore(el, log.firstChild);
       }
 
-      while (log.children.length > 120) log.removeChild(log.lastChild);
+      while (log.children.length > 300) log.removeChild(log.lastChild);
     }
 
     /* ─── stats: synced to active (unmuted) chains ─── */
@@ -692,15 +689,14 @@
       const txPerMin = Math.round(txCount / windowSecs * 60);
       const flowPerMin = flowTotal / windowSecs * 60;
 
-      const statsEl = document.getElementById('stats-line');
-      const rateText = `${txPerMin.toLocaleString()} tx/min · ${fmt(flowPerMin)}/min`;
-      statsEl.textContent = logLive ? rateText : `${rateText}  · paused — click to resume`;
+      document.getElementById('stats-line').textContent =
+        `${txPerMin.toLocaleString()} tx/min · ${fmt(flowPerMin)}/min`;
     }
 
     /* ─── legend (inline in header) ─── */
     function buildLegend() {
       const header = document.getElementById('header');
-      const statsLine = document.getElementById('stats-line');
+      const statsRow = document.getElementById('stats-row');
 
       for (const ch of CHAINS) {
         const item = document.createElement('div');
@@ -721,7 +717,7 @@
           }
           updateStats();
         });
-        header.insertBefore(item, statsLine);
+        header.insertBefore(item, statsRow);
       }
     }
 
