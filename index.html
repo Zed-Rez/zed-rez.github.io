@@ -60,12 +60,12 @@
     <p><b>Thinking of pushing this further with a two-step proof generation system: a powerful foundational model + cheaper autoformalizer prompted with human-checked runs of the foundational model's work, which would (I hypothesize) allow the analysis of a large model with some of the cost savings of a lightweight framework, or alternatively finetuning of deepseek-prover-v2 to lean in a specific bench(putnam?)</b>
   </p>
     <h3>language model testing & refining</h3>
-      <p>I  made this <a href="/lleval/">llm-eval</a> [<a href="https://github.com/Zed-Rez/llmeval">source</a>] A/B benchmarking harness for LLMs to verify <a href="https://arxiv.org/abs/2512.14982">this paper(seems to still work on newer models, especially the picking from list of names benchmark).</a>
+      <p>I  made this <a href="/lleval/">llm-eval</a> [<a href="https://github.com/Zed-Rez/llmeval">source</a>] A/B benchmarking harness for LLMs to verify <a href="https://arxiv.org/abs/2512.14982">this paper</a>(seems to still work on newer models, especially the picking from list of names benchmark).
     I then also tested an <a href="/logion/">improvement to Princeton's Logion</a> [<a href="https://github.com/Zed-Rez/logion-wlev">source</a>], adding weighted Levenshtein, rather than treating all typos by simply character length. Statistically significant superiority under testing of Photius's Bibliotheca,<b> could in the future retrain the system with this weighting in mind for an even more accurate model</b>
         </p>
     <h3>Data Visualization & AI assisted data cleaning</h3>
     Made <a href="/EdgarVis/">EdgarVis</a> [<a href="https://github.com/Zed-Rez/EDGARVis">source</a>] a 3D UMAP of the US public equity from SEC EDGAR 10-K filings; ~12k companies × 17 years; highly recommend the die by the search bar to find odd companies.
-   <p>Needed a more accesible way to see transaction data so built <a href="/chain/">Chain audio</a> — real-time sonification of USDC transfers across Ethereum, Polygon, Arbitrum, Optimism, Base, and Avalanche; inspired by <a href="https://listen.hatnote.com/">this</a></p>
+   <p>Needed a more accessible way to see transaction data, so built <a href="/chain/">Chain audio</a> — real-time sonification of USDC transfers across Ethereum, Polygon, Arbitrum, Optimism, Base, and Avalanche; inspired by <a href="https://listen.hatnote.com/">this</a></p>
   </section>
   <hr>
 <!-- 
