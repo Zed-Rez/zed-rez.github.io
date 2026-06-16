@@ -39,8 +39,9 @@ p { margin: .5rem 0; }
 .tab.active { color: var(--ink); font-weight: 600; }
 .tabbed .panel:not(.active) { display: none; }
 .proj { margin: 0 0 1rem; }
-.proj h3 { font-size: 1.02rem; font-weight: 600; margin: 0 0 .1rem; }
-.proj p { margin: 0; }
+.proj-row { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .1rem .8rem; }
+.proj h3 { font-size: 1.02rem; font-weight: 600; margin: 0; }
+.proj p { margin: .12rem 0 0; }
 .src { color: var(--muted); }
 
 /* see also */
