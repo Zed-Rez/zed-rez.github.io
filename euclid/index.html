@@ -1,188 +1,427 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Can an AI rewrite Euclid into Lean? — Reza Ramji</title>
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --ink:#1c1b19;
-      --muted:#6b6760;
-      --accent:#7a2424;
-      --rule:#e3ddd2;
-      --bg:#ffffff;
-    }
-    *{box-sizing:border-box;}
-    html{scroll-behavior:smooth;}
-    body{
-      margin:0;
-      background:var(--bg);
-      color:var(--ink);
-      font-family:'EB Garamond',Garamond,Georgia,serif;
-      font-size:17px;
-      line-height:1.62;
-      -webkit-font-smoothing:antialiased;
-    }
-    .wrap{max-width:700px;margin:0 auto;padding:0 22px;}
-    a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(122,36,36,0.28);}
-    a:hover{border-bottom-color:var(--accent);}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Can an AI rewrite Euclid into Lean? — Reza Ramji</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c1b19;
+    --muted:#6b6760;
+    --faint:#9a958c;
+    --accent:#7a2424;
+    --accent-soft:#a85a4a;
+    --rule:#e3ddd2;
+    --rule-soft:#efe9dd;
+    --bg:#ffffff;
+    --paper:#fbf9f4;
+    --grid-cool:#cdd3d0;   /* low — translation-ish neutral */
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'EB Garamond',Garamond,Georgia,serif;
+    font-size:17px;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(122,36,36,0.28);}
+  a:hover{border-bottom-color:var(--accent);}
+  em{font-style:italic;}
+  strong{font-weight:600;}
 
-    /* top bar */
-    .topbar{
-      display:flex;justify-content:space-between;align-items:baseline;
-      padding:26px 0 0;font-size:15px;
-    }
-    .topbar a{border:none;}
-    .topbar .back{color:var(--muted);}
-    .topbar .back:hover{color:var(--accent);}
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    display:flex;justify-content:space-between;align-items:baseline;
+    padding:16px max(22px,calc((100vw - var(--maxw))/2 + 22px));
+    font-size:15px;
+    background:rgba(255,255,255,0.86);
+    backdrop-filter:saturate(140%) blur(8px);
+    border-bottom:1px solid var(--rule);
+  }
+  .topbar a{border:none;}
+  .topbar .back{color:var(--muted);letter-spacing:0.01em;}
+  .topbar .back:hover{color:var(--accent);}
+  .topbar .pdf{color:var(--accent);}
 
-    header.hero{padding:64px 0 28px;}
-    header.hero .kicker{
-      font-size:14px;letter-spacing:0.08em;text-transform:uppercase;
-      color:var(--muted);margin:0 0 18px;
-    }
-    h1{
-      font-size:2.05rem;line-height:1.18;font-weight:600;margin:0 0 0.5em;
-      letter-spacing:-0.01em;
-    }
-    header.hero .dek{font-size:1.18rem;color:var(--muted);margin:0;}
+  .shell{max-width:var(--maxw);margin:0 auto;padding:0 22px;}
 
-    /* scroll steps */
-    .step{
-      padding:30px 0;
-      opacity:0;
-      transform:translateY(16px);
-      transition:opacity 0.7s ease, transform 0.7s ease;
-    }
-    .step.in{opacity:1;transform:none;}
-    @media (prefers-reduced-motion: reduce){
-      .step{opacity:1 !important;transform:none !important;transition:none;}
-    }
-    .step h2{
-      font-size:0.82rem;letter-spacing:0.09em;text-transform:uppercase;
-      color:var(--accent);font-weight:600;margin:0 0 0.7em;
-    }
-    .step p{margin:0 0 1em;}
-    .step p:last-child{margin-bottom:0;}
-    .lead{font-size:1.12rem;}
+  /* ---------- hero ---------- */
+  header.hero{
+    padding:78px 0 30px;
+    position:relative;
+  }
+  .hero .kicker{
+    font-size:13px;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 22px;font-weight:600;
+  }
+  .hero h1{
+    font-size:clamp(2.1rem,5.4vw,3.7rem);
+    line-height:1.08;font-weight:600;margin:0;
+    letter-spacing:-0.012em;max-width:14ch;
+  }
+  .hero .dek{
+    font-size:clamp(1.12rem,2.1vw,1.42rem);
+    color:var(--muted);margin:0.7em 0 0;max-width:42ch;font-style:italic;
+  }
+  .hero .byline{
+    margin:30px 0 0;font-size:14px;letter-spacing:0.04em;
+    color:var(--faint);text-transform:uppercase;
+  }
+  .hero .byline b{color:var(--muted);font-weight:600;}
 
-    .rule{border:none;border-top:1px solid var(--rule);margin:8px 0;}
+  /* hero proof glyph */
+  .hero-figure{
+    margin:46px 0 0;border-top:1px solid var(--rule);padding-top:34px;
+    display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;
+    border:1px solid var(--rule);border-radius:4px;overflow:hidden;
+    background:var(--paper);
+  }
+  .hf-cell{padding:26px 28px;}
+  .hf-cell+.hf-cell{border-left:1px solid var(--rule);}
+  .hf-label{
+    font-size:12px;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--faint);margin:0 0 12px;
+  }
+  .hf-prose{font-size:0.98rem;color:var(--ink);line-height:1.5;}
+  .hf-prose .var{color:var(--accent);font-style:italic;}
+  .hf-lean{
+    font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    font-size:12.5px;line-height:1.7;color:#3a3833;white-space:pre-wrap;
+  }
+  .hf-lean .k{color:var(--accent);}
+  .hf-lean .c{color:var(--faint);}
+  .hf-arrow{
+    text-align:center;color:var(--faint);font-size:13px;
+    letter-spacing:0.12em;text-transform:uppercase;
+    grid-column:1/-1;padding:0 0 0;
+  }
 
-    /* the headline result */
-    .result{
-      padding:34px 0 30px;
-    }
-    .result .big{
-      font-size:1.32rem;line-height:1.4;margin:0 0 0.6em;
-    }
-    .result .big strong{color:var(--ink);}
+  .scroll-cue{
+    margin:42px auto 8px;text-align:center;color:var(--faint);
+    font-size:13px;letter-spacing:0.16em;text-transform:uppercase;
+  }
+  .scroll-cue .chev{display:block;margin:8px auto 0;width:14px;height:14px;
+    border-right:1.5px solid var(--faint);border-bottom:1.5px solid var(--faint);
+    transform:rotate(45deg);animation:bob 1.8s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(45deg);opacity:.5}50%{transform:translateY(5px) rotate(45deg);opacity:1}}
 
-    /* tables */
-    .tablecard{margin:1.4em 0 0.6em;overflow-x:auto;}
-    table{border-collapse:collapse;width:100%;font-size:0.97rem;}
-    caption{
-      caption-side:top;text-align:left;font-style:italic;color:var(--muted);
-      margin-bottom:0.7em;font-size:0.95rem;
-    }
-    th,td{padding:0.42em 0.55em;text-align:center;}
-    thead th{
-      font-weight:600;color:var(--muted);font-style:normal;
-      border-bottom:1px solid var(--ink);
-    }
-    tbody td{border-bottom:1px solid var(--rule);}
-    tbody tr:last-child td{border-bottom:none;}
-    th:first-child,td:first-child{text-align:left;}
-    tbody td:first-child{color:var(--muted);}
-    td.hi{color:var(--accent);font-weight:600;}
-    .note{font-size:0.93rem;color:var(--muted);margin-top:0.5em;}
+  /* ---------- section intro band ---------- */
+  .band{
+    border-top:1px solid var(--rule);
+    margin-top:70px;padding-top:14px;
+  }
+  .band .eyebrow{
+    font-size:12px;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--accent);font-weight:600;
+  }
 
-    ul{margin:0.4em 0 0;padding-left:1.2em;}
-    li{margin-bottom:0.55em;}
+  /* ---------- scrollytelling core ---------- */
+  .scrolly{
+    position:relative;
+    display:grid;
+    grid-template-columns:minmax(320px,1fr) minmax(0,1.25fr);
+    gap:48px;
+    align-items:start;
+  }
+  .scrolly .steps{padding:18vh 0 18vh;}
+  .scrolly .sticky{
+    position:sticky;top:0;height:100vh;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .stage{
+    width:100%;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:6px;
+    padding:26px 26px 22px;
+    box-shadow:0 1px 0 rgba(28,27,25,0.02), 0 18px 40px -34px rgba(28,27,25,0.5);
+    position:relative;
+  }
+  .stage-title{
+    font-size:12px;letter-spacing:0.13em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 4px;font-weight:600;
+  }
+  .stage-sub{font-size:13px;color:var(--faint);margin:0 0 14px;font-style:italic;min-height:1.2em;}
 
-    footer{
-      padding:40px 0 70px;color:var(--muted);font-size:0.95rem;
+  .step{
+    min-height:78vh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:4vh 0;
+  }
+  .step:first-child{min-height:62vh;}
+  .step .card{
+    background:#fff;
+    border:1px solid var(--rule);
+    border-left:3px solid var(--rule);
+    border-radius:3px;
+    padding:20px 22px;
+    transition:border-left-color .5s ease, box-shadow .5s ease, transform .5s ease, opacity .5s ease;
+    opacity:0.42;
+    transform:translateY(6px);
+  }
+  .step.active .card{
+    opacity:1;transform:none;
+    border-left-color:var(--accent);
+    box-shadow:0 14px 34px -28px rgba(28,27,25,0.55);
+  }
+  .step .num{
+    font-size:12px;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--accent);font-weight:600;margin:0 0 8px;
+  }
+  .step h3{font-size:1.34rem;line-height:1.22;font-weight:600;margin:0 0 0.5em;letter-spacing:-0.01em;}
+  .step p{margin:0 0 0.7em;}
+  .step p:last-child{margin-bottom:0;}
+  .step .punch{font-size:1.06rem;}
+  .step .stat{color:var(--accent);font-weight:600;font-variant-numeric:tabular-nums;}
+
+  /* ---------- SVG visual styling ---------- */
+  svg{display:block;width:100%;height:auto;overflow:visible;}
+  .axis-label{font-size:11px;fill:var(--muted);font-family:'EB Garamond',Georgia,serif;letter-spacing:0.04em;}
+  .axis-strong{font-size:12px;fill:var(--ink);font-weight:600;font-family:'EB Garamond',Georgia,serif;}
+  .tick{font-size:10.5px;fill:var(--faint);font-family:'EB Garamond',Georgia,serif;}
+  .cellval{font-size:13px;fill:#fff;font-weight:600;font-family:'EB Garamond',Georgia,serif;font-variant-numeric:tabular-nums;}
+  .cellval.dark{fill:var(--ink);}
+  .annot{font-size:12px;fill:var(--accent);font-style:italic;font-family:'EB Garamond',Georgia,serif;}
+  .annot-muted{font-size:12px;fill:var(--muted);font-style:italic;font-family:'EB Garamond',Georgia,serif;}
+
+  .cellrect{transition:opacity .55s ease, transform .55s ease;transform-box:fill-box;transform-origin:center;}
+  .gline{stroke:var(--rule);stroke-width:1;}
+  .sweep{transition:opacity .5s ease;opacity:0;}
+  .sweep.on{opacity:1;}
+  .barfill{transition:width .8s cubic-bezier(.22,.61,.36,1), height .8s cubic-bezier(.22,.61,.36,1), y .8s cubic-bezier(.22,.61,.36,1), opacity .5s ease;}
+  .fade{transition:opacity .6s ease;}
+
+  @media (prefers-reduced-motion: reduce){
+    .step .card{opacity:1;transform:none;}
+    .barfill,.cellrect,.sweep,.fade{transition:none;}
+    .scroll-cue .chev{animation:none;}
+  }
+
+  /* ---------- prose interludes (full width) ---------- */
+  .prose{max-width:660px;margin:0 auto;padding:60px 0 12px;}
+  .prose h2{
+    font-size:0.82rem;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--accent);font-weight:600;margin:0 0 0.8em;
+  }
+  .prose .big{font-size:1.42rem;line-height:1.34;margin:0 0 0.6em;letter-spacing:-0.01em;}
+  .prose p{margin:0 0 1em;}
+  .prose ul{margin:0.4em 0 0;padding-left:1.1em;}
+  .prose li{margin-bottom:0.6em;}
+  .prose li strong{color:var(--ink);}
+
+  .pullquote{
+    max-width:760px;margin:30px auto;padding:30px 0;
+    border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+    text-align:center;
+  }
+  .pullquote p{font-size:clamp(1.4rem,3vw,1.9rem);line-height:1.32;margin:0;font-style:italic;letter-spacing:-0.01em;}
+  .pullquote .accent{color:var(--accent);font-style:normal;}
+
+  /* ---------- data table (limits / model) ---------- */
+  .datatable{max-width:720px;margin:14px auto 0;overflow-x:auto;}
+  table{border-collapse:collapse;width:100%;font-size:0.96rem;}
+  table caption{caption-side:top;text-align:left;font-style:italic;color:var(--muted);margin-bottom:0.7em;font-size:0.93rem;}
+  th,td{padding:0.42em 0.6em;text-align:center;}
+  thead th{font-weight:600;color:var(--muted);border-bottom:1px solid var(--ink);}
+  tbody td{border-bottom:1px solid var(--rule-soft);font-variant-numeric:tabular-nums;}
+  tbody tr:last-child td{border-bottom:none;}
+  th:first-child,td:first-child{text-align:left;}
+  tbody td:first-child{color:var(--muted);}
+  td.hi{color:var(--accent);font-weight:600;}
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top:1px solid var(--rule);
+    margin-top:70px;padding:34px 0 80px;color:var(--muted);font-size:0.95rem;
+    max-width:660px;margin-left:auto;margin-right:auto;
+  }
+  footer a{color:var(--muted);}
+  footer a:hover{color:var(--accent);}
+  footer .credits{margin:0 0 1em;}
+
+  /* ---------- responsive: collapse scrolly to single column ---------- */
+  @media (max-width:880px){
+    body{font-size:16px;}
+    .scrolly{grid-template-columns:1fr;gap:0;}
+    .scrolly .sticky{
+      position:sticky;top:54px;height:auto;
+      padding:10px 0;background:rgba(255,255,255,0.95);
+      backdrop-filter:blur(6px);z-index:5;
     }
-    footer .rule{margin-bottom:24px;}
-    footer a{color:var(--muted);}
-    footer a:hover{color:var(--accent);}
-  </style>
+    .scrolly .steps{padding:8px 0 30px;}
+    .step{min-height:auto;padding:18px 0;}
+    .step:first-child{min-height:auto;}
+    .step .card{opacity:1;transform:none;}
+    .stage{padding:18px 16px 14px;}
+    .hero-figure{grid-template-columns:1fr;}
+    .hf-cell+.hf-cell{border-left:none;border-top:1px solid var(--rule);}
+  }
+  @media (max-width:520px){
+    .shell{padding:0 16px;}
+    .hero .kicker{margin-bottom:14px;}
+  }
+</style>
 </head>
 <body>
 
-<div class="wrap">
+<nav class="topbar">
+  <a class="back" href="/#projects/autoform">&larr; projects</a>
+  <a class="pdf" href="euclid.pdf">Download PDF</a>
+</nav>
 
-  <nav class="topbar">
-    <a class="back" href="/#projects">&larr; projects</a>
-    <a href="euclid.pdf">Download PDF</a>
-  </nav>
+<div class="shell">
 
+  <!-- ================= HERO ================= -->
   <header class="hero">
     <p class="kicker">Autoformalization &middot; Lean 4</p>
-    <h1>Can an AI rewrite Euclid into a language a computer can check?</h1>
-    <p class="dek">And if it can, what actually makes it succeed &mdash; the wording of the math, or how you ask?</p>
+    <h1>Can an AI rewrite Euclid into a language a computer can&nbsp;check?</h1>
+    <p class="dek">And if it can &mdash; what actually decides whether it works: the wording of the math, or how you ask?</p>
+    <p class="byline">A study by <b>Reza Ramji</b> &middot; GPT-4o &middot; 2,653 runs</p>
+
+    <div class="hero-figure" aria-label="A proposition in prose becomes a Lean theorem the machine can verify.">
+      <div class="hf-cell">
+        <p class="hf-label">Euclid, Book I &middot; human prose</p>
+        <p class="hf-prose">On a given finite straight line <span class="var">AB</span>, to construct an equilateral triangle.</p>
+      </div>
+      <div class="hf-cell">
+        <p class="hf-label">Lean&nbsp;4 &middot; machine-checkable</p>
+        <p class="hf-lean"><span class="k">theorem</span> prop_I_1
+  (<span class="var">A B</span> : Point) :
+  <span class="k">∃</span> C, equilateral <span class="var">A B</span> C := <span class="c">…</span></p>
+      </div>
+      <p class="hf-arrow">prose&nbsp;&rarr;&nbsp;formal &middot; if it compiles &amp; checks, it is correct &mdash; no trust required</p>
+    </div>
+
+    <div class="scroll-cue">Scroll<span class="chev"></span></div>
   </header>
 
-  <hr class="rule">
-
-  <section class="step">
+  <!-- ================= PROSE: THE PROBLEM ================= -->
+  <section class="prose">
     <h2>The problem</h2>
-    <p class="lead">A proof in a textbook is written for humans. <em>Lean 4</em> is a language a computer can verify line by line &mdash; if a Lean proof compiles and checks out, it is correct, no trust required.</p>
-    <p>Translating ordinary mathematical prose into Lean by hand is slow expert work. The hope is that a language model can do the translation &mdash; "autoformalization." This study asks a narrow, testable version of that question, using Euclid's <em>Elements</em> as the source.</p>
+    <p>A proof in a textbook is written for people. <em>Lean&nbsp;4</em> is a language a computer can verify, line by line: if a Lean proof compiles and type-checks, it is correct &mdash; no appeal to authority required.</p>
+    <p>Translating ordinary mathematical prose into Lean by hand is slow expert work. The hope of <em>autoformalization</em> is that a language model can do the translation for us. This study asks a narrow, testable version of that question, using the oldest textbook we have: Euclid's <em>Elements</em>.</p>
   </section>
 
-  <section class="step">
-    <h2>The source material</h2>
-    <p>Euclid's <em>Elements</em>, Book I &mdash; the same 48 propositions &mdash; exists in very different English registers. We used three:</p>
-    <ul>
-      <li><strong>Heath</strong> (1908): archaic, Victorian phrasing.</li>
-      <li><strong>Fitzpatrick</strong> (2007): modern academic, with variables named explicitly.</li>
-      <li><strong>Modern</strong>: a plain contemporary paraphrase.</li>
-    </ul>
-    <p>All three say the same things. The question: does the English <em>register</em> change how well GPT-4o formalizes the proposition into Lean? We built on the <a href="https://github.com/loganrjmurphy/LeanEuclid">LeanEuclid</a> benchmark (Murphy et al., 2024).</p>
-  </section>
+  <!-- ================= SCROLLYTELLING ================= -->
+  <div class="band"><span class="eyebrow">The experiment</span></div>
 
-  <section class="step">
-    <h2>The trap we fell into first</h2>
-    <p>An early run used one prompt template whose five worked examples were all written in Fitzpatrick's style. It looked like Fitzpatrick text formalized best &mdash; beating Heath by 8.4 percentage points (<em>p</em>=0.008).</p>
-    <p>But that confounded two things. The Fitzpatrick translation matched the <em>examples in the prompt</em>. We couldn't tell whether the text register mattered or whether the model just liked input that looked like its examples.</p>
-  </section>
+  <div class="scrolly" id="scrolly">
 
-  <section class="step">
-    <h2>The fix: a counterbalanced design</h2>
-    <p>To separate the two, we crossed them. Three translation registers &times; three prompt styles (Fitzpatrick-style, Heath-style, Modern-style examples) &mdash; a fully crossed 3&times;3 design over 143 propositions (Book I plus 100 UniGeo theorems), <strong>2,653 total runs</strong>.</p>
-    <p>Now every translation gets tested against every prompt style, so the two effects can be pulled apart.</p>
-  </section>
-
-  <section class="result step">
-    <h2>The result</h2>
-    <p class="big"><strong>How you prompt matters. Which translation you feed in does not.</strong></p>
-    <p>Prompt style swung the compile rate across a <strong>24-point range</strong> &mdash; 72.6% with the best style vs. 48.4% with the worst (<em>p</em>&lt;0.001). Translation register had <strong>no significant effect</strong> once prompt style was held fixed (<em>p</em>=0.603).</p>
-
-    <div class="tablecard">
-      <table>
-        <caption>Compile rate by translation &times; prompt style (Book I, GPT-4o)</caption>
-        <thead>
-          <tr><th></th><th>Fitzpatrick<br>prompt</th><th>Heath<br>prompt</th><th>Modern<br>prompt</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Fitzpatrick</td><td class="hi">76.3%</td><td>60.0%</td><td>45.9%</td></tr>
-          <tr><td>Heath</td><td>67.9%</td><td>65.5%</td><td>52.6%</td></tr>
-          <tr><td>Modern</td><td>73.5%</td><td>63.2%</td><td>46.8%</td></tr>
-        </tbody>
-      </table>
+    <!-- ===== sticky visual stage ===== -->
+    <div class="sticky">
+      <div class="stage">
+        <p class="stage-title" id="stageTitle">Three translations, one geometry</p>
+        <p class="stage-sub" id="stageSub">The same 48 propositions, in three voices.</p>
+        <div id="stageBody"><!-- SVG injected by JS; static fallback in <noscript> below --></div>
+        <noscript>
+          <div class="datatable" style="margin-top:2px;">
+            <table>
+              <caption>Compile rate by translation &times; prompt style (Book&nbsp;I, GPT-4o)</caption>
+              <thead>
+                <tr><th></th><th>Fitz.<br>prompt</th><th>Heath<br>prompt</th><th>Mod.<br>prompt</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Fitzpatrick</td><td class="hi">76.3%</td><td>60.0%</td><td>45.9%</td></tr>
+                <tr><td>Heath</td><td>67.9%</td><td>65.5%</td><td>52.6%</td></tr>
+                <tr><td>Modern</td><td>73.5%</td><td>63.2%</td><td>46.8%</td></tr>
+              </tbody>
+            </table>
+            <p style="font-size:0.9rem;color:var(--muted);margin:0.7em 0 0;font-style:italic;">Down a column (prompt fixed) the translations barely separate; across a row (prompt changing) the rate collapses from 72.6% to 48.4%.</p>
+          </div>
+        </noscript>
+      </div>
     </div>
-    <p class="note">Read down each column (fixed prompt) and the translations barely separate. Read across the columns (changing prompt) and the rates collapse. The original "Fitzpatrick wins" gap shows up only in the Fitzpatrick-prompt column; under Heath-style and Modern-style prompts it reverses. On the 100 independent UniGeo theorems, Heath actually beat Fitzpatrick by 6.2pp &mdash; the opposite of the first claim.</p>
-  </section>
 
-  <section class="step">
-    <h2>The statistics</h2>
-    <p>A mixed-effects regression (proposition as random intercept, N=2,653) confirms it: translation coefficients are tiny and not significant; prompt coefficients are large and significant.</p>
+    <!-- ===== stepped text ===== -->
+    <div class="steps" id="steps">
 
-    <div class="tablecard">
+      <div class="step" data-scene="registers">
+        <div class="card">
+          <p class="num">01 &middot; The source material</p>
+          <h3>The same proof, three voices</h3>
+          <p>Euclid's Book&nbsp;I &mdash; the same 48 propositions &mdash; survives in sharply different English. <strong>Heath</strong> (1908) is archaic and Victorian; <strong>Fitzpatrick</strong> (2007) is modern academic, naming its variables explicitly; <strong>Modern</strong> is a plain paraphrase.</p>
+          <p>They say the same things. So: does the <em>register</em> change how well GPT-4o turns a proposition into Lean?</p>
+        </div>
+      </div>
+
+      <div class="step" data-scene="confound">
+        <div class="card">
+          <p class="num">02 &middot; The trap</p>
+          <h3>It looked like Fitzpatrick won</h3>
+          <p>An early run used one prompt template whose five worked examples were all in Fitzpatrick's style. Fitzpatrick text seemed to formalize best &mdash; beating Heath by <span class="stat">8.4 points</span> (<em>p</em>=0.008).</p>
+          <p>But that confounds two things. The Fitzpatrick translation also matched the <em>examples in the prompt</em>. Was it the register &mdash; or just input that looked like the demo?</p>
+        </div>
+      </div>
+
+      <div class="step" data-scene="grid-build">
+        <div class="card">
+          <p class="num">03 &middot; The fix</p>
+          <h3>Cross every register with every prompt</h3>
+          <p>To pull the two apart, we crossed them: three translation registers &times; three prompt styles, fully counterbalanced. Every translation now faces every prompt.</p>
+          <p>A 3&times;3 design over 143 propositions (Book&nbsp;I plus 100 UniGeo theorems) &mdash; <span class="stat">2,653 runs</span> in all.</p>
+        </div>
+      </div>
+
+      <div class="step" data-scene="grid-cols">
+        <div class="card">
+          <p class="num">04 &middot; Read it down</p>
+          <h3>Fix the prompt &mdash; translation barely moves</h3>
+          <p>Hold a prompt style constant (read <em>down</em> a column) and the three translations land within a few points of each other. The register you feed in hardly matters.</p>
+          <p>Statistically: no significant effect (<em>p</em>=<span class="stat">0.603</span>).</p>
+        </div>
+      </div>
+
+      <div class="step" data-scene="grid-rows">
+        <div class="card">
+          <p class="num">05 &middot; Read it across</p>
+          <h3>Change the prompt &mdash; everything collapses</h3>
+          <p>Now read <em>across</em> a row. Swap the prompt style and the compile rate falls off a cliff &mdash; from <span class="stat">72.6%</span> with the best style to <span class="stat">48.4%</span> with the worst.</p>
+          <p>A 24-point swing (<em>p</em>&lt;0.001). The lever is the prompt, not the prose.</p>
+        </div>
+      </div>
+
+      <div class="step" data-scene="grid-reverse">
+        <div class="card">
+          <p class="num">06 &middot; The mirage, dispelled</p>
+          <h3>The original gap only existed in one column</h3>
+          <p>"Fitzpatrick wins" shows up <em>only</em> under Fitzpatrick-style prompts. Under Heath prompts it reverses (65.5% &gt; 60.0%); under Modern prompts it reverses again.</p>
+          <p>On the 100 independent UniGeo theorems, Heath even beat Fitzpatrick by <span class="stat">6.2&nbsp;points</span> &mdash; the opposite of the first claim.</p>
+        </div>
+      </div>
+
+      <div class="step" data-scene="contam">
+        <div class="card">
+          <p class="num">07 &middot; The model that cheated</p>
+          <h3>One model scored highest on <em>no math at all</em></h3>
+          <p>We first tried a small local model, Qwen2.5-Coder-7B, on a Jetson Orin Nano. It had memorized the benchmark: its <em>best</em> compile rate came from feeding it nothing but "Proposition&nbsp;N."</p>
+          <p>Empty input beats full text. A clean model (GPT-4o) does the opposite &mdash; <span class="stat">10%</span> from empty, <span class="stat">67.9%</span> from the real proof. So we dropped Qwen and ran everything on GPT-4o.</p>
+        </div>
+      </div>
+
+    </div><!-- /steps -->
+  </div><!-- /scrolly -->
+
+  <!-- ================= PULLQUOTE ================= -->
+  <div class="pullquote">
+    <p>How you <span class="accent">prompt</span> matters.<br>Which translation you feed in <span class="accent">does not</span>.</p>
+  </div>
+
+  <!-- ================= THE STATISTICS ================= -->
+  <section class="prose">
+    <h2>The statistics, briefly</h2>
+    <p>A mixed-effects regression with proposition as a random intercept (<em>N</em>=2,653) confirms the picture: translation coefficients are tiny and not significant; prompt coefficients are large and significant. Adding prompt style improves model fit by 99.5 AIC points; adding a prompt&times;translation interaction does not help.</p>
+    <div class="datatable">
       <table>
         <caption>Mixed-effects model coefficients</caption>
         <thead>
@@ -196,71 +435,372 @@
         </tbody>
       </table>
     </div>
-    <p class="note">Adding prompt style improves model fit by 99.5 AIC points; adding a prompt&times;translation interaction does not help (AIC rises 4.3). A paired t-test on per-proposition rates (N=66, marginalized over prompt) leaves Heath and Fitzpatrick statistically indistinguishable: 70.0% vs. 62.3%, <em>t</em>(65)=&minus;1.66, <em>p</em>=0.102, Cohen's <em>d</em>=&minus;0.20.</p>
+    <p class="note" style="font-size:0.93rem;color:var(--muted);margin-top:0.8em;">A paired <em>t</em>-test on per-proposition rates (<em>N</em>=66, marginalized over prompt) leaves Heath and Fitzpatrick indistinguishable: 70.0% vs. 62.3%, <em>t</em>(65)=&minus;1.66, <em>p</em>=0.102, Cohen's <em>d</em>=&minus;0.20.</p>
   </section>
 
-  <section class="step">
-    <h2>The caveat: a model that cheated</h2>
-    <p>We first tried a small local model, Qwen2.5-Coder-7B, running on a Jetson Orin Nano Super (8GB, ~9.5 tokens/sec). It had memorized the benchmark. Its <em>best</em> compile rate came from giving it no math at all &mdash; just "Proposition N":</p>
-
-    <div class="tablecard">
-      <table>
-        <caption>Contamination probe &mdash; Qwen2.5-Coder-7B</caption>
-        <thead>
-          <tr><th>Input given</th><th>Compile rate</th><th>LeanEuclid vocab</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Full Heath text</td><td>60.5%</td><td>100%</td></tr>
-          <tr><td>Empty ("Proposition N")</td><td class="hi">62.8%</td><td>100%</td></tr>
-          <tr><td>Garbled vocabulary</td><td>60.5%</td><td>100%</td></tr>
-          <tr><td>Shuffled clauses</td><td>60.5%</td><td>100%</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="note">Highest score from empty input means the model is reciting memorized structure, not reading the math. (Semantic equivalence does drop to 0% on empty input vs. 16&ndash;27% with garbled text, so it reads input to refine meaning &mdash; but it doesn't need it to produce something that compiles.) For comparison, GPT-4o is clean: 10% from empty input vs. 67.9% from full text. We dropped Qwen and ran everything counterbalanced on GPT-4o.</p>
-  </section>
-
-  <section class="step">
+  <!-- ================= MEANING ================= -->
+  <section class="prose">
     <h2>What this means in practice</h2>
     <p>If you want to use autoformalization on your own mathematics, the lever isn't cleaning up your prose &mdash; it's <strong>styling your few-shot examples to match how you write</strong>, especially whether they introduce variables explicitly.</p>
-    <p>Two methodological notes fall out of this. First, a single prompt template can manufacture a fake "wording" effect, so counterbalanced prompt designs should be standard. Second, the empty-input probe &mdash; does the model compile from just "Proposition N"? &mdash; is a cheap memorization check worth running before anyone reports autoformalization numbers.</p>
+    <p>Two methodological notes fall out. First, a single prompt template can manufacture a fake "wording" effect, so counterbalanced prompt designs should be the default. Second, the empty-input probe &mdash; does the model compile from just "Proposition&nbsp;N"? &mdash; is a cheap memorization check worth running before anyone reports autoformalization numbers.</p>
   </section>
 
-  <section class="step">
+  <!-- ================= LIMITS ================= -->
+  <section class="prose">
     <h2>Honest limits</h2>
     <ul>
       <li><strong>One model.</strong> The counterbalanced results are GPT-4o only; the Qwen runs are void due to contamination. Prompt sensitivity may differ elsewhere.</li>
-      <li><strong>Compiling isn't being correct.</strong> Compile rates overstate real performance. On the subset semantically scored: 14% strict equivalence, 30% correct-direction. The 24-point prompt effect is measured on compilation, not correctness.</li>
+      <li><strong>Compiling isn't being correct.</strong> Compile rates overstate real performance. On the semantically scored subset: 14% strict equivalence, 30% correct-direction. The 24-point prompt effect is measured on compilation, not correctness.</li>
       <li><strong>Uneven cells.</strong> Fitzpatrick-prompt cells carry 430 runs each; Heath and Modern prompt cells have 133&ndash;235. The model handles the imbalance, but precision varies.</li>
       <li><strong>UniGeo, one prompt.</strong> The 100-theorem replication used only Fitzpatrick-style prompts, so it confirms the translation non-effect but not the prompt effect.</li>
     </ul>
   </section>
 
   <footer>
-    <hr class="rule">
-    <p>Built on <a href="https://github.com/Zed-Rez/youklid">Youklid</a> and the <a href="https://github.com/loganrjmurphy/LeanEuclid">LeanEuclid</a> benchmark (Murphy et al., 2024). Contamination probe ran locally on a Jetson Orin Nano Super.</p>
-    <p><a href="euclid.pdf">Download the PDF version</a> &middot; <a href="/#projects">&larr; back to projects</a></p>
+    <p class="credits">Built on <a href="https://github.com/Zed-Rez/youklid">Youklid</a> and the <a href="https://github.com/loganrjmurphy/LeanEuclid">LeanEuclid</a> benchmark (Murphy et al., 2024). Contamination probe ran locally on a Jetson Orin Nano Super.</p>
+    <p><a href="euclid.pdf">Download the full PDF paper</a> &middot; <a href="/#projects/autoform">&larr; back to projects</a></p>
   </footer>
 
-</div>
+</div><!-- /shell -->
 
 <script>
-  (function(){
-    var steps = document.querySelectorAll('.step');
-    if(!('IntersectionObserver' in window)){
-      steps.forEach(function(s){ s.classList.add('in'); });
-      return;
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- data ---------- */
+  var TR = ["Fitzpatrick","Heath","Modern"];        // rows = translation
+  var PR = ["Fitzpatrick","Heath","Modern"];        // cols = prompt style
+  // grid[row][col] = compile rate %, rows=translation, cols=prompt
+  var grid = [
+    [76.3, 60.0, 45.9],   // Fitzpatrick translation
+    [67.9, 65.5, 52.6],   // Heath translation
+    [73.5, 63.2, 46.8]    // Modern translation
+  ];
+  // contamination probe (Qwen) + GPT-4o reference
+  var contam = [
+    {label:"Full Heath text",   v:60.5},
+    {label:'Empty ("Prop. N")', v:62.8, hi:true},
+    {label:"Garbled vocab",     v:60.5},
+    {label:"Shuffled clauses",  v:60.5}
+  ];
+
+  /* ---------- color ramp for compile rate (oxblood ↔ cool) ---------- */
+  function lerp(a,b,t){return a+(b-a)*t;}
+  function hx(n){n=Math.round(n);return (n<16?"0":"")+n.toString(16);}
+  function rampColor(v){
+    // v in ~[40,80] -> t in [0,1]; low=cool grey-green, high=oxblood
+    var t = Math.max(0, Math.min(1, (v-44)/(78-44)));
+    // cool: #c9d2ce (low) -> warm oxblood: #7a2424 (high)
+    var lo=[201,210,206], hi=[122,36,36];
+    var r=lerp(lo[0],hi[0],t), g=lerp(lo[1],hi[1],t), b=lerp(lo[2],hi[2],t);
+    return "#"+hx(r)+hx(g)+hx(b);
+  }
+  function textDark(v){ return ((v-44)/(78-44)) < 0.42; }
+
+  /* ---------- SVG helpers ---------- */
+  var SVGNS="http://www.w3.org/2000/svg";
+  function el(name,attrs){
+    var e=document.createElementNS(SVGNS,name);
+    if(attrs) for(var k in attrs) e.setAttribute(k,attrs[k]);
+    return e;
+  }
+  function txt(x,y,cls,content,attrs){
+    var t=el("text",{x:x,y:y,"class":cls});
+    if(attrs) for(var k in attrs) t.setAttribute(k,attrs[k]);
+    t.textContent=content;return t;
+  }
+
+  /* ================= HEATMAP / GRID SCENE ================= */
+  // geometry
+  var W=440, H=400;
+  var padL=92, padT=66, gap=10;
+  var cellW, cellH, gridX0=padL, gridY0=padT;
+
+  function buildGrid(){
+    var svg=el("svg",{viewBox:"0 0 "+W+" "+H,role:"img","aria-label":"Heatmap of GPT-4o compile rate: rows are translation register, columns are prompt style. Compile rate falls sharply across columns but barely changes down columns."});
+    var avail = W - padL - 16;
+    cellW = (avail - 2*gap)/3;
+    cellH = 78;
+    var availH = H - padT - 70;
+    cellH = (availH - 2*gap)/3;
+
+    // column header label
+    svg.appendChild(txt(padL + avail/2, 22, "axis-strong", "PROMPT STYLE  →", {"text-anchor":"middle","letter-spacing":"0.08em"}));
+    // row header label (rotated)
+    var rl=txt(0,0,"axis-strong","TRANSLATION  ↓",{"text-anchor":"middle","letter-spacing":"0.08em"});
+    rl.setAttribute("transform","translate(20,"+(padT+availH/2)+") rotate(-90)");
+    svg.appendChild(rl);
+
+    // column tick labels
+    for(var c=0;c<3;c++){
+      var cx = gridX0 + c*(cellW+gap) + cellW/2;
+      svg.appendChild(txt(cx, padT-12, "tick", PR[c], {"text-anchor":"middle"}));
     }
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){
-          e.target.classList.add('in');
-          io.unobserve(e.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
-    steps.forEach(function(s){ io.observe(s); });
-  })();
+    // row tick labels
+    for(var r=0;r<3;r++){
+      var cy = gridY0 + r*(cellH+gap) + cellH/2;
+      svg.appendChild(txt(padL-12, cy+4, "tick", TR[r], {"text-anchor":"end"}));
+    }
+
+    // cells
+    for(var r2=0;r2<3;r2++){
+      for(var c2=0;c2<3;c2++){
+        var v=grid[r2][c2];
+        var x=gridX0 + c2*(cellW+gap);
+        var y=gridY0 + r2*(cellH+gap);
+        var rect=el("rect",{x:x,y:y,width:cellW,height:cellH,rx:3,
+          "class":"cellrect","data-r":r2,"data-c":c2,
+          fill:rampColor(v)});
+        rect.style.opacity="1";
+        svg.appendChild(rect);
+        var val=txt(x+cellW/2, y+cellH/2+5, "cellval"+(textDark(v)?" dark":""), v.toFixed(1)+"%", {"text-anchor":"middle","data-r":r2,"data-c":c2});
+        svg.appendChild(val);
+      }
+    }
+
+    // sweep / annotation overlays (toggled per scene)
+    // column-down highlight bracket (translation barely moves) — vertical
+    var colSweep=el("g",{"class":"sweep","id":"colSweep"});
+    var sx=gridX0 + 1*(cellW+gap) - gap/2;
+    colSweep.appendChild(el("rect",{x:gridX0-4,y:gridY0-4,width:3*cellW+2*gap+8,height:3*cellH+2*gap+8,rx:5,fill:"none",stroke:"none"}));
+    // three vertical brackets emphasising "down a column = stable"
+    for(var cc=0;cc<3;cc++){
+      var bx=gridX0 + cc*(cellW+gap) + cellW/2;
+      var by0=gridY0-2, by1=gridY0+3*cellH+2*gap+2;
+      colSweep.appendChild(el("line",{x1:bx,y1:by0,x2:bx,y2:by1,stroke:"var(--ink)","stroke-width":1,"stroke-dasharray":"2 4",opacity:0.5}));
+    }
+    colSweep.appendChild(txt(padL + avail/2, H-30, "annot-muted", "down a column · same prompt → translations cluster (p = 0.603)", {"text-anchor":"middle"}));
+    svg.appendChild(colSweep);
+
+    // row-across highlight (prompt collapses) — horizontal arrows
+    var rowSweep=el("g",{"class":"sweep","id":"rowSweep"});
+    for(var rr=0;rr<3;rr++){
+      var ry=gridY0 + rr*(cellH+gap) + cellH/2;
+      rowSweep.appendChild(el("line",{x1:gridX0+2,y1:ry,x2:gridX0+3*cellW+2*gap-2,y2:ry,stroke:"var(--accent)","stroke-width":1.4,opacity:0.55,"marker-end":"url(#arr)"}));
+    }
+    rowSweep.appendChild(txt(padL + avail/2, H-30, "annot", "across a row · changing prompt → 72.6% → 48.4% collapse (p < 0.001)", {"text-anchor":"middle"}));
+    svg.appendChild(rowSweep);
+
+    // reverse-callout: ring the Fitz-prompt column + note reversals
+    var revSweep=el("g",{"class":"sweep","id":"revSweep"});
+    var col0x=gridX0-3;
+    revSweep.appendChild(el("rect",{x:col0x,y:gridY0-3,width:cellW+6,height:3*cellH+2*gap+6,rx:4,fill:"none",stroke:"var(--accent)","stroke-width":1.6}));
+    revSweep.appendChild(txt(gridX0+cellW/2, gridY0-26, "annot", "the only column", {"text-anchor":"middle"}));
+    revSweep.appendChild(txt(padL + avail/2, H-30, "annot-muted", "“Fitzpatrick wins” lives here alone — it reverses in the other two columns", {"text-anchor":"middle"}));
+    svg.appendChild(revSweep);
+
+    // arrowhead marker
+    var defs=el("defs");
+    var m=el("marker",{id:"arr",viewBox:"0 0 8 8",refX:6,refY:4,markerWidth:6,markerHeight:6,orient:"auto"});
+    m.appendChild(el("path",{d:"M0 0 L8 4 L0 8 Z",fill:"var(--accent)"}));
+    defs.appendChild(m);
+    svg.insertBefore(defs,svg.firstChild);
+
+    return svg;
+  }
+
+  /* ================= REGISTERS SCENE (three voices) ================= */
+  function buildRegisters(){
+    var w=440,h=400;
+    var svg=el("svg",{viewBox:"0 0 "+w+" "+h,role:"img","aria-label":"Three English registers of the same Euclid proposition: Heath 1908, Fitzpatrick 2007, and a modern paraphrase."});
+    var rows=[
+      {n:"Heath · 1908", t:"To describe an equilateral triangle on a given finite straight line.", tone:"archaic / Victorian"},
+      {n:"Fitzpatrick · 2007", t:"On the straight line AB, construct the equilateral triangle ABC.", tone:"variables named explicitly", hi:true},
+      {n:"Modern · 2026", t:"Given a segment, build an equilateral triangle on it.", tone:"plain paraphrase"}
+    ];
+    var y=40, gap=20, cardH=98;
+    for(var i=0;i<rows.length;i++){
+      var g=el("g",{"class":"fade"});
+      var cy=y + i*(cardH+gap);
+      g.appendChild(el("rect",{x:18,y:cy,width:w-36,height:cardH,rx:4,fill:"#fff",stroke:"var(--rule)","stroke-width":1}));
+      g.appendChild(el("rect",{x:18,y:cy,width:3,height:cardH,fill: rows[i].hi?"var(--accent)":"var(--rule)"}));
+      g.appendChild(txt(36,cy+24,"axis-strong",rows[i].n,{}));
+      g.appendChild(txt(36,cy+22,"tick","",{}));
+      // wrapped quote
+      var words=rows[i].t.split(" "),line="",ly=cy+46,lines=[];
+      for(var wi=0;wi<words.length;wi++){
+        var test=line?line+" "+words[wi]:words[wi];
+        if(test.length>44){lines.push(line);line=words[wi];} else line=test;
+      }
+      lines.push(line);
+      for(var li=0;li<lines.length;li++){
+        var tline=txt(36,ly+li*18,"axis-label",lines[li],{"font-style":"italic","font-size":"13px"});
+        g.appendChild(tline);
+      }
+      g.appendChild(txt(36,cy+cardH-12,"tick",rows[i].tone.toUpperCase(),{"letter-spacing":"0.08em"}));
+      svg.appendChild(g);
+    }
+    return svg;
+  }
+
+  /* ================= CONFOUND SCENE ================= */
+  function buildConfound(){
+    var w=440,h=400;
+    var svg=el("svg",{viewBox:"0 0 "+w+" "+h,role:"img","aria-label":"Early result: Fitzpatrick appeared to beat Heath by 8.4 points, but the prompt's examples were all Fitzpatrick-style — a confound."});
+    // two bars: Fitz 76.3 vs Heath 67.9 (early single-prompt look)
+    var base=300, maxH=210, x0=130, bw=80, gap=60;
+    var data=[{l:"Fitzpatrick",v:76.3,hi:true},{l:"Heath",v:67.9}];
+    svg.appendChild(txt(w/2,40,"axis-strong","The early, single-prompt result",{"text-anchor":"middle"}));
+    for(var i=0;i<2;i++){
+      var x=x0 + i*(bw+gap);
+      var bh=maxH*(data[i].v/85);
+      svg.appendChild(el("rect",{x:x,y:base-bh,width:bw,height:bh,rx:3,fill:data[i].hi?"var(--accent)":"#c9d2ce","class":"fade"}));
+      svg.appendChild(txt(x+bw/2,base-bh-8,"cellval dark",data[i].v.toFixed(1)+"%",{"text-anchor":"middle"}));
+      svg.appendChild(txt(x+bw/2,base+20,"tick",data[i].l,{"text-anchor":"middle"}));
+    }
+    // gap bracket
+    var bx0=x0+bw/2, bx1=x0+bw+gap+bw/2;
+    svg.appendChild(txt(w/2,base+52,"annot","+8.4 pts  (p = 0.008)",{"text-anchor":"middle"}));
+    // confound caption
+    svg.appendChild(txt(w/2,base+86,"annot-muted","…but all 5 prompt examples were Fitzpatrick-style.",{"text-anchor":"middle"}));
+    svg.appendChild(txt(w/2,base+106,"annot-muted","Register, or just matching the demo?",{"text-anchor":"middle","font-weight":"600"}));
+    return svg;
+  }
+
+  /* ================= CONTAMINATION SCENE ================= */
+  function buildContam(){
+    var w=440,h=400;
+    var svg=el("svg",{viewBox:"0 0 "+w+" "+h,role:"img","aria-label":"Contamination probe: Qwen2.5-Coder-7B compiles 60–63% from full text, empty input, garbled vocab, and shuffled clauses alike — empty input scores highest."});
+    svg.appendChild(txt(20,34,"axis-strong","Qwen — compile rate by input",{}));
+    svg.appendChild(txt(20,52,"annot-muted","empty input scores highest → memorized, not reading",{"font-size":"12px"}));
+    var x0=150, top=78, rowH=44, gap=14, maxW=240, scaleMax=70;
+    for(var i=0;i<contam.length;i++){
+      var y=top + i*(rowH+gap);
+      svg.appendChild(txt(140,y+rowH/2+4,"tick",contam[i].label,{"text-anchor":"end"}));
+      // track
+      svg.appendChild(el("rect",{x:x0,y:y,width:maxW,height:rowH,rx:3,fill:"#f0ece2"}));
+      var bw=maxW*(contam[i].v/scaleMax);
+      svg.appendChild(el("rect",{x:x0,y:y,width:bw,height:rowH,rx:3,fill:contam[i].hi?"var(--accent)":"#bcb6aa","class":"barfill"}));
+      svg.appendChild(txt(x0+bw-8,y+rowH/2+5,"cellval",contam[i].v.toFixed(1)+"%",{"text-anchor":"end"}));
+    }
+    // GPT-4o reference line
+    var refY=top + 4*(rowH+gap) + 14;
+    svg.appendChild(el("line",{x1:20,y1:refY,x2:w-20,y2:refY,stroke:"var(--rule)","stroke-width":1}));
+    svg.appendChild(txt(20,refY+26,"axis-strong","GPT-4o (clean), for contrast",{}));
+    var ry=refY+40;
+    var ref=[{l:"Empty input",v:10},{l:"Full proof",v:67.9,hi:true}];
+    for(var j=0;j<2;j++){
+      var yy=ry + j*30;
+      svg.appendChild(txt(140,yy+12,"tick",ref[j].l,{"text-anchor":"end"}));
+      svg.appendChild(el("rect",{x:x0,y:yy,width:maxW,height:18,rx:3,fill:"#f0ece2"}));
+      var bw2=maxW*(ref[j].v/scaleMax);
+      svg.appendChild(el("rect",{x:x0,y:yy,width:bw2,height:18,rx:3,fill:ref[j].hi?"var(--accent-soft)":"#cdc8bd","class":"barfill"}));
+      svg.appendChild(txt(x0+bw2+6,yy+13,"tick",ref[j].v.toFixed(ref[j].v%1?1:0)+"%",{}));
+    }
+    return svg;
+  }
+
+  /* ---------- scene controller ---------- */
+  var stage = {
+    title: document.getElementById("stageTitle"),
+    sub: document.getElementById("stageSub"),
+    body: document.getElementById("stageBody")
+  };
+  var gridSVG=null;
+
+  function ensureGrid(){
+    if(!gridSVG) gridSVG=buildGrid();
+    return gridSVG;
+  }
+  function setSweep(id){
+    ["colSweep","rowSweep","revSweep"].forEach(function(s){
+      var n=gridSVG && gridSVG.querySelector("#"+s);
+      if(n) n.classList.toggle("on", s===id);
+    });
+  }
+  function dimGrid(mode){
+    if(!gridSVG) return;
+    var rects=gridSVG.querySelectorAll(".cellrect");
+    var vals=gridSVG.querySelectorAll(".cellval");
+    rects.forEach(function(rc){
+      var r=+rc.getAttribute("data-r"), c=+rc.getAttribute("data-c");
+      var on=true;
+      if(mode==="reverse") on = (c===0); // emphasise fitz-prompt column
+      rc.style.opacity = on?1:0.28;
+    });
+    vals.forEach(function(v){
+      var c=+v.getAttribute("data-c");
+      var on=true;
+      if(mode==="reverse") on=(c===0);
+      v.style.opacity= on?1:0.25;
+    });
+  }
+
+  var SCENES={
+    registers:{t:"Three translations, one geometry",s:"The same 48 propositions, in three voices.",render:function(){stage.body.replaceChildren(buildRegisters());}},
+    confound:{t:"The early result",s:"One prompt template — and a hidden confound.",render:function(){stage.body.replaceChildren(buildConfound());}},
+    "grid-build":{t:"Compile rate · GPT-4o · Book I",s:"3 translations × 3 prompt styles, counterbalanced.",render:function(){var g=ensureGrid();stage.body.replaceChildren(g);setSweep(null);dimGrid(null);animateGridIn();}},
+    "grid-cols":{t:"Compile rate · GPT-4o · Book I",s:"Read DOWN a column: prompt fixed, translation varies.",render:function(){var g=ensureGrid();stage.body.replaceChildren(g);dimGrid(null);setSweep("colSweep");}},
+    "grid-rows":{t:"Compile rate · GPT-4o · Book I",s:"Read ACROSS a row: prompt changes, rate collapses.",render:function(){var g=ensureGrid();stage.body.replaceChildren(g);dimGrid(null);setSweep("rowSweep");}},
+    "grid-reverse":{t:"Compile rate · GPT-4o · Book I",s:"The “Fitzpatrick wins” gap lives in one column.",render:function(){var g=ensureGrid();stage.body.replaceChildren(g);setSweep("revSweep");dimGrid("reverse");}},
+    contam:{t:"Contamination probe",s:"Qwen2.5-Coder-7B on a Jetson Orin Nano.",render:function(){stage.body.replaceChildren(buildContam());}}
+  };
+
+  function animateGridIn(){
+    if(reduce || !gridSVG) return;
+    var rects=gridSVG.querySelectorAll(".cellrect");
+    rects.forEach(function(rc,i){
+      rc.style.transition="none";
+      rc.style.transform="scale(0.6)";
+      rc.style.opacity="0";
+      // force reflow then stagger
+      void rc.getBoundingClientRect();
+      setTimeout(function(){
+        rc.style.transition="opacity .5s ease, transform .5s ease";
+        rc.style.transform="scale(1)";
+        rc.style.opacity="1";
+      }, 40 + i*55);
+    });
+  }
+
+  var current=null;
+  function activate(scene){
+    if(scene===current) return;
+    current=scene;
+    var def=SCENES[scene];
+    if(!def) return;
+    stage.title.textContent=def.t;
+    stage.sub.textContent=def.s;
+    def.render();
+  }
+
+  /* ---------- intersection: active step drives scene ---------- */
+  var steps=Array.prototype.slice.call(document.querySelectorAll(".step"));
+  function pickActive(){
+    var mid=window.innerHeight*0.5, best=null, bestD=1e9;
+    steps.forEach(function(st){
+      var r=st.getBoundingClientRect();
+      var c=r.top+r.height/2;
+      var d=Math.abs(c-mid);
+      if(d<bestD){bestD=d;best=st;}
+    });
+    if(best){
+      steps.forEach(function(s){s.classList.toggle("active",s===best);});
+      activate(best.getAttribute("data-scene"));
+    }
+  }
+
+  // initial scene
+  activate("registers");
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(){ pickActive(); }, {threshold:[0,0.25,0.5,0.75,1], rootMargin:"-10% 0px -10% 0px"});
+    steps.forEach(function(s){io.observe(s);});
+  }
+  var lastRun=0;
+  function onScroll(){
+    var now=Date.now();
+    if(now-lastRun > 80){ lastRun=now; pickActive(); }
+    else {
+      // trailing call so we settle on the final position
+      clearTimeout(onScroll._t);
+      onScroll._t=setTimeout(pickActive, 90);
+    }
+  }
+  window.addEventListener("scroll",onScroll,{passive:true});
+  window.addEventListener("resize",pickActive,{passive:true});
+  pickActive();
+})();
 </script>
 
 </body>

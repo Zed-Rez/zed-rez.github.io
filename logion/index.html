@@ -1,270 +1,753 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Teaching Logion How Scribes Actually Slip — Reza Ramji</title>
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- EB Garamond for everything; Gentium Plus for Greek glyphs (better polytonic coverage) -->
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&family=Gentium+Plus&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --ink:#1c1b19;
-      --muted:#6b6760;
-      --accent:#7a2424;
-      --rule:rgba(28,27,25,0.14);
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teaching Logion How Scribes Actually Slip — Reza Ramji</title>
+<meta name="description" content="A weighted edit distance for restoring damaged Byzantine Greek — and a statistically significant gain on real manuscript variants. Extends Princeton's Logion.">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Gentium+Plus:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c1b19;
+    --muted:#6b6760;
+    --faint:#9a958c;
+    --accent:#7a2424;
+    --accent-soft:#b86a5a;
+    --paper:#fbf9f4;
+    --rule:rgba(28,27,25,0.14);
+    --rule-soft:rgba(28,27,25,0.07);
+    --grey:#8a857c;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    color:var(--ink);
+    background:var(--paper);
+    font-family:'EB Garamond',Garamond,Georgia,serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .gk{font-family:'Gentium Plus','EB Garamond',Garamond,Georgia,serif;font-feature-settings:"kern";}
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;text-underline-offset:2px;}
+  img{max-width:100%;height:auto;display:block;}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(251,249,244,0.86);
+    backdrop-filter:saturate(140%) blur(8px);
+    -webkit-backdrop-filter:saturate(140%) blur(8px);
+    border-bottom:1px solid var(--rule-soft);
+  }
+  .topbar .inner{
+    max-width:var(--maxw);margin:0 auto;
+    display:flex;justify-content:space-between;align-items:center;
+    gap:1em;padding:0.7em 1.4em;font-size:0.92rem;
+  }
+  .topbar a{color:var(--muted);letter-spacing:0.01em;}
+  .topbar a:hover{color:var(--accent);text-decoration:none;}
+  .topbar .pdf{display:inline-flex;align-items:center;gap:0.35em;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    max-width:var(--maxw);margin:0 auto;
+    padding:3.2em 1.4em 1.4em;
+  }
+  .kicker{
+    font-size:0.82rem;letter-spacing:0.18em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1.1em;font-weight:600;
+  }
+  h1{
+    font-size:clamp(2.1rem,5.6vw,4.1rem);line-height:1.04;font-weight:600;
+    margin:0 0 0.4em;letter-spacing:-0.018em;max-width:14ch;
+  }
+  .standfirst{
+    font-size:clamp(1.15rem,2.3vw,1.5rem);color:var(--muted);
+    margin:0 0 1.2em;max-width:44ch;line-height:1.42;font-weight:400;
+  }
+  .byline{font-size:0.95rem;color:var(--muted);margin:0;}
+  .byline .sep{color:var(--faint);margin:0 0.5em;}
+
+  /* ---------- hero stage: the confusable swap ---------- */
+  .heroviz{
+    max-width:var(--maxw);margin:0.6em auto 0;padding:0 1.4em;
+  }
+  .heroviz .frame{
+    background:#fff;border:1px solid var(--rule);
+    border-radius:3px;overflow:hidden;
+    box-shadow:0 1px 0 rgba(28,27,25,0.04), 0 18px 40px -28px rgba(28,27,25,0.4);
+  }
+  .heroviz svg{display:block;width:100%;height:auto;}
+  .heroviz .cap{
+    font-size:0.9rem;color:var(--muted);font-style:italic;
+    margin:0.8em 0.2em 0;max-width:60ch;
+  }
+
+  /* ---------- generic section rhythm ---------- */
+  .band{max-width:760px;margin:0 auto;padding:0 1.4em;}
+  .lede{
+    font-size:clamp(1.18rem,2vw,1.42rem);line-height:1.5;
+    color:var(--ink);margin:2.6em auto 0;max-width:680px;padding:0 1.4em;
+  }
+  .lede .drop{
+    float:left;font-size:3.4em;line-height:0.74;font-weight:600;
+    padding:0.06em 0.12em 0 0;color:var(--accent);
+  }
+  .rule{max-width:760px;margin:3.2em auto;padding:0 1.4em;}
+  .rule hr{border:0;border-top:1px solid var(--rule);margin:0;}
+  .sectlabel{
+    max-width:760px;margin:3.6em auto 0;padding:0 1.4em;
+    font-size:0.8rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--accent);font-weight:600;
+  }
+
+  /* ---------- scrolly: sticky figure + stepped text ---------- */
+  .scrolly{
+    position:relative;max-width:var(--maxw);margin:1.5em auto 0;
+    padding:0 1.4em;
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+    gap:2.6em;align-items:start;
+  }
+  .scrolly .sticky{
+    position:sticky;top:14vh;height:72vh;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .stage{
+    width:100%;background:#fff;border:1px solid var(--rule);
+    border-radius:3px;padding:1.1em 1.2em 1.2em;
+    box-shadow:0 1px 0 rgba(28,27,25,0.04), 0 22px 46px -34px rgba(28,27,25,0.42);
+  }
+  .stage svg{display:block;width:100%;height:auto;}
+  .stage .stagecap{
+    font-size:0.82rem;color:var(--muted);margin:0.7em 0 0;font-style:italic;
+    min-height:2.2em;line-height:1.35;
+  }
+
+  .steps{display:flex;flex-direction:column;}
+  .stepb{
+    min-height:72vh;display:flex;flex-direction:column;justify-content:center;
+    padding:2vh 0;
+  }
+  .stepb .card{
+    transition:opacity 0.5s ease, transform 0.5s ease;
+    opacity:0.32;transform:translateY(6px);
+  }
+  .stepb.active .card{opacity:1;transform:none;}
+  .no-js .stepb .card{opacity:1;transform:none;}
+  .stepb h2{
+    font-size:clamp(1.35rem,2.4vw,1.7rem);font-weight:600;
+    margin:0 0 0.5em;letter-spacing:-0.01em;line-height:1.15;
+  }
+  .stepb p{margin:0 0 0.85em;}
+  .stepb .num{
+    display:inline-block;font-size:0.78rem;letter-spacing:0.14em;
+    text-transform:uppercase;color:var(--accent);font-weight:600;
+    margin:0 0 0.7em;
+  }
+  .stepb .example{color:var(--muted);font-size:0.97rem;margin:0.4em 0 0;}
+  .stepb .example .gk{color:var(--ink);}
+
+  /* ---------- big result callout ---------- */
+  .result{
+    max-width:760px;margin:3.4em auto;padding:0 1.4em;
+  }
+  .result .inner{
+    border-top:2px solid var(--ink);border-bottom:1px solid var(--rule);
+    padding:1.4em 0 1.5em;
+  }
+  .result .big{
+    font-size:clamp(1.5rem,3.3vw,2.2rem);font-weight:600;
+    letter-spacing:-0.012em;line-height:1.12;display:block;margin:0 0 0.4em;
+  }
+  .result .big .accent{color:var(--accent);}
+  .result .big .vs{color:var(--faint);font-weight:400;}
+  .result .sub{color:var(--muted);font-size:1.02rem;margin:0;max-width:60ch;}
+  .result .sub .stat{color:var(--ink);font-weight:600;}
+
+  /* ---------- inline figure (embedded PNG) ---------- */
+  figure{max-width:820px;margin:2.8em auto;padding:0 1.4em;}
+  figure .fr{
+    background:#fff;border:1px solid var(--rule);border-radius:3px;
+    padding:0.9em 1em;
+    box-shadow:0 1px 0 rgba(28,27,25,0.04);
+  }
+  figcaption{font-size:0.88rem;color:var(--muted);margin-top:0.7em;font-style:italic;}
+
+  /* ---------- ablation table ---------- */
+  .tablewrap{max-width:760px;margin:2.4em auto;padding:0 1.4em;}
+  .tablewrap .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  table{border-collapse:collapse;width:100%;font-size:0.97rem;
+    font-variant-numeric:tabular-nums;}
+  caption{font-style:italic;text-align:left;color:var(--muted);
+    font-size:0.9rem;margin-bottom:0.7em;line-height:1.4;}
+  th,td{text-align:left;padding:0.55em 0.8em;border-bottom:1px solid var(--rule-soft);
+    white-space:nowrap;}
+  thead th{border-bottom:1.5px solid var(--ink);font-weight:600;font-size:0.9rem;}
+  tbody tr td:not(:first-child){text-align:right;}
+  tbody tr.win td{color:var(--accent);font-weight:600;background:rgba(122,36,36,0.045);}
+  tbody tr:last-child td{border-bottom:1.5px solid var(--ink);}
+
+  /* ---------- notes / lists ---------- */
+  .prose{max-width:680px;margin:0 auto;padding:0 1.4em;}
+  .prose h2{
+    font-size:clamp(1.3rem,2.3vw,1.6rem);font-weight:600;margin:1.8em 0 0.5em;
+    letter-spacing:-0.008em;
+  }
+  .prose p{margin:0 0 0.95em;}
+  ul.notes{padding-left:0;margin:0.6em 0 0;list-style:none;}
+  ul.notes li{
+    position:relative;padding-left:1.5em;margin-bottom:0.85em;
+  }
+  ul.notes li::before{
+    content:"";position:absolute;left:0;top:0.62em;
+    width:0.5em;height:1.5px;background:var(--accent);
+  }
+  ul.notes li strong{font-weight:600;}
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top:1px solid var(--rule);
+    margin-top:4em;padding:2.2em 1.4em 4em;
+    max-width:760px;margin-left:auto;margin-right:auto;
+    font-size:0.92rem;color:var(--muted);
+  }
+  footer p{margin:0 0 0.6em;}
+  footer a{color:var(--accent);}
+
+  /* ---------- SVG shared styling ---------- */
+  .svg-ink{fill:var(--ink);}
+  .svg-muted{fill:var(--muted);}
+  .svg-faint{fill:var(--faint);}
+  .svg-accent{fill:var(--accent);}
+  .svg-grey{fill:var(--grey);}
+  text{font-family:'EB Garamond',Garamond,Georgia,serif;}
+  text.gk{font-family:'Gentium Plus','EB Garamond',Garamond,Georgia,serif;}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:880px){
+    .scrolly{grid-template-columns:1fr;gap:0;}
+    .scrolly .sticky{
+      position:sticky;top:auto;height:auto;
+      margin:0 -0.2em;order:-1;
     }
-    *{box-sizing:border-box;}
-    html{scroll-behavior:smooth;}
-    body{
-      margin:0;
-      color:var(--ink);
-      background:#fff;
-      font-family:'EB Garamond',Garamond,Georgia,serif;
-      font-size:17px;
-      line-height:1.55;
-      -webkit-font-smoothing:antialiased;
-    }
-    /* Greek glyphs pick up Gentium Plus, falling back to EB Garamond */
-    .gk{font-family:'Gentium Plus','EB Garamond',Garamond,Georgia,serif;}
-
-    .wrap{max-width:700px;margin:0 auto;padding:0 1.2em;}
-
-    /* top bar */
-    .topbar{
-      display:flex;justify-content:space-between;align-items:baseline;
-      gap:1em;flex-wrap:wrap;
-      padding:1.4em 0 1.2em;
-      font-size:0.92rem;
-    }
-    a{color:var(--accent);text-decoration:none;}
-    a:hover{text-decoration:underline;}
-    .topbar .muted{color:var(--muted);}
-
-    header.hero{padding:1.5em 0 0.5em;}
-    h1{
-      font-size:2.05rem;line-height:1.18;font-weight:600;
-      margin:0 0 0.35em;letter-spacing:-0.01em;
-    }
-    .standfirst{font-size:1.12rem;color:var(--muted);margin:0 0 0.4em;}
-    .credit{font-size:0.92rem;color:var(--muted);margin:0;}
-
-    hr{border:0;border-top:1px solid var(--rule);margin:2.2em 0;}
-
-    /* scroll steps */
-    .step{
-      margin:2.6em 0;
-      opacity:0;
-      transform:translateY(14px);
-      transition:opacity 0.7s ease, transform 0.7s ease;
-    }
-    .step.in{opacity:1;transform:none;}
-    /* if JS is off, show everything */
-    .no-js .step{opacity:1;transform:none;}
-
-    .step h2{
-      font-size:1.32rem;font-weight:600;margin:0 0 0.5em;
-      letter-spacing:-0.005em;
-    }
-    .step p{margin:0 0 0.9em;}
-    .step:last-child{margin-bottom:4em;}
-
-    .lead{font-size:1.14rem;line-height:1.5;}
-
-    /* a small inline example pair */
-    .example{
-      color:var(--muted);font-size:0.96rem;
-      margin:0.6em 0 0.2em;
-    }
-    .example .gk{color:var(--ink);}
-
-    /* the result callout */
-    .result{
-      border-top:1px solid var(--rule);
-      border-bottom:1px solid var(--rule);
-      padding:1.2em 0;
-      margin:1.4em 0;
-    }
-    .result .big{
-      font-size:1.5rem;font-weight:600;letter-spacing:-0.01em;
-      display:block;margin-bottom:0.15em;
-    }
-    .result .big .accent{color:var(--accent);}
-    .result .sub{color:var(--muted);font-size:0.98rem;margin:0;}
-
-    figure{margin:1.4em 0;}
-    figure img{display:block;width:100%;height:auto;}
-    figcaption{font-size:0.88rem;color:var(--muted);margin-top:0.5em;font-style:italic;}
-
-    /* table */
-    .tablewrap{overflow-x:auto;margin:1.2em 0;}
-    table{border-collapse:collapse;width:100%;font-size:0.95rem;font-variant-numeric:tabular-nums;}
-    caption{font-style:italic;text-align:left;color:var(--muted);font-size:0.9rem;margin-bottom:0.5em;}
-    th,td{text-align:left;padding:0.4em 0.7em;border-bottom:1px solid var(--rule);}
-    th{font-weight:600;}
-    tbody tr td:not(:first-child){text-align:right;font-variant-numeric:tabular-nums;}
-    tr.highlight td{color:var(--accent);font-weight:600;}
-
-    ul.notes{padding-left:1.1em;margin:0.6em 0;}
-    ul.notes li{margin-bottom:0.55em;}
-
-    .stat{font-weight:600;}
-
-    footer{
-      border-top:1px solid var(--rule);
-      margin-top:3em;padding:1.6em 0 3em;
-      font-size:0.9rem;color:var(--muted);
-    }
-    footer a{color:var(--accent);}
-
-    @media (max-width:560px){
-      body{font-size:16px;}
-      h1{font-size:1.7rem;}
-      .result .big{font-size:1.3rem;}
-    }
-    @media (prefers-reduced-motion:reduce){
-      .step{transition:none;opacity:1;transform:none;}
-      html{scroll-behavior:auto;}
-    }
-  </style>
+    /* on mobile, show one shared stage at top of each step instead of side-by-side;
+       simpler: keep the sticky stage above the steps */
+    .scrolly{display:block;}
+    .scrolly .sticky{position:sticky;top:8vh;height:auto;
+      background:var(--paper);padding:0.6em 0 0.8em;z-index:5;}
+    .stepb{min-height:auto;padding:1.6em 0;}
+    .stepb .card{opacity:1;transform:none;}
+  }
+  @media (max-width:560px){
+    body{font-size:16px;}
+    .lede .drop{font-size:3em;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .stepb .card{transition:none;opacity:1;transform:none;}
+    .anim{animation:none!important;}
+  }
+</style>
 </head>
 <body class="no-js">
 
-<div class="wrap">
+<nav class="topbar">
+  <div class="inner">
+    <a href="/#projects/lm">&larr; projects</a>
+    <a class="pdf" href="logion.pdf">Download PDF <span aria-hidden="true">&darr;</span></a>
+  </div>
+</nav>
 
-  <nav class="topbar">
-    <a href="/#projects">&larr; projects</a>
-    <a href="logion.pdf" class="muted">Download PDF &darr;</a>
-  </nav>
+<header class="hero">
+  <p class="kicker">Computational philology</p>
+  <h1>Teaching Logion how scribes actually slip</h1>
+  <p class="standfirst">A weighted edit distance for restoring damaged Byzantine Greek &mdash; and a statistically significant gain on the variants real manuscripts preserve.</p>
+  <p class="byline">
+    Reza Ramji
+    <span class="sep">&middot;</span>
+    extends Princeton&rsquo;s <a href="https://github.com/charliecb/Logion">Logion</a>
+    <span class="sep">&middot;</span>
+    <a href="https://github.com/Zed-Rez/logion-wlev">source</a>
+  </p>
+</header>
 
-  <header class="hero">
-    <h1>Teaching Logion how scribes actually slip</h1>
-    <p class="standfirst">A weighted edit distance for restoring damaged Byzantine Greek &mdash; and a statistically significant gain on real manuscript variants.</p>
-    <p class="credit">[<a href="https://github.com/Zed-Rez/logion-wlev">source</a>] &middot; extends Princeton&rsquo;s <a href="https://github.com/charliecb/Logion">Logion</a> (Cowen-Breen, Brooks, Graziosi, Haubold; <em>ACL ALP-2023</em>)</p>
-  </header>
+<!-- ============ HERO VIZ: the confusable swap ============ -->
+<div class="heroviz">
+  <div class="frame">
+    <svg viewBox="0 0 1180 440" role="img" aria-labelledby="herotitle herodesc" preserveAspectRatio="xMidYMid meet">
+      <title id="herotitle">Two Greek words one letter-pair apart</title>
+      <desc id="herodesc">The dative articles tais and tois differ only by the itacistic swap of alpha-iota to omicron-iota, two spellings a Byzantine scribe pronounced the same. Plain edit distance scores this swap exactly like any unrelated one-letter change; the weighted scheme makes it cost far less.</desc>
 
-  <hr>
+      <!-- left word -->
+      <text class="gk svg-ink" x="200" y="180" font-size="118" text-anchor="middle" font-weight="600">&#964;&#945;&#953;&#962;</text>
+      <text class="svg-muted" x="200" y="232" font-size="20" text-anchor="middle" font-style="italic">tais &mdash; &ldquo;to the&rdquo; (fem.)</text>
 
-  <main>
+      <!-- right word -->
+      <text class="gk svg-ink" x="980" y="180" font-size="118" text-anchor="middle" font-weight="600">&#964;&#959;&#953;&#962;</text>
+      <text class="svg-muted" x="980" y="232" font-size="20" text-anchor="middle" font-style="italic">tois &mdash; &ldquo;to the&rdquo; (masc./neut.)</text>
 
-    <section class="step">
-      <p class="lead">Ancient Greek texts reach us through centuries of hand-copying. Letters smudge, words drop out, scribes mishear or misread. Princeton&rsquo;s <strong>Logion</strong> is a language model (a BERT trained on premodern Greek) that reads a passage and flags spots where the transmitted word looks wrong, then proposes the word it thinks should be there. Editors use it as a second set of eyes.</p>
-    </section>
+      <!-- the swap arc between the two -->
+      <path d="M 320 135 C 470 60, 710 60, 860 135" fill="none" stroke="#7a2424" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round"/>
+      <text class="gk svg-accent" x="590" y="58" font-size="34" text-anchor="middle" font-weight="600">&#945;&#953; &#8594; &#959;&#953;</text>
+      <text class="svg-accent" x="590" y="86" font-size="17" text-anchor="middle" font-style="italic" opacity="0.85">both heard as /i/</text>
 
-    <section class="step">
-      <h2>How it decides something looks off</h2>
-      <p>For each word, Logion computes a <em>chance-correction ratio</em>: how likely is the word that&rsquo;s actually written, compared to the most likely near-spelling the model can imagine in its place? When a different spelling is far more probable in context, that word gets surfaced for an expert to look at.</p>
-      <p>To build that set of &ldquo;near-spellings,&rdquo; Logion needs a notion of which words count as close. It uses <strong>edit distance</strong> (Levenshtein) &mdash; how many single-character changes turn one word into another.</p>
-    </section>
+      <!-- cost rail at the bottom -->
+      <line x1="120" y1="330" x2="1060" y2="330" stroke="rgba(28,27,25,0.18)" stroke-width="1"/>
+      <text class="svg-faint" x="120" y="355" font-size="14">edit cost</text>
+      <text class="svg-faint" x="120" y="372" font-size="13">0.00</text>
+      <text class="svg-faint" x="1060" y="372" font-size="13" text-anchor="end">1.00 (unrelated)</text>
 
-    <section class="step">
-      <h2>The problem: every swap costs the same</h2>
-      <p>Plain edit distance is blunt. Changing one letter to <em>any</em> other letter costs exactly one, whether the two letters are constantly confused or have nothing to do with each other. Logion&rsquo;s original filter is even blunter: it&rsquo;s a yes/no gate &mdash; any vocabulary word within distance 1 is let in, all treated equally.</p>
-      <p>That isn&rsquo;t how copying errors happen. In Byzantine Greek a handful of confusions cause most of the mistakes:</p>
-      <ul class="notes">
-        <li><strong>Itacism</strong> &mdash; <span class="gk">&eta;, &iota;, &upsilon;, &epsilon;&iota;, &omicron;&iota;</span> all came to be pronounced the same (/i/), so scribes writing from dictation swapped them constantly.</li>
-        <li><strong>Visual look-alikes</strong> in minuscule script &mdash; <span class="gk">&gamma;/&tau;, &lambda;/&mu;, &beta;/&nu;, &rho;/&pi;</span> are easy to misread.</li>
-        <li><strong>Post-vocalic <span class="gk">&beta;/&upsilon;</span></strong> &mdash; a sound shift that bled into spelling.</li>
-      </ul>
-      <p>A metric that treats <span class="gk">&eta;&rarr;&iota;</span> the same as <span class="gk">&eta;&rarr;&xi;</span> is throwing away exactly the signal that matters.</p>
-    </section>
-
-    <section class="step">
-      <h2>The change: make the swaps weighted</h2>
-      <p>Instead of a yes/no gate, give each substitution a <em>cost</em> drawn from documented confusion classes (Allen&rsquo;s <em>Vox Graeca</em>, West&rsquo;s <em>Textual Criticism</em>, Reynolds &amp; Wilson&rsquo;s <em>Scribes &amp; Scholars</em>). Easily-confused letters cost little; unrelated ones cost the full amount. The filter becomes a smooth weight rather than a hard cutoff.</p>
-      <p class="example">An itacism swap like <span class="gk">&tau;&alpha;&iota;&sigmaf; / &tau;&omicron;&iota;&sigmaf;</span> costs 0.35 and gets about <strong>3.7&times;</strong> the weight of an unrelated same-distance edit like <span class="gk">&tau;&iota;&sigmaf; / &omicron;&iota;&sigmaf;</span>, which costs the full 1.00.</p>
-    </section>
-
-    <section class="step">
-      <h2>The result</h2>
-      <p>Tested against <strong>real attested variants</strong> &mdash; 333 spots in the SBLGNT apparatus where the manuscripts genuinely disagree &mdash; the weighted filter recovers more of them. This is the fairest test, because it uses errors that real scribes actually made rather than artificial ones.</p>
-
-      <div class="result">
-        <span class="big">Top-5 recovery: <span class="accent">42.3%</span> vs. 35.7% baseline</span>
-        <p class="sub">Paired McNemar test, <span class="gk">&thinsp;</span><em>p</em>&thinsp;&lt;&thinsp;10<sup>&minus;3</sup>. The weighted filter recovered 28 loci the baseline missed and lost only 6. Top-1 trends positive but isn&rsquo;t significant (16.5% vs. 14.4%, <em>p</em>=0.30).</p>
-      </div>
-
-      <figure>
-        <img src="fig_variants_topk.png" alt="Bar chart: variant-locus recovery on SBLGNT (n=333), baseline vs. recommended weighted-Levenshtein, at top-1, top-5, top-10. Recommended is higher at every k; the top-5 gap is statistically significant. Error bars are Wilson 95% confidence intervals." width="900" height="600">
-        <figcaption>Real attested-variant recovery on SBLGNT (n=333). Recommended = weighted Levenshtein only. Error bars: Wilson 95% CIs.</figcaption>
-      </figure>
-
-      <p>The same direction shows up in two more controlled tests. On the paper&rsquo;s synthetic protocol (n=200), removing the weighted filter costs &minus;4.0pp at top-1 (one-tailed McNemar <em>p</em>=0.029). On a corruption protocol built to mimic scribal-class errors, removing it costs &minus;4.0pp at top-10 (<em>p</em>=0.039).</p>
-    </section>
-
-    <section class="step">
-      <h2>What helped, what didn&rsquo;t</h2>
-      <p>Two other changes were tried alongside the weighted distance. Both turned out to be dead weight, and the all-on combination actually does <em>worse</em> than baseline (&minus;1.5pp top-1, &minus;3.5pp top-5).</p>
-
-      <div class="tablewrap">
-        <table>
-          <caption>Per-component ablation on artificial single-character corruption (n=200, &sect;4.1 protocol).</caption>
-          <thead>
-            <tr><th>Condition</th><th>Top-1</th><th>Top-5</th><th>Top-10</th><th>McNemar <em>p</em></th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Baseline (paper)</td><td>37.5%</td><td>69.5%</td><td>81.5%</td><td>&mdash;</td></tr>
-            <tr><td>&minus;CF temperature</td><td>37.5%</td><td>69.0%</td><td>80.0%</td><td>1.00</td></tr>
-            <tr class="highlight"><td>&minus;Weighted Lev</td><td>33.5%</td><td>67.5%</td><td>80.5%</td><td>0.057</td></tr>
-            <tr><td>&minus;Extras (E1&ndash;E4)</td><td>37.0%</td><td>68.0%</td><td>81.5%</td><td>1.00</td></tr>
-            <tr><td>All improvements</td><td>36.0%</td><td>66.0%</td><td>79.0%</td><td>0.63</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <ul class="notes">
-        <li><strong>A chance-fit adaptive temperature</strong> (flatten the model&rsquo;s distribution when the written word is implausible) is inert &mdash; an exact tie with baseline at top-1, McNemar <em>p</em>=1.00.</li>
-        <li><strong>Four &ldquo;extras&rdquo; (E1&ndash;E4)</strong> are actively harmful on the realistic protocol: removing them lifts top-1 from 26.5% to 30.5% (<em>p</em>=0.021). The likely culprit is the <em>lectio difficilior</em> penalty (E1), which discounts suggestions more common than the written word &mdash; exactly the pattern when an itacism slip moves a rare spelling to a common one.</li>
-      </ul>
-
-      <p>So the configuration that wins is the simple one: <strong>weighted Levenshtein on, everything else off.</strong></p>
-    </section>
-
-    <section class="step">
-      <h2>Running it on Photius</h2>
-      <p>The system was then turned loose on 26 paragraphs (~2,100 words) of Photius&rsquo;s <em>Bibliotheca</em> (codices 70, 92, 161, 165, 213) &mdash; a text outside Logion&rsquo;s training corpus, surviving in two manuscript families (Marcianus gr. 450 and 451). Its shortlist clusters in the itacism and visual-confusion region, as you&rsquo;d hope, but none of its picks line up with documented apparatus loci. Best read as the spots where the model and the transmitted text most disagree, not a curated set of fixes.</p>
-    </section>
-
-    <section class="step">
-      <h2>Caveats</h2>
-      <ul class="notes">
-        <li><strong>Domain shift.</strong> The public Logion checkpoint is fine-tuned on Psellus (11th c. Byzantine). The variant test uses Koine (1st c.) and the Photius run is 9th c., so absolute accuracy sits below the paper&rsquo;s in-domain 90.5%. The relative deltas &mdash; baseline vs. weighted on the same loci &mdash; still hold.</li>
-        <li><strong>The synthetic protocol is rigged against weighting.</strong> It draws corruptions uniformly across the 24-letter alphabet, which quietly rewards an algorithm that treats every edit as equally likely. The whole point of weighting is to exploit the non-uniform reality of scribal error, so the real-variant test is the one that counts.</li>
-        <li><strong>A variant isn&rsquo;t always an error.</strong> Many SBLGNT variants are disagreements between defensible readings, not slips. The test measures whether Logion finds a locus unusual, which is weaker than asking whether it&rsquo;s wrong.</li>
-        <li><strong>The weights are hand-tuned</strong> from textbooks. The obvious next step: learn the phonetic prior from Byzantine palaeographic data, or retrain the model with the weighted neighborhood as a training signal rather than just an inference-time filter &mdash; that could internalize scribal error patterns directly and yield a larger gain.</li>
-      </ul>
-    </section>
-
-  </main>
-
-  <footer>
-    <p>Built on <a href="https://github.com/charliecb/Logion">Logion</a> (Cowen-Breen et al., <em>ACL ALP-2023</em>). SBLGNT apparatus from <a href="https://github.com/jjmccollum/sblgnt-tei">jjmccollum/sblgnt-tei</a> (CC BY 4.0).</p>
-    <p><a href="/#projects">&larr; back to projects</a> &middot; <a href="logion.pdf">academic PDF</a></p>
-  </footer>
-
+      <!-- weighted marker -->
+      <g class="anim" style="animation:slidein 1.1s cubic-bezier(.22,1,.36,1) both;">
+        <line x1="120" y1="322" x2="120" y2="338" stroke="rgba(28,27,25,0.3)" stroke-width="1"/>
+        <line x1="449" y1="320" x2="449" y2="340" stroke="#7a2424" stroke-width="2.5"/>
+        <circle cx="449" cy="330" r="6" fill="#7a2424"/>
+        <text class="svg-accent" x="449" y="405" font-size="18" text-anchor="middle" font-weight="600">0.35</text>
+        <text class="svg-muted" x="449" y="425" font-size="13.5" text-anchor="middle">itacism swap &mdash; ~3.7&times; cheaper</text>
+      </g>
+      <!-- full-cost marker -->
+      <g>
+        <line x1="1058" y1="320" x2="1058" y2="340" stroke="rgba(28,27,25,0.3)" stroke-width="2"/>
+        <circle cx="1058" cy="330" r="5" fill="rgba(28,27,25,0.35)"/>
+      </g>
+    </svg>
+  </div>
+  <p class="cap">Two Greek words that differ by one letter-pair. A Byzantine scribe taking dictation could not hear the difference between <span class="gk">&#964;&#945;&#953;&#962;</span> and <span class="gk">&#964;&#959;&#953;&#962;</span> &mdash; both were pronounced /i/. Plain edit distance scores that slip exactly like any unrelated one-letter change. The weighted scheme makes it cost <span style="color:var(--accent)">0.35</span> instead of 1.00.</p>
 </div>
 
+<!-- ============ LEDE ============ -->
+<p class="lede"><span class="drop">A</span>ncient Greek reaches us through centuries of hand-copying. Letters smudge, words drop out, scribes mishear from dictation or misread a neighbour&rsquo;s hand. Princeton&rsquo;s <strong>Logion</strong> &mdash; a BERT language model trained on premodern Greek &mdash; reads a passage, flags spots where the transmitted word looks wrong, and proposes what should be there. Editors treat it as a tireless second reader. This page is about one small change to how it works, and the gain that change buys on errors real scribes actually made.</p>
+
+<div class="rule"><hr></div>
+
+<!-- ============ SCROLLY 1: how it decides + the problem + the fix ============ -->
+<p class="sectlabel">The mechanism</p>
+
+<section class="scrolly" id="scrolly1" aria-label="How weighting reshapes the candidate ranking">
+  <div class="sticky">
+    <div class="stage">
+      <!-- The candidate-ranking reshape viz. Two columns of candidate words for a damaged
+           slot, baseline (flat) vs weighted. Bars highlight as steps advance. -->
+      <svg viewBox="0 0 520 460" role="img" aria-labelledby="s1t s1d" id="s1svg">
+        <title id="s1t">How weighting reshapes the candidate ranking</title>
+        <desc id="s1d">For one damaged word, the baseline filter admits every neighbour within edit distance one and treats them all equally. The weighted scheme promotes candidates that differ by a documented scribal confusion and demotes the rest, so the correct reading rises toward the top of the shortlist.</desc>
+
+        <!-- column headers -->
+        <text class="svg-muted" x="150" y="34" font-size="15" text-anchor="middle" id="hdrA">Baseline filter</text>
+        <text class="svg-muted" x="150" y="52" font-size="12.5" text-anchor="middle" font-style="italic">all neighbours equal</text>
+        <text class="svg-accent" x="395" y="34" font-size="15" text-anchor="middle" font-weight="600" id="hdrB">Weighted filter</text>
+        <text class="svg-muted" x="395" y="52" font-size="12.5" text-anchor="middle" font-style="italic">cost by confusion class</text>
+
+        <!-- the damaged slot label -->
+        <text class="svg-faint" x="260" y="84" font-size="12.5" text-anchor="middle">candidates for one suspect word</text>
+
+        <!-- ===== BASELINE column: 5 equal bars ===== -->
+        <g id="colA" font-size="15">
+          <!-- each row: bar + greek label -->
+          <g class="rowA">
+            <rect x="40" y="104" width="170" height="30" rx="2" fill="#cbc7bd"/>
+            <text class="gk svg-ink" x="48" y="124" >&#964;&#959;&#953;&#962;</text>
+            <text class="svg-faint" x="200" y="124" font-size="12" text-anchor="end">1.00</text>
+          </g>
+          <g class="rowA">
+            <rect x="40" y="142" width="170" height="30" rx="2" fill="#cbc7bd"/>
+            <text class="gk svg-ink" x="48" y="162">&#964;&#945;&#953;&#962;</text>
+            <text class="svg-faint" x="200" y="162" font-size="12" text-anchor="end">1.00</text>
+          </g>
+          <g class="rowA">
+            <rect x="40" y="180" width="170" height="30" rx="2" fill="#cbc7bd"/>
+            <text class="gk svg-ink" x="48" y="200">&#964;&#969;&#953;&#962;</text>
+            <text class="svg-faint" x="200" y="200" font-size="12" text-anchor="end">1.00</text>
+          </g>
+          <g class="rowA">
+            <rect x="40" y="218" width="170" height="30" rx="2" fill="#cbc7bd"/>
+            <text class="gk svg-ink" x="48" y="238">&#964;&#965;&#953;&#962;</text>
+            <text class="svg-faint" x="200" y="238" font-size="12" text-anchor="end">1.00</text>
+          </g>
+          <g class="rowA">
+            <rect x="40" y="256" width="170" height="30" rx="2" fill="#cbc7bd"/>
+            <text class="gk svg-ink" x="48" y="276">&#946;&#959;&#953;&#962;</text>
+            <text class="svg-faint" x="200" y="276" font-size="12" text-anchor="end">1.00</text>
+          </g>
+        </g>
+
+        <!-- ===== WEIGHTED column: bars scaled by inverse cost, reordered ===== -->
+        <g id="colB" font-size="15">
+          <!-- top: correct itacistic neighbour (cheap, long bar, accent) -->
+          <g class="rowB" data-rank="0">
+            <rect x="285" y="104" width="185" height="30" rx="2" fill="#7a2424"/>
+            <text class="gk" x="293" y="124" fill="#fff">&#964;&#959;&#953;&#962;</text>
+            <text x="462" y="124" font-size="12" text-anchor="end" fill="#fff" opacity="0.85">0.35</text>
+          </g>
+          <g class="rowB" data-rank="1">
+            <rect x="285" y="142" width="150" height="30" rx="2" fill="#b86a5a"/>
+            <text class="gk" x="293" y="162" fill="#fff">&#964;&#945;&#953;&#962;</text>
+            <text x="427" y="162" font-size="12" text-anchor="end" fill="#fff" opacity="0.85">0.45</text>
+          </g>
+          <g class="rowB" data-rank="2">
+            <rect x="285" y="180" width="70" height="30" rx="2" fill="#d8cfc4"/>
+            <text class="gk svg-ink" x="362" y="200">&#964;&#969;&#953;&#962;</text>
+            <text class="svg-faint" x="362" y="200" font-size="12" text-anchor="end" opacity="0"></text>
+          </g>
+          <g class="rowB" data-rank="3">
+            <rect x="285" y="218" width="58" height="30" rx="2" fill="#ddd5cb"/>
+            <text class="gk svg-ink" x="350" y="238">&#964;&#965;&#953;&#962;</text>
+          </g>
+          <g class="rowB" data-rank="4">
+            <rect x="285" y="256" width="40" height="30" rx="2" fill="#e3ddd3"/>
+            <text class="gk svg-ink" x="332" y="276">&#946;&#959;&#953;&#962;</text>
+          </g>
+        </g>
+
+        <!-- divider -->
+        <line x1="260" y1="98" x2="260" y2="300" stroke="var(--rule-soft)" stroke-width="1"/>
+
+        <!-- annotation under weighted column -->
+        <text class="svg-muted" x="378" y="332" font-size="13" text-anchor="middle">longer bar = more plausible</text>
+
+        <!-- the "correct" callout, revealed at the relevant step -->
+        <g id="s1correct" opacity="0">
+          <text class="svg-accent" x="285" y="372" font-size="14.5" font-style="italic">The reading the scribe meant</text>
+          <text class="svg-accent" x="285" y="392" font-size="14.5" font-style="italic">rises to the top of the list.</text>
+        </g>
+      </svg>
+      <p class="stagecap" id="s1cap">Logion scores spellings near a suspect word. Watch how the shortlist changes when swaps are weighted.</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="stepb" data-step="1" data-stage="1">
+      <div class="card">
+        <span class="num">01 — How it decides something looks off</span>
+        <h2>A model that second-guesses the page</h2>
+        <p>For each word, Logion asks: how likely is what&rsquo;s actually written, against the most likely near-spelling it can imagine in that spot? When a different spelling is far more probable in context, the word gets surfaced for an editor.</p>
+        <p>To build that set of near-spellings, it needs a notion of <em>close</em>. It uses <strong>edit distance</strong> &mdash; the number of single-character changes that turn one word into another.</p>
+      </div>
+    </div>
+
+    <div class="stepb" data-step="2" data-stage="2">
+      <div class="card">
+        <span class="num">02 — The problem</span>
+        <h2>Every swap costs the same</h2>
+        <p>Plain edit distance is blunt. Changing one letter to <em>any</em> other costs exactly one &mdash; whether the two are constantly confused or have nothing to do with each other. Logion&rsquo;s original filter is blunter still: a yes/no gate that lets in every word within distance&nbsp;1 and treats them all alike.</p>
+        <p>So the five candidates on the left arrive as equals. The model has thrown away the one thing a philologist knows cold: <em>which</em> mistakes scribes actually make.</p>
+      </div>
+    </div>
+
+    <div class="stepb" data-step="3" data-stage="3">
+      <div class="card">
+        <span class="num">03 — The change</span>
+        <h2>Weight the swaps by how scribes err</h2>
+        <p>Give each substitution a <em>cost</em> drawn from documented confusion classes. Easily-confused letters cost little; unrelated ones cost the full amount. The hard gate becomes a smooth weight.</p>
+        <p>Now the shortlist re-sorts. The itacistic neighbour <span class="gk">&#964;&#959;&#953;&#962;</span> &mdash; one /i/-swap away &mdash; climbs to the top, and the implausible candidates sink.</p>
+        <p class="example">An itacism swap like <span class="gk">&#964;&#945;&#953;&#962; / &#964;&#959;&#953;&#962;</span> costs <strong>0.35</strong> &mdash; about <strong>3.7&times;</strong> the weight of an unrelated same-distance edit like <span class="gk">&#964;&#953;&#962; / &#959;&#953;&#962;</span>, which costs the full <strong>1.00</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"><hr></div>
+
+<!-- ============ THE CONFUSION CLASSES (static SVG band) ============ -->
+<p class="sectlabel">Why some swaps are cheap</p>
+<div class="band" style="margin-top:0.8em;">
+  <p style="font-size:1.06rem;color:var(--muted);max-width:62ch;">In Byzantine Greek a handful of confusions cause most copying errors. These are the swaps the weighting makes cheap.</p>
+</div>
+
+<figure style="max-width:900px;">
+  <div class="fr" style="padding:1.4em 1.2em;">
+    <svg viewBox="0 0 880 250" role="img" aria-labelledby="cct ccd">
+      <title id="cct">Three families of Byzantine scribal confusion</title>
+      <desc id="ccd">Itacism merged the vowels eta, iota, upsilon, epsilon-iota and omicron-iota into a single /i/ sound. Minuscule script made gamma/tau, lambda/mu, beta/nu and rho/pi look alike. A post-vocalic sound shift confused beta and upsilon.</desc>
+
+      <!-- panel 1: itacism -->
+      <text class="svg-accent" x="20" y="34" font-size="14" font-weight="600" letter-spacing="0.08em">ITACISM</text>
+      <text class="svg-muted" x="20" y="54" font-size="13" font-style="italic">heard the same: all /i/</text>
+      <g>
+        <text class="gk svg-ink" x="20" y="118" font-size="56">&#951; &#953; &#965;</text>
+        <text class="gk svg-ink" x="20" y="180" font-size="56">&#949;&#953; &#959;&#953;</text>
+      </g>
+      <text class="svg-faint" x="20" y="222" font-size="13">the single biggest source of error</text>
+
+      <line x1="300" y1="20" x2="300" y2="230" stroke="var(--rule-soft)"/>
+
+      <!-- panel 2: visual -->
+      <text class="svg-accent" x="324" y="34" font-size="14" font-weight="600" letter-spacing="0.08em">VISUAL LOOK-ALIKES</text>
+      <text class="svg-muted" x="324" y="54" font-size="13" font-style="italic">in the minuscule hand</text>
+      <g>
+        <text class="gk svg-ink" x="324" y="112" font-size="42">&#947;/&#964;</text>
+        <text class="gk svg-ink" x="430" y="112" font-size="42">&#955;/&#956;</text>
+        <text class="gk svg-ink" x="324" y="172" font-size="42">&#946;/&#957;</text>
+        <text class="gk svg-ink" x="430" y="172" font-size="42">&#961;/&#960;</text>
+      </g>
+      <text class="svg-faint" x="324" y="214" font-size="13">misread, not misheard</text>
+
+      <line x1="580" y1="20" x2="580" y2="230" stroke="var(--rule-soft)"/>
+
+      <!-- panel 3: post-vocalic -->
+      <text class="svg-accent" x="604" y="34" font-size="14" font-weight="600" letter-spacing="0.08em">POST-VOCALIC</text>
+      <text class="svg-muted" x="604" y="54" font-size="13" font-style="italic">a sound shift in spelling</text>
+      <text class="gk svg-ink" x="604" y="138" font-size="56">&#946;/&#965;</text>
+      <text class="svg-faint" x="604" y="200" font-size="13">after a vowel,</text>
+      <text class="svg-faint" x="604" y="218" font-size="13">&#946; drifted toward &#965;</text>
+    </svg>
+  </div>
+  <figcaption>A metric that treats <span class="gk">&#951;&#8594;&#953;</span> (a textbook itacism) the same as <span class="gk">&#951;&#8594;&#958;</span> (an interchange essentially never attested) is throwing away exactly the signal that matters. Confusion classes after Allen&rsquo;s <em>Vox Graeca</em>, West&rsquo;s <em>Textual Criticism</em>, and Reynolds &amp; Wilson&rsquo;s <em>Scribes &amp; Scholars</em>.</figcaption>
+</figure>
+
+<div class="rule"><hr></div>
+
+<!-- ============ THE RESULT ============ -->
+<p class="sectlabel">The result</p>
+<div class="band" style="margin-top:0.8em;">
+  <p style="font-size:1.06rem;">Tested against <strong>real attested variants</strong> &mdash; 333 spots in the SBLGNT apparatus where the manuscripts genuinely disagree &mdash; the weighted filter recovers more of them. This is the fairest test: it uses errors real scribes made, not artificial ones.</p>
+</div>
+
+<div class="result">
+  <div class="inner">
+    <span class="big">Top-5 recovery climbs to <span class="accent">42.3%</span> <span class="vs">from</span> 35.7%</span>
+    <p class="sub">Paired McNemar test, <em>p</em>&thinsp;&lt;&thinsp;10<sup>&minus;3</sup>. The weighted filter recovered <span class="stat">28</span> loci the baseline missed and lost only <span class="stat">6</span>. Top-1 trends positive but isn&rsquo;t significant (16.5% vs. 14.4%, <em>p</em>&thinsp;=&thinsp;0.30).</p>
+  </div>
+</div>
+
+<!-- inline animated SVG bar chart of the recovery gain -->
+<figure style="max-width:760px;">
+  <div class="fr">
+    <svg viewBox="0 0 700 380" role="img" aria-labelledby="rt rd" id="recsvg">
+      <title id="rt">Variant recovery, baseline versus weighted</title>
+      <desc id="rd">Bar chart of variant-locus recovery on 333 SBLGNT loci. At top-1 baseline 14.4 percent versus weighted 16.5 percent; at top-5 baseline 35.7 versus weighted 42.3, a significant gap; at top-10 baseline 50.2 versus weighted 53.5. Error bars are Wilson 95 percent confidence intervals.</desc>
+
+      <!-- y gridlines 0..60 -->
+      <g font-size="12" class="svg-faint">
+        <line x1="80" y1="300" x2="680" y2="300" stroke="rgba(28,27,25,0.25)"/>
+        <line x1="80" y1="240" x2="680" y2="240" stroke="var(--rule-soft)"/>
+        <line x1="80" y1="180" x2="680" y2="180" stroke="var(--rule-soft)"/>
+        <line x1="80" y1="120" x2="680" y2="120" stroke="var(--rule-soft)"/>
+        <line x1="80" y1="60"  x2="680" y2="60"  stroke="var(--rule-soft)"/>
+        <text x="68" y="304" text-anchor="end">0</text>
+        <text x="68" y="244" text-anchor="end">20</text>
+        <text x="68" y="184" text-anchor="end">40</text>
+        <text x="68" y="124" text-anchor="end">60</text>
+      </g>
+      <text class="svg-muted" x="24" y="180" font-size="13" transform="rotate(-90 24 180)" text-anchor="middle">recovery (%)</text>
+
+      <!-- scale: y(px) = 300 - value*3  (60% -> 180px tall, top at 120) -->
+      <!-- bars render at final state by default (works with JS disabled);
+           JS resets them to zero then animates them up -->
+      <!-- ===== top-1 group ===== -->
+      <g class="bargroup">
+        <rect class="bar" x="130" y="256.8" width="46" height="43.2" fill="#8a857c" data-h="43.2"/>
+        <rect class="bar" x="180" y="250.5" width="46" height="49.5" fill="#7a2424" data-h="49.5"/>
+        <text class="svg-faint" x="178" y="324" font-size="13" text-anchor="middle">top-1</text>
+        <text class="lbl svg-grey"   x="153" y="248" font-size="12.5" text-anchor="middle">14.4</text>
+        <text class="lbl svg-accent" x="203" y="242" font-size="12.5" text-anchor="middle" font-weight="600">16.5</text>
+      </g>
+      <!-- ===== top-5 group ===== -->
+      <g class="bargroup">
+        <rect class="bar" x="320" y="192.9" width="46" height="107.1" fill="#8a857c" data-h="107.1"/>
+        <rect class="bar" x="370" y="173.1" width="46" height="126.9" fill="#7a2424" data-h="126.9"/>
+        <text class="svg-faint" x="368" y="324" font-size="13" text-anchor="middle">top-5</text>
+        <text class="lbl svg-grey"   x="343" y="185" font-size="12.5" text-anchor="middle">35.7</text>
+        <text class="lbl svg-accent" x="393" y="165" font-size="12.5" text-anchor="middle" font-weight="600">42.3</text>
+        <!-- significance bracket -->
+        <g class="sig">
+          <path d="M 343 150 L 343 142 L 393 142 L 393 150" fill="none" stroke="var(--ink)" stroke-width="1"/>
+          <text class="svg-ink" x="368" y="134" font-size="13" text-anchor="middle">p &lt; 10&#8315;&#179;</text>
+        </g>
+      </g>
+      <!-- ===== top-10 group ===== -->
+      <g class="bargroup">
+        <rect class="bar" x="510" y="149.4" width="46" height="150.6" fill="#8a857c" data-h="150.6"/>
+        <rect class="bar" x="560" y="139.5" width="46" height="160.5" fill="#7a2424" data-h="160.5"/>
+        <text class="svg-faint" x="558" y="324" font-size="13" text-anchor="middle">top-10</text>
+        <text class="lbl svg-grey"   x="533" y="141" font-size="12.5" text-anchor="middle">50.2</text>
+        <text class="lbl svg-accent" x="583" y="131" font-size="12.5" text-anchor="middle" font-weight="600">53.5</text>
+      </g>
+
+      <!-- legend -->
+      <g font-size="13">
+        <rect x="430" y="36" width="13" height="13" fill="#8a857c"/>
+        <text class="svg-muted" x="449" y="47">baseline</text>
+        <rect x="540" y="36" width="13" height="13" fill="#7a2424"/>
+        <text class="svg-muted" x="559" y="47">weighted</text>
+      </g>
+    </svg>
+  </div>
+  <figcaption>Real attested-variant recovery on SBLGNT (<em>n</em>&thinsp;=&thinsp;333). Weighted = weighted Levenshtein only. Higher at every cutoff; the top-5 gap is statistically significant. Error bars in the PDF figure are Wilson 95% CIs.</figcaption>
+</figure>
+
+<div class="band">
+  <p>The same direction shows up in two controlled tests. On the paper&rsquo;s synthetic protocol (<em>n</em>&thinsp;=&thinsp;200), removing the weighted filter costs &minus;4.0pp at top-1 (one-tailed McNemar <em>p</em>&thinsp;=&thinsp;0.029). On a corruption protocol built to mimic scribal-class errors, removing it costs &minus;4.0pp at top-10 (<em>p</em>&thinsp;=&thinsp;0.039).</p>
+</div>
+
+<div class="rule"><hr></div>
+
+<!-- ============ WHAT HELPED, WHAT DIDN'T ============ -->
+<p class="sectlabel">What helped, what didn&rsquo;t</p>
+<div class="prose">
+  <h2 style="margin-top:0.8em;">The simple config wins</h2>
+  <p>Two other changes were tried alongside the weighted distance. Both turned out to be dead weight &mdash; and the all-on combination actually does <em>worse</em> than baseline (&minus;1.5pp top-1, &minus;3.5pp top-5).</p>
+</div>
+
+<div class="tablewrap">
+  <div class="scroll">
+    <table>
+      <caption>Per-component ablation on artificial single-character corruption (<em>n</em>&thinsp;=&thinsp;200, &sect;4.1 protocol). Each row removes one component; the last turns everything on.</caption>
+      <thead>
+        <tr><th>Condition</th><th>Top-1</th><th>Top-5</th><th>Top-10</th><th>McNemar <em>p</em></th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Baseline (paper)</td><td>37.5%</td><td>69.5%</td><td>81.5%</td><td>&mdash;</td></tr>
+        <tr><td>&minus; CF temperature</td><td>37.5%</td><td>69.0%</td><td>80.0%</td><td>1.00</td></tr>
+        <tr class="win"><td>&minus; Weighted Lev.</td><td>33.5%</td><td>67.5%</td><td>80.5%</td><td>0.057</td></tr>
+        <tr><td>&minus; Extras (E1&ndash;E4)</td><td>37.0%</td><td>68.0%</td><td>81.5%</td><td>1.00</td></tr>
+        <tr><td>All improvements on</td><td>36.0%</td><td>66.0%</td><td>79.0%</td><td>0.63</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="prose">
+  <ul class="notes">
+    <li><strong>A chance-fit adaptive temperature</strong> &mdash; flatten the model&rsquo;s distribution when the written word is implausible &mdash; is inert: an exact tie with baseline at top-1 (<em>p</em>&thinsp;=&thinsp;1.00).</li>
+    <li><strong>Four &ldquo;extras&rdquo; (E1&ndash;E4)</strong> are actively harmful on the realistic protocol: removing them lifts top-1 from 26.5% to 30.5% (<em>p</em>&thinsp;=&thinsp;0.021). The likely culprit is the <em>lectio difficilior</em> penalty (E1), which discounts suggestions more common than the written word &mdash; exactly the pattern when an itacism slip turns a rare spelling into a common one.</li>
+  </ul>
+  <p style="margin-top:1.1em;font-size:1.08rem;">So the configuration that wins is the plain one: <strong>weighted Levenshtein on, everything else off.</strong></p>
+</div>
+
+<div class="rule"><hr></div>
+
+<!-- ============ PHOTIUS ============ -->
+<p class="sectlabel">Out in the wild</p>
+<div class="prose">
+  <h2 style="margin-top:0.8em;">Running it on Photius</h2>
+  <p>The system was then turned loose on 26 paragraphs (~2,100 words) of Photius&rsquo;s <em>Bibliotheca</em> (codices 70, 92, 161, 165, 213) &mdash; a text outside Logion&rsquo;s training corpus, surviving in two manuscript families (Marcianus gr. 450 and 451).</p>
+  <p>Its shortlist clusters in the itacism and visual-confusion region, as you&rsquo;d hope. But none of its picks line up with documented apparatus loci. Best read as the spots where the model and the transmitted text most disagree &mdash; a triage signal, not a curated set of fixes.</p>
+</div>
+
+<div class="rule"><hr></div>
+
+<!-- ============ CAVEATS ============ -->
+<p class="sectlabel">Caveats</p>
+<div class="prose">
+  <h2 style="margin-top:0.8em;">What this does and doesn&rsquo;t show</h2>
+  <ul class="notes">
+    <li><strong>Domain shift.</strong> The public checkpoint is fine-tuned on Psellus (11th c.). The variant test is Koine (1st c.) and Photius is 9th c., so absolute accuracy sits below the paper&rsquo;s in-domain 90.5%. The relative deltas &mdash; baseline vs. weighted on the same loci &mdash; still hold.</li>
+    <li><strong>The synthetic protocol is rigged against weighting.</strong> It draws corruptions uniformly across the 24-letter alphabet, quietly rewarding an algorithm that treats every edit as equally likely. Weighting exists to exploit the non-uniform reality of scribal error &mdash; so the real-variant test is the one that counts.</li>
+    <li><strong>A variant isn&rsquo;t always an error.</strong> Many SBLGNT variants are disagreements between defensible readings, not slips. The test measures whether Logion finds a locus unusual, which is weaker than asking whether it&rsquo;s wrong.</li>
+    <li><strong>The weights are hand-tuned</strong> from textbooks. The obvious next step: learn the phonetic prior from Byzantine palaeographic data, or retrain the model with the weighted neighbourhood as a training signal rather than just an inference-time filter &mdash; which could internalize scribal error patterns directly and yield a larger gain.</li>
+  </ul>
+</div>
+
+<footer>
+  <p>Built on <a href="https://github.com/charliecb/Logion">Logion</a> (Cowen-Breen, Brooks, Graziosi, Haubold; <em>ACL ALP-2023</em>). SBLGNT apparatus from <a href="https://github.com/jjmccollum/sblgnt-tei">jjmccollum/sblgnt-tei</a> (CC BY 4.0).</p>
+  <p><a href="/#projects/lm">&larr; back to projects</a> <span style="color:var(--faint)">&middot;</span> <a href="logion.pdf">read the full paper (PDF)</a> <span style="color:var(--faint)">&middot;</span> <a href="https://github.com/Zed-Rez/logion-wlev">source</a></p>
+</footer>
+
 <script>
-  // progressive enhancement: drop the no-js flag, then reveal steps on scroll
+(function(){
   document.body.classList.remove('no-js');
-  (function(){
-    var steps = document.querySelectorAll('.step');
-    if (!('IntersectionObserver' in window)) {
-      steps.forEach(function(s){ s.classList.add('in'); });
-      return;
-    }
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* ---------- Scrolly 1: drive the candidate-ranking stage ---------- */
+  var s1svg = document.getElementById('s1svg');
+  var caps = {
+    1:'Logion scores spellings near a suspect word. Watch how the shortlist changes when swaps are weighted.',
+    2:'Baseline: every neighbour within one edit is admitted and treated as equally plausible.',
+    3:'Weighted: cheap, scribally-plausible swaps grow; implausible ones shrink. The intended reading rises to the top.'
+  };
+  var s1cap = document.getElementById('s1cap');
+  var colA = document.getElementById('colA');
+  var colB = document.getElementById('colB');
+  var s1correct = document.getElementById('s1correct');
+
+  function setStage(n){
+    if(!s1svg) return;
+    s1cap.textContent = caps[n] || caps[1];
+    // colB (weighted) fades in only at step 3; dims at 1-2
+    if(colB){ colB.style.transition='opacity .55s ease'; colB.style.opacity = (n>=3)?'1':'0.16'; }
+    if(colA){ colA.style.transition='opacity .55s ease'; colA.style.opacity = (n>=3)?'0.42':'1'; }
+    if(s1correct){ s1correct.style.transition='opacity .55s ease'; s1correct.style.opacity = (n>=3)?'1':'0'; }
+  }
+  setStage(1);
+
+  var stepEls = Array.prototype.slice.call(document.querySelectorAll('#scrolly1 .stepb'));
+  if('IntersectionObserver' in window){
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
-        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+        if(e.isIntersecting){
+          stepEls.forEach(function(s){ s.classList.remove('active'); });
+          e.target.classList.add('active');
+          setStage(parseInt(e.target.getAttribute('data-stage'),10) || 1);
+        }
       });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
-    steps.forEach(function(s){ io.observe(s); });
-    // reveal the first step immediately so the page never opens blank
-    if (steps.length){ steps[0].classList.add('in'); }
-  })();
+    }, { rootMargin:'-45% 0px -45% 0px', threshold:0 });
+    stepEls.forEach(function(s){ io.observe(s); });
+    if(stepEls[0]) stepEls[0].classList.add('active');
+  } else {
+    stepEls.forEach(function(s){ s.classList.add('active'); });
+    setStage(3);
+  }
+
+  /* ---------- Recovery bar chart: grow bars + reveal labels on scroll ---------- */
+  var recsvg = document.getElementById('recsvg');
+  // Bars/labels are authored at FINAL state so the chart is complete with JS off.
+  // When we can animate, collapse them first, then grow on scroll-in.
+  function resetRec(){
+    if(!recsvg) return;
+    recsvg.querySelectorAll('.bar').forEach(function(b){ b.setAttribute('y',300); b.setAttribute('height',0); });
+    recsvg.querySelectorAll('.lbl, .sig').forEach(function(l){ l.style.opacity='0'; });
+  }
+  function playRec(){
+    if(!recsvg) return;
+    var bars = recsvg.querySelectorAll('.bar');
+    bars.forEach(function(b,i){
+      var h = parseFloat(b.getAttribute('data-h'));
+      var y = 300 - h;
+      b.style.transition = 'y 0.9s cubic-bezier(.22,1,.36,1) '+(i*0.06)+'s, height 0.9s cubic-bezier(.22,1,.36,1) '+(i*0.06)+'s';
+      requestAnimationFrame(function(){ b.setAttribute('y', y); b.setAttribute('height', h); });
+    });
+    recsvg.querySelectorAll('.lbl, .sig').forEach(function(l,i){
+      l.style.transition = 'opacity 0.6s ease '+(0.5 + i*0.05)+'s';
+      requestAnimationFrame(function(){ l.style.opacity='1'; });
+    });
+  }
+  if(recsvg && 'IntersectionObserver' in window && !reduce){
+    var recPlayed = false;
+    function firePlay(){ if(recPlayed) return; recPlayed = true; playRec(); }
+    resetRec();
+    var rio = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ firePlay(); rio.disconnect(); } });
+    }, { threshold:0.35 });
+    rio.observe(recsvg);
+    // safety net: if the chart is ever in the viewport but IO somehow missed it,
+    // and as a last resort after a few seconds, ensure it never stays empty.
+    function checkInView(){
+      var r = recsvg.getBoundingClientRect();
+      if(r.top < (window.innerHeight||document.documentElement.clientHeight) && r.bottom > 0){ firePlay(); }
+    }
+    window.addEventListener('scroll', checkInView, { passive:true });
+    checkInView();
+    setTimeout(firePlay, 4000);
+  }
+  // else: leave the authored final state in place (reduced-motion or no IO)
+})();
 </script>
+
+<style>
+@keyframes slidein{
+  from{opacity:0;transform:translateX(-22px);}
+  to{opacity:1;transform:none;}
+}
+</style>
 
 </body>
 </html>
