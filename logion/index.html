@@ -181,37 +181,6 @@
   }
   figcaption{font-size:0.88rem;color:var(--muted);margin-top:0.7em;font-style:italic;}
 
-  /* ---------- ablation table ---------- */
-  .tablewrap{max-width:760px;margin:2.4em auto;padding:0 1.4em;}
-  .tablewrap .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
-  table{border-collapse:collapse;width:100%;font-size:0.97rem;
-    font-variant-numeric:tabular-nums;}
-  caption{font-style:italic;text-align:left;color:var(--muted);
-    font-size:0.9rem;margin-bottom:0.7em;line-height:1.4;}
-  th,td{text-align:left;padding:0.55em 0.8em;border-bottom:1px solid var(--rule-soft);
-    white-space:nowrap;}
-  thead th{border-bottom:1.5px solid var(--ink);font-weight:600;font-size:0.9rem;}
-  tbody tr td:not(:first-child){text-align:right;}
-  tbody tr.win td{color:var(--accent);font-weight:600;background:rgba(122,36,36,0.045);}
-  tbody tr:last-child td{border-bottom:1.5px solid var(--ink);}
-
-  /* ---------- notes / lists ---------- */
-  .prose{max-width:680px;margin:0 auto;padding:0 1.4em;}
-  .prose h2{
-    font-size:clamp(1.3rem,2.3vw,1.6rem);font-weight:600;margin:1.8em 0 0.5em;
-    letter-spacing:-0.008em;
-  }
-  .prose p{margin:0 0 0.95em;}
-  ul.notes{padding-left:0;margin:0.6em 0 0;list-style:none;}
-  ul.notes li{
-    position:relative;padding-left:1.5em;margin-bottom:0.85em;
-  }
-  ul.notes li::before{
-    content:"";position:absolute;left:0;top:0.62em;
-    width:0.5em;height:1.5px;background:var(--accent);
-  }
-  ul.notes li strong{font-weight:600;}
-
   /* ---------- footer ---------- */
   footer{
     border-top:1px solid var(--rule);
@@ -324,7 +293,7 @@
 </div>
 
 <!-- ============ LEDE ============ -->
-<p class="lede"><span class="drop">A</span>ncient Greek reaches us through centuries of hand-copying. Letters smudge, words drop out, scribes mishear from dictation or misread a neighbour&rsquo;s hand. Princeton&rsquo;s <strong>Logion</strong> &mdash; a BERT language model trained on premodern Greek &mdash; reads a passage, flags where the transmitted word looks wrong, and proposes what belongs there. Editors treat it as a tireless second reader. This page covers one small change to how it works, and the gain that change buys on errors real scribes made.</p>
+<p class="lede"><span class="drop">A</span>ncient Greek reaches us through centuries of hand-copying. Letters smudge, words drop out, scribes mishear from dictation or misread a neighbour&rsquo;s hand. Princeton&rsquo;s <strong>Logion</strong> &mdash; a BERT language model trained on premodern Greek &mdash; reads a passage, flags where the transmitted word looks wrong, and proposes what belongs there. One thing it gets blunt: every letter swap costs the same. Weight swaps by how easily letters are actually confused, and the suggestions match how scribes really err &mdash; recovering more of the variants real manuscripts preserve.</p>
 
 <div class="rule"><hr></div>
 
@@ -446,62 +415,13 @@
       <div class="card">
         <span class="num">03 — The change</span>
         <h2>Weight the swaps by how scribes err</h2>
-        <p>Give each substitution a <em>cost</em> drawn from documented confusion classes. Easily-confused letters cost little; unrelated ones cost the full amount. The hard gate becomes a smooth weight.</p>
+        <p>Give each substitution a <em>cost</em> from documented scribal confusions &mdash; itacistic vowels heard alike, look-alikes in the minuscule hand. Easily-confused letters cost little; unrelated ones cost the full amount. The hard gate becomes a smooth weight.</p>
         <p>The shortlist re-sorts. The itacistic neighbour <span class="gk">&#964;&#959;&#953;&#962;</span> &mdash; one /i/-swap away &mdash; climbs to the top, and the implausible candidates sink.</p>
-        <p class="example">An itacism swap like <span class="gk">&#964;&#945;&#953;&#962; / &#964;&#959;&#953;&#962;</span> costs <strong>0.35</strong> &mdash; about <strong>3.7&times;</strong> the weight of an unrelated same-distance edit like <span class="gk">&#964;&#953;&#962; / &#959;&#953;&#962;</span>, which costs the full <strong>1.00</strong>.</p>
+        <p class="example">An itacism swap like <span class="gk">&#964;&#945;&#953;&#962; / &#964;&#959;&#953;&#962;</span> costs <strong>0.35</strong> &mdash; about <strong>3.7&times;</strong> cheaper than an unrelated same-distance edit like <span class="gk">&#964;&#953;&#962; / &#959;&#953;&#962;</span>, which costs the full <strong>1.00</strong>.</p>
       </div>
     </div>
   </div>
 </section>
-
-<div class="rule"><hr></div>
-
-<!-- ============ THE CONFUSION CLASSES (static SVG band) ============ -->
-<p class="sectlabel">Why some swaps are cheap</p>
-<div class="band" style="margin-top:0.8em;">
-  <p style="font-size:1.06rem;color:var(--muted);max-width:62ch;">In Byzantine Greek a handful of confusions account for most copying errors. These are the swaps the weighting makes cheap.</p>
-</div>
-
-<figure style="max-width:900px;">
-  <div class="fr" style="padding:1.4em 1.2em;">
-    <svg viewBox="0 0 880 250" role="img" aria-labelledby="cct ccd">
-      <title id="cct">Three families of Byzantine scribal confusion</title>
-      <desc id="ccd">Itacism merged the vowels eta, iota, upsilon, epsilon-iota and omicron-iota into a single /i/ sound. Minuscule script made gamma/tau, lambda/mu, beta/nu and rho/pi look alike. A post-vocalic sound shift confused beta and upsilon.</desc>
-
-      <!-- panel 1: itacism -->
-      <text class="svg-accent" x="20" y="34" font-size="14" font-weight="600" letter-spacing="0.08em">ITACISM</text>
-      <text class="svg-muted" x="20" y="54" font-size="13" font-style="italic">heard the same: all /i/</text>
-      <g>
-        <text class="gk svg-ink" x="20" y="118" font-size="56">&#951; &#953; &#965;</text>
-        <text class="gk svg-ink" x="20" y="180" font-size="56">&#949;&#953; &#959;&#953;</text>
-      </g>
-      <text class="svg-faint" x="20" y="222" font-size="13">the single biggest source of error</text>
-
-      <line x1="300" y1="20" x2="300" y2="230" stroke="var(--rule-soft)"/>
-
-      <!-- panel 2: visual -->
-      <text class="svg-accent" x="324" y="34" font-size="14" font-weight="600" letter-spacing="0.08em">VISUAL LOOK-ALIKES</text>
-      <text class="svg-muted" x="324" y="54" font-size="13" font-style="italic">in the minuscule hand</text>
-      <g>
-        <text class="gk svg-ink" x="324" y="112" font-size="42">&#947;/&#964;</text>
-        <text class="gk svg-ink" x="430" y="112" font-size="42">&#955;/&#956;</text>
-        <text class="gk svg-ink" x="324" y="172" font-size="42">&#946;/&#957;</text>
-        <text class="gk svg-ink" x="430" y="172" font-size="42">&#961;/&#960;</text>
-      </g>
-      <text class="svg-faint" x="324" y="214" font-size="13">misread, not misheard</text>
-
-      <line x1="580" y1="20" x2="580" y2="230" stroke="var(--rule-soft)"/>
-
-      <!-- panel 3: post-vocalic -->
-      <text class="svg-accent" x="604" y="34" font-size="14" font-weight="600" letter-spacing="0.08em">POST-VOCALIC</text>
-      <text class="svg-muted" x="604" y="54" font-size="13" font-style="italic">a sound shift in spelling</text>
-      <text class="gk svg-ink" x="604" y="138" font-size="56">&#946;/&#965;</text>
-      <text class="svg-faint" x="604" y="200" font-size="13">after a vowel,</text>
-      <text class="svg-faint" x="604" y="218" font-size="13">&#946; drifted toward &#965;</text>
-    </svg>
-  </div>
-  <figcaption>A metric that treats <span class="gk">&#951;&#8594;&#953;</span> (a textbook itacism) the same as <span class="gk">&#951;&#8594;&#958;</span> (an interchange essentially never attested) is throwing away exactly the signal that matters. Confusion classes after Allen&rsquo;s <em>Vox Graeca</em>, West&rsquo;s <em>Textual Criticism</em>, and Reynolds &amp; Wilson&rsquo;s <em>Scribes &amp; Scholars</em>.</figcaption>
-</figure>
 
 <div class="rule"><hr></div>
 
@@ -585,66 +505,7 @@
 </figure>
 
 <div class="band">
-  <p>The same direction shows up in two controlled tests. On the paper&rsquo;s synthetic protocol (<em>n</em>&thinsp;=&thinsp;200), removing the weighted filter costs &minus;4.0pp at top-1 (one-tailed McNemar <em>p</em>&thinsp;=&thinsp;0.029); on a corruption protocol built to mimic scribal-class errors, it costs &minus;4.0pp at top-10 (<em>p</em>&thinsp;=&thinsp;0.039).</p>
-</div>
-
-<div class="rule"><hr></div>
-
-<!-- ============ WHAT HELPED, WHAT DIDN'T ============ -->
-<p class="sectlabel">What helped, what didn&rsquo;t</p>
-<div class="prose">
-  <h2 style="margin-top:0.8em;">The simple config wins</h2>
-  <p>Two other changes were tried alongside the weighted distance. Both turned out to be dead weight &mdash; and the all-on combination does <em>worse</em> than baseline (&minus;1.5pp top-1, &minus;3.5pp top-5).</p>
-</div>
-
-<div class="tablewrap">
-  <div class="scroll">
-    <table>
-      <caption>Per-component ablation on artificial single-character corruption (<em>n</em>&thinsp;=&thinsp;200, &sect;4.1 protocol). Each row removes one component; the last turns everything on.</caption>
-      <thead>
-        <tr><th>Condition</th><th>Top-1</th><th>Top-5</th><th>Top-10</th><th>McNemar <em>p</em></th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Baseline (paper)</td><td>37.5%</td><td>69.5%</td><td>81.5%</td><td>&mdash;</td></tr>
-        <tr><td>&minus; CF temperature</td><td>37.5%</td><td>69.0%</td><td>80.0%</td><td>1.00</td></tr>
-        <tr class="win"><td>&minus; Weighted Lev.</td><td>33.5%</td><td>67.5%</td><td>80.5%</td><td>0.057</td></tr>
-        <tr><td>&minus; Extras (E1&ndash;E4)</td><td>37.0%</td><td>68.0%</td><td>81.5%</td><td>1.00</td></tr>
-        <tr><td>All improvements on</td><td>36.0%</td><td>66.0%</td><td>79.0%</td><td>0.63</td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<div class="prose">
-  <ul class="notes">
-    <li><strong>A chance-fit adaptive temperature</strong> &mdash; flatten the model&rsquo;s distribution when the written word is implausible &mdash; is inert: an exact tie with baseline at top-1 (<em>p</em>&thinsp;=&thinsp;1.00).</li>
-    <li><strong>Four &ldquo;extras&rdquo; (E1&ndash;E4)</strong> are actively harmful on the realistic protocol: removing them lifts top-1 from 26.5% to 30.5% (<em>p</em>&thinsp;=&thinsp;0.021). The likely culprit is the <em>lectio difficilior</em> penalty (E1), which discounts suggestions more common than the written word &mdash; exactly the case when an itacism slip turns a rare spelling into a common one.</li>
-  </ul>
-  <p style="margin-top:1.1em;font-size:1.08rem;">So the configuration that wins is the plain one: <strong>weighted Levenshtein on, everything else off.</strong></p>
-</div>
-
-<div class="rule"><hr></div>
-
-<!-- ============ PHOTIUS ============ -->
-<p class="sectlabel">Out in the wild</p>
-<div class="prose">
-  <h2 style="margin-top:0.8em;">Running it on Photius</h2>
-  <p>The system was then turned loose on 26 paragraphs (~2,100 words) of Photius&rsquo;s <em>Bibliotheca</em> (codices 70, 92, 161, 165, 213) &mdash; a text outside Logion&rsquo;s training corpus, surviving in two manuscript families (Marcianus gr. 450 and 451).</p>
-  <p>Its shortlist clusters in the itacism and visual-confusion region, as you&rsquo;d hope. But none of its picks line up with documented apparatus loci. Read it as the spots where the model and the transmitted text most disagree &mdash; a triage signal, not a curated set of fixes.</p>
-</div>
-
-<div class="rule"><hr></div>
-
-<!-- ============ CAVEATS ============ -->
-<p class="sectlabel">Caveats</p>
-<div class="prose">
-  <h2 style="margin-top:0.8em;">What this does and doesn&rsquo;t show</h2>
-  <ul class="notes">
-    <li><strong>Domain shift.</strong> The public checkpoint is fine-tuned on Psellus (11th c.). The variant test is Koine (1st c.) and Photius is 9th c., so absolute accuracy sits below the paper&rsquo;s in-domain 90.5%. The relative deltas &mdash; baseline vs. weighted on the same loci &mdash; still hold.</li>
-    <li><strong>The synthetic protocol is rigged against weighting.</strong> It draws corruptions uniformly across the 24-letter alphabet, quietly rewarding an algorithm that treats every edit as equally likely. Weighting exists to exploit the non-uniformity of real scribal error &mdash; so the real-variant test is the one that counts.</li>
-    <li><strong>A variant isn&rsquo;t always an error.</strong> Many SBLGNT variants are disagreements between defensible readings, not slips. The test measures whether Logion finds a locus unusual &mdash; weaker than asking whether it&rsquo;s wrong.</li>
-    <li><strong>The weights are hand-tuned</strong> from textbooks. The obvious next steps: learn the phonetic prior from Byzantine palaeographic data, or retrain the model with the weighted neighbourhood as a training signal rather than just an inference-time filter &mdash; which could internalize scribal-error patterns directly and yield a larger gain.</li>
-  </ul>
+  <p style="color:var(--muted);">One caveat worth naming: a variant isn&rsquo;t always an error &mdash; many SBLGNT disagreements are between defensible readings &mdash; so this measures whether Logion finds a locus unusual, not whether it&rsquo;s wrong. The weights are hand-tuned from textbooks; the full ablation, the controlled protocols, and a deployment on Photius are in the PDF.</p>
 </div>
 
 <footer>
