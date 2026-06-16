@@ -5,9 +5,9 @@
 body {
   margin: 0 auto;
   max-width: 700px;
-  padding: 1.4rem 1.25rem 3rem;
+  padding: 1.3rem 1.25rem 3rem;
   font-family: 'EB Garamond', Garamond, Georgia, serif;
-  font-size: 20px;
+  font-size: 17px;
   line-height: 1.5;
   color: var(--ink);
   background: #fff;
@@ -16,24 +16,34 @@ body {
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-/* header / nav */
-header.site .bar { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: .2rem 1.2rem; }
-.brand { font-size: 1.1rem; font-weight: 600; color: var(--ink); }
-nav.top a { color: var(--muted); margin-left: 1rem; }
-nav.top a:first-child { margin-left: 0; }
+/* horizontal header — name + nav inline, left-aligned (like the reference sites) */
+header.site .bar { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem 1.1rem; margin-bottom: 1.8rem; }
+.brand { font-weight: 600; color: var(--ink); }
+nav.top { display: inline-flex; flex-wrap: wrap; gap: 1.1rem; }
+nav.top a { color: var(--muted); }
 nav.top a.active { color: var(--ink); }
 
 /* content */
-h1 { font-size: 1.85rem; font-weight: 600; margin: 1.4rem 0 .3rem; }
-h2 { font-size: 1.2rem; font-weight: 600; margin: 1.3rem 0 .2rem; }
+h1 { font-size: 1.55rem; font-weight: 600; margin: 0 0 .3rem; }
+h2 { font-size: 1.1rem; font-weight: 600; margin: 1.3rem 0 .2rem; }
 p { margin: .5rem 0; }
 .muted { color: var(--muted); }
 
-.portrait { max-width: 240px; width: 100%; height: auto; margin: .7rem 0; }
+.portrait { max-width: 220px; width: 100%; height: auto; margin: .6rem 0; }
 
+/* projects tabs — plain text, no boxes; active is ink, others muted */
+.tabs { display: flex; flex-wrap: wrap; gap: 1.1rem; margin: 1rem 0 1.3rem; }
+.tab { font: inherit; background: none; border: 0; padding: 0; cursor: pointer; color: var(--muted); }
+.tab:hover { color: var(--ink); }
+.tab.active { color: var(--ink); font-weight: 600; }
+.tabbed .panel:not(.active) { display: none; }
+.plain { color: var(--muted); margin: .2rem 0 1.1rem; }
+.proj { margin: 0 0 1.05rem; }
+.proj h3 { font-size: 1.02rem; font-weight: 600; margin: 0 0 .1rem; }
+.proj p { margin: 0; }
+.proj .src { color: var(--muted); }
+
+/* see also list */
 ul.links { list-style: none; padding: 0; margin: .7rem 0; }
 ul.links li { margin: .25rem 0; }
 .coin { width: 75px; height: auto; margin-top: .6rem; }
-
-/* plain WIP marker — no box */
-.tag { font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }

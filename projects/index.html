@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projects — Reza Ramji</title>
-  <meta name="description" content="Selected projects by Reza Ramji: autoformalization of Euclid, LLM evaluation, and data visualization.">
+  <meta name="description" content="Selected projects by Reza Ramji: classics & math, language-model testing, and data visualization.">
   <link rel="canonical" href="https://rezaramji.com/projects/">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,32 +21,90 @@
         <a href="/">home</a>
         <a href="/projects/" class="active">projects</a>
         <a href="/writing/">writing</a>
-        <a href="/links/">links</a>
+        <a href="/links/">see also</a>
       </nav>
     </div>
   </header>
 
   <main class="wrap">
     <h1>Projects</h1>
-    <p class="muted">A few things I've built — autoformalization and classics, language-model testing, and data visualization.</p>
+    <p class="muted">Three things I keep coming back to — pick a tab.</p>
 
-    <h2>Autoverification of Euclid's elements</h2>
-    <p>I started with <a href="/youklid/">Youklid</a> [<a href="https://github.com/Zed-Rez/youklid">github</a>], an attempt to find some new mappings of ideas in Euclid's Elements &amp; test using AI on verification of mathematical steps in parallel. </p>
-    <p>Recently, extended this with lean using <a href="https://github.com/loganrjmurphy/LeanEuclid">Murphy et alia's lean euclid</a> to test translation autoformalization locally using Qwen2.5-Coder-7B-Instruct on an orin nano super (however, memorization forced me to use GPT-4o instead;
-      Interestingly, while translation choice did not show a statistically significant difference, prompting choices were (id est, providing autoformalization exempla in the correct translation in the prompt).
-      Probably this suggests mathematicians hoping to utilize autoformalization in their own writing, especially with small models, should 'lean' some of their work manually so compiling agents can adapt to their writing style. I also have a <a href="/euclid/"> longer form explanation</a> for the interested. </p>
-    <p><b>Thinking of pushing this further with a two-step proof generation system: a powerful foundational model + cheaper autoformalizer prompted with human-checked runs of the foundational model's work, which would (I hypothesize) allow the analysis of a large model with some of the cost savings of a lightweight framework, or alternatively finetuning of deepseek-prover-v2 to lean in a specific bench(putnam?)</b></p>
+    <div class="tabs">
+      <button class="tab active" data-panel="classics">Classics &amp; Math</button>
+      <button class="tab" data-panel="models">Language Models</button>
+      <button class="tab" data-panel="data">Data &amp; Visualization</button>
+    </div>
 
-    <h2>language model testing &amp; refining</h2>
-    <p>I  made this <a href="/lleval/">llm-eval</a> [<a href="https://github.com/Zed-Rez/llmeval">source</a>] A/B benchmarking harness for LLMs to verify <a href="https://arxiv.org/abs/2512.14982">this paper</a>(seems to still work on newer models, especially the picking from list of names benchmark).
-      I then also tested an <a href="/logion/">improvement to Princeton's Logion</a> [<a href="https://github.com/Zed-Rez/logion-wlev">source</a>], adding weighted Levenshtein, rather than treating all typos by simply character length. Statistically significant superiority under testing of Photius's Bibliotheca,<b> could in the future retrain the system with this weighting in mind for an even more accurate model</b></p>
-    <p>Most recently built <a href="/casebench/">CASE-Bench</a> [<a href="https://github.com/Zed-Rez/casebench">source</a>], a benchmark for whether an LLM can produce business-case ideas that are actually feasible and not just the conventional answer — a judge panel scores feasibility, impact, and originality, with a separate portfolio-diversity diagnostic, bootstrap confidence intervals and a self-preference-audited panel. Across 16 cases Sonnet beats Haiku on quality (significant); on idea diversity the two tie.</p>
+    <section class="panel active" id="classics">
+      <p class="plain">In plain terms: pointing modern computer tools at the ancient world and at mathematics — getting a computer to read the worn lettering on ancient coins, mapping how the proofs in Euclid's geometry lean on one another, and testing whether AI can turn human math into a form a machine can check for mistakes.</p>
 
-    <h2>Data Visualization &amp; AI assisted data cleaning</h2>
-    <p>Made <a href="/EdgarVis/">EdgarVis</a> [<a href="https://github.com/Zed-Rez/EDGARVis">source</a>] a 3D UMAP of the US public equity from SEC EDGAR 10-K filings; ~12k companies × 17 years; highly recommend the die by the search bar to find odd companies.</p>
-    <p>Needed a more accessible way to see transaction data, so built <a href="/chain/">Chain audio</a> — real-time sonification of USDC transfers across Ethereum, Polygon, Arbitrum, Optimism, Base, and Avalanche; inspired by <a href="https://listen.hatnote.com/">this</a></p>
-    <p>Also built an <a href="https://github.com/Zed-Rez/mcp-ingest">MCP ingest pipeline</a> for Claude Code — parallel async agents with prompt caching; 89% cost reduction vs. separate subprocesses.</p>
+      <div class="proj">
+        <h3>Coin recognition</h3>
+        <p>Independent research project for Princeton University Library focusing on semi-automatic recognition of ancient coins (please contact me if you know how to design custom OCR systems, are interested in numismatics and ML, or have any ideas on machine learning in small datasets)</p>
+      </div>
+      <div class="proj">
+        <h3>Youklid</h3>
+        <p>Euclid's Elements, Book I — every argument annotated with what it depends on, in English and Greek. <span class="src"><a href="/youklid/">open</a> · <a href="https://github.com/Zed-Rez/youklid">source</a></span></p>
+      </div>
+      <div class="proj">
+        <h3>Euclid autoformalization</h3>
+        <p>A counterbalanced 3&times;3 study: prompt style, not translation register, drives autoformalization in Lean&nbsp;4. <span class="src"><a href="/euclid/">read</a></span></p>
+      </div>
+    </section>
+
+    <section class="panel" id="models">
+      <p class="plain">In plain terms: stress-testing AI language models and building small tools to check what they can really do — whether they come up with genuinely useful (not just generic) ideas, how two models stack up head-to-head, and helping an AI restore missing words in damaged ancient Greek manuscripts.</p>
+
+      <div class="proj">
+        <h3>CASE-Bench</h3>
+        <p>A benchmark for whether an LLM can produce business-case ideas that are actually feasible and not just the conventional answer — judge-scored on feasibility, impact and originality, with a separate portfolio-diversity diagnostic. Across 16 cases Sonnet beats Haiku on quality. <span class="src"><a href="/casebench/">read</a> · <a href="https://github.com/Zed-Rez/casebench">source</a></span></p>
+      </div>
+      <div class="proj">
+        <h3>llm-eval</h3>
+        <p>A pluggable A/B harness for benchmarking LLMs across providers — built to verify a names-recall paper (still holds up on newer models, especially the picking-from-a-list benchmark). <span class="src"><a href="/lleval/">open</a> · <a href="https://github.com/Zed-Rez/llmeval">source</a></span></p>
+      </div>
+      <div class="proj">
+        <h3>Logion + weighted Levenshtein</h3>
+        <p>Weighted edit distance for Byzantine Greek emendation, rather than treating all typos by character length — statistically beats the baseline on Photius's Bibliotheca. <span class="src"><a href="/logion/">read</a> · <a href="https://github.com/Zed-Rez/logion-wlev">source</a></span></p>
+      </div>
+    </section>
+
+    <section class="panel" id="data">
+      <p class="plain">In plain terms: turning big, messy datasets into something you can actually see or hear — a 3-D map of thousands of public companies built from decades of financial filings, the same data as a flat dashboard, and live cryptocurrency transactions played as sound as they happen.</p>
+
+      <div class="proj">
+        <h3>EdgarVis</h3>
+        <p>A 3D UMAP of US public equity from SEC EDGAR 10-K filings — ~12k companies × 17 years; try the die by the search bar to find odd companies. <span class="src"><a href="/EdgarVis/">open</a> · <a href="https://github.com/Zed-Rez/EDGARVis">source</a></span></p>
+      </div>
+      <div class="proj">
+        <h3>EdgarInsights</h3>
+        <p>The same EDGAR data as a 2D dashboard — by metric and year, with annotated findings. <span class="src"><a href="/EdgarInsights/">open</a></span></p>
+      </div>
+      <div class="proj">
+        <h3>Chain audio</h3>
+        <p>Real-time sonification of USDC transfers across nine blockchains; inspired by <a href="https://listen.hatnote.com/">this</a>. <span class="src"><a href="/chain/">open</a></span></p>
+      </div>
+      <div class="proj">
+        <h3>MCP ingest</h3>
+        <p>Parallel async ingest for Claude Code with prompt caching — 89% cheaper than separate subprocesses. <span class="src"><a href="https://github.com/Zed-Rez/mcp-ingest">source</a></span></p>
+      </div>
+    </section>
   </main>
+
+  <script>
+    document.body.classList.add('tabbed');
+    var tabs = document.querySelectorAll('.tab');
+    var panels = document.querySelectorAll('.panel');
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        tabs.forEach(function (x) { x.classList.remove('active'); });
+        panels.forEach(function (p) { p.classList.remove('active'); });
+        t.classList.add('active');
+        document.getElementById(t.dataset.panel).classList.add('active');
+      });
+    });
+  </script>
 
 </body>
 </html>
