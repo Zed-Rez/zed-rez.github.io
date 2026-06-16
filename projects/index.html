@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — Reza Ramji</title>
+  <meta name="description" content="Selected projects by Reza Ramji: autoformalization of Euclid, LLM evaluation, and data visualization.">
+  <link rel="canonical" href="https://rezaramji.com/projects/">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site.css">
+</head>
+<body>
+
+  <header class="site">
+    <div class="bar">
+      <a class="brand" href="/">Reza Ramji</a>
+      <nav class="top">
+        <a href="/">home</a>
+        <a href="/projects/" class="active">projects</a>
+        <a href="/writing/">writing</a>
+        <a href="/links/">links</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1>Projects</h1>
+    <p class="muted">A few things I've built — autoformalization and classics, language-model testing, and data visualization.</p>
+
+    <h2>Autoverification of Euclid's elements</h2>
+    <p>I started with <a href="/youklid/">Youklid</a> [<a href="https://github.com/Zed-Rez/youklid">github</a>], an attempt to find some new mappings of ideas in Euclid's Elements &amp; test using AI on verification of mathematical steps in parallel. </p>
+    <p>Recently, extended this with lean using <a href="https://github.com/loganrjmurphy/LeanEuclid">Murphy et alia's lean euclid</a> to test translation autoformalization locally using Qwen2.5-Coder-7B-Instruct on an orin nano super (however, memorization forced me to use GPT-4o instead;
+      Interestingly, while translation choice did not show a statistically significant difference, prompting choices were (id est, providing autoformalization exempla in the correct translation in the prompt).
+      Probably this suggests mathematicians hoping to utilize autoformalization in their own writing, especially with small models, should 'lean' some of their work manually so compiling agents can adapt to their writing style. I also have a <a href="/euclid/"> longer form explanation</a> for the interested. </p>
+    <p><b>Thinking of pushing this further with a two-step proof generation system: a powerful foundational model + cheaper autoformalizer prompted with human-checked runs of the foundational model's work, which would (I hypothesize) allow the analysis of a large model with some of the cost savings of a lightweight framework, or alternatively finetuning of deepseek-prover-v2 to lean in a specific bench(putnam?)</b></p>
+
+    <h2>language model testing &amp; refining</h2>
+    <p>I  made this <a href="/lleval/">llm-eval</a> [<a href="https://github.com/Zed-Rez/llmeval">source</a>] A/B benchmarking harness for LLMs to verify <a href="https://arxiv.org/abs/2512.14982">this paper</a>(seems to still work on newer models, especially the picking from list of names benchmark).
+      I then also tested an <a href="/logion/">improvement to Princeton's Logion</a> [<a href="https://github.com/Zed-Rez/logion-wlev">source</a>], adding weighted Levenshtein, rather than treating all typos by simply character length. Statistically significant superiority under testing of Photius's Bibliotheca,<b> could in the future retrain the system with this weighting in mind for an even more accurate model</b></p>
+    <p>Most recently built <a href="/casebench/">CASE-Bench</a> [<a href="https://github.com/Zed-Rez/casebench">source</a>], a benchmark for whether an LLM can produce business-case ideas that are actually feasible and not just the conventional answer — a judge panel scores feasibility, impact, and originality, with a separate portfolio-diversity diagnostic, bootstrap confidence intervals and a self-preference-audited panel. Across 16 cases Sonnet beats Haiku on quality (significant); on idea diversity the two tie.</p>
+
+    <h2>Data Visualization &amp; AI assisted data cleaning</h2>
+    <p>Made <a href="/EdgarVis/">EdgarVis</a> [<a href="https://github.com/Zed-Rez/EDGARVis">source</a>] a 3D UMAP of the US public equity from SEC EDGAR 10-K filings; ~12k companies × 17 years; highly recommend the die by the search bar to find odd companies.</p>
+    <p>Needed a more accessible way to see transaction data, so built <a href="/chain/">Chain audio</a> — real-time sonification of USDC transfers across Ethereum, Polygon, Arbitrum, Optimism, Base, and Avalanche; inspired by <a href="https://listen.hatnote.com/">this</a></p>
+    <p>Also built an <a href="https://github.com/Zed-Rez/mcp-ingest">MCP ingest pipeline</a> for Claude Code — parallel async agents with prompt caching; 89% cost reduction vs. separate subprocesses.</p>
+  </main>
+
+</body>
+</html>

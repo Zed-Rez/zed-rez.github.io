@@ -1,0 +1,87 @@
+/* shared chrome + base typography for the top-level pages of rezaramji.com
+   subprojects (youklid, euclid, EdgarVis, ...) keep their own styles */
+
+:root {
+  --ink:    #1c1b19;
+  --muted:  #6b6760;
+  --line:   rgba(0,0,0,0.12);
+  --bg:     #fdfdfc;
+  --accent: #7a2424;   /* oxblood — picks up the coin */
+}
+
+* { box-sizing: border-box; }
+html { color-scheme: light; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'EB Garamond', Garamond, Georgia, serif;
+  font-size: 20px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 1.5rem; }
+
+a { color: var(--accent); text-decoration: none; text-underline-offset: 2px; }
+a:hover { text-decoration: underline; }
+
+/* ---- header / nav ---- */
+header.site {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+header.site .bar {
+  max-width: 720px; margin: 0 auto;
+  display: flex; align-items: baseline; justify-content: space-between;
+  flex-wrap: wrap; gap: 0.4rem 1.4rem;
+  padding: 1rem 1.5rem;
+}
+.brand { font-size: 1.15rem; font-weight: 600; letter-spacing: .01em; color: var(--ink); }
+.brand:hover { text-decoration: none; }
+nav.top { display: flex; gap: 1.25rem; }
+nav.top a { color: var(--muted); font-size: 1.02rem; }
+nav.top a:hover { color: var(--ink); text-decoration: none; }
+nav.top a.active { color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 2px; }
+
+/* ---- content ---- */
+main { padding: 2.4rem 0 4.5rem; }
+h1 { font-size: 2.15rem; font-weight: 600; letter-spacing: .005em; margin: 0 0 .4rem; }
+h2 {
+  font-size: 1.4rem; font-weight: 600;
+  margin: 2.6rem 0 .7rem; padding-bottom: .35rem;
+  border-bottom: 1px solid var(--line);
+}
+h3 { font-size: 1.16rem; font-weight: 600; margin: 0 0 .25rem; }
+p { margin: .6rem 0; }
+.lede { font-size: 1.15rem; color: #36332e; }
+.muted { color: var(--muted); }
+b, strong { font-weight: 600; }
+
+.portrait { max-width: 250px; width: 100%; height: auto; border-radius: 2px; margin: 1.2rem 0 .4rem; }
+
+/* project entries */
+.proj { padding: 1.3rem 0; border-top: 1px solid var(--line); }
+.proj:first-of-type { border-top: none; padding-top: .3rem; }
+.proj p { margin: .35rem 0 0; }
+
+/* small uppercase pill */
+.tag {
+  display: inline-block;
+  font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); border: 1px solid var(--line); border-radius: 999px;
+  padding: .22rem .7rem; vertical-align: middle;
+}
+
+/* links page */
+ul.links { list-style: none; padding: 0; margin: 1.2rem 0; }
+ul.links li { padding: .4rem 0; border-top: 1px solid var(--line); }
+ul.links li:first-child { border-top: none; }
+.coin { width: 75px; height: auto; margin-top: .7rem; opacity: .95; }
+
+@media (max-width: 480px) {
+  body { font-size: 19px; }
+  h1 { font-size: 1.9rem; }
+}
