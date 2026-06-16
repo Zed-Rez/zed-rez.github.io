@@ -30,8 +30,10 @@ p { margin: .5rem 0; }
 .muted { color: var(--muted); }
 .portrait { max-width: 260px; width: 100%; height: auto; margin: .5rem 0; }
 
-/* project tabs */
-.tabs { display: flex; flex-wrap: wrap; gap: 1.1rem; margin: .8rem 0 1.1rem; }
+/* project tabs sit in the Projects header row: heading left, tabs right */
+.proj-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .3rem 1.1rem; margin-bottom: 1.2rem; }
+.proj-head h1 { margin: 0; }
+.tabs { display: flex; flex-wrap: wrap; gap: 1.1rem; margin: 0; }
 .tab { font: inherit; background: none; border: 0; padding: 0; cursor: pointer; color: var(--muted); }
 .tab:hover { color: var(--ink); }
 .tab.active { color: var(--ink); font-weight: 600; }
