@@ -39,17 +39,17 @@
 \begin{abstract}
 \noindent Princeton's Logion is a BERT-based model that flags likely scribal errors in
 premodern Greek and proposes corrections. To decide which spellings count as
-plausible alternatives to a transmitted word, it relies on classical Levenshtein
+plausible alternatives to a transmitted word, it uses classical Levenshtein
 distance, which treats every single-character substitution as equally costly.
 That assumption is poorly matched to Byzantine Greek, where a small, well-documented
-set of phonetic and visual confusions accounts for the bulk of copying errors.
+set of phonetic and visual confusions accounts for most copying errors.
 We replace Logion's binary distance-1 filter with a \emph{weighted} Levenshtein
-neighbourhood whose substitution costs are drawn from the standard palaeographic
+neighbourhood whose substitution costs come from the standard palaeographic
 and phonological literature. On real attested manuscript variants the change yields
 a statistically significant gain: top-5 recovery of $42.3\%$ versus a baseline of
 $35.7\%$ on $333$ loci from the SBLGNT apparatus (paired McNemar $p<10^{-3}$).
 Two further components we tested alongside the weighting are inert or actively
-harmful, so the configuration that wins is the simple one --- weighted Levenshtein
+harmful, so the winning configuration is the simple one --- weighted Levenshtein
 on, everything else off. We close by deploying the system on out-of-corpus text
 (Photius's \emph{Bibliotheca}) and discussing the limits of the evaluation.
 \end{abstract}
@@ -60,20 +60,20 @@ Ancient Greek literature survives almost entirely through chains of hand-copied
 manuscripts. Across centuries of transmission, copyists introduced errors:
 letters smudged or were misread, words were dropped or duplicated, and --- because
 much copying was done from dictation --- sounds were misheard and respelled.
-Recovering the text an author actually wrote, from witnesses that disagree with one
+Recovering the text an author wrote, from witnesses that disagree with one
 another, is the business of textual criticism.
 
-Logion \cite{logion2023} brings a language model to bear on this task. It is a
-BERT model fine-tuned on premodern Greek that reads a passage, flags positions
+Logion \cite{logion2023} brings a language model to bear on this task. A
+BERT model fine-tuned on premodern Greek, it reads a passage, flags positions
 where the transmitted word looks improbable in context, and proposes the word it
 believes belongs there. Editors treat it as a tireless second reader: a way to
-surface suspicious readings at scale and to generate candidate emendations for
+surface suspicious readings at scale and generate candidate emendations for
 expert judgement.
 
-This paper concerns one specific component of Logion's pipeline --- how it decides
+This paper concerns one component of Logion's pipeline --- how it decides
 which alternative spellings are ``close enough'' to a transmitted word to be worth
-scoring --- and shows that a small, linguistically motivated change to that
-component produces a measurable, statistically significant improvement on the
+scoring --- and shows that a small, linguistically motivated change there
+produces a measurable, statistically significant improvement on the
 errors that matter most: the ones real scribes actually made.
 
 \section{Background and context}
@@ -81,7 +81,7 @@ errors that matter most: the ones real scribes actually made.
 \subsection{How Logion surfaces a suspect reading}
 
 For each word in a passage, Logion computes what its authors call a
-\emph{chance-correction ratio}: how probable is the word that is actually written,
+\emph{chance-correction ratio}: how probable is the word actually written,
 compared with the most probable near-spelling the model would substitute in the
 same context? When some neighbouring spelling is far more probable than the
 transmitted form, that position is flagged for review and the high-probability
@@ -89,9 +89,9 @@ neighbour is offered as the leading conjecture. Performance is reported as
 \emph{top-$k$} recovery: the fraction of test loci for which the correct reading
 appears among the model's $k$ highest-ranked candidates.
 
-Computing that ratio requires a set of candidate spellings to score. Building that
-set requires a notion of which words count as close to the transmitted form, and
-for this Logion uses \textbf{edit distance} (Levenshtein): the minimum number of
+Computing that ratio requires a set of candidate spellings to score, which in turn
+requires a notion of which words count as close to the transmitted form. For this
+Logion uses \textbf{edit distance} (Levenshtein): the minimum number of
 single-character insertions, deletions, or substitutions that turn one string into
 another. In the public configuration the neighbourhood is every vocabulary word
 within edit distance~1.
@@ -110,7 +110,7 @@ confusions dominates the record:
   in the manuscript tradition.
   \item \textbf{Visual confusions in minuscule script.} Once Greek was written in
   the cursive minuscule hand, certain letter shapes became easy to mistake for one
-  another: \visconf{}. These errors are graphical, not phonetic, and so follow a
+  another: \visconf{}. These errors are graphical, not phonetic, and follow a
   different distribution from itacism.
   \item \textbf{Post-vocalic} \postvoc{}. A sound shift in the realisation of
   \textbeta{} after vowels bled into spelling, producing a further recurrent
@@ -119,27 +119,27 @@ confusions dominates the record:
 
 A metric that assigns the same cost to \texteta${\to}$\textiota{} (a textbook
 itacism) as to \texteta${\to}$\textxi{} (an interchange essentially never seen)
-discards precisely the prior knowledge that editors rely on. The weighting scheme
-below is an attempt to put that prior back into the model's candidate generation.
+discards exactly the prior knowledge editors rely on. The weighting scheme
+below puts that prior back into the model's candidate generation.
 
 \section{Method}
 
 \subsection{From a binary gate to a weighted neighbourhood}
 
 Classical edit distance is blunt: changing one letter to \emph{any} other letter
-costs exactly one. Logion's filter is blunter still --- it is a yes/no gate that
-admits every vocabulary word within distance~1 and treats all of them as equally
+costs exactly one. Logion's filter is blunter still --- a yes/no gate that
+admits every vocabulary word within distance~1 and treats them all as equally
 plausible neighbours.
 
-We replace the gate with a \emph{weighted} Levenshtein neighbourhood. Each possible
-single-character substitution is assigned a cost: pairs of characters drawn from a
+We replace the gate with a \emph{weighted} Levenshtein neighbourhood. Each
+single-character substitution is assigned a cost: pairs drawn from a
 documented confusion class cost little, while unrelated pairs cost the full unit.
-The substitution costs are taken from the standard reference literature on Greek
+The costs come from the standard reference literature on Greek
 pronunciation and scribal transmission --- Allen's \emph{Vox Graeca}, West's
 \emph{Textual Criticism and Editorial Technique}, and Reynolds \& Wilson's
-\emph{Scribes \& Scholars}. The result is that the filter becomes a continuous
+\emph{Scribes \& Scholars}. The filter thus becomes a continuous
 weight rather than a hard cutoff: candidates that differ from the transmitted word
-by a likely scribal slip are promoted relative to candidates that differ by an
+by a likely scribal slip are promoted over those that differ by an
 equally short but implausible edit.
 
 \subsection{A worked example}
@@ -147,12 +147,12 @@ equally short but implausible edit.
 Consider the dative articles \tais{} and \tois{}, which differ only in the
 itacistic interchange \textalpha\textiota${\to}$\textomicron\textiota{} (both
 realised /i/-coloured in the relevant period). Under our scheme that substitution
-carries a cost of $0.35$. An unrelated single-character edit of the same raw
+costs $0.35$. An unrelated single-character edit of the same raw
 Levenshtein distance --- for instance \tis{} versus \ois{}, where
-\texttau${\to}$\textomicron{} is not a recognised confusion --- carries the full
-cost of $1.00$. Because candidate weight falls off with cost, the itacistic
+\texttau${\to}$\textomicron{} is not a recognised confusion --- costs the full
+$1.00$. Because candidate weight falls off with cost, the itacistic
 neighbour receives roughly $3.7\times$ the weight of the implausible one, even
-though plain Levenshtein would rank them identically. Multiplied across a large
+though plain Levenshtein would rank them identically. Across a large
 vocabulary, this re-weighting reshapes the candidate ranking toward the kinds of
 errors scribes actually commit.
 
@@ -160,7 +160,7 @@ errors scribes actually commit.
 
 \subsection{Real attested variants (SBLGNT)}
 
-The fairest test of a scribal-error model uses errors that scribes actually made.
+The fairest test of a scribal-error model uses errors scribes actually made.
 We therefore evaluate on \textbf{real attested variants}: $333$ loci in the SBL
 Greek New Testament apparatus where the surviving manuscripts genuinely disagree.
 Each locus is a place where the tradition records a competing reading; the question
@@ -174,8 +174,8 @@ top-5:
 \textbf{Top-5 recovery: $42.3\%$ vs.\ $35.7\%$ baseline}, a paired comparison
 on the same $333$ loci. By McNemar's test the difference is significant at
 $p<10^{-3}$: the weighted filter recovered $28$ loci the baseline missed while
-losing only $6$. The top-1 figure trends in the same direction ($16.5\%$ vs.\
-$14.4\%$) but is not statistically significant ($p=0.30$); the top-10 figures are
+losing only $6$. Top-1 trends the same way ($16.5\%$ vs.\
+$14.4\%$) but is not significant ($p=0.30$); top-10 is
 $53.5\%$ vs.\ $50.2\%$.
 \end{quote}
 
@@ -193,8 +193,8 @@ $53.5\%$ vs.\ $50.2\%$.
 The same directional effect appears under two further, more controlled protocols.
 On the synthetic single-character protocol used by the original paper ($n=200$),
 removing the weighted filter costs $-4.0$ percentage points at top-1 (one-tailed
-McNemar $p=0.029$). On a corruption protocol deliberately built to mimic
-scribal-\emph{class} errors rather than uniform noise, removing the filter costs
+McNemar $p=0.029$). On a corruption protocol built to mimic
+scribal-\emph{class} errors rather than uniform noise, removing it costs
 $-4.0$ points at top-10 ($p=0.039$). Three independent protocols thus agree on the
 sign of the effect, and the one built from genuine manuscript disagreement gives
 the strongest, cleanest signal.
@@ -202,9 +202,9 @@ the strongest, cleanest signal.
 \subsection{What each component contributes}
 
 The weighted distance was developed alongside two other candidate improvements,
-and a single-ablation study isolates the contribution of each. Both extra
+and a single-ablation study isolates each one's contribution. Both extra
 components turn out to be dead weight, and --- importantly --- the
-\emph{all-improvements-on} configuration does \emph{worse} than the baseline
+\emph{all-improvements-on} configuration does \emph{worse} than baseline
 ($-1.5$pp top-1, $-3.5$pp top-5). Figure~\ref{fig:ablation} and Table~\ref{tab:abl}
 summarise the per-component deltas.
 
@@ -243,16 +243,16 @@ Two findings drive the recommendation:
 \begin{itemize}
   \item A \textbf{chance-fit adaptive temperature} --- which flattens the model's
   output distribution when the written word is implausible --- is inert. It ties
-  the baseline exactly at top-1 (McNemar $p=1.00$) and moves nothing meaningfully
+  baseline exactly at top-1 (McNemar $p=1.00$) and moves nothing meaningfully
   at higher cutoffs. A separate sweep confirmed this: $14$ of $20$ temperature
-  settings were worse than baseline and none was reliably better.
+  settings were worse than baseline and none reliably better.
   \item Four additional heuristics, the \textbf{``extras'' E1--E4}, are actively
   harmful on a more realistic corruption protocol: removing them \emph{lifts}
   top-1 from $26.5\%$ to $30.5\%$ ($p=0.021$). The likely culprit is the
-  \emph{lectio difficilior} penalty (E1), which discounts a suggested reading that
-  is more common than the transmitted word. That is exactly backwards for itacism,
+  \emph{lectio difficilior} penalty (E1), which discounts a suggested reading
+  more common than the transmitted word. That is exactly backwards for itacism,
   the most frequent error class, in which a slip routinely turns a rarer spelling
-  into a commoner one --- so the penalty suppresses precisely the corrections the
+  into a commoner one --- so the penalty suppresses exactly the corrections the
   model should be making.
 \end{itemize}
 
@@ -266,30 +266,30 @@ configuration over $26$ paragraphs (approximately $2{,}100$ words) of Photius's
 \emph{Bibliotheca} --- codices 70, 92, 161, 165, and 213 --- a ninth-century text
 that lies outside Logion's training corpus and survives in two manuscript families
 (Marcianus gr.\ 450 and 451). The model produces tiered emendation shortlists,
-each candidate annotated with the type of orthographic operation it represents.
+each candidate annotated with the orthographic operation it represents.
 
 The shortlist behaves sensibly in aggregate: its picks cluster in the itacism and
 visual-confusion regions, exactly where Byzantine scribal error concentrates.
-However, none of the individual picks align with documented loci in the critical
-apparatus for these codices. The honest reading of this result is that the
-shortlist marks the positions where the model and the transmitted text most
+None of the individual picks, however, align with documented loci in the critical
+apparatus for these codices. The honest reading is that the
+shortlist marks where the model and the transmitted text most
 diverge --- a useful triage signal --- rather than a curated set of validated
 emendations. This is a meaningful negative for the deployment as an
-\emph{editorial} tool, and is discussed further below.
+\emph{editorial} tool, discussed further below.
 
 \section{Discussion}
 
-The central finding is narrow but robust: encoding the empirical, non-uniform
+The central finding is narrow but holds up: encoding the empirical, non-uniform
 structure of Greek scribal error into the candidate-generation metric improves
 recovery of real variants, and does so with the simplest possible intervention ---
-a fixed cost matrix at inference time, no retraining. The size of the gain
+a fixed cost matrix at inference time, no retraining. The gain
 ($\sim$$6.6$pp at top-5) is modest in absolute terms but consistent in direction
 across three protocols and significant on the only one built from genuine
 manuscript disagreement.
 
 Equally informative is what \emph{failed}. The adaptive temperature and the four
-extra heuristics were plausible a priori, yet the data are unambiguous that they do
-not help and the \emph{lectio difficilior} penalty actively hurts on realistic
+extra heuristics were plausible a priori, yet the data are unambiguous: they do
+not help, and the \emph{lectio difficilior} penalty actively hurts on realistic
 errors. The lesson is that a single, well-motivated change aligned with the domain
 beats a stack of clever-sounding ones, and that the all-on configuration --- the
 tempting default --- is the wrong choice here.
@@ -302,17 +302,17 @@ tempting default --- is the wrong choice here.
   century and the Photius run is ninth-century, so absolute accuracy sits well
   below the paper's in-domain figure of $90.5\%$. We therefore lean on the
   \emph{relative} deltas --- baseline versus weighted on the same loci --- which
-  are robust to this shift, rather than on absolute recovery rates.
+  survive this shift, rather than on absolute recovery rates.
   \item \textbf{The synthetic protocol is biased against weighting.} The \S4.1
   protocol draws corruptions uniformly across the 24-letter alphabet, which
   quietly rewards an algorithm that treats every edit as equally likely. Since the
-  entire purpose of weighting is to exploit the \emph{non}-uniformity of real
-  scribal error, this protocol understates the benefit; the real-variant test is
-  the one that should carry the most weight.
+  whole purpose of weighting is to exploit the \emph{non}-uniformity of real
+  scribal error, this protocol understates the benefit; the real-variant test
+  should carry the most weight.
   \item \textbf{A variant is not always an error.} Many SBLGNT apparatus entries
   record disagreements between defensible readings rather than slips of the pen.
-  The benchmark measures whether Logion finds a locus \emph{unusual}, which is a
-  weaker claim than finding it \emph{wrong}; recovery of an attested variant is
+  The benchmark measures whether Logion finds a locus \emph{unusual} --- a
+  weaker claim than finding it \emph{wrong}. Recovery of an attested variant is
   evidence of sensitivity to real textual instability, not proof of correction.
   \item \textbf{No apparatus-level validation on Photius.} The deployment
   shortlist clusters in the right error regions but matches no documented

@@ -286,7 +286,7 @@
   <header class="hero">
     <p class="kicker">Autoformalization &middot; Lean 4</p>
     <h1>Can an AI rewrite Euclid into a language a computer can&nbsp;check?</h1>
-    <p class="dek">And if it can &mdash; what actually decides whether it works: the wording of the math, or how you ask?</p>
+    <p class="dek">And if it can &mdash; what decides whether it works: the wording of the math, or how you ask?</p>
     <p class="byline">A study by <b>Reza Ramji</b> &middot; GPT-4o &middot; 2,653 runs</p>
 
     <div class="hero-figure" aria-label="A proposition in prose becomes a Lean theorem the machine can verify.">
@@ -300,7 +300,7 @@
   (<span class="var">A B</span> : Point) :
   <span class="k">∃</span> C, equilateral <span class="var">A B</span> C := <span class="c">…</span></p>
       </div>
-      <p class="hf-arrow">prose&nbsp;&rarr;&nbsp;formal &middot; if it compiles &amp; checks, it is correct &mdash; no trust required</p>
+      <p class="hf-arrow">prose&nbsp;&rarr;&nbsp;formal &middot; if it compiles and checks, it is correct &mdash; no trust required</p>
     </div>
 
     <div class="scroll-cue">Scroll<span class="chev"></span></div>
@@ -309,8 +309,8 @@
   <!-- ================= PROSE: THE PROBLEM ================= -->
   <section class="prose">
     <h2>The problem</h2>
-    <p>A proof in a textbook is written for people. <em>Lean&nbsp;4</em> is a language a computer can verify, line by line: if a Lean proof compiles and type-checks, it is correct &mdash; no appeal to authority required.</p>
-    <p>Translating ordinary mathematical prose into Lean by hand is slow expert work. The hope of <em>autoformalization</em> is that a language model can do the translation for us. This study asks a narrow, testable version of that question, using the oldest textbook we have: Euclid's <em>Elements</em>.</p>
+    <p>A textbook proof is written for people. <em>Lean&nbsp;4</em> is a language a computer can verify line by line: if a Lean proof compiles and type-checks, it is correct &mdash; no appeal to authority required.</p>
+    <p>Translating mathematical prose into Lean by hand is slow expert work. <em>Autoformalization</em> is the hope that a language model can do it for us. This study tests a narrow version of that question on the oldest textbook we have: Euclid's <em>Elements</em>.</p>
   </section>
 
   <!-- ================= SCROLLYTELLING ================= -->
@@ -350,8 +350,8 @@
         <div class="card">
           <p class="num">01 &middot; The source material</p>
           <h3>The same proof, three voices</h3>
-          <p>Euclid's Book&nbsp;I &mdash; the same 48 propositions &mdash; survives in sharply different English. <strong>Heath</strong> (1908) is archaic and Victorian; <strong>Fitzpatrick</strong> (2007) is modern academic, naming its variables explicitly; <strong>Modern</strong> is a plain paraphrase.</p>
-          <p>They say the same things. So: does the <em>register</em> change how well GPT-4o turns a proposition into Lean?</p>
+          <p>The same 48 propositions of Euclid's Book&nbsp;I survive in sharply different English. <strong>Heath</strong> (1908) is archaic and Victorian; <strong>Fitzpatrick</strong> (2007) is modern academic, naming its variables explicitly; <strong>Modern</strong> is a plain paraphrase.</p>
+          <p>They say the same things. So does the <em>register</em> change how well GPT-4o turns a proposition into Lean?</p>
         </div>
       </div>
 
@@ -359,8 +359,8 @@
         <div class="card">
           <p class="num">02 &middot; The trap</p>
           <h3>It looked like Fitzpatrick won</h3>
-          <p>An early run used one prompt template whose five worked examples were all in Fitzpatrick's style. Fitzpatrick text seemed to formalize best &mdash; beating Heath by <span class="stat">8.4 points</span> (<em>p</em>=0.008).</p>
-          <p>But that confounds two things. The Fitzpatrick translation also matched the <em>examples in the prompt</em>. Was it the register &mdash; or just input that looked like the demo?</p>
+          <p>An early run used one prompt template whose five worked examples were all in Fitzpatrick's style. Fitzpatrick text seemed to formalize best, beating Heath by <span class="stat">8.4 points</span> (<em>p</em>=0.008).</p>
+          <p>But that confounds two things: the Fitzpatrick translation also matched the <em>examples in the prompt</em>. Was it the register, or just input that looked like the demo?</p>
         </div>
       </div>
 
@@ -369,7 +369,7 @@
           <p class="num">03 &middot; The fix</p>
           <h3>Cross every register with every prompt</h3>
           <p>To pull the two apart, we crossed them: three translation registers &times; three prompt styles, fully counterbalanced. Every translation now faces every prompt.</p>
-          <p>A 3&times;3 design over 143 propositions (Book&nbsp;I plus 100 UniGeo theorems) &mdash; <span class="stat">2,653 runs</span> in all.</p>
+          <p>A 3&times;3 design over 143 propositions &mdash; Book&nbsp;I plus 100 UniGeo theorems &mdash; for <span class="stat">2,653 runs</span> in all.</p>
         </div>
       </div>
 
@@ -377,8 +377,8 @@
         <div class="card">
           <p class="num">04 &middot; Read it down</p>
           <h3>Fix the prompt &mdash; translation barely moves</h3>
-          <p>Hold a prompt style constant (read <em>down</em> a column) and the three translations land within a few points of each other. The register you feed in hardly matters.</p>
-          <p>Statistically: no significant effect (<em>p</em>=<span class="stat">0.603</span>).</p>
+          <p>Hold a prompt style constant &mdash; read <em>down</em> a column &mdash; and the three translations land within a few points of each other. The register you feed in hardly matters.</p>
+          <p>No significant effect (<em>p</em>=<span class="stat">0.603</span>).</p>
         </div>
       </div>
 
@@ -395,7 +395,7 @@
         <div class="card">
           <p class="num">06 &middot; The mirage, dispelled</p>
           <h3>The original gap only existed in one column</h3>
-          <p>"Fitzpatrick wins" shows up <em>only</em> under Fitzpatrick-style prompts. Under Heath prompts it reverses (65.5% &gt; 60.0%); under Modern prompts it reverses again.</p>
+          <p>"Fitzpatrick wins" shows up <em>only</em> under Fitzpatrick-style prompts. Under Heath prompts it reverses (65.5% &gt; 60.0%), and under Modern prompts it reverses again.</p>
           <p>On the 100 independent UniGeo theorems, Heath even beat Fitzpatrick by <span class="stat">6.2&nbsp;points</span> &mdash; the opposite of the first claim.</p>
         </div>
       </div>
@@ -405,7 +405,7 @@
           <p class="num">07 &middot; The model that cheated</p>
           <h3>One model scored highest on <em>no math at all</em></h3>
           <p>We first tried a small local model, Qwen2.5-Coder-7B, on a Jetson Orin Nano. It had memorized the benchmark: its <em>best</em> compile rate came from feeding it nothing but "Proposition&nbsp;N."</p>
-          <p>Empty input beats full text. A clean model (GPT-4o) does the opposite &mdash; <span class="stat">10%</span> from empty, <span class="stat">67.9%</span> from the real proof. So we dropped Qwen and ran everything on GPT-4o.</p>
+          <p>Empty input beat full text. A clean model does the opposite &mdash; GPT-4o compiles <span class="stat">10%</span> from empty, <span class="stat">67.9%</span> from the real proof. So we dropped Qwen and ran everything on GPT-4o.</p>
         </div>
       </div>
 
@@ -420,7 +420,7 @@
   <!-- ================= THE STATISTICS ================= -->
   <section class="prose">
     <h2>The statistics, briefly</h2>
-    <p>A mixed-effects regression with proposition as a random intercept (<em>N</em>=2,653) confirms the picture: translation coefficients are tiny and not significant; prompt coefficients are large and significant. Adding prompt style improves model fit by 99.5 AIC points; adding a prompt&times;translation interaction does not help.</p>
+    <p>A mixed-effects regression with proposition as a random intercept (<em>N</em>=2,653) confirms the picture: translation coefficients are tiny and not significant; prompt coefficients are large and significant. Adding prompt style improves fit by 99.5 AIC points; adding a prompt&times;translation interaction does not.</p>
     <div class="datatable">
       <table>
         <caption>Mixed-effects model coefficients</caption>
@@ -441,7 +441,7 @@
   <!-- ================= MEANING ================= -->
   <section class="prose">
     <h2>What this means in practice</h2>
-    <p>If you want to use autoformalization on your own mathematics, the lever isn't cleaning up your prose &mdash; it's <strong>styling your few-shot examples to match how you write</strong>, especially whether they introduce variables explicitly.</p>
+    <p>To use autoformalization on your own mathematics, the lever isn't cleaning up your prose &mdash; it's <strong>styling your few-shot examples to match how you write</strong>, especially whether they introduce variables explicitly.</p>
     <p>Two methodological notes fall out. First, a single prompt template can manufacture a fake "wording" effect, so counterbalanced prompt designs should be the default. Second, the empty-input probe &mdash; does the model compile from just "Proposition&nbsp;N"? &mdash; is a cheap memorization check worth running before anyone reports autoformalization numbers.</p>
   </section>
 
@@ -451,7 +451,7 @@
     <ul>
       <li><strong>One model.</strong> The counterbalanced results are GPT-4o only; the Qwen runs are void due to contamination. Prompt sensitivity may differ elsewhere.</li>
       <li><strong>Compiling isn't being correct.</strong> Compile rates overstate real performance. On the semantically scored subset: 14% strict equivalence, 30% correct-direction. The 24-point prompt effect is measured on compilation, not correctness.</li>
-      <li><strong>Uneven cells.</strong> Fitzpatrick-prompt cells carry 430 runs each; Heath and Modern prompt cells have 133&ndash;235. The model handles the imbalance, but precision varies.</li>
+      <li><strong>Uneven cells.</strong> Fitzpatrick-prompt cells carry about 430 runs each; Heath and Modern prompt cells have 133&ndash;235. The model handles the imbalance, but precision varies.</li>
       <li><strong>UniGeo, one prompt.</strong> The 100-theorem replication used only Fitzpatrick-style prompts, so it confirms the translation non-effect but not the prompt effect.</li>
     </ul>
   </section>

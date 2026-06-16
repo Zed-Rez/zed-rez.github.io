@@ -324,7 +324,7 @@
 </div>
 
 <!-- ============ LEDE ============ -->
-<p class="lede"><span class="drop">A</span>ncient Greek reaches us through centuries of hand-copying. Letters smudge, words drop out, scribes mishear from dictation or misread a neighbour&rsquo;s hand. Princeton&rsquo;s <strong>Logion</strong> &mdash; a BERT language model trained on premodern Greek &mdash; reads a passage, flags spots where the transmitted word looks wrong, and proposes what should be there. Editors treat it as a tireless second reader. This page is about one small change to how it works, and the gain that change buys on errors real scribes actually made.</p>
+<p class="lede"><span class="drop">A</span>ncient Greek reaches us through centuries of hand-copying. Letters smudge, words drop out, scribes mishear from dictation or misread a neighbour&rsquo;s hand. Princeton&rsquo;s <strong>Logion</strong> &mdash; a BERT language model trained on premodern Greek &mdash; reads a passage, flags where the transmitted word looks wrong, and proposes what belongs there. Editors treat it as a tireless second reader. This page covers one small change to how it works, and the gain that change buys on errors real scribes made.</p>
 
 <div class="rule"><hr></div>
 
@@ -428,8 +428,8 @@
       <div class="card">
         <span class="num">01 — How it decides something looks off</span>
         <h2>A model that second-guesses the page</h2>
-        <p>For each word, Logion asks: how likely is what&rsquo;s actually written, against the most likely near-spelling it can imagine in that spot? When a different spelling is far more probable in context, the word gets surfaced for an editor.</p>
-        <p>To build that set of near-spellings, it needs a notion of <em>close</em>. It uses <strong>edit distance</strong> &mdash; the number of single-character changes that turn one word into another.</p>
+        <p>For each word, Logion asks: how likely is what&rsquo;s written, against the most likely near-spelling it can imagine in that spot? When some other spelling is far more probable in context, the word is surfaced for an editor.</p>
+        <p>Building that set of near-spellings needs a notion of <em>close</em>. Logion uses <strong>edit distance</strong> &mdash; the number of single-character changes that turn one word into another.</p>
       </div>
     </div>
 
@@ -437,8 +437,8 @@
       <div class="card">
         <span class="num">02 — The problem</span>
         <h2>Every swap costs the same</h2>
-        <p>Plain edit distance is blunt. Changing one letter to <em>any</em> other costs exactly one &mdash; whether the two are constantly confused or have nothing to do with each other. Logion&rsquo;s original filter is blunter still: a yes/no gate that lets in every word within distance&nbsp;1 and treats them all alike.</p>
-        <p>So the five candidates on the left arrive as equals. The model has thrown away the one thing a philologist knows cold: <em>which</em> mistakes scribes actually make.</p>
+        <p>Plain edit distance is blunt. Changing one letter to <em>any</em> other costs exactly one &mdash; whether the two are constantly confused or unrelated. Logion&rsquo;s original filter is blunter still: a yes/no gate that admits every word within distance&nbsp;1 and treats them all alike.</p>
+        <p>So the five candidates on the left arrive as equals. The model has discarded the one thing a philologist knows cold: <em>which</em> mistakes scribes actually make.</p>
       </div>
     </div>
 
@@ -447,7 +447,7 @@
         <span class="num">03 — The change</span>
         <h2>Weight the swaps by how scribes err</h2>
         <p>Give each substitution a <em>cost</em> drawn from documented confusion classes. Easily-confused letters cost little; unrelated ones cost the full amount. The hard gate becomes a smooth weight.</p>
-        <p>Now the shortlist re-sorts. The itacistic neighbour <span class="gk">&#964;&#959;&#953;&#962;</span> &mdash; one /i/-swap away &mdash; climbs to the top, and the implausible candidates sink.</p>
+        <p>The shortlist re-sorts. The itacistic neighbour <span class="gk">&#964;&#959;&#953;&#962;</span> &mdash; one /i/-swap away &mdash; climbs to the top, and the implausible candidates sink.</p>
         <p class="example">An itacism swap like <span class="gk">&#964;&#945;&#953;&#962; / &#964;&#959;&#953;&#962;</span> costs <strong>0.35</strong> &mdash; about <strong>3.7&times;</strong> the weight of an unrelated same-distance edit like <span class="gk">&#964;&#953;&#962; / &#959;&#953;&#962;</span>, which costs the full <strong>1.00</strong>.</p>
       </div>
     </div>
@@ -459,7 +459,7 @@
 <!-- ============ THE CONFUSION CLASSES (static SVG band) ============ -->
 <p class="sectlabel">Why some swaps are cheap</p>
 <div class="band" style="margin-top:0.8em;">
-  <p style="font-size:1.06rem;color:var(--muted);max-width:62ch;">In Byzantine Greek a handful of confusions cause most copying errors. These are the swaps the weighting makes cheap.</p>
+  <p style="font-size:1.06rem;color:var(--muted);max-width:62ch;">In Byzantine Greek a handful of confusions account for most copying errors. These are the swaps the weighting makes cheap.</p>
 </div>
 
 <figure style="max-width:900px;">
@@ -508,13 +508,13 @@
 <!-- ============ THE RESULT ============ -->
 <p class="sectlabel">The result</p>
 <div class="band" style="margin-top:0.8em;">
-  <p style="font-size:1.06rem;">Tested against <strong>real attested variants</strong> &mdash; 333 spots in the SBLGNT apparatus where the manuscripts genuinely disagree &mdash; the weighted filter recovers more of them. This is the fairest test: it uses errors real scribes made, not artificial ones.</p>
+  <p style="font-size:1.06rem;">Tested against <strong>real attested variants</strong> &mdash; 333 spots in the SBLGNT apparatus where the manuscripts genuinely disagree &mdash; the weighted filter recovers more of them. This is the fairest test: real scribal errors, not artificial ones.</p>
 </div>
 
 <div class="result">
   <div class="inner">
     <span class="big">Top-5 recovery climbs to <span class="accent">42.3%</span> <span class="vs">from</span> 35.7%</span>
-    <p class="sub">Paired McNemar test, <em>p</em>&thinsp;&lt;&thinsp;10<sup>&minus;3</sup>. The weighted filter recovered <span class="stat">28</span> loci the baseline missed and lost only <span class="stat">6</span>. Top-1 trends positive but isn&rsquo;t significant (16.5% vs. 14.4%, <em>p</em>&thinsp;=&thinsp;0.30).</p>
+    <p class="sub">Paired McNemar test, <em>p</em>&thinsp;&lt;&thinsp;10<sup>&minus;3</sup>: the weighted filter recovered <span class="stat">28</span> loci the baseline missed and lost only <span class="stat">6</span>. Top-1 trends positive but isn&rsquo;t significant (16.5% vs. 14.4%, <em>p</em>&thinsp;=&thinsp;0.30).</p>
   </div>
 </div>
 
@@ -585,7 +585,7 @@
 </figure>
 
 <div class="band">
-  <p>The same direction shows up in two controlled tests. On the paper&rsquo;s synthetic protocol (<em>n</em>&thinsp;=&thinsp;200), removing the weighted filter costs &minus;4.0pp at top-1 (one-tailed McNemar <em>p</em>&thinsp;=&thinsp;0.029). On a corruption protocol built to mimic scribal-class errors, removing it costs &minus;4.0pp at top-10 (<em>p</em>&thinsp;=&thinsp;0.039).</p>
+  <p>The same direction shows up in two controlled tests. On the paper&rsquo;s synthetic protocol (<em>n</em>&thinsp;=&thinsp;200), removing the weighted filter costs &minus;4.0pp at top-1 (one-tailed McNemar <em>p</em>&thinsp;=&thinsp;0.029); on a corruption protocol built to mimic scribal-class errors, it costs &minus;4.0pp at top-10 (<em>p</em>&thinsp;=&thinsp;0.039).</p>
 </div>
 
 <div class="rule"><hr></div>
@@ -594,7 +594,7 @@
 <p class="sectlabel">What helped, what didn&rsquo;t</p>
 <div class="prose">
   <h2 style="margin-top:0.8em;">The simple config wins</h2>
-  <p>Two other changes were tried alongside the weighted distance. Both turned out to be dead weight &mdash; and the all-on combination actually does <em>worse</em> than baseline (&minus;1.5pp top-1, &minus;3.5pp top-5).</p>
+  <p>Two other changes were tried alongside the weighted distance. Both turned out to be dead weight &mdash; and the all-on combination does <em>worse</em> than baseline (&minus;1.5pp top-1, &minus;3.5pp top-5).</p>
 </div>
 
 <div class="tablewrap">
@@ -618,7 +618,7 @@
 <div class="prose">
   <ul class="notes">
     <li><strong>A chance-fit adaptive temperature</strong> &mdash; flatten the model&rsquo;s distribution when the written word is implausible &mdash; is inert: an exact tie with baseline at top-1 (<em>p</em>&thinsp;=&thinsp;1.00).</li>
-    <li><strong>Four &ldquo;extras&rdquo; (E1&ndash;E4)</strong> are actively harmful on the realistic protocol: removing them lifts top-1 from 26.5% to 30.5% (<em>p</em>&thinsp;=&thinsp;0.021). The likely culprit is the <em>lectio difficilior</em> penalty (E1), which discounts suggestions more common than the written word &mdash; exactly the pattern when an itacism slip turns a rare spelling into a common one.</li>
+    <li><strong>Four &ldquo;extras&rdquo; (E1&ndash;E4)</strong> are actively harmful on the realistic protocol: removing them lifts top-1 from 26.5% to 30.5% (<em>p</em>&thinsp;=&thinsp;0.021). The likely culprit is the <em>lectio difficilior</em> penalty (E1), which discounts suggestions more common than the written word &mdash; exactly the case when an itacism slip turns a rare spelling into a common one.</li>
   </ul>
   <p style="margin-top:1.1em;font-size:1.08rem;">So the configuration that wins is the plain one: <strong>weighted Levenshtein on, everything else off.</strong></p>
 </div>
@@ -630,7 +630,7 @@
 <div class="prose">
   <h2 style="margin-top:0.8em;">Running it on Photius</h2>
   <p>The system was then turned loose on 26 paragraphs (~2,100 words) of Photius&rsquo;s <em>Bibliotheca</em> (codices 70, 92, 161, 165, 213) &mdash; a text outside Logion&rsquo;s training corpus, surviving in two manuscript families (Marcianus gr. 450 and 451).</p>
-  <p>Its shortlist clusters in the itacism and visual-confusion region, as you&rsquo;d hope. But none of its picks line up with documented apparatus loci. Best read as the spots where the model and the transmitted text most disagree &mdash; a triage signal, not a curated set of fixes.</p>
+  <p>Its shortlist clusters in the itacism and visual-confusion region, as you&rsquo;d hope. But none of its picks line up with documented apparatus loci. Read it as the spots where the model and the transmitted text most disagree &mdash; a triage signal, not a curated set of fixes.</p>
 </div>
 
 <div class="rule"><hr></div>
@@ -641,9 +641,9 @@
   <h2 style="margin-top:0.8em;">What this does and doesn&rsquo;t show</h2>
   <ul class="notes">
     <li><strong>Domain shift.</strong> The public checkpoint is fine-tuned on Psellus (11th c.). The variant test is Koine (1st c.) and Photius is 9th c., so absolute accuracy sits below the paper&rsquo;s in-domain 90.5%. The relative deltas &mdash; baseline vs. weighted on the same loci &mdash; still hold.</li>
-    <li><strong>The synthetic protocol is rigged against weighting.</strong> It draws corruptions uniformly across the 24-letter alphabet, quietly rewarding an algorithm that treats every edit as equally likely. Weighting exists to exploit the non-uniform reality of scribal error &mdash; so the real-variant test is the one that counts.</li>
-    <li><strong>A variant isn&rsquo;t always an error.</strong> Many SBLGNT variants are disagreements between defensible readings, not slips. The test measures whether Logion finds a locus unusual, which is weaker than asking whether it&rsquo;s wrong.</li>
-    <li><strong>The weights are hand-tuned</strong> from textbooks. The obvious next step: learn the phonetic prior from Byzantine palaeographic data, or retrain the model with the weighted neighbourhood as a training signal rather than just an inference-time filter &mdash; which could internalize scribal error patterns directly and yield a larger gain.</li>
+    <li><strong>The synthetic protocol is rigged against weighting.</strong> It draws corruptions uniformly across the 24-letter alphabet, quietly rewarding an algorithm that treats every edit as equally likely. Weighting exists to exploit the non-uniformity of real scribal error &mdash; so the real-variant test is the one that counts.</li>
+    <li><strong>A variant isn&rsquo;t always an error.</strong> Many SBLGNT variants are disagreements between defensible readings, not slips. The test measures whether Logion finds a locus unusual &mdash; weaker than asking whether it&rsquo;s wrong.</li>
+    <li><strong>The weights are hand-tuned</strong> from textbooks. The obvious next steps: learn the phonetic prior from Byzantine palaeographic data, or retrain the model with the weighted neighbourhood as a training signal rather than just an inference-time filter &mdash; which could internalize scribal-error patterns directly and yield a larger gain.</li>
   </ul>
 </div>
 
