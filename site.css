@@ -1,4 +1,4 @@
-/* minimal shared styles for the top-level pages of rezaramji.com — plain EB Garamond */
+/* rezaramji.com — plain EB Garamond, one hash-routed page */
 
 :root { --ink: #1c1b19; --muted: #6b6760; --accent: #7a2424; }
 
@@ -16,34 +16,31 @@ body {
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-/* horizontal header — name + nav inline, left-aligned (like the reference sites) */
-header.site .bar { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem 1.1rem; margin-bottom: 1.8rem; }
+/* header: name + nav on one horizontal line */
+header.site .bar { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem 1.1rem; margin-bottom: 1.6rem; }
 .brand { font-weight: 600; color: var(--ink); }
 nav.top { display: inline-flex; flex-wrap: wrap; gap: 1.1rem; }
 nav.top a { color: var(--muted); }
 nav.top a.active { color: var(--ink); }
 
-/* content */
-h1 { font-size: 1.55rem; font-weight: 600; margin: 0 0 .3rem; }
-h2 { font-size: 1.1rem; font-weight: 600; margin: 1.3rem 0 .2rem; }
+h1 { font-size: 1.55rem; font-weight: 600; margin: 0 0 .4rem; }
+h2 { font-size: 1.1rem; font-weight: 600; margin: 1.2rem 0 .2rem; }
 p { margin: .5rem 0; }
 .muted { color: var(--muted); }
+.portrait { max-width: 260px; width: 100%; height: auto; margin: .5rem 0; }
 
-.portrait { max-width: 220px; width: 100%; height: auto; margin: .6rem 0; }
-
-/* projects tabs — plain text, no boxes; active is ink, others muted */
-.tabs { display: flex; flex-wrap: wrap; gap: 1.1rem; margin: 1rem 0 1.3rem; }
+/* project tabs */
+.tabs { display: flex; flex-wrap: wrap; gap: 1.1rem; margin: .8rem 0 1.1rem; }
 .tab { font: inherit; background: none; border: 0; padding: 0; cursor: pointer; color: var(--muted); }
 .tab:hover { color: var(--ink); }
 .tab.active { color: var(--ink); font-weight: 600; }
 .tabbed .panel:not(.active) { display: none; }
-.plain { color: var(--muted); margin: .2rem 0 1.1rem; }
-.proj { margin: 0 0 1.05rem; }
+.proj { margin: 0 0 1rem; }
 .proj h3 { font-size: 1.02rem; font-weight: 600; margin: 0 0 .1rem; }
 .proj p { margin: 0; }
-.proj .src { color: var(--muted); }
+.src { color: var(--muted); }
 
-/* see also list */
-ul.links { list-style: none; padding: 0; margin: .7rem 0; }
+/* see also */
+ul.links { list-style: none; padding: 0; margin: .6rem 0; }
 ul.links li { margin: .25rem 0; }
-.coin { width: 75px; height: auto; margin-top: .6rem; }
+.coin { width: 75px; height: auto; margin-top: .5rem; }
