@@ -1,0 +1,187 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage{ebgaramond}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\definecolor{oxblood}{HTML}{7A2424}
+\hypersetup{colorlinks=true,urlcolor=oxblood,linkcolor=oxblood}
+
+\setlength{\parskip}{0.4em}
+\setlength{\parindent}{0pt}
+
+\title{\textbf{Prompt style, not translation register,\\drives autoformalization of Euclid into Lean 4}}
+\author{Reza Ramji}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent A proof in a textbook is written for people; Lean~4 is a language a
+computer can verify line by line. Autoformalization is the task of translating
+ordinary mathematical prose into Lean automatically. Using Euclid's
+\emph{Elements} Book~I and GPT-4o, we ask whether the English wording of a
+proposition changes how well it formalizes. A counterbalanced $3\times3$ design
+(three translation registers $\times$ three prompt styles, 2{,}653 runs) shows
+that prompt style is the lever and translation register is not: prompt style
+spans a 24-point range in compile rate ($p<0.001$), while translation has no
+significant effect ($p=0.603$). An earlier ``one translation wins'' result was
+a prompt--translation confound. A separate probe shows a small local model had
+memorized the benchmark, forcing the switch to GPT-4o.
+\end{abstract}
+
+\section{The question}
+
+Lean~4 is a proof language a machine can check: if a Lean proof compiles and
+type-checks, it is correct, with no appeal to trust. Translating informal
+mathematics into Lean by hand is slow expert work, so the hope is that a
+language model can do it---``autoformalization.'' We test a narrow version of
+that hope on Euclid's \emph{Elements}, built on the
+\href{https://github.com/loganrjmurphy/LeanEuclid}{LeanEuclid} benchmark
+(Murphy et al., 2024).
+
+Book~I---the same 48 propositions---exists in sharply different English
+registers. We use three: \textbf{Heath} (1908, archaic Victorian),
+\textbf{Fitzpatrick} (2007, modern academic with variables named explicitly),
+and a plain \textbf{Modern} paraphrase. All three say the same things. Does the
+register change how well GPT-4o formalizes the proposition?
+
+\section{The confound, and the fix}
+
+An early run used a single prompt template whose five worked examples were all
+in Fitzpatrick's style. It appeared that Fitzpatrick text formalized best,
+beating Heath by 8.4~percentage points ($p=0.008$). But the Fitzpatrick
+translation matched the \emph{examples in the prompt}, so register and
+prompt-style matching were confounded.
+
+To separate them we crossed the two factors: three translation registers
+against three prompt styles (Fitzpatrick-, Heath-, and Modern-style examples),
+a fully crossed $3\times3$ design over 143 propositions (Book~I plus 100 UniGeo
+theorems), for 2{,}653 total runs.
+
+\section{Result: prompt style dominates}
+
+How you prompt matters; which translation you feed in does not. Prompt style
+swings the compile rate across a \textbf{24-point range}---72.6\% with the best
+style versus 48.4\% with the worst ($p<0.001$). Translation register has no
+significant effect once prompt style is held fixed ($p=0.603$).
+
+\begin{table}[h]
+\centering
+\caption*{\textit{Compile rate by translation $\times$ prompt style (Book~I, GPT-4o)}}
+\begin{tabular}{lccc}
+\toprule
+ & Fitzpatrick prompt & Heath prompt & Modern prompt \\
+\midrule
+Fitzpatrick & \textbf{76.3\%} & 60.0\% & 45.9\% \\
+Heath       & 67.9\%          & 65.5\% & 52.6\% \\
+Modern      & 73.5\%          & 63.2\% & 46.8\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Read down each column (prompt fixed) and the translations barely separate; read
+across the columns (prompt changing) and the rates collapse. The original
+``Fitzpatrick wins'' gap appears only in the Fitzpatrick-prompt column; under
+Heath-style prompts it reverses (Heath 65.5\% $>$ Fitzpatrick 60.0\%), and
+under Modern-style prompts it reverses again (52.6\% $>$ 45.9\%). On the 100
+independent UniGeo theorems, Heath beat Fitzpatrick by 6.2pp---the opposite of
+the first claim.
+
+\section{Statistical model}
+
+A mixed-effects linear regression with proposition as a random intercept
+($N=2{,}653$) confirms the pattern: translation coefficients are tiny and
+non-significant, prompt coefficients large and significant.
+
+\begin{table}[h]
+\centering
+\caption*{\textit{Mixed-effects model coefficients}}
+\begin{tabular}{lccc}
+\toprule
+Predictor & Coefficient & SE & $p$ \\
+\midrule
+Translation (Fitzpatrick vs.\ Heath) & $+0.010$ & 0.019 & 0.603 \\
+Translation (Modern vs.\ Heath)      & $+0.009$ & 0.021 & 0.665 \\
+Prompt (Heath vs.\ Fitzpatrick)      & $\mathbf{-0.097}$ & 0.022 & $\mathbf{<0.001}$ \\
+Prompt (Modern vs.\ Fitzpatrick)     & $\mathbf{-0.242}$ & 0.024 & $\mathbf{<0.001}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Adding prompt style improves model fit by 99.5 AIC points; adding a
+prompt$\times$translation interaction does not help (AIC rises by 4.3). A paired
+$t$-test on per-proposition rates ($N=66$ items, marginalized over prompt)
+leaves the two translations indistinguishable: Heath 70.0\% vs.\ Fitzpatrick
+62.3\%, $t(65)=-1.66$, $p=0.102$, Cohen's $d=-0.20$.
+
+\section{The contamination caveat}
+
+We first tried a small local model, Qwen2.5-Coder-7B (Q4\_K\_M), on a Jetson
+Orin Nano Super (8\,GB, ${\sim}9.5$ tokens/s). It had memorized the benchmark.
+Its \emph{best} compile rate came from no math at all---just ``Proposition N.''
+
+\begin{table}[h]
+\centering
+\caption*{\textit{Contamination probe --- Qwen2.5-Coder-7B}}
+\begin{tabular}{lcc}
+\toprule
+Input given & Compile rate & LeanEuclid vocab \\
+\midrule
+Full Heath text          & 60.5\% & 100\% \\
+Empty (``Proposition N'') & \textbf{62.8\%} & 100\% \\
+Garbled vocabulary       & 60.5\% & 100\% \\
+Shuffled clauses         & 60.5\% & 100\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The highest score from empty input means the model recites memorized structure
+rather than reading the math. Semantic equivalence does drop to 0\% on empty
+input (versus 16--27\% with garbled text), so it reads input to refine meaning
+but does not need it to produce something that compiles. GPT-4o, by contrast,
+is clean: 10\% from empty input versus 67.9\% from full text. We dropped Qwen
+and ran everything counterbalanced on GPT-4o.
+
+\section{Takeaway}
+
+If you want to use autoformalization on your own mathematics, the lever is not
+cleaning up your prose---it is styling your few-shot examples to match how you
+write, especially whether they introduce variables explicitly. Two
+methodological notes follow: a single prompt template can manufacture a spurious
+``wording'' effect, so counterbalanced prompt designs should be standard; and
+the empty-input probe (does the model compile from just ``Proposition N''?) is a
+cheap memorization check worth running before reporting autoformalization
+numbers.
+
+\section*{Limits}
+
+\begin{itemize}
+\setlength{\itemsep}{0.2em}
+\item \textbf{One model.} The counterbalanced results are GPT-4o only; the Qwen
+runs are void due to contamination. Prompt sensitivity may differ elsewhere.
+\item \textbf{Compiling is not correctness.} Compile rates overstate real
+performance. On the subset semantically scored: 14\% strict equivalence, 30\%
+correct-direction. The 24-point prompt effect is measured on compilation, not
+correctness.
+\item \textbf{Uneven cells.} Fitzpatrick-prompt cells carry 430 runs each;
+Heath and Modern prompt cells have 133--235. The model handles the imbalance,
+but precision varies.
+\item \textbf{UniGeo, one prompt.} The 100-theorem replication used only
+Fitzpatrick-style prompts, so it confirms the translation non-effect but not the
+prompt effect.
+\end{itemize}
+
+\vspace{0.6em}
+\noindent\rule{\linewidth}{0.4pt}\\[0.3em]
+{\small Built on \href{https://github.com/Zed-Rez/youklid}{Youklid} and the
+\href{https://github.com/loganrjmurphy/LeanEuclid}{LeanEuclid} benchmark
+(Murphy et al., 2024). Contamination probe ran locally on a Jetson Orin Nano
+Super.}
+
+\end{document}

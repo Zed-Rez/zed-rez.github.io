@@ -3,93 +3,268 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Logion with Weighted Levenshtein — Reza Ramji</title>
+  <title>Teaching Logion How Scribes Actually Slip — Reza Ramji</title>
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
+  <!-- EB Garamond for everything; Gentium Plus for Greek glyphs (better polytonic coverage) -->
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&family=Gentium+Plus&display=swap" rel="stylesheet">
   <style>
-    body{max-width:70ch;margin:2em auto;padding:0 1em;font-family:'EB Garamond',Garamond,Georgia,serif;line-height:1.5;}
-    img{max-width:100%;height:auto;}
-    table{border-collapse:collapse;margin:1em 0;width:100%;}
-    th,td{border:1px solid #999;padding:0.3em 0.6em;text-align:left;}
-    th{background:#f5f5f0;}
-    caption{font-style:italic;margin-bottom:0.3em;text-align:left;}
-    .finding{border-left:3px solid #333;padding-left:0.8em;margin:1.2em 0;}
-    .stat{font-weight:bold;}
-    small{color:#555;}
-    .caveats li{margin-bottom:0.4em;}
+    :root{
+      --ink:#1c1b19;
+      --muted:#6b6760;
+      --accent:#7a2424;
+      --rule:rgba(28,27,25,0.14);
+    }
+    *{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:#fff;
+      font-family:'EB Garamond',Garamond,Georgia,serif;
+      font-size:17px;
+      line-height:1.55;
+      -webkit-font-smoothing:antialiased;
+    }
+    /* Greek glyphs pick up Gentium Plus, falling back to EB Garamond */
+    .gk{font-family:'Gentium Plus','EB Garamond',Garamond,Georgia,serif;}
+
+    .wrap{max-width:700px;margin:0 auto;padding:0 1.2em;}
+
+    /* top bar */
+    .topbar{
+      display:flex;justify-content:space-between;align-items:baseline;
+      gap:1em;flex-wrap:wrap;
+      padding:1.4em 0 1.2em;
+      font-size:0.92rem;
+    }
+    a{color:var(--accent);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+    .topbar .muted{color:var(--muted);}
+
+    header.hero{padding:1.5em 0 0.5em;}
+    h1{
+      font-size:2.05rem;line-height:1.18;font-weight:600;
+      margin:0 0 0.35em;letter-spacing:-0.01em;
+    }
+    .standfirst{font-size:1.12rem;color:var(--muted);margin:0 0 0.4em;}
+    .credit{font-size:0.92rem;color:var(--muted);margin:0;}
+
+    hr{border:0;border-top:1px solid var(--rule);margin:2.2em 0;}
+
+    /* scroll steps */
+    .step{
+      margin:2.6em 0;
+      opacity:0;
+      transform:translateY(14px);
+      transition:opacity 0.7s ease, transform 0.7s ease;
+    }
+    .step.in{opacity:1;transform:none;}
+    /* if JS is off, show everything */
+    .no-js .step{opacity:1;transform:none;}
+
+    .step h2{
+      font-size:1.32rem;font-weight:600;margin:0 0 0.5em;
+      letter-spacing:-0.005em;
+    }
+    .step p{margin:0 0 0.9em;}
+    .step:last-child{margin-bottom:4em;}
+
+    .lead{font-size:1.14rem;line-height:1.5;}
+
+    /* a small inline example pair */
+    .example{
+      color:var(--muted);font-size:0.96rem;
+      margin:0.6em 0 0.2em;
+    }
+    .example .gk{color:var(--ink);}
+
+    /* the result callout */
+    .result{
+      border-top:1px solid var(--rule);
+      border-bottom:1px solid var(--rule);
+      padding:1.2em 0;
+      margin:1.4em 0;
+    }
+    .result .big{
+      font-size:1.5rem;font-weight:600;letter-spacing:-0.01em;
+      display:block;margin-bottom:0.15em;
+    }
+    .result .big .accent{color:var(--accent);}
+    .result .sub{color:var(--muted);font-size:0.98rem;margin:0;}
+
+    figure{margin:1.4em 0;}
+    figure img{display:block;width:100%;height:auto;}
+    figcaption{font-size:0.88rem;color:var(--muted);margin-top:0.5em;font-style:italic;}
+
+    /* table */
+    .tablewrap{overflow-x:auto;margin:1.2em 0;}
+    table{border-collapse:collapse;width:100%;font-size:0.95rem;font-variant-numeric:tabular-nums;}
+    caption{font-style:italic;text-align:left;color:var(--muted);font-size:0.9rem;margin-bottom:0.5em;}
+    th,td{text-align:left;padding:0.4em 0.7em;border-bottom:1px solid var(--rule);}
+    th{font-weight:600;}
+    tbody tr td:not(:first-child){text-align:right;font-variant-numeric:tabular-nums;}
+    tr.highlight td{color:var(--accent);font-weight:600;}
+
+    ul.notes{padding-left:1.1em;margin:0.6em 0;}
+    ul.notes li{margin-bottom:0.55em;}
+
+    .stat{font-weight:600;}
+
+    footer{
+      border-top:1px solid var(--rule);
+      margin-top:3em;padding:1.6em 0 3em;
+      font-size:0.9rem;color:var(--muted);
+    }
+    footer a{color:var(--accent);}
+
+    @media (max-width:560px){
+      body{font-size:16px;}
+      h1{font-size:1.7rem;}
+      .result .big{font-size:1.3rem;}
+    }
+    @media (prefers-reduced-motion:reduce){
+      .step{transition:none;opacity:1;transform:none;}
+      html{scroll-behavior:auto;}
+    }
   </style>
 </head>
-<body>
+<body class="no-js">
 
-<h1>Improving Logion: Weighted Levenshtein for Byzantine Greek Emendation</h1>
+<div class="wrap">
 
-<p>[<a href="https://github.com/Zed-Rez/logion-wlev">source</a>] · extends Princeton's <a href="https://github.com/charliecb/Logion">Logion</a> (Cowen-Breen, Brooks, Graziosi, Haubold; <em>ACL ALP-2023</em>)</p>
+  <nav class="topbar">
+    <a href="/#projects">&larr; projects</a>
+    <a href="logion.pdf" class="muted">Download PDF &darr;</a>
+  </nav>
 
-<hr>
+  <header class="hero">
+    <h1>Teaching Logion how scribes actually slip</h1>
+    <p class="standfirst">A weighted edit distance for restoring damaged Byzantine Greek &mdash; and a statistically significant gain on real manuscript variants.</p>
+    <p class="credit">[<a href="https://github.com/Zed-Rez/logion-wlev">source</a>] &middot; extends Princeton&rsquo;s <a href="https://github.com/charliecb/Logion">Logion</a> (Cowen-Breen, Brooks, Graziosi, Haubold; <em>ACL ALP-2023</em>)</p>
+  </header>
 
-<h2>Key Finding</h2>
+  <hr>
 
-<div class="finding">
-<p>A phonetic/visual-weighted Levenshtein neighborhood significantly improves detection of real attested textual variants. On 333 variant loci from the SBLGNT apparatus criticus, the weighted filter recovers variants in the top-5 at <span class="stat">42.3%</span> versus baseline's <span class="stat">35.7%</span> (paired McNemar <span class="stat"><em>p</em>&thinsp;&lt;&thinsp;10<sup>&minus;3</sup></span>; 28 loci recovered that baseline missed vs. 6 lost). Top-1 trends positive (16.5% vs. 14.4%, <em>p</em>=0.30).</p>
+  <main>
+
+    <section class="step">
+      <p class="lead">Ancient Greek texts reach us through centuries of hand-copying. Letters smudge, words drop out, scribes mishear or misread. Princeton&rsquo;s <strong>Logion</strong> is a language model (a BERT trained on premodern Greek) that reads a passage and flags spots where the transmitted word looks wrong, then proposes the word it thinks should be there. Editors use it as a second set of eyes.</p>
+    </section>
+
+    <section class="step">
+      <h2>How it decides something looks off</h2>
+      <p>For each word, Logion computes a <em>chance-correction ratio</em>: how likely is the word that&rsquo;s actually written, compared to the most likely near-spelling the model can imagine in its place? When a different spelling is far more probable in context, that word gets surfaced for an expert to look at.</p>
+      <p>To build that set of &ldquo;near-spellings,&rdquo; Logion needs a notion of which words count as close. It uses <strong>edit distance</strong> (Levenshtein) &mdash; how many single-character changes turn one word into another.</p>
+    </section>
+
+    <section class="step">
+      <h2>The problem: every swap costs the same</h2>
+      <p>Plain edit distance is blunt. Changing one letter to <em>any</em> other letter costs exactly one, whether the two letters are constantly confused or have nothing to do with each other. Logion&rsquo;s original filter is even blunter: it&rsquo;s a yes/no gate &mdash; any vocabulary word within distance 1 is let in, all treated equally.</p>
+      <p>That isn&rsquo;t how copying errors happen. In Byzantine Greek a handful of confusions cause most of the mistakes:</p>
+      <ul class="notes">
+        <li><strong>Itacism</strong> &mdash; <span class="gk">&eta;, &iota;, &upsilon;, &epsilon;&iota;, &omicron;&iota;</span> all came to be pronounced the same (/i/), so scribes writing from dictation swapped them constantly.</li>
+        <li><strong>Visual look-alikes</strong> in minuscule script &mdash; <span class="gk">&gamma;/&tau;, &lambda;/&mu;, &beta;/&nu;, &rho;/&pi;</span> are easy to misread.</li>
+        <li><strong>Post-vocalic <span class="gk">&beta;/&upsilon;</span></strong> &mdash; a sound shift that bled into spelling.</li>
+      </ul>
+      <p>A metric that treats <span class="gk">&eta;&rarr;&iota;</span> the same as <span class="gk">&eta;&rarr;&xi;</span> is throwing away exactly the signal that matters.</p>
+    </section>
+
+    <section class="step">
+      <h2>The change: make the swaps weighted</h2>
+      <p>Instead of a yes/no gate, give each substitution a <em>cost</em> drawn from documented confusion classes (Allen&rsquo;s <em>Vox Graeca</em>, West&rsquo;s <em>Textual Criticism</em>, Reynolds &amp; Wilson&rsquo;s <em>Scribes &amp; Scholars</em>). Easily-confused letters cost little; unrelated ones cost the full amount. The filter becomes a smooth weight rather than a hard cutoff.</p>
+      <p class="example">An itacism swap like <span class="gk">&tau;&alpha;&iota;&sigmaf; / &tau;&omicron;&iota;&sigmaf;</span> costs 0.35 and gets about <strong>3.7&times;</strong> the weight of an unrelated same-distance edit like <span class="gk">&tau;&iota;&sigmaf; / &omicron;&iota;&sigmaf;</span>, which costs the full 1.00.</p>
+    </section>
+
+    <section class="step">
+      <h2>The result</h2>
+      <p>Tested against <strong>real attested variants</strong> &mdash; 333 spots in the SBLGNT apparatus where the manuscripts genuinely disagree &mdash; the weighted filter recovers more of them. This is the fairest test, because it uses errors that real scribes actually made rather than artificial ones.</p>
+
+      <div class="result">
+        <span class="big">Top-5 recovery: <span class="accent">42.3%</span> vs. 35.7% baseline</span>
+        <p class="sub">Paired McNemar test, <span class="gk">&thinsp;</span><em>p</em>&thinsp;&lt;&thinsp;10<sup>&minus;3</sup>. The weighted filter recovered 28 loci the baseline missed and lost only 6. Top-1 trends positive but isn&rsquo;t significant (16.5% vs. 14.4%, <em>p</em>=0.30).</p>
+      </div>
+
+      <figure>
+        <img src="fig_variants_topk.png" alt="Bar chart: variant-locus recovery on SBLGNT (n=333), baseline vs. recommended weighted-Levenshtein, at top-1, top-5, top-10. Recommended is higher at every k; the top-5 gap is statistically significant. Error bars are Wilson 95% confidence intervals." width="900" height="600">
+        <figcaption>Real attested-variant recovery on SBLGNT (n=333). Recommended = weighted Levenshtein only. Error bars: Wilson 95% CIs.</figcaption>
+      </figure>
+
+      <p>The same direction shows up in two more controlled tests. On the paper&rsquo;s synthetic protocol (n=200), removing the weighted filter costs &minus;4.0pp at top-1 (one-tailed McNemar <em>p</em>=0.029). On a corruption protocol built to mimic scribal-class errors, removing it costs &minus;4.0pp at top-10 (<em>p</em>=0.039).</p>
+    </section>
+
+    <section class="step">
+      <h2>What helped, what didn&rsquo;t</h2>
+      <p>Two other changes were tried alongside the weighted distance. Both turned out to be dead weight, and the all-on combination actually does <em>worse</em> than baseline (&minus;1.5pp top-1, &minus;3.5pp top-5).</p>
+
+      <div class="tablewrap">
+        <table>
+          <caption>Per-component ablation on artificial single-character corruption (n=200, &sect;4.1 protocol).</caption>
+          <thead>
+            <tr><th>Condition</th><th>Top-1</th><th>Top-5</th><th>Top-10</th><th>McNemar <em>p</em></th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Baseline (paper)</td><td>37.5%</td><td>69.5%</td><td>81.5%</td><td>&mdash;</td></tr>
+            <tr><td>&minus;CF temperature</td><td>37.5%</td><td>69.0%</td><td>80.0%</td><td>1.00</td></tr>
+            <tr class="highlight"><td>&minus;Weighted Lev</td><td>33.5%</td><td>67.5%</td><td>80.5%</td><td>0.057</td></tr>
+            <tr><td>&minus;Extras (E1&ndash;E4)</td><td>37.0%</td><td>68.0%</td><td>81.5%</td><td>1.00</td></tr>
+            <tr><td>All improvements</td><td>36.0%</td><td>66.0%</td><td>79.0%</td><td>0.63</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul class="notes">
+        <li><strong>A chance-fit adaptive temperature</strong> (flatten the model&rsquo;s distribution when the written word is implausible) is inert &mdash; an exact tie with baseline at top-1, McNemar <em>p</em>=1.00.</li>
+        <li><strong>Four &ldquo;extras&rdquo; (E1&ndash;E4)</strong> are actively harmful on the realistic protocol: removing them lifts top-1 from 26.5% to 30.5% (<em>p</em>=0.021). The likely culprit is the <em>lectio difficilior</em> penalty (E1), which discounts suggestions more common than the written word &mdash; exactly the pattern when an itacism slip moves a rare spelling to a common one.</li>
+      </ul>
+
+      <p>So the configuration that wins is the simple one: <strong>weighted Levenshtein on, everything else off.</strong></p>
+    </section>
+
+    <section class="step">
+      <h2>Running it on Photius</h2>
+      <p>The system was then turned loose on 26 paragraphs (~2,100 words) of Photius&rsquo;s <em>Bibliotheca</em> (codices 70, 92, 161, 165, 213) &mdash; a text outside Logion&rsquo;s training corpus, surviving in two manuscript families (Marcianus gr. 450 and 451). Its shortlist clusters in the itacism and visual-confusion region, as you&rsquo;d hope, but none of its picks line up with documented apparatus loci. Best read as the spots where the model and the transmitted text most disagree, not a curated set of fixes.</p>
+    </section>
+
+    <section class="step">
+      <h2>Caveats</h2>
+      <ul class="notes">
+        <li><strong>Domain shift.</strong> The public Logion checkpoint is fine-tuned on Psellus (11th c. Byzantine). The variant test uses Koine (1st c.) and the Photius run is 9th c., so absolute accuracy sits below the paper&rsquo;s in-domain 90.5%. The relative deltas &mdash; baseline vs. weighted on the same loci &mdash; still hold.</li>
+        <li><strong>The synthetic protocol is rigged against weighting.</strong> It draws corruptions uniformly across the 24-letter alphabet, which quietly rewards an algorithm that treats every edit as equally likely. The whole point of weighting is to exploit the non-uniform reality of scribal error, so the real-variant test is the one that counts.</li>
+        <li><strong>A variant isn&rsquo;t always an error.</strong> Many SBLGNT variants are disagreements between defensible readings, not slips. The test measures whether Logion finds a locus unusual, which is weaker than asking whether it&rsquo;s wrong.</li>
+        <li><strong>The weights are hand-tuned</strong> from textbooks. The obvious next step: learn the phonetic prior from Byzantine palaeographic data, or retrain the model with the weighted neighborhood as a training signal rather than just an inference-time filter &mdash; that could internalize scribal error patterns directly and yield a larger gain.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Built on <a href="https://github.com/charliecb/Logion">Logion</a> (Cowen-Breen et al., <em>ACL ALP-2023</em>). SBLGNT apparatus from <a href="https://github.com/jjmccollum/sblgnt-tei">jjmccollum/sblgnt-tei</a> (CC BY 4.0).</p>
+    <p><a href="/#projects">&larr; back to projects</a> &middot; <a href="logion.pdf">academic PDF</a></p>
+  </footer>
+
 </div>
 
-<p><img src="fig_variants_topk.png" alt="Bar chart comparing top-k variant recovery rates: baseline vs. recommended (weighted-Lev) at k=1, 5, 10 on SBLGNT attested variants (n=333). Error bars show Wilson 95% CIs. Top-5 difference is statistically significant (p less than 0.001)." width="900" height="600"></p>
-
-<p>This result is the strongest signal across three evaluations of increasing realism. On the paper's synthetic protocol (n=200), removing the weighted filter costs &minus;4.0pp top-1 (McNemar one-tailed <em>p</em>=0.029). On a realistic scribal-class corruption protocol, removing it costs &minus;4.0pp top-10 (<em>p</em>=0.039).</p>
-
-<h2>What Was Changed</h2>
-
-<p>Logion computes a <em>chance-correction ratio</em> (CCR) for each word: how probable is the transmitted reading versus the most probable near-spelling? Positions with low CCR are surfaced for expert review. Two changes were tested:</p>
-
-<p><strong>Weighted Levenshtein (the one that works).</strong> The original filter is binary: any vocabulary pair within classical Levenshtein distance &le;1 gets equal weight. In Byzantine Greek this is wrong &mdash; itacism (&eta;/&iota;/&upsilon;/&epsilon;&iota;/&omicron;&iota; all &rarr; /i/), visual confusions in minuscule script (&gamma;/&tau;, &lambda;/&mu;, &beta;/&nu;, &rho;/&pi;), and post-vocalic &beta;/&upsilon; drive most copying errors. The weighted filter assigns substitution costs from documented confusion classes (Allen, <em>Vox Graeca</em>; West, <em>Textual Criticism</em>; Reynolds &amp; Wilson, <em>Scribes &amp; Scholars</em>) and produces a continuous weight rather than a binary gate. An itacism swap like &tau;&alpha;&iota;&sigmaf;/&tau;&omicron;&iota;&sigmaf; (cost 0.35) receives ~3.7&times; the weight of an unrelated same-distance edit like &tau;&iota;&sigmaf;/&omicron;&iota;&sigmaf; (cost 1.00).</p>
-
-<p><strong>Chance-fit adaptive temperature (verified inert).</strong> A per-position softmax temperature that flattens the distribution when the transmitted word is implausible. On the &sect;4.1 protocol: exact tie with baseline at top-1 (McNemar <em>p</em>=1.00, discordant counts <em>b</em>=7, <em>c</em>=7).</p>
-
-<h2>Ablation (n=200, &sect;4.1 Protocol)</h2>
-
-<table>
-  <caption>Per-component ablation on artificial single-character corruption</caption>
-  <thead>
-    <tr><th>Condition</th><th>Top-1</th><th>Top-5</th><th>Top-10</th><th>McNemar <em>p</em> (top-1)</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>Baseline (paper)</td><td>37.5%</td><td>69.5%</td><td>81.5%</td><td>&mdash;</td></tr>
-    <tr><td>&minus;CF temperature</td><td>37.5%</td><td>69.0%</td><td>80.0%</td><td>1.00</td></tr>
-    <tr><td><strong>&minus;Weighted Lev</strong></td><td><strong>33.5%</strong></td><td>67.5%</td><td>80.5%</td><td><strong>0.057</strong></td></tr>
-    <tr><td>&minus;Extras (E1&ndash;E4)</td><td>37.0%</td><td>68.0%</td><td>81.5%</td><td>1.00</td></tr>
-    <tr><td>All improvements</td><td>36.0%</td><td>66.0%</td><td>79.0%</td><td>0.63</td></tr>
-  </tbody>
-</table>
-
-<p><img src="fig_ablation.png" alt="Bar chart showing delta-accuracy versus baseline for each ablation condition at n=200. Removing weighted-Lev shows the largest negative delta." width="800" height="512"></p>
-
-<h2>Negative Findings</h2>
-
-<p>The combined system (all improvements on) <em>underperforms</em> baseline (&minus;1.5pp top-1, &minus;3.5pp top-5). This is because two components dilute the gain from weighted-Lev:</p>
-<ul>
-  <li><strong>CF-temperature</strong> is inert (exact tie at top-1, <em>p</em>=1.00).</li>
-  <li><strong>Extras (E1&ndash;E4)</strong> are actively harmful on the realistic scribal protocol: removing them lifts top-1 from 26.5% to 30.5% (McNemar <em>p</em>=0.021, <em>b</em>=1, <em>c</em>=9). The lectio-difficilior penalty (E1) likely causes this &mdash; it discounts suggestions more common than the transmitted form, which is exactly the pattern when an itacism slip moves from a rare to a frequent spelling.</li>
-</ul>
-
-<p>The recommended configuration is therefore: <strong>weighted-Lev on, everything else off.</strong></p>
-
-<h2>Out-of-Corpus Deployment</h2>
-
-<p>The system was run on 26 paragraphs (~2,100 words) of Photius's <em>Bibliotheca</em> (codices 70, 92, 161, 165, 213) &mdash; a work outside Logion's Psellus fine-tune corpus, with documented transmission ambiguity across two manuscript families (Marcianus gr. 450 and 451). The shortlist surfaces candidates concentrated in the itacism/visual edit region, but none align with documented apparatus loci &mdash; best read as positions where the model and transmitted text most diverge, not as a curated emendation set.</p>
-
-<h2>Caveats</h2>
-<ul class="caveats">
-  <li><strong>Domain shift.</strong> The public Logion checkpoint is fine-tuned on Psellus (Byzantine, 11th c.). The SBLGNT evaluation uses Koine Greek (1st c. NT); the Photius deployment uses 9th c. Byzantine. Absolute accuracy is lower than the paper's headline 90.5% on in-domain Psellus, but relative deltas (baseline vs. recommended on the same loci) are still valid.</li>
-  <li><strong>The &sect;4.1 protocol structurally disadvantages the weighted filter.</strong> It samples corruptions uniformly from the 24-letter alphabet, which implicitly favours an algorithm treating every edit as equally likely &mdash; i.e. the binary filter. The weighted filter's design intent is to exploit the non-uniform distribution of real scribal errors. The SBLGNT evaluation, which tests against real attested variants, is the fairest test.</li>
-  <li><strong>Variant &ne; corruption.</strong> Many SBLGNT variants are disagreements between defensible editorial readings, not scribal slips. The test measures whether Logion finds these loci unusual in context, which is weaker than asking whether they are errors.</li>
-  <li><strong>The weight matrix is hand-tuned</strong> from textbook sources (Allen, West, Reynolds &amp; Wilson). A learned phonetic prior from Byzantine palaeographic corpora is a natural extension &mdash; retraining with the weighted neighbourhood could yield stronger gains.</li>
-</ul>
-
-<p><small>Built on <a href="https://github.com/charliecb/Logion">Logion</a> (Cowen-Breen et al., <em>ACL ALP-2023</em>). SBLGNT apparatus from <a href="https://github.com/jjmccollum/sblgnt-tei">jjmccollum/sblgnt-tei</a> (CC BY 4.0).</small></p>
-
-<p><a href="/">← back</a></p>
+<script>
+  // progressive enhancement: drop the no-js flag, then reveal steps on scroll
+  document.body.classList.remove('no-js');
+  (function(){
+    var steps = document.querySelectorAll('.step');
+    if (!('IntersectionObserver' in window)) {
+      steps.forEach(function(s){ s.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+    steps.forEach(function(s){ io.observe(s); });
+    // reveal the first step immediately so the page never opens blank
+    if (steps.length){ steps[0].classList.add('in'); }
+  })();
+</script>
 
 </body>
 </html>
