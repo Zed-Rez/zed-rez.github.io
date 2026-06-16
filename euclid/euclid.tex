@@ -21,73 +21,71 @@ Autoformalization of Euclid into Lean~4}
 
 \begin{abstract}
 \noindent
-A proof in a textbook is written for people; Lean~4 is a language a computer can
+A textbook proof is written for people; Lean~4 is a language a computer can
 verify line by line. \emph{Autoformalization}---translating ordinary
 mathematical prose into a proof assistant automatically---is a long-standing
-goal, and large language models have made it newly plausible. Using Euclid's
+goal that large language models have made newly plausible. Using Euclid's
 \emph{Elements} Book~I and GPT-4o, we ask a narrow, testable question: does the
 English \emph{wording} of a proposition change how well a model formalizes it?
 A counterbalanced $3\times3$ design crossing three translation registers with
 three few-shot prompt styles (2{,}653 runs) shows that prompt style is the lever
 and translation register is not. Prompt style spans a 24-point range in compile
-rate ($72.6\%$ vs.\ $48.4\%$, $p<0.001$), while translation register has no
+rate ($72.6\%$ vs.\ $48.4\%$, $p<0.001$); translation register has no
 significant effect once prompt style is held fixed ($p=0.603$). An earlier
 ``one translation wins'' result ($p=0.008$) proved to be a prompt--translation
 confound, visible in only one column of the crossed design and reversed in the
 other two. A separate probe showed that a small local model
 (Qwen2.5-Coder-7B) had memorized the benchmark---it compiled most often from
-\emph{no math at all}---forcing the switch to GPT-4o. We argue that
-counterbalanced prompt designs and an empty-input memorization check should be
-standard practice when reporting autoformalization results.
+\emph{no math at all}---forcing the switch to GPT-4o. Counterbalanced prompt
+designs and an empty-input memorization check should be standard practice when
+reporting autoformalization results.
 \end{abstract}
 
 \section{Background and context}
 
-A proof written in a natural language carries meaning that only a human reader
+A proof written in natural language carries meaning that only a human reader
 fully reconstructs. A proof written in Lean~4 carries meaning a machine can
 check: Lean is a dependently typed proof assistant in which a theorem and its
 proof are terms whose types the kernel verifies. If a Lean proof type-checks, it
-is correct---there is no appeal to authority, intuition, or the reader's
-goodwill. This is what makes formalization attractive and also what makes it
-expensive: encoding informal mathematics in Lean by hand is slow expert work,
-and the formal mathematics library Mathlib, though large, covers only a fraction
-of the literature.
+is correct---no appeal to authority, intuition, or the reader's goodwill. This
+is what makes formalization attractive and also what makes it expensive:
+encoding informal mathematics in Lean by hand is slow expert work, and the
+formal mathematics library Mathlib, though large, covers only a fraction of the
+literature.
 
-\emph{Autoformalization} is the task of producing that formal encoding
-automatically from informal input. Recent large language models can generate
-syntactically plausible Lean from a natural-language statement, which raises an
-obvious practical question for anyone who would deploy such a tool on their own
-mathematics: \emph{what actually determines whether it works?} Two candidate
-levers are easy to confuse. One is the \emph{input}---the exact wording of the
-mathematics handed to the model. The other is the \emph{prompt}---the
-instructions and worked examples (few-shot demonstrations) that frame the task.
-This paper isolates the two.
+\emph{Autoformalization} produces that formal encoding automatically from
+informal input. Recent large language models can generate syntactically
+plausible Lean from a natural-language statement, which raises a practical
+question for anyone deploying such a tool on their own mathematics: \emph{what
+determines whether it works?} Two candidate levers are easy to confuse. One is
+the \emph{input}---the exact wording of the mathematics handed to the model. The
+other is the \emph{prompt}---the instructions and worked examples (few-shot
+demonstrations) that frame the task. This paper isolates the two.
 
-We use Euclid's \emph{Elements}, Book~I, as the source text. Book~I is an ideal
-testbed for a wording study because the same 48 propositions survive in sharply
+We use Euclid's \emph{Elements}, Book~I, as the source text: an ideal testbed
+for a wording study, because the same 48 propositions survive in sharply
 different English registers, all expressing identical geometric content:
 
 \begin{itemize}
 \setlength{\itemsep}{0.15em}
-\item \textbf{Heath} (1908): the canonical Victorian translation---archaic,
-formal, with constructions described in flowing prose and few explicitly named
-variables.
+\item \textbf{Heath} (1908): the canonical Victorian translation---archaic and
+formal, with constructions in flowing prose and few explicitly named variables.
 \item \textbf{Fitzpatrick} (2007): a modern academic edition that names points
 and segments explicitly (``the straight line $AB$,'' ``the triangle $ABC$''),
-closer in surface form to how one writes a formal statement.
+closer in surface form to a formal statement.
 \item \textbf{Modern}: a plain contemporary paraphrase that strips the archaism
-without adopting Fitzpatrick's heavy variable naming.
+without Fitzpatrick's heavy variable naming.
 \end{itemize}
 
-All three registers say the same things; they differ only in how they say them.
-The experimental question is whether GPT-4o formalizes one register into Lean
-more successfully than another.
+All three say the same things; they differ only in how they say them. The
+question is whether GPT-4o formalizes one register into Lean more successfully
+than another.
 
-We build directly on the \textbf{LeanEuclid} benchmark of Murphy et al.\ (2024),
-which provides a formal vocabulary and a system semantics (``E3'') for Euclidean
-geometry in Lean, together with reference formalizations of Book~I. Our
-infrastructure---prompt construction, model orchestration, compilation, and
-semantic checking---is implemented in the \textbf{Youklid} toolchain.
+We build on the \textbf{LeanEuclid} benchmark of Murphy et al.\ (2024), which
+provides a formal vocabulary, a system semantics (``E3'') for Euclidean geometry
+in Lean, and reference formalizations of Book~I. Our infrastructure---prompt
+construction, model orchestration, compilation, and semantic checking---is
+implemented in the \textbf{Youklid} toolchain.
 
 \section{Method}
 
@@ -104,50 +102,48 @@ in the few-shot prompt): Fitzpatrick-style, Heath-style, or Modern-style
 demonstrations.
 \end{itemize}
 
-This $3\times3$ design lets every translation be formalized under every prompt
-style, so the effect of \emph{what you feed in} can be separated from the effect
-of \emph{how you frame the request}. The design is applied to all 48
-propositions of Book~I and replicated on 100 theorems from the UniGeo geometry
-corpus, 143~propositions in total, for \textbf{2{,}653 individual runs}.
+This $3\times3$ design formalizes every translation under every prompt style,
+separating the effect of \emph{what you feed in} from the effect of \emph{how
+you frame the request}. It covers all 48 propositions of Book~I and is
+replicated on 100 theorems from the UniGeo geometry corpus---143~propositions in
+total, for \textbf{2{,}653 individual runs}.
 
 \subsection{Outcome measures}
 
 The primary outcome is the \emph{compile rate}: the fraction of runs whose
-generated Lean type-checks against the LeanEuclid environment. Compilation is a
-necessary condition for a usable formalization but not a sufficient one---a
-proof can compile while stating the wrong theorem. We therefore also report two
-stricter semantic measures on the subset that was scored with the E3 equivalence
-checker: \emph{strict equivalence} (the generated statement is logically
-equivalent to the reference) and \emph{correct-direction} entailment (the
-generated statement implies, or is implied by, the reference). These are
-discussed in Section~\ref{sec:limits}; the headline effects in
-Section~\ref{sec:results} are measured on compilation.
+generated Lean type-checks against the LeanEuclid environment. Compilation is
+necessary for a usable formalization but not sufficient---a proof can compile
+while stating the wrong theorem. We therefore also report two stricter semantic
+measures on the subset scored with the E3 equivalence checker: \emph{strict
+equivalence} (the generated statement is logically equivalent to the reference)
+and \emph{correct-direction} entailment (it implies, or is implied by, the
+reference). These are discussed in Section~\ref{sec:limits}; the headline effects
+in Section~\ref{sec:results} are measured on compilation.
 
 \subsection{Models and platform}
 
 The counterbalanced study uses \textbf{GPT-4o} via the OpenAI API. An earlier
 exploratory phase used a small local model, \textbf{Qwen2.5-Coder-7B}
-(Q4\_K\_M quantization) running on an NVIDIA Jetson Orin Nano Super (8\,GB,
-roughly $9.5$ tokens/s); as Section~\ref{sec:contam} explains, those runs were
-discarded after a contamination probe, and only GPT-4o results enter the main
-analysis.
+(Q4\_K\_M quantization) on an NVIDIA Jetson Orin Nano Super (8\,GB, roughly
+$9.5$ tokens/s). As Section~\ref{sec:contam} explains, those runs were discarded
+after a contamination probe, and only GPT-4o results enter the main analysis.
 
 \section{The confound, and the fix}
 
 The study began with a single prompt template whose five worked examples were
-all written in Fitzpatrick's style. Under that one template, Fitzpatrick input
-text appeared to formalize best, beating Heath by 8.4~percentage points
-($p=0.008$)---a clean-looking ``wording matters'' result.
+all in Fitzpatrick's style. Under that template, Fitzpatrick input appeared to
+formalize best, beating Heath by 8.4~percentage points ($p=0.008$)---a
+clean-looking ``wording matters'' result.
 
-It was an artifact. The Fitzpatrick \emph{translation} also happened to match
-the register of the \emph{examples in the prompt}, so two explanations were
-confounded: perhaps Fitzpatrick prose is genuinely easier to formalize, or
-perhaps the model simply does better when the input resembles its
-demonstrations. A single-template design cannot distinguish them.
+It was an artifact. The Fitzpatrick \emph{translation} also matched the register
+of the \emph{examples in the prompt}, confounding two explanations: perhaps
+Fitzpatrick prose is genuinely easier to formalize, or perhaps the model simply
+does better when the input resembles its demonstrations. A single template
+cannot distinguish them.
 
-The counterbalanced $3\times3$ design exists precisely to break this confound.
-By pairing each translation with each prompt style, the main effect of
-translation can be estimated with prompt style held fixed, and vice versa.
+The counterbalanced $3\times3$ design exists to break this confound. Pairing
+each translation with each prompt style lets the main effect of translation be
+estimated with prompt style held fixed, and vice versa.
 
 \section{Results}
 \label{sec:results}
@@ -155,16 +151,16 @@ translation can be estimated with prompt style held fixed, and vice versa.
 \subsection{Prompt style dominates; translation does not}
 
 How you prompt matters; which translation you feed in does not. Across prompt
-styles the compile rate swings over a \textbf{24-point range}---$72.6\%$ with
-the best style versus $48.4\%$ with the worst ($p<0.001$). Holding prompt style
+styles the compile rate swings over a \textbf{24-point range}---$72.6\%$ with the
+best style versus $48.4\%$ with the worst ($p<0.001$). With prompt style held
 fixed, translation register has no significant effect ($p=0.603$).
 
 Figure~\ref{fig:grid} shows the full $3\times3$ table of compile rates for
-Book~I. The structure is the whole story. Read \emph{down} any column---prompt
-style fixed, translation varying---and the three rates cluster within a few
-points. Read \emph{across} any row---prompt style changing, translation
-fixed---and the rates fall off a cliff, from the Fitzpatrick-prompt column to
-the Modern-prompt column.
+Book~I, and the structure is the whole story. Read \emph{down} any
+column---prompt style fixed, translation varying---and the three rates cluster
+within a few points. Read \emph{across} any row---prompt style changing,
+translation fixed---and the rates fall off a cliff, from the Fitzpatrick-prompt
+column to the Modern-prompt column.
 
 \begin{figure}[h]
 \centering
@@ -198,17 +194,16 @@ The earlier ``Fitzpatrick wins'' gap appears in Table~\ref{tab:grid} only within
 the Fitzpatrick-prompt column ($76.3\%$ vs.\ Heath's $67.9\%$). Under
 Heath-style prompts it reverses---Heath $65.5\%$ exceeds Fitzpatrick
 $60.0\%$---and under Modern-style prompts it reverses again ($52.6\%$ vs.\
-$45.9\%$). The apparent advantage of Fitzpatrick text was therefore an advantage
-of Fitzpatrick \emph{prompts}, not of Fitzpatrick \emph{prose}. The independent
-UniGeo replication points the same way: there Heath beat Fitzpatrick by
-6.2~percentage points, the opposite of the original claim.
+$45.9\%$). The apparent advantage of Fitzpatrick text was an advantage of
+Fitzpatrick \emph{prompts}, not Fitzpatrick \emph{prose}. The independent UniGeo
+replication agrees: there Heath beat Fitzpatrick by 6.2~percentage points, the
+opposite of the original claim.
 
 \subsection{Statistical model}
 
 A mixed-effects linear regression with proposition as a random intercept
 ($N=2{,}653$) confirms the pattern: translation coefficients are tiny and
-non-significant, prompt coefficients large and significant
-(Table~\ref{tab:coef}).
+non-significant, prompt coefficients large and significant (Table~\ref{tab:coef}).
 
 \begin{table}[h]
 \centering
@@ -228,28 +223,28 @@ Prompt (Modern vs.\ Fitzpatrick)     & $\mathbf{-0.242}$ & 0.024 & $\mathbf{<0.0
 \label{tab:coef}
 \end{table}
 
-Adding prompt style to the model improves fit by $99.5$ AIC points; adding a
-prompt $\times$ translation interaction does \emph{not} help (AIC rises by
-$4.3$), indicating that the prompt effect is broadly uniform across translations
-rather than concentrated in particular pairings. A complementary paired
-$t$-test on per-proposition rates ($N=66$ items, marginalized over prompt)
-leaves the two translations statistically indistinguishable: Heath $70.0\%$
-versus Fitzpatrick $62.3\%$, $t(65)=-1.66$, $p=0.102$, Cohen's $d=-0.20$.
+Adding prompt style improves fit by $99.5$ AIC points; adding a prompt $\times$
+translation interaction does \emph{not} help (AIC rises by $4.3$), so the prompt
+effect is broadly uniform across translations rather than concentrated in
+particular pairings. A complementary paired $t$-test on per-proposition rates
+($N=66$ items, marginalized over prompt) leaves the two translations
+indistinguishable: Heath $70.0\%$ versus Fitzpatrick $62.3\%$, $t(65)=-1.66$,
+$p=0.102$, Cohen's $d=-0.20$.
 
 \section{The contamination caveat}
 \label{sec:contam}
 
 Before settling on GPT-4o we evaluated a small local model,
-Qwen2.5-Coder-7B, both for cost and to test feasibility on edge hardware. The
-results were anomalous: its \emph{best} compile rate came from giving it no
-mathematics at all---just the stub ``Proposition~$N$.''
+Qwen2.5-Coder-7B, for cost and to test feasibility on edge hardware. The results
+were anomalous: its \emph{best} compile rate came from giving it no mathematics
+at all---just the stub ``Proposition~$N$.''
 
 To diagnose this we ran a contamination probe, feeding the model four kinds of
 input and measuring compile rate and how much LeanEuclid-specific vocabulary the
-output reused (Figure~\ref{fig:contam}, left). Whether given the full Heath
-text, an empty stub, a version with its mathematical vocabulary garbled, or one
-with its clauses shuffled, the model compiled at roughly $60$--$63\%$ and reused
-$100\%$ of the benchmark vocabulary---with the empty stub scoring \emph{highest}
+output reused (Figure~\ref{fig:contam}, left). Whether given the full Heath text,
+an empty stub, a version with its mathematical vocabulary garbled, or one with
+its clauses shuffled, the model compiled at roughly $60$--$63\%$ and reused
+$100\%$ of the benchmark vocabulary---the empty stub scoring \emph{highest}
 ($62.8\%$). A model that produces compiling, benchmark-flavored Lean from an
 empty prompt is reciting memorized structure, not reading the mathematics.
 
@@ -264,38 +259,37 @@ of the time from empty input but $67.9\%$ from the full proof.}
 \end{figure}
 
 Semantic equivalence does respond to the input even for Qwen: it drops to $0\%$
-on empty input versus $16$--$27\%$ with garbled text, so the model reads the
-input to refine \emph{meaning}---it just does not need the input to produce
-something that \emph{compiles}. GPT-4o, by contrast, is clean
-(Figure~\ref{fig:contam}, right): $10\%$ compile rate from empty input versus
-$67.9\%$ from the full proof, the expected dependence of output on input. We
-therefore discarded all Qwen runs and ran the counterbalanced study entirely on
-GPT-4o.
+on empty input versus $16$--$27\%$ with garbled text. The model reads the input
+to refine \emph{meaning}; it just does not need the input to produce something
+that \emph{compiles}. GPT-4o, by contrast, is clean (Figure~\ref{fig:contam},
+right): $10\%$ compile rate from empty input versus $67.9\%$ from the full
+proof, the expected dependence of output on input. We therefore discarded all
+Qwen runs and ran the counterbalanced study entirely on GPT-4o.
 
 \section{Discussion}
 
 The practical lesson for anyone applying autoformalization to their own
 mathematics is counterintuitive. The instinct is to clean up the
 \emph{prose}---to rewrite statements in some canonical, model-friendly register
-before formalizing them. Our results say the prose is not where the leverage is.
-The leverage is in the \emph{prompt}: in styling the few-shot demonstrations to
-match how the target mathematics is written, and in particular whether the
+before formalizing them. Our results say the prose is not where the gains are.
+They come from the \emph{prompt}: from styling the few-shot demonstrations to
+match how the target mathematics is written, and especially in whether the
 examples introduce variables explicitly. The strongest configuration we found
 pairs any translation with Fitzpatrick-style demonstrations, whose explicit
-naming of points and segments evidently scaffolds the model toward
-well-typed Lean regardless of how the input proposition itself is phrased.
+naming of points and segments evidently scaffolds the model toward well-typed
+Lean regardless of how the input proposition is phrased.
 
 Two methodological points generalize beyond Euclid. First, a single prompt
-template can manufacture a spurious ``wording'' effect: any property of the
-input that happens to correlate with the prompt's examples will masquerade as a
-property of the input. Counterbalanced prompt designs, which cross input
-conditions against prompt conditions, should be the default rather than the
-exception in autoformalization studies. Second, the empty-input probe---does the
-model compile from nothing but ``Proposition~$N$''?---is a cheap, decisive
-memorization check. It cost almost nothing to run and would have invalidated the
-Qwen numbers before they were ever reported. We recommend it as a routine
-sanity check before publishing autoformalization compile rates, especially for
-models that may have seen the benchmark in training.
+template can manufacture a spurious ``wording'' effect: any property of the input
+that happens to correlate with the prompt's examples will masquerade as a
+property of the input. Counterbalanced prompt designs, crossing input conditions
+against prompt conditions, should be the default in autoformalization studies.
+Second, the empty-input probe---does the model compile from nothing but
+``Proposition~$N$''?---is a cheap, decisive memorization check. It cost almost
+nothing and would have invalidated the Qwen numbers before they were ever
+reported. We recommend it as a routine check before publishing autoformalization
+compile rates, especially for models that may have seen the benchmark in
+training.
 
 \section{Limitations}
 \label{sec:limits}
@@ -311,27 +305,26 @@ of prompt styles, may differ for other models.
 performance, because a proof can type-check while formalizing the wrong claim.
 On the subset scored with the E3 semantic checker, only $14\%$ of outputs were
 strictly equivalent to the reference and $30\%$ were correct in direction. The
-24-point prompt effect is an effect on \emph{compilation}, not on semantic
+24-point prompt effect is an effect on \emph{compilation}, not semantic
 correctness; whether prompt style moves correctness as strongly is not
 established here.
 
 \item \textbf{Uneven cells.} The counterbalanced cells are not equally sized:
 Fitzpatrick-prompt cells carry about 430 runs each, while Heath- and
 Modern-prompt cells carry roughly 133--235. The mixed-effects model accommodates
-the imbalance, but the precision of individual cell estimates varies, and some
-Book~I cells reached only about $45\%$ of their target run counts for the Heath
-and Modern prompts.
+the imbalance, but precision varies across cells, and some Book~I cells reached
+only about $45\%$ of their target run counts for the Heath and Modern prompts.
 
 \item \textbf{UniGeo, one prompt.} The 100-theorem UniGeo replication used only
-Fitzpatrick-style prompts. It independently corroborates the
-\emph{translation} non-effect (and the reversal of the original claim) but does
-not, on its own, speak to the prompt effect.
+Fitzpatrick-style prompts. It corroborates the \emph{translation} non-effect (and
+the reversal of the original claim) but does not, on its own, speak to the prompt
+effect.
 
 \item \textbf{Single semantic checker, partial coverage.} E3 semantic
-equivalence was scored most completely for the Heath condition; full
-cross-condition semantic scoring remains future work, as does extending the
-study to additional models and to a two-stage pipeline (a strong model to draft,
-a cheaper model prompted with human-checked exemplars to autoformalize).
+equivalence was scored most completely for the Heath condition. Full
+cross-condition semantic scoring remains future work, as does extending the study
+to additional models and to a two-stage pipeline (a strong model to draft, a
+cheaper model prompted with human-checked exemplars to autoformalize).
 
 \end{itemize}
 
