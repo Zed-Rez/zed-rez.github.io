@@ -16,8 +16,9 @@ body {
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-/* header: name + nav on one horizontal line */
-header.site .bar { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem 1.1rem; margin-bottom: 1.6rem; }
+/* header: name left, nav right, with a divider line beneath */
+header.site { border-bottom: 1px solid rgba(0,0,0,.12); margin-bottom: 1.6rem; }
+header.site .bar { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .25rem 1.1rem; padding-bottom: .85rem; }
 .brand { font-weight: 600; color: var(--ink); }
 nav.top { display: inline-flex; flex-wrap: wrap; gap: 1.1rem; }
 nav.top a { color: var(--muted); }
