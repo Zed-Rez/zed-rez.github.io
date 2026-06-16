@@ -308,9 +308,9 @@
 
   <!-- ================= PROSE: THE PROBLEM ================= -->
   <section class="prose">
-    <h2>The problem</h2>
-    <p>A textbook proof is written for people. <em>Lean&nbsp;4</em> is a language a computer can verify line by line: if a Lean proof compiles and type-checks, it is correct &mdash; no appeal to authority required.</p>
-    <p>Translating mathematical prose into Lean by hand is slow expert work. <em>Autoformalization</em> is the hope that a language model can do it for us. This study tests a narrow version of that question on the oldest textbook we have: Euclid's <em>Elements</em>.</p>
+    <h2>The question</h2>
+    <p>A textbook proof is written for people. <em>Lean&nbsp;4</em> is a language a computer can verify line by line: if a Lean proof compiles and type-checks, it is correct &mdash; no appeal to authority required. Getting a language model to do that translation for us is <em>autoformalization</em>.</p>
+    <p>So: can an AI put Euclid's <em>Elements</em> into that machine-checkable form &mdash; and what decides whether it works? Two suspects. The <strong>wording</strong> of the math (which English translation you feed in), or <strong>how you ask</strong> (the style of the examples in your prompt).</p>
   </section>
 
   <!-- ================= SCROLLYTELLING ================= -->
@@ -321,8 +321,8 @@
     <!-- ===== sticky visual stage ===== -->
     <div class="sticky">
       <div class="stage">
-        <p class="stage-title" id="stageTitle">Three translations, one geometry</p>
-        <p class="stage-sub" id="stageSub">The same 48 propositions, in three voices.</p>
+        <p class="stage-title" id="stageTitle">Two knobs, one geometry</p>
+        <p class="stage-sub" id="stageSub">Wording (three translations) vs. how you ask (three prompts).</p>
         <div id="stageBody"><!-- SVG injected by JS; static fallback in <noscript> below --></div>
         <noscript>
           <div class="datatable" style="margin-top:2px;">
@@ -348,64 +348,37 @@
 
       <div class="step" data-scene="registers">
         <div class="card">
-          <p class="num">01 &middot; The source material</p>
-          <h3>The same proof, three voices</h3>
-          <p>The same 48 propositions of Euclid's Book&nbsp;I survive in sharply different English. <strong>Heath</strong> (1908) is archaic and Victorian; <strong>Fitzpatrick</strong> (2007) is modern academic, naming its variables explicitly; <strong>Modern</strong> is a plain paraphrase.</p>
-          <p>They say the same things. So does the <em>register</em> change how well GPT-4o turns a proposition into Lean?</p>
-        </div>
-      </div>
-
-      <div class="step" data-scene="confound">
-        <div class="card">
-          <p class="num">02 &middot; The trap</p>
-          <h3>It looked like Fitzpatrick won</h3>
-          <p>An early run used one prompt template whose five worked examples were all in Fitzpatrick's style. Fitzpatrick text seemed to formalize best, beating Heath by <span class="stat">8.4 points</span> (<em>p</em>=0.008).</p>
-          <p>But that confounds two things: the Fitzpatrick translation also matched the <em>examples in the prompt</em>. Was it the register, or just input that looked like the demo?</p>
+          <p class="num">01 &middot; What we varied</p>
+          <h3>Two knobs: the wording, and the prompt</h3>
+          <p>The first knob is <strong>wording</strong>. The 48 propositions of Euclid's Book&nbsp;I survive in three sharply different English registers &mdash; <strong>Heath</strong> (1908, archaic), <strong>Fitzpatrick</strong> (2007, variables named explicitly), and a plain <strong>Modern</strong> paraphrase. Same math, three voices.</p>
+          <p>The second knob is the <strong>prompt</strong>: the style of the worked examples we show GPT-4o before asking it to translate. We built three of those too.</p>
         </div>
       </div>
 
       <div class="step" data-scene="grid-build">
         <div class="card">
-          <p class="num">03 &middot; The fix</p>
-          <h3>Cross every register with every prompt</h3>
-          <p>To pull the two apart, we crossed them: three translation registers &times; three prompt styles, fully counterbalanced. Every translation now faces every prompt.</p>
-          <p>A 3&times;3 design over 143 propositions &mdash; Book&nbsp;I plus 100 UniGeo theorems &mdash; for <span class="stat">2,653 runs</span> in all.</p>
+          <p class="num">02 &middot; The design</p>
+          <h3>Cross every wording with every prompt</h3>
+          <p>To tell the two knobs apart, we crossed them: three translation registers &times; three prompt styles, fully counterbalanced. Every translation faces every prompt.</p>
+          <p>That 3&times;3 grid shows GPT-4o's <strong>compile rate</strong> &mdash; how often the Lean it produces actually type-checks &mdash; over <span class="stat">2,653 runs</span>.</p>
         </div>
       </div>
 
       <div class="step" data-scene="grid-cols">
         <div class="card">
-          <p class="num">04 &middot; Read it down</p>
-          <h3>Fix the prompt &mdash; translation barely moves</h3>
-          <p>Hold a prompt style constant &mdash; read <em>down</em> a column &mdash; and the three translations land within a few points of each other. The register you feed in hardly matters.</p>
+          <p class="num">03 &middot; Read it down</p>
+          <h3>Change the wording &mdash; almost nothing happens</h3>
+          <p>Hold a prompt style constant &mdash; read <em>down</em> a column &mdash; and the three translations land within a few points of each other. The wording you feed in hardly matters.</p>
           <p>No significant effect (<em>p</em>=<span class="stat">0.603</span>).</p>
         </div>
       </div>
 
       <div class="step" data-scene="grid-rows">
         <div class="card">
-          <p class="num">05 &middot; Read it across</p>
-          <h3>Change the prompt &mdash; everything collapses</h3>
+          <p class="num">04 &middot; Read it across</p>
+          <h3>Change the prompt &mdash; the result collapses</h3>
           <p>Now read <em>across</em> a row. Swap the prompt style and the compile rate falls off a cliff &mdash; from <span class="stat">72.6%</span> with the best style to <span class="stat">48.4%</span> with the worst.</p>
-          <p>A 24-point swing (<em>p</em>&lt;0.001). The lever is the prompt, not the prose.</p>
-        </div>
-      </div>
-
-      <div class="step" data-scene="grid-reverse">
-        <div class="card">
-          <p class="num">06 &middot; The mirage, dispelled</p>
-          <h3>The original gap only existed in one column</h3>
-          <p>"Fitzpatrick wins" shows up <em>only</em> under Fitzpatrick-style prompts. Under Heath prompts it reverses (65.5% &gt; 60.0%), and under Modern prompts it reverses again.</p>
-          <p>On the 100 independent UniGeo theorems, Heath even beat Fitzpatrick by <span class="stat">6.2&nbsp;points</span> &mdash; the opposite of the first claim.</p>
-        </div>
-      </div>
-
-      <div class="step" data-scene="contam">
-        <div class="card">
-          <p class="num">07 &middot; The model that cheated</p>
-          <h3>One model scored highest on <em>no math at all</em></h3>
-          <p>We first tried a small local model, Qwen2.5-Coder-7B, on a Jetson Orin Nano. It had memorized the benchmark: its <em>best</em> compile rate came from feeding it nothing but "Proposition&nbsp;N."</p>
-          <p>Empty input beat full text. A clean model does the opposite &mdash; GPT-4o compiles <span class="stat">10%</span> from empty, <span class="stat">67.9%</span> from the real proof. So we dropped Qwen and ran everything on GPT-4o.</p>
+          <p>A 24-point swing (<em>p</em>&lt;0.001). The lever is how you ask, not the prose.</p>
         </div>
       </div>
 
@@ -417,47 +390,15 @@
     <p>How you <span class="accent">prompt</span> matters.<br>Which translation you feed in <span class="accent">does not</span>.</p>
   </div>
 
-  <!-- ================= THE STATISTICS ================= -->
-  <section class="prose">
-    <h2>The statistics, briefly</h2>
-    <p>A mixed-effects regression with proposition as a random intercept (<em>N</em>=2,653) confirms the picture: translation coefficients are tiny and not significant; prompt coefficients are large and significant. Adding prompt style improves fit by 99.5 AIC points; adding a prompt&times;translation interaction does not.</p>
-    <div class="datatable">
-      <table>
-        <caption>Mixed-effects model coefficients</caption>
-        <thead>
-          <tr><th>Predictor</th><th>Coef.</th><th>SE</th><th><em>p</em></th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Translation (Fitzpatrick vs. Heath)</td><td>+0.010</td><td>0.019</td><td>0.603</td></tr>
-          <tr><td>Translation (Modern vs. Heath)</td><td>+0.009</td><td>0.021</td><td>0.665</td></tr>
-          <tr><td>Prompt (Heath vs. Fitzpatrick)</td><td class="hi">&minus;0.097</td><td>0.022</td><td class="hi">&lt;0.001</td></tr>
-          <tr><td>Prompt (Modern vs. Fitzpatrick)</td><td class="hi">&minus;0.242</td><td>0.024</td><td class="hi">&lt;0.001</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="note" style="font-size:0.93rem;color:var(--muted);margin-top:0.8em;">A paired <em>t</em>-test on per-proposition rates (<em>N</em>=66, marginalized over prompt) leaves Heath and Fitzpatrick indistinguishable: 70.0% vs. 62.3%, <em>t</em>(65)=&minus;1.66, <em>p</em>=0.102, Cohen's <em>d</em>=&minus;0.20.</p>
-  </section>
-
   <!-- ================= MEANING ================= -->
   <section class="prose">
-    <h2>What this means in practice</h2>
-    <p>To use autoformalization on your own mathematics, the lever isn't cleaning up your prose &mdash; it's <strong>styling your few-shot examples to match how you write</strong>, especially whether they introduce variables explicitly.</p>
-    <p>Two methodological notes fall out. First, a single prompt template can manufacture a fake "wording" effect, so counterbalanced prompt designs should be the default. Second, the empty-input probe &mdash; does the model compile from just "Proposition&nbsp;N"? &mdash; is a cheap memorization check worth running before anyone reports autoformalization numbers.</p>
-  </section>
-
-  <!-- ================= LIMITS ================= -->
-  <section class="prose">
-    <h2>Honest limits</h2>
-    <ul>
-      <li><strong>One model.</strong> The counterbalanced results are GPT-4o only; the Qwen runs are void due to contamination. Prompt sensitivity may differ elsewhere.</li>
-      <li><strong>Compiling isn't being correct.</strong> Compile rates overstate real performance. On the semantically scored subset: 14% strict equivalence, 30% correct-direction. The 24-point prompt effect is measured on compilation, not correctness.</li>
-      <li><strong>Uneven cells.</strong> Fitzpatrick-prompt cells carry about 430 runs each; Heath and Modern prompt cells have 133&ndash;235. The model handles the imbalance, but precision varies.</li>
-      <li><strong>UniGeo, one prompt.</strong> The 100-theorem replication used only Fitzpatrick-style prompts, so it confirms the translation non-effect but not the prompt effect.</li>
-    </ul>
+    <h2>What this means</h2>
+    <p>To get autoformalization working on your own mathematics, the lever isn't cleaning up your prose &mdash; it's <strong>styling your few-shot examples to match how you write</strong>, especially whether they introduce variables explicitly.</p>
+    <p class="note" style="font-size:0.95rem;color:var(--muted);margin-top:0.9em;">These numbers are GPT-4o, on compilation rather than full semantic correctness. A small local model (Qwen2.5-Coder-7B) had memorized the benchmark &mdash; it compiled best from <em>empty</em> input &mdash; so the study controls for that and reports the clean model only. The full design, statistics, and caveats are in the&nbsp;PDF.</p>
   </section>
 
   <footer>
-    <p class="credits">Built on <a href="https://github.com/Zed-Rez/youklid">Youklid</a> and the <a href="https://github.com/loganrjmurphy/LeanEuclid">LeanEuclid</a> benchmark (Murphy et al., 2024). Contamination probe ran locally on a Jetson Orin Nano Super.</p>
+    <p class="credits">Built on <a href="https://github.com/Zed-Rez/youklid">Youklid</a> and the <a href="https://github.com/loganrjmurphy/LeanEuclid">LeanEuclid</a> benchmark (Murphy et al., 2024).</p>
     <p><a href="euclid.pdf">Download the full PDF paper</a> &middot; <a href="/#projects/autoform">&larr; back to projects</a></p>
   </footer>
 
@@ -476,13 +417,6 @@
     [76.3, 60.0, 45.9],   // Fitzpatrick translation
     [67.9, 65.5, 52.6],   // Heath translation
     [73.5, 63.2, 46.8]    // Modern translation
-  ];
-  // contamination probe (Qwen) + GPT-4o reference
-  var contam = [
-    {label:"Full Heath text",   v:60.5},
-    {label:'Empty ("Prop. N")', v:62.8, hi:true},
-    {label:"Garbled vocab",     v:60.5},
-    {label:"Shuffled clauses",  v:60.5}
   ];
 
   /* ---------- color ramp for compile rate (oxblood ↔ cool) ---------- */
@@ -582,14 +516,6 @@
     rowSweep.appendChild(txt(padL + avail/2, H-30, "annot", "across a row · changing prompt → 72.6% → 48.4% collapse (p < 0.001)", {"text-anchor":"middle"}));
     svg.appendChild(rowSweep);
 
-    // reverse-callout: ring the Fitz-prompt column + note reversals
-    var revSweep=el("g",{"class":"sweep","id":"revSweep"});
-    var col0x=gridX0-3;
-    revSweep.appendChild(el("rect",{x:col0x,y:gridY0-3,width:cellW+6,height:3*cellH+2*gap+6,rx:4,fill:"none",stroke:"var(--accent)","stroke-width":1.6}));
-    revSweep.appendChild(txt(gridX0+cellW/2, gridY0-26, "annot", "the only column", {"text-anchor":"middle"}));
-    revSweep.appendChild(txt(padL + avail/2, H-30, "annot-muted", "“Fitzpatrick wins” lives here alone — it reverses in the other two columns", {"text-anchor":"middle"}));
-    svg.appendChild(revSweep);
-
     // arrowhead marker
     var defs=el("defs");
     var m=el("marker",{id:"arr",viewBox:"0 0 8 8",refX:6,refY:4,markerWidth:6,markerHeight:6,orient:"auto"});
@@ -634,63 +560,6 @@
     return svg;
   }
 
-  /* ================= CONFOUND SCENE ================= */
-  function buildConfound(){
-    var w=440,h=400;
-    var svg=el("svg",{viewBox:"0 0 "+w+" "+h,role:"img","aria-label":"Early result: Fitzpatrick appeared to beat Heath by 8.4 points, but the prompt's examples were all Fitzpatrick-style — a confound."});
-    // two bars: Fitz 76.3 vs Heath 67.9 (early single-prompt look)
-    var base=300, maxH=210, x0=130, bw=80, gap=60;
-    var data=[{l:"Fitzpatrick",v:76.3,hi:true},{l:"Heath",v:67.9}];
-    svg.appendChild(txt(w/2,40,"axis-strong","The early, single-prompt result",{"text-anchor":"middle"}));
-    for(var i=0;i<2;i++){
-      var x=x0 + i*(bw+gap);
-      var bh=maxH*(data[i].v/85);
-      svg.appendChild(el("rect",{x:x,y:base-bh,width:bw,height:bh,rx:3,fill:data[i].hi?"var(--accent)":"#c9d2ce","class":"fade"}));
-      svg.appendChild(txt(x+bw/2,base-bh-8,"cellval dark",data[i].v.toFixed(1)+"%",{"text-anchor":"middle"}));
-      svg.appendChild(txt(x+bw/2,base+20,"tick",data[i].l,{"text-anchor":"middle"}));
-    }
-    // gap bracket
-    var bx0=x0+bw/2, bx1=x0+bw+gap+bw/2;
-    svg.appendChild(txt(w/2,base+52,"annot","+8.4 pts  (p = 0.008)",{"text-anchor":"middle"}));
-    // confound caption
-    svg.appendChild(txt(w/2,base+86,"annot-muted","…but all 5 prompt examples were Fitzpatrick-style.",{"text-anchor":"middle"}));
-    svg.appendChild(txt(w/2,base+106,"annot-muted","Register, or just matching the demo?",{"text-anchor":"middle","font-weight":"600"}));
-    return svg;
-  }
-
-  /* ================= CONTAMINATION SCENE ================= */
-  function buildContam(){
-    var w=440,h=400;
-    var svg=el("svg",{viewBox:"0 0 "+w+" "+h,role:"img","aria-label":"Contamination probe: Qwen2.5-Coder-7B compiles 60–63% from full text, empty input, garbled vocab, and shuffled clauses alike — empty input scores highest."});
-    svg.appendChild(txt(20,34,"axis-strong","Qwen — compile rate by input",{}));
-    svg.appendChild(txt(20,52,"annot-muted","empty input scores highest → memorized, not reading",{"font-size":"12px"}));
-    var x0=150, top=78, rowH=44, gap=14, maxW=240, scaleMax=70;
-    for(var i=0;i<contam.length;i++){
-      var y=top + i*(rowH+gap);
-      svg.appendChild(txt(140,y+rowH/2+4,"tick",contam[i].label,{"text-anchor":"end"}));
-      // track
-      svg.appendChild(el("rect",{x:x0,y:y,width:maxW,height:rowH,rx:3,fill:"#f0ece2"}));
-      var bw=maxW*(contam[i].v/scaleMax);
-      svg.appendChild(el("rect",{x:x0,y:y,width:bw,height:rowH,rx:3,fill:contam[i].hi?"var(--accent)":"#bcb6aa","class":"barfill"}));
-      svg.appendChild(txt(x0+bw-8,y+rowH/2+5,"cellval",contam[i].v.toFixed(1)+"%",{"text-anchor":"end"}));
-    }
-    // GPT-4o reference line
-    var refY=top + 4*(rowH+gap) + 14;
-    svg.appendChild(el("line",{x1:20,y1:refY,x2:w-20,y2:refY,stroke:"var(--rule)","stroke-width":1}));
-    svg.appendChild(txt(20,refY+26,"axis-strong","GPT-4o (clean), for contrast",{}));
-    var ry=refY+40;
-    var ref=[{l:"Empty input",v:10},{l:"Full proof",v:67.9,hi:true}];
-    for(var j=0;j<2;j++){
-      var yy=ry + j*30;
-      svg.appendChild(txt(140,yy+12,"tick",ref[j].l,{"text-anchor":"end"}));
-      svg.appendChild(el("rect",{x:x0,y:yy,width:maxW,height:18,rx:3,fill:"#f0ece2"}));
-      var bw2=maxW*(ref[j].v/scaleMax);
-      svg.appendChild(el("rect",{x:x0,y:yy,width:bw2,height:18,rx:3,fill:ref[j].hi?"var(--accent-soft)":"#cdc8bd","class":"barfill"}));
-      svg.appendChild(txt(x0+bw2+6,yy+13,"tick",ref[j].v.toFixed(ref[j].v%1?1:0)+"%",{}));
-    }
-    return svg;
-  }
-
   /* ---------- scene controller ---------- */
   var stage = {
     title: document.getElementById("stageTitle"),
@@ -704,37 +573,24 @@
     return gridSVG;
   }
   function setSweep(id){
-    ["colSweep","rowSweep","revSweep"].forEach(function(s){
+    ["colSweep","rowSweep"].forEach(function(s){
       var n=gridSVG && gridSVG.querySelector("#"+s);
       if(n) n.classList.toggle("on", s===id);
     });
   }
-  function dimGrid(mode){
+  function dimGrid(){
     if(!gridSVG) return;
     var rects=gridSVG.querySelectorAll(".cellrect");
     var vals=gridSVG.querySelectorAll(".cellval");
-    rects.forEach(function(rc){
-      var r=+rc.getAttribute("data-r"), c=+rc.getAttribute("data-c");
-      var on=true;
-      if(mode==="reverse") on = (c===0); // emphasise fitz-prompt column
-      rc.style.opacity = on?1:0.28;
-    });
-    vals.forEach(function(v){
-      var c=+v.getAttribute("data-c");
-      var on=true;
-      if(mode==="reverse") on=(c===0);
-      v.style.opacity= on?1:0.25;
-    });
+    rects.forEach(function(rc){ rc.style.opacity=1; });
+    vals.forEach(function(v){ v.style.opacity=1; });
   }
 
   var SCENES={
-    registers:{t:"Three translations, one geometry",s:"The same 48 propositions, in three voices.",render:function(){stage.body.replaceChildren(buildRegisters());}},
-    confound:{t:"The early result",s:"One prompt template — and a hidden confound.",render:function(){stage.body.replaceChildren(buildConfound());}},
-    "grid-build":{t:"Compile rate · GPT-4o · Book I",s:"3 translations × 3 prompt styles, counterbalanced.",render:function(){var g=ensureGrid();stage.body.replaceChildren(g);setSweep(null);dimGrid(null);animateGridIn();}},
-    "grid-cols":{t:"Compile rate · GPT-4o · Book I",s:"Read DOWN a column: prompt fixed, translation varies.",render:function(){var g=ensureGrid();stage.body.replaceChildren(g);dimGrid(null);setSweep("colSweep");}},
-    "grid-rows":{t:"Compile rate · GPT-4o · Book I",s:"Read ACROSS a row: prompt changes, rate collapses.",render:function(){var g=ensureGrid();stage.body.replaceChildren(g);dimGrid(null);setSweep("rowSweep");}},
-    "grid-reverse":{t:"Compile rate · GPT-4o · Book I",s:"The “Fitzpatrick wins” gap lives in one column.",render:function(){var g=ensureGrid();stage.body.replaceChildren(g);setSweep("revSweep");dimGrid("reverse");}},
-    contam:{t:"Contamination probe",s:"Qwen2.5-Coder-7B on a Jetson Orin Nano.",render:function(){stage.body.replaceChildren(buildContam());}}
+    registers:{t:"Two knobs, one geometry",s:"Wording (three translations) vs. how you ask (three prompts).",render:function(){stage.body.replaceChildren(buildRegisters());}},
+    "grid-build":{t:"Compile rate · GPT-4o · Book I",s:"3 translations × 3 prompt styles, counterbalanced.",render:function(){var g=ensureGrid();stage.body.replaceChildren(g);setSweep(null);dimGrid();animateGridIn();}},
+    "grid-cols":{t:"Compile rate · GPT-4o · Book I",s:"Read DOWN a column: prompt fixed, wording varies.",render:function(){var g=ensureGrid();stage.body.replaceChildren(g);dimGrid();setSweep("colSweep");}},
+    "grid-rows":{t:"Compile rate · GPT-4o · Book I",s:"Read ACROSS a row: prompt changes, rate collapses.",render:function(){var g=ensureGrid();stage.body.replaceChildren(g);dimGrid();setSweep("rowSweep");}}
   };
 
   function animateGridIn(){
