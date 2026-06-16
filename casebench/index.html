@@ -1,85 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>CASE-Bench — Reza Ramji</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CASE-Bench — Reza Ramji</title>
+  <meta name="description" content="CASE-Bench: a feasibility-constrained business-ideation benchmark for LLMs.">
+  <link rel="canonical" href="https://rezaramji.com/casebench/">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site.css">
   <style>
-    :root { --ink: #2b2b2b; --muted: #6b6660; --accent: #7a1f1f; --bg: #faf8f3; --rule: #e6e1d8; }
-    html { -webkit-text-size-adjust: 100%; }
-    body {
-      font-family: 'EB Garamond', Garamond, Georgia, serif;
-      color: var(--ink); background: var(--bg);
-      max-width: 46rem; margin: 0 auto; padding: 3rem 1.25rem 4rem;
-      font-size: 1.18rem; line-height: 1.55;
-    }
-    h1 { font-size: 2.1rem; font-weight: 600; margin: 0 0 .15rem; letter-spacing: .2px; }
-    .sub { color: var(--muted); font-style: italic; margin: 0 0 1.6rem; }
-    p { margin: 0 0 1rem; }
-    a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(122,31,31,.28); }
-    a:hover { border-bottom-color: var(--accent); }
-    figure { margin: 1.8rem 0; }
-    figure img { width: 100%; height: auto; display: block; }
-    figcaption { color: var(--muted); font-style: italic; font-size: .98rem; margin-top: .5rem; }
-    h2 { font-size: 1.05rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px;
-         color: var(--muted); margin: 2rem 0 .5rem; }
-    ul { margin: 0 0 1rem; padding-left: 1.2rem; }
-    li { margin: 0 0 .35rem; }
-    code { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: .86em;
-           background: #f1ece2; padding: .08em .35em; border-radius: 3px; }
-    .rule { border: none; border-top: 1px solid var(--rule); margin: 2.4rem 0 1.4rem; }
-    .back { color: var(--muted); border: none; }
+    .sub { color: var(--muted); font-style: italic; margin: -.1rem 0 1.4rem; font-size: 1.12rem; }
+    figure { margin: 2rem 0; }
+    figure img { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 2px; }
+    figcaption { color: var(--muted); font-style: italic; font-size: .98rem; margin-top: .6rem; }
+    main ul { margin: .6rem 0 1rem; padding-left: 1.2rem; }
+    main ul li { margin: 0 0 .5rem; }
+    em { font-style: italic; }
   </style>
 </head>
 <body>
-  <h1>CASE-Bench</h1>
-  <p class="sub">A feasibility-constrained business-ideation benchmark for LLMs.</p>
 
-  <p>LLMs tend to fail at idea generation in two ways: bland textbook answers, and
-  impressive-sounding proposals that fall apart on contact with reality. CASE-Bench
-  measures the capability that matters in practice — generating solutions to a real
-  business problem that are <em>feasible</em>, <em>high-impact</em>, and
-  <em>original</em> — and separately reports how far a model's ideas explore beyond
-  the known playbook, without letting exploration masquerade as quality.</p>
+  <header class="site">
+    <div class="bar">
+      <a class="brand" href="/">Reza Ramji</a>
+      <nav class="top">
+        <a href="/">home</a>
+        <a href="/projects/" class="active">projects</a>
+        <a href="/writing/">writing</a>
+        <a href="/links/">links</a>
+      </nav>
+    </div>
+  </header>
 
-  <p>Each of 16 cases pairs a constrained business problem with a curated set of
-  reference solutions (each tagged with its core mechanism). A model proposes ideas
-  without seeing the references; a fixed panel of judges rates every idea on
-  feasibility, impact, and originality, and a portfolio-diversity diagnostic measures
-  how varied each model's slate is.</p>
+  <main class="wrap">
+    <h1>CASE-Bench</h1>
+    <p class="sub">A feasibility-constrained business-ideation benchmark for LLMs.</p>
 
-  <figure>
-    <img src="quality_ci.png"
-         alt="Dot-and-whisker chart: Idea Quality with 95% CIs — Sonnet 4.6 at 59.3 (CI 57.3–61.4) clearly above Haiku 4.5 at 52.9 (CI 50.6–55.4), non-overlapping; and Portfolio Diversity where the two models tie with overlapping CIs around 94.">
-    <figcaption>Canonical run: 16 cases × 3 samples, judged by a disjoint Opus panel,
-    with 95&nbsp;% bootstrap confidence intervals. Sonnet 4.6 leads on Idea Quality with
-    non-overlapping CIs (Δ&nbsp;6.3, paired-bootstrap p≈0.0005); the two models tie on the
-    diversity diagnostic. Figure rendered directly from the benchmark's output, not drawn
-    by hand.</figcaption>
-  </figure>
+    <p>LLMs tend to fail at idea generation in two ways: bland textbook answers, and
+    impressive-sounding proposals that fall apart on contact with reality. CASE-Bench
+    measures the capability that matters in practice — generating solutions to a real
+    business problem that are <em>feasible</em>, <em>high-impact</em>, and
+    <em>original</em> — and separately reports how far a model's ideas explore beyond
+    the known playbook, without letting exploration masquerade as quality.</p>
 
-  <h2>What makes it trustworthy</h2>
-  <ul>
-    <li><strong>Quality can't be gamed by novelty.</strong> The headline score is
-    feasibility-gated impact + originality; reference-overlap is a separate diagnostic,
-    never a quality signal — so a model that dominates on the real axes can't be
-    out-ranked by one that merely sounds different.</li>
-    <li><strong>Statistics, not vibes.</strong> Multiple samples, bootstrap confidence
-    intervals, and a paired-difference significance test; rankings whose intervals
-    overlap are reported as ties.</li>
-    <li><strong>The judge is audited, not assumed.</strong> A multi-model judge panel
-    with inter-rater agreement, a self-preference check (the canonical board uses judges
-    disjoint from the candidates), an independent novelty cross-check, an
-    internal-contradiction audit, and a judge-vs-human gold harness.</li>
-    <li><strong>Hardened.</strong> Five rounds of adversarial review fixed inversions,
-    reward hacks, and validity gaps before release; 31 tests lock the invariants in.</li>
-  </ul>
+    <p>Each of 16 cases pairs a constrained business problem with a curated set of
+    reference solutions (each tagged with its core mechanism). A model proposes ideas
+    without seeing the references; a fixed panel of judges rates every idea on
+    feasibility, impact, and originality, and a portfolio-diversity diagnostic measures
+    how varied each model's slate is.</p>
 
-  <hr class="rule">
-  <p>Open source (MIT): <a href="https://github.com/Zed-Rez/casebench">github.com/Zed-Rez/casebench</a></p>
-  <p><a class="back" href="/">← back</a></p>
+    <figure>
+      <img src="quality_ci.png"
+           alt="Dot-and-whisker chart: Idea Quality with 95% CIs — Sonnet 4.6 at 59.3 (CI 57.3–61.4) clearly above Haiku 4.5 at 52.9 (CI 50.6–55.4), non-overlapping; and Portfolio Diversity where the two models tie with overlapping CIs around 94.">
+      <figcaption>Canonical run: 16 cases × 3 samples, judged by a disjoint Opus panel,
+      with 95&nbsp;% bootstrap confidence intervals. Sonnet 4.6 leads on Idea Quality with
+      non-overlapping CIs (Δ&nbsp;6.3, paired-bootstrap p≈0.0005); the two models tie on the
+      diversity diagnostic. Figure rendered directly from the benchmark's output, not drawn
+      by hand.</figcaption>
+    </figure>
+
+    <h2>What makes it trustworthy</h2>
+    <ul>
+      <li><strong>Quality can't be gamed by novelty.</strong> The headline score is
+      feasibility-gated impact + originality; reference-overlap is a separate diagnostic,
+      never a quality signal — so a model that dominates on the real axes can't be
+      out-ranked by one that merely sounds different.</li>
+      <li><strong>Statistics, not vibes.</strong> Multiple samples, bootstrap confidence
+      intervals, and a paired-difference significance test; rankings whose intervals
+      overlap are reported as ties.</li>
+      <li><strong>The judge is audited, not assumed.</strong> A multi-model judge panel
+      with inter-rater agreement, a self-preference check (the canonical board uses judges
+      disjoint from the candidates), an independent novelty cross-check, an
+      internal-contradiction audit, and a judge-vs-human gold harness.</li>
+      <li><strong>Hardened.</strong> Five rounds of adversarial review fixed inversions,
+      reward hacks, and validity gaps before release; 31 tests lock the invariants in.</li>
+    </ul>
+
+    <p style="margin-top:1.6rem">Open source (MIT): <a href="https://github.com/Zed-Rez/casebench">github.com/Zed-Rez/casebench</a> · <a href="/projects/">← projects</a></p>
+  </main>
+
 </body>
 </html>

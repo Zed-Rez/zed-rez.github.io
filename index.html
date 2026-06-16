@@ -6,7 +6,7 @@
   <title>Reza Ramji</title>
   <meta name="description" content="Reza Ramji is a Princeton undergraduate studying Classics and Math, with research interests in Numismatics and machine learning.">
   <link rel="canonical" href="https://rezaramji.com/">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <meta property="og:title" content="Reza Ramji — Princeton Classics & Math">
   <meta property="og:description" content="Princeton Classics undergraduate. Numismatics, Classical Literature, Math, ML, AI.">
   <meta property="og:image" content="https://rezaramji.com/og-image.jpg">
@@ -17,11 +17,9 @@
   <meta name="twitter:image" content="https://rezaramji.com/og-image.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
-  <style>
-    body { margin: 1em; font-family: 'EB Garamond', Garamond, Georgia, serif; }
-  </style>
-    <script type="application/ld+json">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site.css">
+  <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -40,62 +38,30 @@
 </head>
 <body>
 
-  <h1>Reza Ramji</h1>
-  <p><img src="reza.webp" alt="Reza Ramji" width="300" height="332"></p>
- <section>
-  <p> Hi! I'm Reza and I'm interested in ancient history, math, historical monetary policy, numismatics, and machine learning; currently an undergrad @ Princeton classics</p>
-  <p>contact me: <a href="https://linkedin.com/in/rezaramji">linkedin</a> or rezaramji@princeton.edu</p>
- </section>
-  <hr>
-  <section>
-    <h2>Selected Projects</h2>
-      <h3>Working on...</h3>
-      <p>Independent research project for Princeton University Library focusing on semi-automatic recognition of ancient coins (please contact me if you know how to design custom OCR systems, are interested in numismatics and ML, or have any ideas on machine learning in small datasets)
-     </p>
-    <h3>Autoverification of Euclid's elements</h3>
-  <p>I started with <a href="/youklid/">Youklid</a> [<a href="https://github.com/Zed-Rez/youklid">github</a>], an attempt to find some new mappings of ideas in Euclid's Elements & test using AI on verification of mathematical steps in parallel. </p>
-  <p>Recently, extended this with lean using <a href="https://github.com/loganrjmurphy/LeanEuclid">Murphy et alia's lean euclid</a> to test translation autoformalization locally using Qwen2.5-Coder-7B-Instruct on an orin nano super (however, memorization forced me to use GPT-4o instead;
-    Interestingly, while translation choice did not show a statistically significant difference, prompting choices were (id est, providing autoformalization exempla in the correct translation in the prompt).
-    Probably this suggests mathematicians hoping to utilize autoformalization in their own writing, especially with small models, should 'lean' some of their work manually so compiling agents can adapt to their writing style. I also have a <a href="/euclid/"> longer form explanation</a> for the interested. </p>
-    <p><b>Thinking of pushing this further with a two-step proof generation system: a powerful foundational model + cheaper autoformalizer prompted with human-checked runs of the foundational model's work, which would (I hypothesize) allow the analysis of a large model with some of the cost savings of a lightweight framework, or alternatively finetuning of deepseek-prover-v2 to lean in a specific bench(putnam?)</b>
-  </p>
-    <h3>language model testing & refining</h3>
-      <p>I  made this <a href="/lleval/">llm-eval</a> [<a href="https://github.com/Zed-Rez/llmeval">source</a>] A/B benchmarking harness for LLMs to verify <a href="https://arxiv.org/abs/2512.14982">this paper</a>(seems to still work on newer models, especially the picking from list of names benchmark).
-    I then also tested an <a href="/logion/">improvement to Princeton's Logion</a> [<a href="https://github.com/Zed-Rez/logion-wlev">source</a>], adding weighted Levenshtein, rather than treating all typos by simply character length. Statistically significant superiority under testing of Photius's Bibliotheca,<b> could in the future retrain the system with this weighting in mind for an even more accurate model</b>
-        </p>
-    <h3>Data Visualization & AI assisted data cleaning</h3>
-    Made <a href="/EdgarVis/">EdgarVis</a> [<a href="https://github.com/Zed-Rez/EDGARVis">source</a>] a 3D UMAP of the US public equity from SEC EDGAR 10-K filings; ~12k companies × 17 years; highly recommend the die by the search bar to find odd companies.
-   <p>Needed a more accessible way to see transaction data, so built <a href="/chain/">Chain audio</a> — real-time sonification of USDC transfers across Ethereum, Polygon, Arbitrum, Optimism, Base, and Avalanche; inspired by <a href="https://listen.hatnote.com/">this</a></p>
-   <p>Also built an <a href="https://github.com/Zed-Rez/mcp-ingest">MCP ingest pipeline</a> for Claude Code — parallel async agents with prompt caching; 89% cost reduction vs. separate subprocesses.</p>
-  </section>
-  <hr>
-<!-- 
-  <section>
-    <h2>writings</h2>
-If someone is looking at this please let me on arXive...
-  TO ADD: 
-  -Augustan bronze coinage and provincial military policy (perhaps submit for conferacne publication) 
-  -that one paper in pyrophos 2025
--maybe if the logion extension goes somewhere I could add that...?
-- that one paper about empire or whatever 
-  - i should do some math themed writing soon...
-  </section>
-  <hr>
-  <section>
-  -->
-    <h2>See Also</h2>
-    <ul>
-      <li><a href="https://alexbronzini.com/">Alex</a> — newspaper boy</li>
-      <li><a href="https://nathanmyers.co/">Nate</a> — a photographer primarily</li>
-      <li><a href="https://www.dailyprincetonian.com/article/2025/11/princeton-features-retrospective-numismatic-collection-touching-history">me</a> – in the newspaper!</li>
-      <li><a href="https://en.wikipedia.org/wiki/Wojtek_(bear)">wojtek</a> – the bear</li>
-      <li><a href="https://proofwiki.org/wiki/ProofWiki:Jokes">math jokes</a> – wonderous to behold</li>
-      <li><a href="https://emilka.xyz/">Emilka</a> — she love Poland</li>
-      <li><a href="https://misut.net/home.html">Julian</a> – a philosopher i met once</li>
-    </ul>
-  <p>icon is this coin from Princeton's collection: the reverse of a Hadrian denarius showing Roma holding victory</p>
-    <p><img src="coin-reverse.webp" alt="Reverse of a Hadrian denarius showing a seated figure, legend P M TR P COS III" width="75" height="70"></p>
-  </section>
+  <header class="site">
+    <div class="bar">
+      <a class="brand" href="/">Reza Ramji</a>
+      <nav class="top">
+        <a href="/" class="active">home</a>
+        <a href="/projects/">projects</a>
+        <a href="/writing/">writing</a>
+        <a href="/links/">links</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1>Reza Ramji</h1>
+    <p><img class="portrait" src="/reza.webp" alt="Reza Ramji" width="300" height="332"></p>
+
+    <p class="lede">Hi! I'm Reza and I'm interested in ancient history, math, historical monetary policy, numismatics, and machine learning; currently an undergrad @ Princeton classics</p>
+    <p>contact me: <a href="https://linkedin.com/in/rezaramji">linkedin</a> or rezaramji@princeton.edu</p>
+
+    <h2>Working on...</h2>
+    <p>Independent research project for Princeton University Library focusing on semi-automatic recognition of ancient coins (please contact me if you know how to design custom OCR systems, are interested in numismatics and ML, or have any ideas on machine learning in small datasets)</p>
+
+    <p class="muted" style="margin-top:1.6rem">More of what I've built is over on <a href="/projects/">projects</a>.</p>
+  </main>
 
 </body>
 </html>
