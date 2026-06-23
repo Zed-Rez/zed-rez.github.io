@@ -49,7 +49,7 @@
     <section class="page" id="home">
       <p><img class="portrait" src="/reza.webp" alt="Reza Ramji" width="300" height="332"></p>
       <h1>Reza Ramji</h1>
-      <p>Hi I'm Reza and I'm interested in ancient history, math, historical monetary policy, numismatics, and machine learning; currently an undergrad @ princeton classics</p>
+      <p>Hi! I'm Reza, and I'm interested in ancient history, math, historical monetary policy, numismatics, and machine learning; currently an undergrad @ princeton classics</p>
       <p>Reach me at <a href="mailto:rezaramji@princeton.edu">rezaramji@princeton.edu</a> or on <a href="https://linkedin.com/in/rezaramji">LinkedIn</a>.</p>
     </section>
 
@@ -75,43 +75,46 @@
       </div>
 
       <div class="panel" id="lm">
+    
         <div class="proj">
-          <div class="proj-row"><h3>CASE-Bench</h3><span class="src"><a href="/casebench/">read</a> · <a href="https://github.com/Zed-Rez/casebench">source</a></span></div>
-          <p>A benchmark for whether a language model can propose business ideas that are actually feasible — not just the safe, obvious ones. Each idea is scored by a panel of model judges on feasibility, impact, and originality, with bootstrap confidence intervals and a check that judges don't simply favor their own outputs.</p>
+          <div class="proj-row"><h3>Logion with weighted Levenshtein</h3><span class="src"><a href="/logion/">read</a> · <a href="/logion/logion.pdf">PDF</a> · <a href="https://github.com/Zed-Rez/logion-wlev">source</a></span></div>
+          <p>Princeton's Logion suggests restorations for damaged ancient Greek texts; however, it treats every letter swap as equally likely. I tested an improvement swap based on how easily scribes would actually confuse letters. This improvement performed significantly better in a short test on Photius.</p>
         </div>
         <div class="proj">
-          <div class="proj-row"><h3>Logion + weighted Levenshtein</h3><span class="src"><a href="/logion/">read</a> · <a href="/logion/logion.pdf">PDF</a> · <a href="https://github.com/Zed-Rez/logion-wlev">source</a></span></div>
-          <p>Princeton's Logion suggests restorations for missing or garbled words in damaged ancient Greek. It ranked candidates by plain edit distance, treating every letter swap as equally likely; this weights swaps by how easily letters are actually confused — by sound or shape — which matches how scribes really err, and does measurably better on a test over Photius.</p>
+          <div class="proj-row"><h3>CASE-Bench</h3><span class="src"><a href="/casebench/">read</a> · <a href="https://github.com/Zed-Rez/casebench">source</a></span></div>
+          <p>A benchmark for whether a language model can propose creative good ideas. Each idea is scored by a panel of model judges on feasibility, impact, and originality. The benchmark is based on consulting prep cases because they were readily available and included pre-scored, uncreative/basic ideas.</p>
         </div>
         <div class="proj">
           <div class="proj-row"><h3>llm-eval</h3><span class="src"><a href="https://github.com/Zed-Rez/llmeval">source</a></span></div>
-          <p>A small A/B harness for comparing language models across providers, built to re-test <a href="https://arxiv.org/abs/2512.14982">a paper's claim</a> about how models recall names from a list — which still holds up on current models.</p>
+          <p>A small A/B harness for comparing language models across providers, built to verify <a href="https://arxiv.org/abs/2512.14982">this paper</a>, which still seems to work.</p>
         </div>
       </div>
 
       <div class="panel" id="data">
         <div class="proj">
           <div class="proj-row"><h3>EdgarVis</h3><span class="src"><a href="/EdgarVis/">open</a> · <a href="https://github.com/Zed-Rez/EDGARVis">source</a></span></div>
-          <p>A 3D map of US public companies built from ~17 years of SEC 10-K filings (~12k companies), placed by how their business descriptions cluster. Roll the die next to the search bar to drop onto a strange one.</p>
+          <p>A 3D map of US public companies built from ~17 years of public SEC 10-K filings (~12k companies), built to visualize interesting clustering patterns and aberrations in businesses. Highly recommend rolling the dice next to the search bar to find outlier/interesting companies and the insights subpage for a more traditional set of visualizations.</p>
         </div>
         <div class="proj">
           <div class="proj-row"><h3>Chain audio</h3><span class="src"><a href="/chain/">open</a></span></div>
-          <p>Live USDC transfers across nine blockchains, turned into sound the moment they settle — a way to hear on-chain activity instead of reading it.</p>
-        </div>
-        <div class="proj">
-          <div class="proj-row"><h3>EdgarInsights</h3><span class="src"><a href="/EdgarInsights/">open</a></span></div>
-          <p>The same SEC filing data as a flat, readable dashboard — broken out by metric and year, with short notes on what stands out.</p>
+          <p>Live USDC transfers across nine blockchains, turned into sound. Inspired by <a href="https://listen.hatnote.com/">listen to wikipedia</a>, a new and more natural way to understand this data.</p>
         </div>
         <div class="proj">
           <div class="proj-row"><h3>MCP ingest</h3><span class="src"><a href="https://github.com/Zed-Rez/mcp-ingest">source</a></span></div>
-          <p>A bulk-ingest tool for Claude Code that runs document agents in parallel with prompt caching — about 89% cheaper than running them one at a time.</p>
+          <p>A bulk-ingest tool for Claude Code that runs document search agents in parallel with prompt caching; testing showed 89% cheaper than running as subagents within a Claude Code session.</p>
         </div>
       </div>
     </section>
 
     <section class="page" id="writing">
       <h1>Writing</h1>
-      <p class="muted">Some essays on numismatics, monetary history, and math are on the way.</p>
+     <div class="essay">
+    <h3>Freedom in Thucydidean Athens and Sparta</h3> 
+    <p></p>
+     </div>
+      <div class ="essay">
+        
+      </div>
     </section>
 
     <section class="page" id="seealso">
