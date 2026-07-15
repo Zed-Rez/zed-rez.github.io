@@ -14,13 +14,13 @@
   <style>
     #bar { display: flex; gap: .6rem; margin: 1.4rem 0 .35rem; }
     #inp { flex: 1; font: inherit; font-size: 16px; padding: .45rem .6rem; border: 1px solid rgba(0,0,0,.25); border-radius: 6px; background: #fff; color: var(--ink); min-width: 0; }
-    #die { font: inherit; font-size: 20px; line-height: 1; padding: .45rem .8rem; min-height: 40px; min-width: 48px; border: 1px solid rgba(0,0,0,.25); border-radius: 6px; background: #fff; cursor: pointer; }
+    #die { font: inherit; font-size: 20px; line-height: 1; padding: .45rem .8rem; min-height: 40px; min-width: 48px; border: 1px solid rgba(0,0,0,.25); border-radius: 6px; background: #fff; cursor: pointer; transition: color .25s, border-color .25s; }
     #die:hover { border-color: var(--accent); }
-    #die:disabled { opacity: .5; cursor: default; }
     #flag { color: var(--accent); font-style: italic; min-height: 1.3em; margin: 0; }
     .fine { color: var(--muted); margin: .1rem 0 1.2rem; }
     #out { list-style: none; padding: 0; margin: .8rem 0; }
-    #out li { font-size: 1.25rem; margin: .35rem 0; }
+    #out li { font-size: 1.25rem; margin: .35rem 0; cursor: pointer; }
+    #out li:hover { color: var(--accent); }
   </style>
 </head>
 <body>
@@ -114,11 +114,36 @@
       }
       return linear(x, sd.lm_head);
     }
+    let charId = {};
+    // avg surprisal (nats/char) of the typed text under the model
+    function surprisal(prefix) {
+      const BOS = M.uchars.length;
+      const keys = [], values = [];
+      for (let i = 0; i < M.n_layer; i++) { keys.push([]); values.push([]); }
+      let tok = BOS, total = 0, n = 0;
+      for (let pos = 0; pos < Math.min(prefix.length, M.block_size); pos++) {
+        const probs = softmax(gpt(tok, pos, keys, values));
+        const id = charId[prefix[pos]];
+        total += -Math.log(probs[id] + 1e-12);
+        n++;
+        tok = id;
+      }
+      return n ? total / n : null;
+    }
+    function tintDie() {
+      const key = cleanKey(inp.value);
+      if (!M || !key) { die.style.color = ''; die.style.borderColor = ''; die.title = 'roll'; return; }
+      const s = surprisal(key);
+      const t = Math.max(0, Math.min(1, (s - 1.2) / 3));   // ~1.2 nats (basic) -> 4.2 (novel)
+      const col = 'hsl(' + Math.round(120 * t) + ', 55%, 36%)'; // red = basic, green = novel
+      die.style.color = col;
+      die.style.borderColor = col;
+      die.title = 'roll — input surprisal ' + s.toFixed(2) + ' nats/char';
+    }
+
     // generate a name, optionally continuing a typed prefix
     function generate(prefix, temperature) {
       const BOS = M.uchars.length;
-      const charId = {};
-      M.uchars.forEach((c, i) => charId[c] = i);
       const keys = [], values = [];
       for (let i = 0; i < M.n_layer; i++) { keys.push([]); values.push([]); }
       const toks = [BOS]; // start token always precedes whatever came from the textbox
@@ -198,14 +223,35 @@
       for (const p of picked) {
         const li = document.createElement('li');
         li.textContent = dress(p);
+        li.dataset.raw = p;
         out.appendChild(li);
       }
     }
 
+    // clicking an idea sends it to the search bar
+    out.addEventListener('click', e => {
+      const li = e.target.closest('li');
+      if (!li || !li.dataset.raw) return;
+      inp.value = li.dataset.raw;
+      inp.focus();
+      updateFlag();
+      tintDie();
+      regen();
+    });
+
+    function updateFlag() {
+      const key = cleanKey(inp.value);
+      if (!key || !index) { flag.innerHTML = ''; return; }
+      // quoted-name search, minus dictionary noise, to vet existing associations
+      const q = encodeURIComponent('"' + key + '" -definition -define -dictionary -meaning -thesaurus -wiktionary');
+      const link = '<a href="https://www.google.com/search?q=' + q + '" target="_blank" rel="noopener">google &ldquo;' + key + '&rdquo;</a>';
+      flag.innerHTML = (index.has(key) ? '⚑ already exists &middot; ' : '') + link;
+    }
+
     let deb;
     inp.addEventListener('input', () => {
-      const key = cleanKey(inp.value);
-      flag.textContent = (key && index && index.has(key)) ? '⚑ already exists' : '';
+      updateFlag();
+      tintDie();
       clearTimeout(deb);
       deb = setTimeout(regen, 150);
     });
@@ -218,6 +264,7 @@
       fetch('terms.json').then(r => r.json()),
     ]).then(([model, idx, terms]) => {
       M = model;
+      M.uchars.forEach((c, i) => charId[c] = i);
       const names = idx.split('\n').filter(Boolean);
       index = new Set(names);
       buckets = {};
