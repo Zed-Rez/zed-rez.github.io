@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>StartupGPT — Reza Ramji</title>
-  <meta name="description" content="Karpathy's 200-line microGPT trained on 24,614 accelerator startup names, generating new ones in your browser — cross-checked against the real index.">
+  <title>Startup Name Generator — Reza Ramji</title>
+  <meta name="description" content="Retrained karpathy's microgpt on startup names.">
   <link rel="canonical" href="https://rezaramji.com/startupgpt/">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,19 +12,15 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/site.css">
   <style>
-    .sub { color: var(--muted); font-style: italic; margin: 0 0 1rem; }
-    #chat { border: 1px solid rgba(0,0,0,.12); border-radius: 6px; padding: 1rem; margin: 1.2rem 0 .8rem; min-height: 260px; max-height: 420px; overflow-y: auto; }
-    .msg { margin: 0 0 .8rem; }
-    .msg:last-child { margin-bottom: 0; }
-    .msg .who { color: var(--muted); font-style: italic; margin-right: .5rem; }
-    .msg.bot .name { font-weight: 600; font-size: 1.05rem; }
-    .msg .detail { color: var(--muted); }
-    #bar { display: flex; gap: .6rem; }
+    #bar { display: flex; gap: .6rem; margin: 1.4rem 0 .35rem; }
     #inp { flex: 1; font: inherit; font-size: 16px; padding: .45rem .6rem; border: 1px solid rgba(0,0,0,.25); border-radius: 6px; background: #fff; color: var(--ink); min-width: 0; }
-    #send { font: inherit; font-size: 16px; padding: .45rem 1rem; min-height: 40px; border: 1px solid var(--accent); border-radius: 6px; background: #fff; color: var(--accent); cursor: pointer; }
-    #send:hover { background: var(--accent); color: #fff; }
-    #send:disabled { opacity: .5; cursor: default; }
-    .fine { color: var(--muted); font-size: .92rem; }
+    #die { font: inherit; font-size: 20px; line-height: 1; padding: .45rem .8rem; min-height: 40px; min-width: 48px; border: 1px solid rgba(0,0,0,.25); border-radius: 6px; background: #fff; cursor: pointer; }
+    #die:hover { border-color: var(--accent); }
+    #die:disabled { opacity: .5; cursor: default; }
+    #flag { color: var(--accent); font-style: italic; min-height: 1.3em; margin: 0; }
+    .fine { color: var(--muted); margin: .1rem 0 1.2rem; }
+    #out { list-style: none; padding: 0; margin: .8rem 0; }
+    #out li { font-size: 1.25rem; margin: .35rem 0; }
   </style>
 </head>
 <body>
@@ -42,46 +38,36 @@
   </header>
 
   <main class="wrap">
-    <h1>StartupGPT</h1>
-    <p class="sub">A 4,512-parameter GPT that names startups, running entirely in your browser.</p>
+    <h1>Startup Name Generator</h1>
 
-    <p>This is <a href="https://karpathy.ai/microgpt.html">Karpathy's microGPT</a> — a complete GPT in 200 lines of dependency-free Python — retrained on 24,614 verified startup names gathered from accelerator portfolios (Y Combinator, Techstars, 500 Global, SOSV, Antler, Plug and Play, Creative Destruction Lab, and friends) and recent SEC Form D filings. Generic trailing words like Labs, Technologies, AI, and Inc were stripped before training so the model learns the name, not the paperwork.</p>
-    <p>Every generated name is cross-checked against an index of 27,999 real startup names: it must be <i>new</i> (not in the index) yet <i>plausible</i> (within an edit distance of 2 of something real). The model keeps rolling until a name passes.</p>
-
-    <div id="chat" aria-live="polite"></div>
     <div id="bar">
-      <input id="inp" type="text" placeholder="ask for a startup name…" autocomplete="off">
-      <button id="send">send</button>
+      <input id="inp" type="text" placeholder="type an idea…" autocomplete="off" spellcheck="false">
+      <button id="die" title="roll a random name" aria-label="roll a random name">&#9860;</button>
     </div>
-    <p class="fine">Character-level transformer: 1 layer, 4 heads, 16-dim embeddings, 4,512 parameters, trained for 1,000 steps of pure-Python Adam. Inference and the cross-check both run locally on this page; nothing is sent anywhere.</p>
+    <p id="flag"></p>
+    <p class="fine">Retrained <a href="https://karpathy.ai/microgpt.html">karpathy's microgpt</a> on startup names</p>
+
+    <ul id="out"></ul>
   </main>
 
   <script>
   (function () {
-    const chat = document.getElementById('chat');
     const inp = document.getElementById('inp');
-    const send = document.getElementById('send');
-    let M = null, index = null, buckets = null, suffixes = null;
-
-    function addMsg(cls, who, html) {
-      const div = document.createElement('div');
-      div.className = 'msg ' + cls;
-      div.innerHTML = '<span class="who">' + who + '</span>' + html;
-      chat.appendChild(div);
-      chat.scrollTop = chat.scrollHeight;
-      return div;
-    }
-    const esc = s => s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+    const die = document.getElementById('die');
+    const flag = document.getElementById('flag');
+    const out = document.getElementById('out');
+    let M = null, index = null, buckets = null, suffixes = null, suffixTotal = 0;
+    const DRESS_P = 0.28; // fraction of the training names that carried a generic tag
 
     // ---- model ----
     function linear(x, W) {
-      const out = new Array(W.length);
-      for (let o = 0; o < W.length; o++) {
-        let s = 0; const row = W[o];
-        for (let i = 0; i < x.length; i++) s += row[i] * x[i];
-        out[o] = s;
+      const o = new Array(W.length);
+      for (let i = 0; i < W.length; i++) {
+        let s = 0; const row = W[i];
+        for (let j = 0; j < x.length; j++) s += row[j] * x[j];
+        o[i] = s;
       }
-      return out;
+      return o;
     }
     function softmax(v) {
       const mx = Math.max(...v);
@@ -128,23 +114,31 @@
       }
       return linear(x, sd.lm_head);
     }
-    function generateOne(temperature) {
+    // generate a name, optionally continuing a typed prefix
+    function generate(prefix, temperature) {
       const BOS = M.uchars.length;
+      const charId = {};
+      M.uchars.forEach((c, i) => charId[c] = i);
       const keys = [], values = [];
       for (let i = 0; i < M.n_layer; i++) { keys.push([]); values.push([]); }
-      let tok = BOS; const out = [];
-      for (let pos = 0; pos < M.block_size; pos++) {
-        const probs = softmax(gpt(tok, pos, keys, values).map(l => l / temperature));
+      const toks = [BOS];
+      for (const ch of prefix) if (ch in charId) toks.push(charId[ch]);
+      const outCh = prefix.split('').filter(c => c in charId);
+      let pos = 0, logits = null;
+      for (; pos < toks.length; pos++) logits = gpt(toks[pos], pos, keys, values);
+      for (; pos < M.block_size; pos++) {
+        const probs = softmax(logits.map(l => l / temperature));
         let r = Math.random(), next = probs.length - 1;
         for (let i = 0; i < probs.length; i++) { r -= probs[i]; if (r <= 0) { next = i; break; } }
         if (next === BOS) break;
-        tok = next;
-        out.push(M.uchars[next]);
+        outCh.push(M.uchars[next]);
+        if (pos === M.block_size - 1) break;
+        logits = gpt(next, pos + 1, keys, values);
       }
-      return out.join('');
+      return outCh.join('');
     }
 
-    // ---- cross-check ----
+    // ---- index cross-check ----
     function editDistCapped(a, b, cap) {
       if (Math.abs(a.length - b.length) >= cap) return cap;
       let prev = Array.from({ length: b.length + 1 }, (_, j) => j);
@@ -159,67 +153,59 @@
       }
       return Math.min(prev[b.length], cap);
     }
-    function nearest(name) {
-      let best = 3, match = null;
-      for (let L = Math.max(2, name.length - 2); L <= name.length + 2; L++) {
-        for (const real of (buckets[L] || [])) {
-          const d = editDistCapped(name, real, best);
-          if (d < best) { best = d; match = real; if (best === 1) return { d: best, match }; }
-        }
-      }
-      return { d: best, match };
+    function nearIndex(name) { // is there a real startup within edit distance 2?
+      for (let L = Math.max(2, name.length - 2); L <= name.length + 2; L++)
+        for (const real of (buckets[L] || []))
+          if (editDistCapped(name, real, 3) <= 2) return true;
+      return false;
     }
+    const cleanKey = s => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+    // ---- dressing: weighted-random whether to tag, weighted-random which ----
     function dress(name) {
       const cap = name.charAt(0).toUpperCase() + name.slice(1);
-      let total = 0; for (const k in suffixes) total += suffixes[k];
-      let r = Math.random() * total;
-      for (const k in suffixes) { r -= suffixes[k]; if (r <= 0) return cap + ' ' + (k === 'ai' ? 'AI' : k.charAt(0).toUpperCase() + k.slice(1)); }
+      if (Math.random() >= DRESS_P) return cap;
+      let r = Math.random() * suffixTotal;
+      for (const k in suffixes) {
+        r -= suffixes[k];
+        if (r <= 0) return cap + ' ' + (k === 'ai' ? 'AI' : k.charAt(0).toUpperCase() + k.slice(1));
+      }
       return cap;
     }
 
-    async function respond(count) {
-      send.disabled = true;
-      const thinking = addMsg('bot', 'startupgpt', '<span class="detail">rolling…</span>');
-      const results = [];
-      let attempts = 0, rejectedExisting = 0, bestFallback = null;
-      while (results.length < count && attempts < 120) {
+    async function roll(prefix, n) {
+      die.disabled = true;
+      const picked = [];
+      let attempts = 0, fallback = null;
+      while (picked.length < n && attempts < 120) {
         attempts++;
-        if (attempts % 5 === 0) await new Promise(r => setTimeout(r, 0));
-        const name = generateOne(0.8);
-        if (name.length < 3) continue;
-        if (index.has(name)) { rejectedExisting++; continue; }
-        const { d, match } = nearest(name);
-        if (d >= 1 && d <= 2) results.push({ name, match, d });
-        else if (!bestFallback || d < bestFallback.d) bestFallback = { name, match, d };
+        if (attempts % 4 === 0) await new Promise(r => setTimeout(r, 0));
+        const name = generate(prefix, 0.8);
+        if (name.length < 3 || name === prefix) continue;
+        if (index.has(name)) continue;                      // must be new
+        if (picked.some(p => p.raw === name)) continue;
+        if (prefix || nearIndex(name)) picked.push({ raw: name });  // random rolls must also stay near the index
+        else if (!fallback) fallback = { raw: name };
       }
-      thinking.remove();
-      for (const r of results) {
-        addMsg('bot', 'startupgpt',
-          '<span class="name">' + esc(r.name) + '</span> <span class="detail">— new, but only ' + r.d +
-          ' edit' + (r.d > 1 ? 's' : '') + ' from the real startup “' + esc(r.match) + '”. Dressed for the paperwork: ' +
-          esc(dress(r.name)) + '.</span>');
+      if (!picked.length && fallback) picked.push(fallback);
+      for (const p of picked) {
+        const li = document.createElement('li');
+        li.textContent = dress(p.raw);
+        out.insertBefore(li, out.firstChild);
       }
-      if (!results.length && bestFallback) {
-        addMsg('bot', 'startupgpt', '<span class="detail">Nothing passed the cross-check in ' + attempts +
-          ' rolls (' + rejectedExisting + ' already existed). Closest miss: “' + esc(bestFallback.name) + '”. Try again?</span>');
-      }
-      send.disabled = false;
-      inp.focus();
+      while (out.children.length > 12) out.removeChild(out.lastChild);
+      die.disabled = false;
     }
 
-    function onSend() {
-      const text = inp.value.trim();
-      if (!text || send.disabled || !M) return;
-      inp.value = '';
-      addMsg('you', 'you', esc(text));
-      const m = text.match(/\d+/);
-      const count = Math.min(m ? parseInt(m[0], 10) || 1 : 1, 5);
-      respond(Math.max(1, count));
-    }
-    send.addEventListener('click', onSend);
-    inp.addEventListener('keydown', e => { if (e.key === 'Enter') onSend(); });
+    inp.addEventListener('input', () => {
+      const key = cleanKey(inp.value);
+      flag.textContent = (key && index && index.has(key)) ? '⚑ already exists' : '';
+    });
+    inp.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && M && !die.disabled) roll(cleanKey(inp.value), 3);
+    });
+    die.addEventListener('click', () => { if (M && !die.disabled) roll('', 3); });
 
-    addMsg('bot', 'startupgpt', '<span class="detail">loading 4,512 parameters…</span>');
     Promise.all([
       fetch('model.json').then(r => r.json()),
       fetch('index.txt').then(r => r.text()),
@@ -229,16 +215,11 @@
       const names = idx.split('\n').filter(Boolean);
       index = new Set(names);
       buckets = {};
-      for (const n of names) (buckets[n.length] = buckets[n.length] || []).push(n);
+      for (const nm of names) (buckets[nm.length] = buckets[nm.length] || []).push(nm);
       suffixes = terms.suffix_frequency;
-      chat.innerHTML = '';
-      addMsg('bot', 'startupgpt', 'Ask me for a startup name (or “give me 3”). Every answer is checked live against ' +
-        names.length.toLocaleString() + ' real startup names: close enough to pass for real, guaranteed not to be.');
+      for (const k in suffixes) suffixTotal += suffixes[k];
       inp.focus();
-    }).catch(() => {
-      chat.innerHTML = '';
-      addMsg('bot', 'startupgpt', '<span class="detail">failed to load the model files — try a hard refresh.</span>');
-    });
+    }).catch(() => { flag.textContent = 'failed to load the model — try a hard refresh'; });
   })();
   </script>
 </body>
