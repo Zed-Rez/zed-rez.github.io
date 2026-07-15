@@ -121,7 +121,7 @@
       M.uchars.forEach((c, i) => charId[c] = i);
       const keys = [], values = [];
       for (let i = 0; i < M.n_layer; i++) { keys.push([]); values.push([]); }
-      const toks = [BOS];
+      const toks = [BOS]; // start token always precedes whatever came from the textbox
       for (const ch of prefix) if (ch in charId) toks.push(charId[ch]);
       const outCh = prefix.split('').filter(c => c in charId);
       let pos = 0, logits = null;
@@ -173,38 +173,44 @@
       return cap;
     }
 
-    async function roll(prefix, n) {
-      die.disabled = true;
+    // always exactly three names, regenerated from whatever is in the textbox
+    let epoch = 0;
+    async function regen() {
+      if (!M) return;
+      const my = ++epoch;
+      const prefix = cleanKey(inp.value);
       const picked = [];
       let attempts = 0, fallback = null;
-      while (picked.length < n && attempts < 120) {
+      while (picked.length < 3 && attempts < 100) {
         attempts++;
-        if (attempts % 4 === 0) await new Promise(r => setTimeout(r, 0));
+        if (attempts % 3 === 0) await new Promise(r => setTimeout(r, 0));
+        if (my !== epoch) return; // a newer keystroke superseded this roll
         const name = generate(prefix, 0.8);
-        if (name.length < 3 || name === prefix) continue;
+        if (name.length < 3) continue;
         if (index.has(name)) continue;                      // must be new
-        if (picked.some(p => p.raw === name)) continue;
-        if (prefix || nearIndex(name)) picked.push({ raw: name });  // random rolls must also stay near the index
-        else if (!fallback) fallback = { raw: name };
+        if (picked.includes(name)) continue;
+        if (prefix || nearIndex(name)) picked.push(name);   // unprefixed rolls must also stay near the index
+        else if (!fallback) fallback = name;
       }
       if (!picked.length && fallback) picked.push(fallback);
+      if (my !== epoch) return;
+      out.innerHTML = '';
       for (const p of picked) {
         const li = document.createElement('li');
-        li.textContent = dress(p.raw);
-        out.insertBefore(li, out.firstChild);
+        li.textContent = dress(p);
+        out.appendChild(li);
       }
-      while (out.children.length > 12) out.removeChild(out.lastChild);
-      die.disabled = false;
     }
 
+    let deb;
     inp.addEventListener('input', () => {
       const key = cleanKey(inp.value);
       flag.textContent = (key && index && index.has(key)) ? '⚑ already exists' : '';
+      clearTimeout(deb);
+      deb = setTimeout(regen, 150);
     });
-    inp.addEventListener('keydown', e => {
-      if (e.key === 'Enter' && M && !die.disabled) roll(cleanKey(inp.value), 3);
-    });
-    die.addEventListener('click', () => { if (M && !die.disabled) roll('', 3); });
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') regen(); });
+    die.addEventListener('click', regen);
 
     Promise.all([
       fetch('model.json').then(r => r.json()),
@@ -219,6 +225,7 @@
       suffixes = terms.suffix_frequency;
       for (const k in suffixes) suffixTotal += suffixes[k];
       inp.focus();
+      regen(); // three names on arrival
     }).catch(() => { flag.textContent = 'failed to load the model — try a hard refresh'; });
   })();
   </script>
