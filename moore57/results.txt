@@ -304,3 +304,29 @@ t= 4 branches : SAT       (OPTIMAL) in     37s   [168 diseq, 224 element]
                verified: derangement conditions True, 229 vertices, girth>=5 True
 
   No infeasibility found at these sizes.
+
+=== dihedral.py ===
+The involution property as a dihedral relation
+
+  Petersen (degree 3)
+    gauged M_ij are fixed-point-free involutions : True
+    the three formulations agree on                : 0/0
+    M_ij inverts M_li.M_jl (dihedral)              : 0/0
+    cycles of M_li.M_jl come in equal-length pairs : 0/0
+
+  Hoffman-Singleton (degree 7)
+    gauged M_ij are fixed-point-free involutions : True
+    the three formulations agree on                : 120/120
+    M_ij inverts M_li.M_jl (dihedral)              : 120/120
+    cycles of M_li.M_jl come in equal-length pairs : 120/120
+
+  Both graphs satisfy the dihedral relation on every triple: True
+
+  Consequence: the condition is never unsatisfiable one triple at a
+  time -- an inverting fixed-point-free involution always exists,
+  because M_jl and M_li share an index, are therefore edge-disjoint,
+  and the product of two disjoint perfect matchings has its cycles
+  in equal-length pairs.  So any obstruction at degree 57 has to be
+  global across all C(56,3) = 27,720 triples, not local.  That is
+  consistent with what the solver shows: four branches are easy,
+  five are already out of reach.
