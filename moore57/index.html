@@ -215,6 +215,99 @@
 
     <hr>
 
+    <h2>Second pass: dropping the assumption, and a new constraint</h2>
+
+    <p>Everything above measures a search everyone agrees is restricted. The
+    obvious next question is what happens without the restriction.</p>
+
+    <h2>The general search is tractable after all</h2>
+    <p>Adding <em>one</em> branch to an existing structure turns every
+    constraint into a <strong>binary disequality between two cells</strong> of
+    the unknowns: with p<sub>i</sub> := &sigma;<sub>i,r</sub>, the triangle
+    condition is just p<sub>i</sub>[&sigma;<sub>hi</sub>(x)] &ne;
+    p<sub>h</sub>[x], because &sigma;<sub>hi</sub> is already known and the
+    index is a constant. So adding a branch is a list-colouring problem, with
+    no group assumption anywhere. From scratch it reaches 12 branches in about
+    a minute.</p>
+
+    <h2>The involution property</h2>
+    <p>In <em>both</em> Moore graphs that exist, every triangle composite
+    &tau;(a,j,b) = &sigma;<sub>ba</sub>&middot;&sigma;<sub>jb</sub>&middot;&sigma;<sub>aj</sub>
+    is not merely a derangement but a <strong>fixed-point-free
+    involution</strong> — all 6 in Petersen, all 210 in Hoffman&ndash;Singleton,
+    every one of cycle type (2,2,2). Equivalently every branch-pair Latin square
+    is symmetric; equivalently each pair of branches sees the other 55 as a
+    1-factorization of K<sub>56</sub>.</p>
+
+    <p>It is not implied by the conditions every search enforces:</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>structure</th><th class="num">involutive composites</th></tr>
+      <tr><td>Petersen</td><td class="num">6 / 6</td></tr>
+      <tr><td>Hoffman&ndash;Singleton</td><td class="num">210 / 210</td></tr>
+      <tr><td>cyclic frontier, t = 19</td><td class="num">66 / 5814</td></tr>
+      <tr><td>general growth, t = 12</td><td class="num"><strong>0 / 1320</strong></td></tr>
+    </table>
+    </div>
+
+    <p>What makes it credible rather than a coincidence is that it
+    <strong>independently implies the published cyclic-impossibility
+    theorem</strong>. In the cyclic model &tau; is a translation, and a
+    translation is an involution only if it is by exactly 28 — which forces
+    every triangle sum to 28, and then the quadrilateral (0,i,j,k) sums to
+    56&nbsp;&equiv;&nbsp;0, violating its condition. Involutions therefore kill
+    the cyclic ansatz at four branches. That is the Axioms 2026 result,
+    recovered as a corollary of a property found from
+    Hoffman&ndash;Singleton.</p>
+
+    <div class="verdict">
+      <p><strong>If the property holds at degree 57, every published
+      t-subgraph is off-path.</strong> The 20-branch structures have 66
+      involutive composites out of 5814; no amount of compute extends them to
+      the graph. That is sharper than &ldquo;the ansatz is a dead end&rdquo;.</p>
+      <p class="note">Status: verified at degrees 3 and 7, conjectural at 57.
+      I did not prove it. A proof is the most valuable single thing here.</p>
+    </div>
+
+    <h2>Why no group ansatz can work</h2>
+    <p>Hoffman&ndash;Singleton's bijections generate the <strong>full symmetric
+    group S<sub>6</sub></strong>, across eight distinct cycle types. Nothing
+    about the individual &sigma;<sub>ij</sub> is structured; what is rigid is
+    the composites. Two ansätze tested to destruction:</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>ansatz</th><th>composite is</th><th class="num">degree 3</th><th class="num">degree 7</th></tr>
+      <tr><td>cyclic (published), x + a<sub>ij</sub></td><td>a translation</td><td class="num">finds Petersen</td><td class="num">stalls at 5 of 7</td></tr>
+      <tr><td>reflection, g<sub>ij</sub> &minus; x</td><td><strong>always an involution</strong></td><td class="num">finds Petersen</td><td class="num"><strong>infeasible</strong></td></tr>
+    </table>
+    </div>
+
+    <p>The reflection ansatz is worth noting because it gets the involution
+    property for free, collapses every triangle condition to a parity condition
+    solved by taking each g<sub>ij</sub> odd, and leaves only quadrilaterals —
+    a search over 28 values per pair rather than 56!. It builds the Petersen
+    graph and dies at degree 7, and since Z<sub>6</sub> is the only abelian
+    group of order 6, no abelian reflection ansatz reaches
+    Hoffman&ndash;Singleton either.</p>
+
+    <h2>A validated constrained search, and Lean</h2>
+    <p>Imposing the involution property, with backtracking, <strong>recovers
+    Hoffman&ndash;Singleton</strong> (210/210 involutive), which validates the
+    model. At degree 57 it stalls at four branches: the constraint is strong
+    enough that blind search struggles, and the natural next step is to seed
+    from an explicit 1-factorization of K<sub>56</sub> rather than search
+    blind.</p>
+
+    <p>A Lean file formalizes the block decomposition — the Moore condition in
+    &ldquo;friendship at distance two&rdquo; form, block sizes, independence of
+    blocks, and the matching lemma the whole reduction rests on. It is
+    <em>not</em> machine-checked: this machine has no Lean toolchain and no
+    network route to one.</p>
+
+    <hr>
+
     <h2>Conclusion</h2>
     <p>There is no point at which this becomes brute-forceable. The binding
     constraints buy a couple of orders of magnitude against a shortfall of
@@ -233,7 +326,21 @@
       Dalf&oacute;'s tight-coclique residual &mdash; a distance-regular graph on
       2850 vertices of degree 49 and diameter 3 &mdash; a strictly smaller
       object than the graph itself.</li>
+      <li><strong>Prove or refute the involution property at degree 57.</strong>
+      It holds at every degree where a Moore graph exists, it is not implied by
+      the conditions every published search enforces, and it independently
+      re-derives a 2026 theorem. If it is a theorem, the published frontier is
+      off-path and should be replaced by a 1-factorization-seeded search; if it
+      is false at 57, that is itself a sharp structural asymmetry between
+      degree 57 and the degrees that work.</li>
     </ol>
+
+    <p><strong>What I did not get:</strong> the graph. Nothing here suggests it
+    is within reach. The frontier moved from &ldquo;20 branches under an ansatz
+    that cannot work&rdquo; to &ldquo;12 branches under an honest model, 19
+    verified, plus a constraint saying the 20-branch structures were never on a
+    path to a solution&rdquo;. That is progress on the design, not on the
+    construction.</p>
 
     <p class="note">Code, certificates and the full numeric report are in the
     repository alongside this page: the reduction and its validation, the

@@ -154,6 +154,112 @@ the order of the assumed group; that group now has odd order and order at most
 automorphism group is consistent with everything known, and Higman already
 ruled out the symmetric case that would have helped most.
 
+## Second pass: dropping the cyclic assumption, and a new constraint
+
+### 5. The general search is tractable after all
+
+Adding *one* branch to an existing structure turns every constraint into a
+**binary disequality between two cells** of the unknowns. With p_i := σ_{i,r},
+the triangle h→i→r→h condition is just
+
+    p_i[ σ_hi(x) ]  ≠  p_h[ x ]
+
+because σ_hi is already known, so the index is a constant. Same for all three
+cyclic orders of each quadrilateral. So adding a branch is a list-colouring
+problem — (r−1)·56 cells, 56 colours, all-different rows — with no group
+assumption anywhere (`general_extend.py`).
+
+From scratch this reaches 12 branches in about a minute. It also re-verifies
+the 19-branch certificate. This is the honest search model; the published one
+is a special case of it.
+
+### 6. The involution property
+
+In **both** Moore graphs that exist, every triangle composite
+
+    τ(a,j,b) = σ_ba · σ_jb · σ_aj
+
+is not merely a derangement — it is a **fixed-point-free involution**. All 6 of
+them in Petersen, all 210 in Hoffman–Singleton, every one of cycle type
+(2,2,2). Equivalently: the Latin square of every ordered branch pair is
+symmetric (verified, 42/42 pairs), equivalently each pair of branches sees the
+other k−2 as a **1-factorization of K₅₆**.
+
+This is not implied by the conditions the search enforces:
+
+| structure | involutive composites |
+| --- | --- |
+| Petersen | 6 / 6 |
+| Hoffman–Singleton | 210 / 210 |
+| cyclic frontier, t=19 | 66 / 5814 |
+| general growth, t=12 | **0 / 1320** |
+
+Two things make it credible rather than a coincidence:
+
+- **It independently implies the published cyclic-impossibility theorem.** In
+  the cyclic model τ is a translation, and a translation is an involution only
+  if it is by exactly 28 — which forces *every* triangle sum to 28, and then
+  the quadrilateral (0,i,j,k) sums to 56 ≡ 0, violating its condition. So
+  involutions ⇒ the cyclic ansatz dies at t=4. That is exactly the Axioms 2026
+  result, recovered here as a corollary of a property found from
+  Hoffman–Singleton.
+- **It explains why the ansatz misses Hoffman–Singleton** — the same mechanism,
+  at degree 7.
+
+**If the property holds at degree 57, every published t-subgraph is off-path.**
+The t=20 frontier structures have 66 involutive composites out of 5814; they
+cannot be extended to the graph no matter how much compute is thrown at them.
+That is a much sharper claim than "the ansatz is a dead end".
+
+Status: **verified at degrees 3 and 7, conjectural at 57.** I did not prove it.
+A proof would be the most valuable single thing here.
+
+### 7. Why no group ansatz can work
+
+Hoffman–Singleton's bijections generate the **full symmetric group S₆** (order
+720), across eight distinct cycle types. Nothing about the individual σ_ij is
+structured; what is rigid is the composites. So confining the σ_ij to a small
+group is structurally misdirected. Two ansätze tested to destruction:
+
+| ansatz | σ_ij | composite is | degree 3 | degree 7 |
+| --- | --- | --- | --- | --- |
+| cyclic (published) | x + a_ij | translation | finds Petersen | stalls at 5 of 7 |
+| reflection | g_ij − x | **always an involution** | finds Petersen | **INFEASIBLE** |
+
+The reflection ansatz (`reflection.py`) is interesting because it gets the
+involution property for free, makes all triangle conditions collapse to a
+parity condition solved by taking every g_ij odd, and leaves only the
+quadrilateral conditions — a search over 28 values per pair instead of 56!.
+It builds the Petersen graph. At degree 7 it is infeasible, and since Z₆ is
+the only abelian group of order 6, no abelian reflection ansatz can produce
+Hoffman–Singleton either.
+
+### 8. A validated involution-constrained search
+
+`involution_search.py` imposes the property. The condition has a cheap form —
+D(x)=y is just `p_a[x] == p_b[σ_ab[y]]`, so "D is an involution" is a
+biconditional between two equalities at constant indices, and for pairs
+involving the gauge branch it collapses to a native `AddInverse`. With
+backtracking, the model **recovers Hoffman–Singleton** (210/210 involutive),
+which validates it.
+
+At degree 57 it currently stalls at 4 branches: the constraint is strong enough
+that blind CP-SAT search struggles. The natural next step is to stop searching
+blind and *seed* from an explicit 1-factorization of K₅₆, which is what the
+property says the structure must be.
+
+### 9. Lean
+
+`Moore57.lean` formalizes the block decomposition: the definition of a Moore
+graph in the "friendship at distance two" form, the block sizes, independence
+of blocks, and the matching lemma (every vertex of one block has exactly one
+neighbour in every other block) — the fact the whole reduction rests on. The
+order and spectrum computations are stated and left as `sorry`.
+
+It is **not machine-checked**: this sandbox has no Lean toolchain and no
+network route to one (elan, leanprover.github.io and GitHub are all blocked by
+the egress proxy), so it has not been through the kernel.
+
 ## Conclusion
 
 The question was where the constraints bind hard enough to hand the rest to
@@ -174,6 +280,24 @@ Two things follow that are worth acting on:
    distance-regular graph on 2850 vertices of degree 49 and diameter 3 — which
    is a strictly smaller object than the graph itself.
 
+And the second pass adds a third, which is the most actionable thing here:
+
+3. **Prove or refute the involution property at degree 57.** It is verified at
+   every degree where a Moore graph exists, it is not implied by the conditions
+   every published search enforces, and it independently re-derives a 2026
+   theorem. If it is a theorem, the entire published search frontier is
+   off-path and should be replaced by a 1-factorization-seeded search; if it is
+   false at 57, that itself is a strong structural asymmetry between degree 57
+   and the degrees that work.
+
+### What I did not get
+
+I did not find the graph, and nothing here suggests it is within reach. The
+frontier moved from "20 branches under an ansatz that cannot work" to "12
+branches under an honest model, 19 verified, plus a constraint that says the
+20-branch structures were never on a path to a solution". That is progress on
+the *design*, not on the *construction*.
+
 ## Files
 
 | file | what it does |
@@ -187,6 +311,13 @@ Two things follow that are worth acting on:
 | `firstmoment.py` | expected-count model, calibration table, brute-force budget |
 | `verify_frontier.py` | independent verification of the t = 19 certificate |
 | `t19_cyclic.json` | the certificate itself |
+| `general_extend.py` | the general (non-cyclic) search: adding a branch as a colouring CSP |
+| `latin.py` | the Latin square of each branch pair, and its symmetry |
+| `involution.py` | the involution audit across known graphs and search structures |
+| `involution_search.py` | search with the involution property imposed; validated at degree 7 |
+| `run_inv57.py` | driver for the degree-57 involution-constrained growth |
+| `reflection.py` | the reflection ansatz x -> g - x |
+| `Moore57.lean` | Lean formalization of the block decomposition (not machine-checked) |
 
 Run order: `python3 reduction.py`, `known_constraints.py`, `firstmoment.py`,
 `verify_frontier.py` are all fast. `cyclic_search.py [seconds]` and
