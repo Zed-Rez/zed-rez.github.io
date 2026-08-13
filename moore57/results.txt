@@ -152,7 +152,7 @@ certificate: 19 of the 57 branches
 === run_k7.py ===
 --- exact counts of valid t-block structures, k = 7, t <= 4 ---
 degree k = 7   (7 blocks of 6 points; |S_6| = 720, 265 derangements)
-  search nodes: 18680115   (15.5s)
+  search nodes: 18680115   (13.2s)
     blocks exact count      first-moment     ratio exact/pred
     t=3    265              265              1
     t=4    101040           3.415e+05        0.2959
@@ -161,34 +161,82 @@ degree k = 7   (7 blocks of 6 points; |S_6| = 720, 265 derangements)
 
 --- first complete solution: how much brute force does k = 7 cost? ---
 degree k = 7   (7 blocks of 6 points; |S_6| = 720, 265 derangements)
-  search nodes: 81381110   (62.7s)
+  search nodes: 81381110   (58.0s)
   first solution rebuilds to: Moore graph of degree 7 on 50 vertices
 
-=== cyclic_search.py (20s per CP-SAT attempt) ===
-Calibration: does the cyclic ansatz find the Moore graphs that actually exist?
+=== latin.py ===
+The Latin square hidden in a Moore graph
 
-  degree k=3  (blocks of size 2, group Z_2), need t=3:
-    m= 2  t= 2  OK       (0 search nodes)
-    m= 2  t= 3  OK       (2 search nodes)
-    m= 2  t= 4  IMPOSSIBLE (6 search nodes)
-    -> cyclic ansatz FINDS IT
+Petersen (degree 3, blocks of 2)
+  Latin square of order 2 -- VERIFIED
+  intercalates (2x2 subsquares): 1
+       0  2
+       2  0
 
-    reconstructed graph: Moore graph of degree 3 on 10 vertices 
+Hoffman-Singleton (degree 7, blocks of 6)
+  Latin square of order 6 -- VERIFIED
+  intercalates (2x2 subsquares): 15
+       0  2  3  4  5  6
+       2  0  5  3  6  4
+       3  5  0  6  4  2
+       4  3  6  0  2  5
+       5  6  4  2  0  3
+       6  4  2  5  3  0
 
-  degree k=7  (blocks of size 6, group Z_6), need t=7:
-    m= 6  t= 2  OK       (0 search nodes)
-    m= 6  t= 3  OK       (2 search nodes)
-    m= 6  t= 4  OK       (15 search nodes)
-    m= 6  t= 5  OK       (48 search nodes)
-    m= 6  t= 6  IMPOSSIBLE (16770 search nodes)
-    -> cyclic ansatz MISSES IT -- stalls at t=5 of 7
+Every ordered pair of branches, not just the one we looked at.
+Indices are identified through sigma_ab, so adjacency sits on the
+diagonal by construction -- the question is whether the square is
+Latin (claimed above) and whether it is symmetric.  A symmetric
+Latin square with constant diagonal is a 1-factorization of K_{k-1}.
 
-Now degree 57 (blocks of size 56, group Z_56), need t=57.
-Exhaustive search is hopeless here; using CP-SAT.
+  Petersen           6 ordered pairs: 6 Latin, 6 symmetric
+  Hoffman-Singleton  42 ordered pairs: 42 Latin, 42 symmetric
 
-    t=10  OPTIMAL         (120 triangle + 630 quadrilateral constraints)
-    t=15  OPTIMAL         (455 triangle + 4095 quadrilateral constraints)
-    t=18  UNKNOWN         (816 triangle + 9180 quadrilateral constraints)
-    t=20  UNKNOWN         (1140 triangle + 14535 quadrilateral constraints)
-    t=21  UNKNOWN         (1330 triangle + 17955 quadrilateral constraints)
-    t=22  UNKNOWN         (1540 triangle + 21945 quadrilateral constraints)
+Consequence for degree 57: any such graph yields a Latin square of
+order 56 for every ordered pair of its 57 branches -- 3192 squares,
+mutually constrained.  Note the constraint is real but not by itself
+prohibitive: Latin squares of order 56 are plentiful.  What it rules
+out is any construction whose branch pairs fail to be Latin, and it
+is the same structure that makes the degree-7 case work, so it
+cannot be used to argue non-existence on its own.
+
+=== involution.py ===
+1. The Moore graphs that exist
+
+  Petersen              6 ordered triples: 6 derangements, 6 involutions  <-- ALL
+  Hoffman-Singleton   210 ordered triples: 210 derangements, 210 involutions  <-- ALL
+
+  Every triangle composite is an involution in both graphs.
+  This is NOT implied by the derangement conditions -- see below.
+
+2. Partial structures produced by the search
+
+  cyclic frontier (t=19)        5814 ordered triples: 5814 derangements, 66 involutions
+  general growth, from scratch (t=12)  1320 ordered triples: 1320 derangements, 0 involutions
+
+  If the search's structures are full of non-involutive composites
+  while both real Moore graphs have none, the involution property
+  is extra information the search is not using.
+
+=== reflection.py (degree 3, then 7) ===
+reflection ansatz at degree 3 (blocks of 2, 3 unknowns, 1 values each)
+  OPTIMAL in 0s  (0 quadrilateral constraints; triangles are free)
+  derangement conditions hold: True
+  rebuilt graph: Moore graph of degree 3 on 10 vertices
+
+  *** A MOORE GRAPH OF DEGREE 3 ***
+reflection ansatz at degree 7 (blocks of 6, 21 unknowns, 3 values each)
+  INFEASIBLE in 0s  (105 quadrilateral constraints; triangles are free)
+
+=== involution_search.py validate ===
+Validation at degree 7 (blocks of 6, need 7 branches):
+   2 ->  3 : SOLVED (6 diseq, 1 inv) -- new best
+   3 ->  4 : SOLVED (36 diseq, 17 inv) -- new best
+   4 ->  5 : SOLVED (108 diseq, 48 inv) -- new best
+   5 ->  6 : SOLVED (240 diseq, 94 inv) -- new best
+   6 ->  7 : SOLVED (450 diseq, 155 inv) -- new best
+  result: t = 7 (COMPLETE)
+  rebuilt: Moore graph of degree 7 on 50 vertices
+  involutive composites: 210/210
+
+model VALIDATED -- it finds the graph that exists
