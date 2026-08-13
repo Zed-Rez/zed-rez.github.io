@@ -267,7 +267,9 @@
       involutive composites out of 5814; no amount of compute extends them to
       the graph. That is sharper than &ldquo;the ansatz is a dead end&rdquo;.</p>
       <p class="note">Status: verified at degrees 3 and 7, conjectural at 57.
-      I did not prove it. A proof is the most valuable single thing here.</p>
+      A control experiment below gives quantitative evidence that it probably
+      does <em>not</em> hold at 57 &mdash; so read this conditional as unlikely
+      to fire.</p>
     </div>
 
     <p><strong>The caveat that cuts against it</strong>, stated plainly because
@@ -482,6 +484,58 @@
     INFEASIBLE. The stronger the model, the shorter the reach &mdash; what one
     expects when the constraints are real and the solver, not the mathematics,
     is the binding limit.</p>
+
+    <h2>Testing my own conjecture, and finding against it</h2>
+    <p>Every positive data point for the involution property comes from
+    m&nbsp;=&nbsp;2 and m&nbsp;=&nbsp;6, which are small enough that things can
+    be true by accident. The control question: for three pairwise edge-disjoint
+    perfect matchings &mdash; which is what M<sub>ij</sub>, M<sub>jl</sub>,
+    M<sub>li</sub> must be &mdash; how often is the composite an involution by
+    chance?</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th class="num">m</th><th class="num">triples</th><th class="num">composite is an involution</th></tr>
+      <tr><td class="num">6</td><td class="num">480</td><td class="num"><strong>25%</strong></td></tr>
+      <tr><td class="num">8</td><td class="num">197,820</td><td class="num">26.1%</td></tr>
+      <tr><td class="num">10</td><td class="num">200,000 sampled</td><td class="num">0.86%</td></tr>
+      <tr><td class="num">16</td><td class="num">200,000 sampled</td><td class="num">0.0065%</td></tr>
+      <tr><td class="num">24</td><td class="num">200,000 sampled</td><td class="num"><strong>0</strong></td></tr>
+      <tr><td class="num">56</td><td class="num">200,000 sampled</td><td class="num"><strong>0</strong></td></tr>
+    </table>
+    </div>
+
+    <p>So the property is <em>real</em> at m&nbsp;=&nbsp;6 &mdash; a 25% base
+    rate makes Hoffman&ndash;Singleton's 210/210 a genuine signal, not an
+    artefact. But the rate collapses with m, and analytically the per-triple
+    probability at m&nbsp;=&nbsp;56 is I(56)/56!&nbsp;&asymp;&nbsp;10<sup>&minus;35</sup>.
+    A first-moment count for the gauged model then reads:</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th class="num">degree</th><th class="num">freedom</th><th class="num">cost of conditions</th><th class="num">expected count</th></tr>
+      <tr><td class="num">7</td><td class="num">10<sup>18</sup></td><td class="num">10<sup>&minus;20</sup></td><td class="num">10<sup>&minus;2</sup></td></tr>
+      <tr><td class="num">57</td><td class="num">10<sup>56886</sup></td><td class="num">10<sup>&minus;971757</sup></td><td class="num"><strong>10<sup>&minus;914871</sup></strong></td></tr>
+    </table>
+    </div>
+
+    <div class="verdict">
+      <p><strong>This cuts against my own conjecture, and I am reporting it as
+      such.</strong> At degree 7 the property is short by 2 orders of magnitude
+      and the graph exists, so correlation bridges it easily. At degree 57 it is
+      short by 914,871. The first-moment method is unreliable &mdash; shown
+      earlier to be wrong at degree 7 by construction &mdash; but being wrong by
+      2 orders and by 900,000 are not the same kind of claim.</p>
+    </div>
+
+    <p>The likeliest reading is that a degree-57 Moore graph would <strong>not</strong>
+    have the involution property. If so, the gauged model is searching for
+    something that does not exist (a better explanation of its four-branch
+    ceiling than solver weakness), and the earlier &ldquo;off-path&rdquo; claim
+    about the published frontier was conditional on the conjecture and should be
+    withdrawn to that extent. The cyclic ansatz stays dead on the independent
+    grounds proved above &mdash; no order-56 automorphism, and the reflection
+    bound.</p>
 
     <hr>
 
