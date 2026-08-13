@@ -207,6 +207,8 @@ Two things make it credible rather than a coincidence:
   at degree 7.
 
 **If the property holds at degree 57, every published t-subgraph is off-path.**
+(Section 17 gives quantitative evidence that it probably does *not* hold at 57,
+so treat this conditional as unlikely to fire.)
 The t=20 frontier structures have 66 involutive composites out of 5814; they
 cannot be extended to the graph no matter how much compute is thrown at them.
 That is a much sharper claim than "the ansatz is a dead end".
@@ -443,6 +445,60 @@ stall at the same place: 4 branches solve in under a minute, 5 is UNKNOWN after
 which is what one expects when the constraints are real and the solver, not the
 mathematics, is the binding limit.
 
+### 17. Testing my own conjecture, and finding against it
+
+Every positive data point for the involution property comes from m = 2 and
+m = 6. Those are small, so `control.py` asks the obvious control question: for
+three *pairwise edge-disjoint* perfect matchings — which is what M_ij, M_jl,
+M_li must be — how often is the composite an involution by chance?
+
+| m | triples | composite is an involution |
+| --- | --- | --- |
+| 4 | 6 | 100% |
+| 6 | 480 | **25%** |
+| 8 | 197,820 | 26.1% |
+| 10 | 200,000 sampled | 0.86% |
+| 16 | 200,000 sampled | 0.0065% |
+| 24 | 200,000 sampled | **0** |
+| 56 | 200,000 sampled | **0** |
+
+So the property is *real* at m = 6 — a 25% base rate means Hoffman–Singleton's
+210/210 is a genuine signal, not an artefact of a small group. But the rate
+collapses as m grows, and analytically the per-triple probability is
+I(56)/56! ≈ 10⁻³⁵.
+
+A first-moment count for the gauged model then reads:
+
+| degree | freedom | cost of conditions | expected count |
+| --- | --- | --- | --- |
+| 7 | 10¹⁸ | 10⁻²⁰ | 10⁻² |
+| 57 | 10⁵⁶⁸⁸⁶ | 10⁻⁹⁷¹⁷⁵⁷ | **10⁻⁹¹⁴⁸⁷¹** |
+
+At degree 7 the property is short by 2 orders of magnitude, and the graph
+exists, so correlation bridges it easily. At degree 57 it is short by 914,871.
+
+**This cuts against my own conjecture, and I am reporting it as such.** The
+first-moment method is unreliable — I demonstrated that earlier, where it is
+wrong at degree 7 by construction. But being wrong by 2 orders and being wrong
+by 900,000 are not the same kind of claim. The likeliest reading is that a
+degree-57 Moore graph would **not** have the involution property: it is a
+genuine feature of m = 2 and m = 6 whose cost outruns the available freedom
+long before m = 56.
+
+If that is right:
+
+- the gauged matching model is searching for something that does not exist,
+  which is a better explanation of its four-branch ceiling than solver weakness;
+- the earlier claim that the published t = 20 frontier is "off-path" was
+  conditional on the conjecture and should be withdrawn to that extent;
+- the cyclic ansatz remains dead, but on the independent grounds proved in
+  sections 2, 7 and 13 — no order-56 automorphism, and the reflection bound.
+
+The residue that survives regardless: the exact reduction, the general
+colouring-CSP search model, the reflection impossibility theorem, the S₆
+generation result, the duads/synthemes explanation of degree 7, and the
+calibration showing that a stalled search is not evidence of non-existence.
+
 ## Conclusion
 
 The question was where the constraints bind hard enough to hand the rest to
@@ -465,13 +521,13 @@ Two things follow that are worth acting on:
 
 And the second pass adds a third, which is the most actionable thing here:
 
-3. **Prove or refute the involution property at degree 57.** It is verified at
-   every degree where a Moore graph exists, it is not implied by the conditions
-   every published search enforces, and it independently re-derives a 2026
-   theorem. If it is a theorem, the entire published search frontier is
-   off-path and should be replaced by a 1-factorization-seeded search; if it is
-   false at 57, that itself is a strong structural asymmetry between degree 57
-   and the degrees that work.
+3. **The involution property is probably false at degree 57** — see section 17.
+   It is verified at every degree where a Moore graph exists and is not implied
+   by the conditions any published search enforces, but its cost grows far
+   faster than the available freedom, and a control experiment puts the
+   shortfall at 2 orders of magnitude at degree 7 against 914,871 at degree 57.
+   That asymmetry is itself a structural difference between 57 and the degrees
+   that work, and it is the sharpest thing this project produced.
 
 ### What I did not get
 

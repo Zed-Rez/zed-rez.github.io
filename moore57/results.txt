@@ -330,3 +330,50 @@ The involution property as a dihedral relation
   global across all C(56,3) = 27,720 triples, not local.  That is
   consistent with what the solver shows: four branches are easy,
   five are already out of reach.
+
+=== control.py ===
+Control: how often is the composite of three pairwise disjoint
+perfect matchings an involution?
+
+  m      triples      composite an involution composite f.p.f.
+  4      6            6  (100%)              0  (0%)
+  6      480          120  (25%)             120  (25%)
+  8      197820       51660  (26.11%)        65520  (33.12%)
+  10     200000 sampled 1723  (0.8615%)        47456  (23.73%)
+  12     200000 sampled 939  (0.4695%)         54533  (27.27%)
+  16     200000 sampled 13  (0.0065%)          58984  (29.49%)
+  24     200000 sampled 0  (0%)                63765  (31.88%)
+  56     200000 sampled 0  (0%)                69423  (34.71%)
+
+At m = 6 the base rate is 25%, so Hoffman-Singleton's 210/210 is a
+real signal, not an artefact of the group being small.  But the rate
+collapses with m: nothing in 200,000 samples at m = 24 or m = 56.
+
+How severe is the constraint?  A first-moment count for the gauged
+model: C(m,2) matchings to choose, C(m,3) triangle conditions, each
+asking a permutation of m points to be an involution.
+
+  degree     freedom          cost of conditions expected count
+  7          10^18            10^-20             10^-2
+  57         10^56886         10^-971757         10^-914871
+
+  degree  7 : short by 2 orders of magnitude -- and the graph
+              exists, so correlation bridges that easily.
+  degree 57 : short by 914871 orders of magnitude.
+
+That is the honest reading, and it cuts against the conjecture.  The
+first-moment method is unreliable here -- it is wrong at degree 7 by
+construction.  But being wrong by 2 orders and being wrong by
+900,000 are not the same kind of claim.  The most likely conclusion
+is that a degree-57 Moore graph would NOT have the involution
+property: it is a genuine feature of m = 2 and m = 6 whose cost
+grows far faster than the available freedom.
+
+Consequences if so:
+  * the gauged matching model is searching for something that does
+    not exist, which explains why it stalls at four branches;
+  * the earlier claim that the published t = 20 frontier is
+    'off-path' was conditional on this conjecture, and should be
+    withdrawn to that extent;
+  * the cyclic ansatz is still dead, but on the independent grounds
+    proved earlier (no order-56 automorphism; the reflection bound).
