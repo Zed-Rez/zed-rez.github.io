@@ -268,3 +268,39 @@ round-robin construction, auditing the first 10 branches
 
 twisted variants s |-> u*s + v  (u a unit mod 55):
   fewest failing triangles over the variants tried: 240 (u=1, v=0)
+
+=== reflection_bound.py ===
+Reflection constructions: a counting impossibility
+
+m = 2  (degree 3):  each branch needs 1 distinct labels in G \ 2G
+    Z_2                          |G\2G| = 1    OK
+    -> reflection construction POSSIBLE (best group supplies 1 of 1)
+
+m = 6  (degree 7):  each branch needs 5 distinct labels in G \ 2G
+    Z_2 x Z_3                    |G\2G| = 3    short by 2
+    -> reflection construction IMPOSSIBLE (best group supplies 3 of 5)
+
+m = 56  (degree 57):  each branch needs 55 distinct labels in G \ 2G
+    Z_7 x Z_8                    |G\2G| = 28   short by 27
+    Z_2 x Z_4 x Z_7              |G\2G| = 42   short by 13
+    Z_2 x Z_2 x Z_2 x Z_7        |G\2G| = 49   short by 6
+    -> reflection construction IMPOSSIBLE (best group supplies 49 of 55)
+
+The verdict is exactly 'm is a power of two' in every case, which is
+the theorem: G \ 2G has m - m/|G[2]| elements, and that reaches the
+required m - 1 only when G[2] = G.
+
+Cross-check against the solver (reflection.py):
+  degree 3  : counting says POSSIBLE     -- solver returns a Moore graph
+  degree 7  : counting says IMPOSSIBLE   -- solver returns INFEASIBLE
+  degree 57 : counting says IMPOSSIBLE   -- no search needed
+
+=== feasibility.py (t=4) ===
+gauged matching model at degree 57, decisive small-t feasibility
+(SAT = the involution property survives at that many branches;
+ UNSAT = it is refuted at degree 57)
+
+t= 4 branches : SAT       (OPTIMAL) in     37s   [168 diseq, 224 element]
+               verified: derangement conditions True, 229 vertices, girth>=5 True
+
+  No infeasibility found at these sizes.

@@ -349,6 +349,61 @@ not an algebraic object — consistent with its being non-vertex-transitive with
 |Aut| ≤ 375 of odd order, which is exactly what an inherently non-algebraic
 object looks like.
 
+### 13. A proof, not a search: reflection constructions are impossible at 57
+
+The gauged model turns the reflection family into a counting question, and the
+counting settles it outright.
+
+Realise the non-root matchings as reflections in a fixed abelian group G of
+order m = k−1, M_ij(x) = g_ij − x. Everything algebraic is then free: M_ij is
+always an involution; it is fixed-point-free iff g_ij ∉ 2G; M_ij and M_il are
+edge-disjoint iff g_ij ≠ g_il; triangle composites are reflections, hence
+involutions.
+
+So the construction needs, for each branch i, that the m−1 labels g_ij (j ≠ i)
+be **distinct elements of G \ 2G**. Since |2G| = |G|/|G[2]|,
+
+    |G \ 2G| = m − m/|G[2]| ≥ m − 1  ⟺  G[2] = G  ⟺  m is a power of two.
+
+> **Theorem.** A reflection construction over an abelian group exists only when
+> m = k−1 is a power of two.
+
+| m | degree | usable labels (best group) | needed | verdict |
+| --- | --- | --- | --- | --- |
+| 2 | 3 | 1 (Z₂) | 1 | possible — it *is* the Petersen graph |
+| 6 | 7 | 3 (Z₂×Z₃) | 5 | **impossible** |
+| 56 | 57 | 49 (Z₂×Z₂×Z₂×Z₇) | 55 | **impossible — short by 6** |
+
+`reflection_bound.py` enumerates every abelian group of each order and checks
+that the counting verdict is exactly "m is a power of two". It cross-checks
+against the solver in both decidable cases: `reflection.py` returns a Moore
+graph at degree 3 and INFEASIBLE at degree 7. At degree 57 no search is needed
+at all.
+
+The argument generalizes past reflections, and this is the useful part: **any
+ansatz must supply, per branch, 55 pairwise-disjoint fixed-point-free
+involutions** — a full 1-factorization of K₅₆. Constructions that draw from a
+smaller pool are dead on arrival. Translations by involutions in an abelian
+group of order 56 supply at most 7; reflections supply at most 49. That single
+criterion disposes of the natural algebraic families without any search, and it
+is the rigorous core of why constructions never generalize past degree 7.
+
+### 14. How far the involution property survives at degree 57
+
+`feasibility.py` asks the decisive question directly. If the graph exists *and*
+has the involution property, valid gauged structures exist for every t.
+
+| branches | verdict | time |
+| --- | --- | --- |
+| 4 | **SAT** — verified, 229 vertices, girth 5 | 58 s |
+| 5 | undecided (UNKNOWN) | 900 s |
+
+No infeasibility was found, so the conjecture is not refuted; but nor is it
+supported far. The model is brutally hard at m = 56: CP-SAT cannot decide five
+branches in fifteen minutes, where it settles all seven branches of
+Hoffman–Singleton in two seconds. That gap between m = 6 and m = 56 is itself
+the honest measure of how much harder degree 57 is than anything solved.
+
 ## Conclusion
 
 The question was where the constraints bind hard enough to hand the rest to
@@ -409,6 +464,8 @@ the *design*, not on the *construction*.
 | `gauged_search.py` | the gauged matching model: sigma_ij are perfect matchings, rows are 1-factorizations |
 | `sweep_gauged.py` | pushing the gauged model upward at degree 57 |
 | `construct.py` | the round-robin algebraic candidate and why it fails |
+| `reflection_bound.py` | the counting proof that reflection constructions need m a power of two |
+| `feasibility.py` | decisive small-t feasibility of the involution property at degree 57 |
 | `Moore57.lean` | Lean formalization of the block decomposition (not machine-checked) |
 
 Run order: `python3 reduction.py`, `known_constraints.py`, `firstmoment.py`,
