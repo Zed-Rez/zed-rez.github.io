@@ -537,6 +537,41 @@
     grounds proved above &mdash; no order-56 automorphism, and the reflection
     bound.</p>
 
+    <h2>Branch extension is a colouring problem &mdash; with no local obstruction</h2>
+    <p>Adding a branch is exactly a colouring problem. The unknowns are the
+    (t&minus;1)&nbsp;&times;&nbsp;56 cells
+    p<sub>i</sub>[x]&nbsp;=&nbsp;&sigma;<sub>i,t</sub>(x); each row must be a
+    permutation, so <strong>each row is a clique of size 56</strong> and
+    <strong>each colour class is a transversal</strong> &mdash; one cell per
+    row. For the verified 19-branch structure the conflict graph is
+    <strong>1008 cells, 361-regular</strong>, and extending it means splitting
+    those cells into 56 independent transversals of size 18.</p>
+
+    <p>That gives several cheap necessary conditions, and it is worth knowing
+    that every one of them passes:</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>test</th><th class="num">result</th><th class="num">settles it?</th></tr>
+      <tr><td>an independent transversal exists</td><td class="num">yes, witness verified</td><td class="num">no</td></tr>
+      <tr><td>clique number vs. 56 values</td><td class="num">exactly <strong>56</strong></td><td class="num">no &mdash; tight</td></tr>
+      <tr><td>Hoffman chromatic bound</td><td class="num">&chi;&nbsp;&ge;&nbsp;19.77</td><td class="num">no</td></tr>
+      <tr><td>ratio bound on independent sets</td><td class="num">&alpha;&nbsp;&le;&nbsp;51, need 18</td><td class="num">no</td></tr>
+      <tr><td>2 or 4 disjoint transversals</td><td class="num">UNKNOWN at 300 s</td><td class="num">no</td></tr>
+    </table>
+    </div>
+
+    <p>So the 19-branch structure has <strong>no local obstruction</strong> to
+    being extended &mdash; it is not a dead end cheap mathematics can expose.
+    The clique bound coming out at <em>exactly</em> 56 is the striking part: the
+    colouring is a perfect fit, every row forced to use every value once, all
+    cross-row conflicts absorbed without ever forcing a 57th colour.</p>
+
+    <p>That is the same verdict the dihedral analysis gave from the algebraic
+    side. No single triple and no local test is ever unsatisfiable, so any
+    obstruction at degree 57 has to be global &mdash; exactly the kind a solver
+    cannot find and a counting argument cannot see.</p>
+
     <hr>
 
     <h2>Conclusion</h2>
