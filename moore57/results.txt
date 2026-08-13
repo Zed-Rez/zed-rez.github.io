@@ -240,3 +240,31 @@ Validation at degree 7 (blocks of 6, need 7 branches):
   involutive composites: 210/210
 
 model VALIDATED -- it finds the graph that exists
+=== gauged_search.py (degree 3) ===
+gauged matching model: degree 3 (blocks of 2), 3 branches
+  unknowns: 1 perfect matchings on 2 points
+  OPTIMAL in 0s  (0 disequalities, 0 element constraints)
+  derangement conditions on the sigma table: True
+  rebuilt graph: Moore graph of degree 3 on 10 vertices
+
+  *** A MOORE GRAPH OF DEGREE 3 ***
+
+=== gauged_search.py (degree 7) ===
+gauged matching model: degree 7 (blocks of 6), 7 branches
+  unknowns: 15 perfect matchings on 6 points
+  OPTIMAL in 2s  (360 disequalities, 1290 element constraints)
+  derangement conditions on the sigma table: True
+  rebuilt graph: Moore graph of degree 7 on 50 vertices
+
+  *** A MOORE GRAPH OF DEGREE 7 ***
+
+=== construct.py ===
+round-robin construction, auditing the first 10 branches
+    rows are 1-factorizations : 360/360
+    triangles fixed-point-free: 0/240
+    triangles involutive      : 0/240
+    quadrilaterals f.p.f.     : 0/630
+  all conditions hold: False
+
+twisted variants s |-> u*s + v  (u a unit mod 55):
+  fewest failing triangles over the variants tried: 240 (u=1, v=0)

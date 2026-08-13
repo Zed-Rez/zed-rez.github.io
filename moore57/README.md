@@ -274,6 +274,81 @@ It is **not machine-checked**: this sandbox has no Lean toolchain and no
 network route to one (elan, leanprover.github.io and GitHub are all blocked by
 the egress proxy), so it has not been through the kernel.
 
+## Third pass: the gauged model, and why the degree-7 construction does not generalize
+
+### 10. In the gauge, every bijection is a perfect matching
+
+Fixing σ_0j = id collapses the involution property into something far more
+usable. The triple {0,i,j} gives τ = σ_j0·σ_ij·σ_0i = **σ_ij** — so every σ_ij
+with i,j ≥ 1 is itself a fixed-point-free involution, a perfect matching on the
+56 points. (Verified: 1/1 for Petersen, 15/15 for Hoffman–Singleton.)
+
+The quadrilateral {0,i,j,l} collapses to σ_jl·σ_ij, and a product of two
+fixed-point-free involutions is fixed-point-free exactly when the matchings
+share no edge. Over the three cyclic orders this makes M_ij, M_jl and M_il
+pairwise edge-disjoint, so **for each branch i the 55 matchings {M_ij} form a
+1-factorization of K₅₆** — exactly, since 55 × 28 = 1540 = |E(K₅₆)|. And
+M_ij = M_ji, so the object is a symmetric array of matchings whose every row is
+a 1-factorization, with a dual structure on the point side.
+
+`gauged_search.py` implements this. It is by far the best model found here:
+
+| model | finds Hoffman–Singleton in |
+| --- | --- |
+| general search over S₆ | 81,381,110 nodes / 61 s |
+| gauged matching model | **2 s, monolithically** (no growth, no backtracking) |
+
+At degree 57 it is still hard — CP-SAT returns UNKNOWN at 8 branches — because
+the involution property is such a strong constraint. So the next move was to
+stop searching and construct.
+
+### 11. The obvious algebraic construction fails, structurally
+
+The natural candidate indexes both branches and points by Z₅₅ ∪ {∞} and uses
+the standard round-robin 1-factorization on both sides (`construct.py`). Every
+condition through the root holds by construction. Every other condition fails —
+0 of 240 triangles fixed-point-free, and no twist s ↦ us+v repairs any of them.
+
+The reason is clean. The round-robin factors act on Z₅₅ as reflections
+a ↦ 2s−a, so a triangle composite is a ↦ 2(s₁−s₂+s₃) − a, whose fixed point is
+a = s₁−s₂+s₃ — and 2 is invertible mod 55 because **55 is odd**, so the fixed
+point always exists. Any 1-factorization built from reflections on an
+odd-order group is disqualified outright. This is the same parity obstruction
+that kills the reflection ansatz, showing up again.
+
+### 12. Why the degree-7 construction cannot generalize
+
+Hoffman–Singleton's gauged array has an exceptional property: its 15
+branch-pairs map **bijectively onto all 15 perfect matchings of K₆**. That is
+the classical Sylvester duads-and-synthemes configuration, the structure behind
+the outer automorphism of S₆ — and it is why the degree-7 case has a rigid,
+findable, unique solution.
+
+The coincidence that makes it possible is C(m,2) = (m−1)!!, i.e. branch-pairs =
+available matchings:
+
+| m = k−1 | branch pairs | perfect matchings of K_m | equal? |
+| --- | --- | --- | --- |
+| 2 (degree 3) | 1 | 1 | **yes** |
+| 4 | 6 | 3 | no |
+| 6 (degree 7) | 15 | 15 | **yes** |
+| 8 | 28 | 105 | no |
+| 56 (degree 57) | 1,540 | 8.7 × 10³⁶ | no |
+
+It holds at exactly m = 2 and m = 6 — precisely the two degrees where a Moore
+graph exists.
+
+Read this carefully, because it is easy to over-claim. It is **not** evidence
+of non-existence: having more matchings available is more freedom, not less,
+and naive counting would favour existence at 56. What it does explain is why no
+construction generalizes. At degrees 3 and 7 the structure is pinned by an
+exceptional coincidence that supplies the whole algebraic scaffold; at degree
+57 there is no scaffold, and 1,540 matchings must be selected from 8.7 × 10³⁶
+with nothing forcing the choice. If the graph exists, this says it is probably
+not an algebraic object — consistent with its being non-vertex-transitive with
+|Aut| ≤ 375 of odd order, which is exactly what an inherently non-algebraic
+object looks like.
+
 ## Conclusion
 
 The question was where the constraints bind hard enough to hand the rest to
@@ -331,6 +406,9 @@ the *design*, not on the *construction*.
 | `involution_search.py` | search with the involution property imposed; validated at degree 7 |
 | `run_inv57.py` | driver for the degree-57 involution-constrained growth |
 | `reflection.py` | the reflection ansatz x -> g - x |
+| `gauged_search.py` | the gauged matching model: sigma_ij are perfect matchings, rows are 1-factorizations |
+| `sweep_gauged.py` | pushing the gauged model upward at degree 57 |
+| `construct.py` | the round-robin algebraic candidate and why it fails |
 | `Moore57.lean` | Lean formalization of the block decomposition (not machine-checked) |
 
 Run order: `python3 reduction.py`, `known_constraints.py`, `firstmoment.py`,
