@@ -499,6 +499,42 @@ colouring-CSP search model, the reflection impossibility theorem, the S₆
 generation result, the duads/synthemes explanation of degree 7, and the
 calibration showing that a stalled search is not evidence of non-existence.
 
+### 18. Branch extension as a colouring problem, and the absence of local obstructions
+
+Adding a branch to a t-branch structure is exactly a colouring problem. The
+unknowns are the (t−1) × 56 cells p_i[x] = σ_{i,t}(x); each row must be a
+permutation, so **each row is a clique of size 56** and **each colour class is
+a transversal** — one cell per row. The triangle and quadrilateral conditions
+are binary disequalities joining cells across rows.
+
+For the verified 19-branch structure the conflict graph is **1008 cells,
+361-regular** (55 within-row, plus exactly 18 per each of the 17 other rows: one
+from the triangle through those two branches and 17 from quadrilaterals).
+Extending it means partitioning those 1008 cells into 56 independent
+transversals of size 18.
+
+That reformulation makes several cheap necessary conditions available, and it
+is worth knowing that **all of them pass**:
+
+| test | result | settles it? |
+| --- | --- | --- |
+| an independent transversal exists | yes, witness verified | no |
+| clique number vs. 56 available values | exactly **56** (a single row) | no — tight |
+| Hoffman chromatic bound | χ ≥ 19.77 | no |
+| ratio bound on independent sets | α ≤ 51, classes need 18 | no |
+| 2 or 4 disjoint transversals | UNKNOWN at 300 s each | no |
+
+So the 19-branch structure has **no local obstruction** to being extended: it
+is not a dead end that cheap mathematics can expose. The clique bound being
+*exactly* 56 is the striking part — the colouring is a perfect fit, with every
+row forced to use every value once and all cross-row conflicts absorbed without
+ever forcing a 57th colour.
+
+This is the same conclusion the dihedral analysis reached from the algebraic
+side: no single triple, and no local test, is ever unsatisfiable. Any
+obstruction at degree 57 has to be global — which is precisely the kind a
+solver cannot find and a counting argument cannot see.
+
 ## Conclusion
 
 The question was where the constraints bind hard enough to hand the rest to
@@ -563,6 +599,9 @@ the *design*, not on the *construction*.
 | `feasibility.py` | decisive small-t feasibility of the involution property at degree 57 |
 | `gauged_extend.py` | incremental growth of the gauged structure at degree 57 |
 | `dihedral.py` | the involution property restated as a dihedral relation |
+| `control.py` | control experiment on the involution base rate, and its severity |
+| `transversal.py` | branch extension as a transversal-colouring problem |
+| `clique.py` | clique and spectral obstructions on the conflict graph |
 | `Moore57.lean` | Lean formalization of the block decomposition (not machine-checked) |
 
 Run order: `python3 reduction.py`, `known_constraints.py`, `firstmoment.py`,

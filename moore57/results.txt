@@ -377,3 +377,39 @@ Consequences if so:
     withdrawn to that extent;
   * the cyclic ansatz is still dead, but on the independent grounds
     proved earlier (no order-56 automorphism; the reflection bound).
+
+=== transversal.py ===
+the verified 19-branch cyclic structure: valid 19-block structure
+
+extension to branch 19:
+  conflict graph: 172368 conflicting cell pairs over 1008 cells
+  independent transversal: OPTIMAL     in 46s
+  witness verified: 0 conflicting pairs among the chosen cells
+
+  A transversal exists, so this cheap test does not rule the
+  extension out.  It remains necessary-but-not-sufficient: all
+  56 colour classes must exist simultaneously and partition the
+  cells.
+
+=== clique.py ===
+structure: valid 19-block structure
+conflict graph: 1008 cells, degree min 361 / median 361 / max 361
+a cell conflicts with [18] cells of each other row
+largest clique found: 56  (spanning 1 rows) -- verified
+
+spectral obstructions on the same graph:
+  361-regular, eigenvalues max 361.0000, min -19.2374
+  Hoffman chromatic bound  chi >= 19.7655   (56 values available) -> no obstruction
+  ratio bound              alpha <= 51.00  (classes need size 18) -> no obstruction
+
+A clique of 56 does not exceed the 56 available values, so this
+bound does not settle it.  Note a single row already gives 56,
+so the colouring is exactly tight: every row must use every
+value once, and the cross-row conflicts must all be absorbed
+without ever forcing a 57th colour.
+
+Taken together: the 19-branch structure passes every cheap
+necessary condition -- a transversal exists, the clique number
+is exactly 56, and neither spectral bound bites.  So there is no
+LOCAL obstruction to extending it.  That matches the dihedral
+analysis: any obstruction at degree 57 has to be global.
