@@ -1,0 +1,194 @@
+=== reduction.py ===
+Petersen           Moore graph of degree 3 on 10 vertices
+                   decomposed into 3 blocks of 2; derangement conditions hold: True
+                   rebuilt from the sigma table: Moore graph of degree 3 on 10 vertices
+
+Hoffman-Singleton  Moore graph of degree 7 on 50 vertices
+                   decomposed into 7 blocks of 6; derangement conditions hold: True
+                   rebuilt from the sigma table: Moore graph of degree 7 on 50 vertices
+
+Automorphisms fixing the root and every one of its neighbours
+(the cyclic ansatz needs one of order k-1):
+  Petersen           group order 2, element orders [1, 2] -> ansatz can work
+  Hoffman-Singleton  group order 1, element orders [1] -> ansatz is EMPTY
+
+perturbed Hoffman-Singleton table still valid: False / still a Moore graph: False
+
+=== known_constraints.py ===
+degree 3: strongly regular (10, 3, 0, 1)
+  spectrum        3^1, 1^5, -2^4
+  integrality     PASS (eigenvalues and multiplicities are integers)
+  Krein           PASS, PASS
+  absolute bound  PASS
+  ratio bound     independence number <= 4  (an integer -- a tight coclique is not excluded)
+  clique bound    clique number <= 2.5  ->  <= 2 (consistent with triangle-free)
+  edges           15
+  5-cycles        12 (closed form)
+                  12 (counted in the actual graph) -- formula VERIFIED
+
+degree 7: strongly regular (50, 7, 0, 1)
+  spectrum        7^1, 2^28, -3^21
+  integrality     PASS (eigenvalues and multiplicities are integers)
+  Krein           PASS, PASS
+  absolute bound  PASS
+  ratio bound     independence number <= 15  (an integer -- a tight coclique is not excluded)
+  clique bound    clique number <= 3.333  ->  <= 3 (consistent with triangle-free)
+  edges           175
+  5-cycles        1260 (closed form)
+                  1260 (counted in the actual graph) -- formula VERIFIED
+
+degree 57: strongly regular (3250, 57, 0, 1)
+  spectrum        57^1, 7^1729, -8^1520
+  integrality     PASS (eigenvalues and multiplicities are integers)
+  Krein           PASS, PASS
+  absolute bound  PASS
+  ratio bound     independence number <= 400  (an integer -- a tight coclique is not excluded)
+  clique bound    clique number <= 8.125  ->  <= 8 (consistent with triangle-free)
+  edges           92625
+  5-cycles        58094400 (closed form)
+
+Nothing in the classical toolkit rejects (3250, 57, 0, 1).  That is
+why the question survives: it has to be settled by construction or
+by an argument specific to this parameter set.
+
+=== firstmoment.py ===
+==========================================================================
+degree k = 3 :  3 blocks of 2,  3 bijections to choose (1 after gauge)
+  target: t = 3 blocks
+  general (sigma in S_2)     search space 10^0.3         per-step crossover r* = 3
+      expected ways to add block r:  r=2: 10^0.0,  r=3: 10^-1.2
+      expected number of complete (t=3) structures: 10^0
+  cyclic  (sigma in Z_2)     search space 10^0.3         per-step crossover r* = 3
+      expected ways to add block r:  r=2: 10^0.0,  r=3: 10^-1.2
+      expected number of complete (t=3) structures: 10^0
+
+==========================================================================
+degree k = 7 :  7 blocks of 6,  21 bijections to choose (15 after gauge)
+  target: t = 7 blocks
+  general (sigma in S_6)     search space 10^42.9        per-step crossover r* = 5
+      expected ways to add block r:  r=3: 10^3.1,  r=4: 10^0.8,  r=5: 10^-5.9,  r=6: 10^-18.3,  r=7: 10^-37.6
+      expected number of complete (t=7) structures: 10^-18
+  cyclic  (sigma in Z_6)     search space 10^11.7        per-step crossover r* = 5
+      expected ways to add block r:  r=3: 10^1.1,  r=4: 10^0.9,  r=5: 10^-0.1,  r=6: 10^-2.0,  r=7: 10^-5.3
+      expected number of complete (t=7) structures: 10^1
+
+==========================================================================
+degree k = 57 :  57 blocks of 56,  1596 bijections to choose (1540 after gauge)
+  target: t = 57 blocks
+  general (sigma in S_56)    search space 10^115271.9    per-step crossover r* = 20
+      expected ways to add block r:  r=3: 10^147.1,  r=5: 10^282.0,  r=19: 10^10.6,  r=20: 10^-145.6,  r=21: 10^-327.0,  r=22: 10^-534.9,  r=25: 10^-1330.5,  r=57: 10^-34623.8
+      expected number of complete (t=57) structures: 10^-412088
+  cyclic  (sigma in Z_56)    search space 10^2692.2      per-step crossover r* = 22
+      expected ways to add block r:  r=3: 10^3.4,  r=5: 10^6.7,  r=21: 10^2.1,  r=22: 10^-1.2,  r=23: 10^-5.1,  r=24: 10^-9.5,  r=27: 10^-26.0,  r=57: 10^-601.5
+      expected number of complete (t=57) structures: 10^-6810
+
+==========================================================================
+CALIBRATION -- prediction vs exact truth, at the degrees where a
+Moore graph is known to exist
+==========================================================================
+degree   model     predicted max actual      note
+3        general   t<=3         t=3         general search finds Petersen
+3        cyclic    t<=3         t=3         cyclic search finds Petersen
+7        general   t<=5         t=7         general search finds Hoffman-Singleton   <-- PREDICTION TOO LOW
+7        cyclic    t<=5         t=5         cyclic search stalls -- MISSES Hoffman-Singleton
+
+Read the k=7 general row carefully: the first-moment crossover says
+the structure should die at t=5 blocks, and the Hoffman-Singleton
+graph nevertheless reaches t=7.  The estimate is wrong in the direction of
+false pessimism, because the constraints are positively correlated.
+So a search stalling near the crossover is NOT evidence of
+non-existence -- at k=7 that same evidence would have been wrong.
+
+==========================================================================
+WHAT WOULD A BRUTE-FORCE SEARCH COST?
+==========================================================================
+  bijections to determine (after gauge)      1540, each from 56! = 10^74.9
+  raw space                                  10^115272
+  derangement constraints                    29260 triangles + 1185030 quadrilaterals = 1214290
+
+  Raw space is the wrong measure -- pruning is what matters.  The
+  size of the *pruned* tree is set by its widest level:
+
+    search                 widest level   structures there tree size (nodes)
+    k=7   general          t = 5          10^6             10^9
+    k=57  cyclic ansatz    t = 22         10^183           10^185
+    k=57  general          t = 20         10^5992          10^6067
+
+    measured, k=7 general: 81,381,110 = 10^7.9 nodes to the first
+    solution (61 s).  The estimate above says 10^9.1, so it runs
+    about one order of magnitude high.  Treat the k=57 rows the same way.
+
+  For scale: a machine visiting 10^18 nodes per second for the age
+  of the universe covers 10^36 nodes.  Lloyd's bound on the total
+  computation available in the observable universe is about 10^120.
+  Even the cyclic-restricted exhaustive search exceeds that bound by
+  65 orders of magnitude; the general search exceeds it by 5947.
+
+  Symmetry does not rescue it.  The most any automorphism assumption
+  can buy is the order of the assumed group, and that group is now
+  known to have odd order (Ishida 2026) and order at most 375
+  (Macaj-Siran 2010): a factor of 10^2.6.  The assumption is not even
+  safe -- a trivial automorphism group is consistent with all of it.
+
+  The honest measure of reach is the largest t-block structure anyone
+  can build: t = 20 of 57.  Brute force would have to survive every
+  block from there to 57.
+
+
+=== verify_frontier.py ===
+certificate: 19 of the 57 branches
+  Z_56 conditions (no vanishing 3-sum or 4-sum): True
+  derangement conditions on the sigma table:    True
+  built graph: 1084 vertices (expected 1084)
+  girth >= 5:                                   True
+  root degree      19   (57 in the complete graph)
+  layer-1 degrees  [57]   (57 -- these branches are already full)
+  layer-2 degrees  [19]   (57 in the complete graph)
+
+  So: a girth-5 graph on 1084 vertices in which 19 vertices already
+  have their full degree 57, and the remaining 1064 layer-2 vertices
+  have 19 of 57.  Completing it means adding branches 20..57.
+
+=== run_k7.py ===
+--- exact counts of valid t-block structures, k = 7, t <= 4 ---
+degree k = 7   (7 blocks of 6 points; |S_6| = 720, 265 derangements)
+  search nodes: 18680115   (15.5s)
+    blocks exact count      first-moment     ratio exact/pred
+    t=3    265              265              1
+    t=4    101040           3.415e+05        0.2959
+  complete solutions: 0
+  no complete solution found
+
+--- first complete solution: how much brute force does k = 7 cost? ---
+degree k = 7   (7 blocks of 6 points; |S_6| = 720, 265 derangements)
+  search nodes: 81381110   (62.7s)
+  first solution rebuilds to: Moore graph of degree 7 on 50 vertices
+
+=== cyclic_search.py (20s per CP-SAT attempt) ===
+Calibration: does the cyclic ansatz find the Moore graphs that actually exist?
+
+  degree k=3  (blocks of size 2, group Z_2), need t=3:
+    m= 2  t= 2  OK       (0 search nodes)
+    m= 2  t= 3  OK       (2 search nodes)
+    m= 2  t= 4  IMPOSSIBLE (6 search nodes)
+    -> cyclic ansatz FINDS IT
+
+    reconstructed graph: Moore graph of degree 3 on 10 vertices 
+
+  degree k=7  (blocks of size 6, group Z_6), need t=7:
+    m= 6  t= 2  OK       (0 search nodes)
+    m= 6  t= 3  OK       (2 search nodes)
+    m= 6  t= 4  OK       (15 search nodes)
+    m= 6  t= 5  OK       (48 search nodes)
+    m= 6  t= 6  IMPOSSIBLE (16770 search nodes)
+    -> cyclic ansatz MISSES IT -- stalls at t=5 of 7
+
+Now degree 57 (blocks of size 56, group Z_56), need t=57.
+Exhaustive search is hopeless here; using CP-SAT.
+
+    t=10  OPTIMAL         (120 triangle + 630 quadrilateral constraints)
+    t=15  OPTIMAL         (455 triangle + 4095 quadrilateral constraints)
+    t=18  UNKNOWN         (816 triangle + 9180 quadrilateral constraints)
+    t=20  UNKNOWN         (1140 triangle + 14535 quadrilateral constraints)
+    t=21  UNKNOWN         (1330 triangle + 17955 quadrilateral constraints)
+    t=22  UNKNOWN         (1540 triangle + 21945 quadrilateral constraints)
