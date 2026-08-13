@@ -388,6 +388,61 @@
     algebraic object &mdash; which is consistent with its being
     non-vertex-transitive with |Aut|&nbsp;&le;&nbsp;375 of odd order.</p>
 
+    <h2>A proof, not a search</h2>
+    <p>The gauged model turns the reflection family into a counting question,
+    and the counting settles it outright. Realise the non-root matchings as
+    reflections M<sub>ij</sub>(x) = g<sub>ij</sub>&nbsp;&minus;&nbsp;x in a
+    fixed abelian group G of order m. Then M<sub>ij</sub> is always an
+    involution, it is fixed-point-free iff g<sub>ij</sub>&nbsp;&notin;&nbsp;2G,
+    and M<sub>ij</sub>, M<sub>il</sub> are edge-disjoint iff
+    g<sub>ij</sub>&nbsp;&ne;&nbsp;g<sub>il</sub>. So each branch needs
+    m&nbsp;&minus;&nbsp;1 <em>distinct</em> labels in G&nbsp;\&nbsp;2G, and
+    since |2G|&nbsp;=&nbsp;|G|/|G[2]|,</p>
+
+    <p style="margin-left:1.5rem"><em>|G \ 2G| = m &minus; m/|G[2]| &ge; m &minus; 1
+    &nbsp;&hArr;&nbsp; G[2] = G &nbsp;&hArr;&nbsp; m is a power of two.</em></p>
+
+    <div class="verdict">
+      <p><strong>Theorem.</strong> A reflection construction over an abelian
+      group exists only when m = k&minus;1 is a power of two. So it is
+      impossible at degree 7 and at degree 57 &mdash; no search required.</p>
+    </div>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th class="num">m</th><th class="num">degree</th><th class="num">usable labels (best group)</th><th class="num">needed</th><th>verdict</th></tr>
+      <tr><td class="num">2</td><td class="num">3</td><td class="num">1 (Z<sub>2</sub>)</td><td class="num">1</td><td>possible &mdash; it <em>is</em> Petersen</td></tr>
+      <tr><td class="num">6</td><td class="num">7</td><td class="num">3</td><td class="num">5</td><td><strong>impossible</strong></td></tr>
+      <tr><td class="num">56</td><td class="num">57</td><td class="num">49</td><td class="num">55</td><td><strong>impossible &mdash; short by 6</strong></td></tr>
+    </table>
+    </div>
+
+    <p>The counting verdict is exactly &ldquo;m is a power of two&rdquo; in
+    every case, and it cross-checks against the solver in both decidable ones:
+    a Moore graph at degree 3, INFEASIBLE at degree 7.</p>
+
+    <p>The useful generalization: <strong>any ansatz must supply, per branch,
+    55 pairwise-disjoint fixed-point-free involutions</strong> &mdash; a full
+    1-factorization of K<sub>56</sub>. Translations by involutions in an
+    abelian group of order 56 supply at most 7; reflections at most 49. That
+    one criterion disposes of the natural algebraic families with no search at
+    all, and it is the rigorous core of why constructions never generalize past
+    degree 7.</p>
+
+    <h2>How far the property survives at degree 57</h2>
+    <div class="tablewrap">
+    <table>
+      <tr><th class="num">branches</th><th>verdict</th><th class="num">time</th></tr>
+      <tr><td class="num">4</td><td><strong>SAT</strong> &mdash; verified, 229 vertices, girth 5</td><td class="num">58 s</td></tr>
+      <tr><td class="num">5</td><td>undecided</td><td class="num">900 s</td></tr>
+    </table>
+    </div>
+    <p>No infeasibility was found, so the conjecture is not refuted &mdash; but
+    nor is it supported far. CP-SAT cannot decide five branches at m&nbsp;=&nbsp;56
+    in fifteen minutes, where it settles all seven branches of
+    Hoffman&ndash;Singleton in two seconds. That gap is the honest measure of
+    how much harder degree 57 is than anything yet solved.</p>
+
     <hr>
 
     <h2>Conclusion</h2>
