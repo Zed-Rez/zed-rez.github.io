@@ -214,6 +214,20 @@ That is a much sharper claim than "the ansatz is a dead end".
 Status: **verified at degrees 3 and 7, conjectural at 57.** I did not prove it.
 A proof would be the most valuable single thing here.
 
+**The caveat that cuts against it**, stated plainly because it matters: the
+entire evidence base is two graphs that are vertex-transitive and rank 3, with
+automorphism groups of order 120 and 252000. The degree-57 graph is known *not*
+to be vertex-transitive (Higman) and to have |Aut| ≤ 375 of odd order. A
+property that holds in the two most symmetric cases imaginable is exactly the
+kind of property that can be an artefact of symmetry rather than a theorem
+about Moore graphs. I tried and failed to prove it from the local axioms
+(triangle-free plus a unique common neighbour for non-adjacent pairs); the
+natural attempts get to a 6-cycle and stop.
+
+What holds the other way is that the property implies a theorem about degree 57
+specifically — the cyclic-impossibility result — which was proved without any
+symmetry assumption. That is consistency, not proof.
+
 ### 7. Why no group ansatz can work
 
 Hoffman–Singleton's bijections generate the **full symmetric group S₆** (order
