@@ -319,6 +319,77 @@
 
     <hr>
 
+    <h2>Third pass: the gauged model</h2>
+
+    <p>Fixing the gauge &sigma;<sub>0j</sub> = id collapses the involution
+    property into something far more usable. The triple {0,i,j} gives
+    &tau;&nbsp;=&nbsp;&sigma;<sub>ij</sub> outright, so <strong>every
+    &sigma;<sub>ij</sub> is itself a perfect matching</strong> on the 56 points
+    (verified 1/1 for Petersen, 15/15 for Hoffman&ndash;Singleton). The
+    quadrilateral through the root then forces matchings sharing an index to be
+    edge-disjoint, so each branch's 55 matchings form a 1-factorization of
+    K<sub>56</sub> &mdash; exactly, since 55&nbsp;&times;&nbsp;28 = 1540 =
+    |E(K<sub>56</sub>)|.</p>
+
+    <p>This is by far the best model found here:</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>model</th><th class="num">finds Hoffman&ndash;Singleton in</th></tr>
+      <tr><td>general search over S<sub>6</sub></td><td class="num">81,381,110 nodes / 61 s</td></tr>
+      <tr><td>gauged matching model</td><td class="num"><strong>2 s, monolithically</strong></td></tr>
+    </table>
+    </div>
+
+    <p>At degree 57 it still returns UNKNOWN at eight branches &mdash; the
+    involution property is that strong a constraint. So the next move was to
+    stop searching and construct.</p>
+
+    <h2>The obvious construction fails, structurally</h2>
+    <p>The natural candidate indexes both branches and points by
+    Z<sub>55</sub>&nbsp;&cup;&nbsp;{&infin;} and uses the standard round-robin
+    1-factorization on both sides. Everything through the root holds by
+    construction; everything else fails &mdash; 0 of 240 triangles
+    fixed-point-free, unrepaired by any twist. The reason is clean: round-robin
+    factors act as reflections a &#8614; 2s&nbsp;&minus;&nbsp;a, so a triangle
+    composite is a &#8614; 2(s&#8321;&minus;s&#8322;+s&#8323;)&nbsp;&minus;&nbsp;a,
+    whose fixed point exists because 2 is invertible mod 55 &mdash;
+    <strong>55 is odd</strong>. Any 1-factorization built from reflections on an
+    odd-order group is disqualified outright.</p>
+
+    <h2>Why the degree-7 construction cannot generalize</h2>
+    <p>Hoffman&ndash;Singleton's gauged array has an exceptional property: its
+    15 branch-pairs map <strong>bijectively onto all 15 perfect matchings of
+    K<sub>6</sub></strong> &mdash; the Sylvester duads-and-synthemes
+    configuration behind the outer automorphism of S<sub>6</sub>. The
+    coincidence that permits it is C(m,2) = (m&minus;1)!!:</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th class="num">m = k&minus;1</th><th class="num">branch pairs</th><th class="num">perfect matchings of K<sub>m</sub></th><th class="num">equal?</th></tr>
+      <tr><td class="num">2 (degree 3)</td><td class="num">1</td><td class="num">1</td><td class="num"><strong>yes</strong></td></tr>
+      <tr><td class="num">4</td><td class="num">6</td><td class="num">3</td><td class="num">no</td></tr>
+      <tr><td class="num">6 (degree 7)</td><td class="num">15</td><td class="num">15</td><td class="num"><strong>yes</strong></td></tr>
+      <tr><td class="num">8</td><td class="num">28</td><td class="num">105</td><td class="num">no</td></tr>
+      <tr><td class="num">56 (degree 57)</td><td class="num">1,540</td><td class="num">8.7 &times; 10<sup>36</sup></td><td class="num">no</td></tr>
+    </table>
+    </div>
+
+    <p>It holds at exactly m = 2 and m = 6 &mdash; precisely the two degrees
+    where a Moore graph exists.</p>
+
+    <p>This is easy to over-claim, so read it carefully. It is <em>not</em>
+    evidence of non-existence: more available matchings is more freedom, not
+    less, and naive counting would favour existence at 56. What it explains is
+    why no construction generalizes. At degrees 3 and 7 an exceptional
+    coincidence supplies the entire algebraic scaffold; at 57 there is no
+    scaffold, and 1,540 matchings must be chosen from 8.7&nbsp;&times;10<sup>36</sup>
+    with nothing forcing the choice. If the graph exists, it is probably not an
+    algebraic object &mdash; which is consistent with its being
+    non-vertex-transitive with |Aut|&nbsp;&le;&nbsp;375 of odd order.</p>
+
+    <hr>
+
     <h2>Conclusion</h2>
     <p>There is no point at which this becomes brute-forceable. The binding
     constraints buy a couple of orders of magnitude against a shortfall of
