@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Missing Moore Graph — Reza Ramji</title>
+  <meta name="description" content="How far the known constraints bind the degree-57 Moore graph problem, and how far short of brute force that leaves us.">
+  <link rel="canonical" href="https://rezaramji.com/moore57/">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site.css">
+  <style>
+    .sub { color: var(--muted); font-style: italic; margin: 0 0 1.2rem; }
+    main ul { margin: .4rem 0 .8rem; padding-left: 1.2rem; }
+    main ul li { margin: 0 0 .4rem; }
+    main ol { margin: .4rem 0 .8rem; padding-left: 1.3rem; }
+    main ol li { margin: 0 0 .5rem; }
+    .tablewrap { overflow-x: auto; margin: .9rem 0 1.1rem; }
+    table { border-collapse: collapse; width: 100%; font-size: .94rem; }
+    th, td { text-align: left; padding: .34rem .7rem .34rem 0; vertical-align: top; }
+    th { font-weight: 600; border-bottom: 1px solid rgba(0,0,0,.2); }
+    td { border-bottom: 1px solid rgba(0,0,0,.07); }
+    td.num, th.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .verdict { background: #faf7f2; border-left: 2px solid var(--accent);
+               padding: .6rem .9rem; margin: 1.1rem 0; }
+    .verdict p { margin: .3rem 0; }
+    code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+    .note { color: var(--muted); font-size: .93rem; }
+    hr { border: 0; border-top: 1px solid rgba(0,0,0,.12); margin: 2rem 0 1.4rem; }
+  </style>
+</head>
+<body>
+
+  <header class="site">
+    <div class="bar">
+      <a class="brand" href="/">Reza Ramji</a>
+      <nav class="top">
+        <a href="/#home">home</a>
+        <a href="/#projects/lm" class="active">projects</a>
+        <a href="/#writing">writing</a>
+        <a href="/#seealso">see also</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1>The missing Moore graph</h1>
+    <p class="sub">Where the constraints bind, and how far short of brute force that leaves us.</p>
+
+    <p>A Moore graph of degree 57 and diameter 2 would be a strongly regular
+    graph with parameters (3250,&nbsp;57,&nbsp;0,&nbsp;1): 57-regular, girth 5,
+    92,625 edges, 58,094,400 pentagons, spectrum 57<sup>1</sup>
+    7<sup>1729</sup> (&minus;8)<sup>1520</sup>. Degrees 2, 3 and 7 give the
+    pentagon, the Petersen graph and the Hoffman&ndash;Singleton graph. Degree
+    57 is the only case left, open since 1960.</p>
+
+    <p>The question I set out to answer was practical: do the known results
+    constrain the graph tightly enough that the remainder can be handed to a
+    brute-force search? They do not, and the margin is not close. What follows
+    is the audit, with everything checked in code.</p>
+
+    <div class="verdict">
+      <p><strong>The reachable frontier is 20 of the 57 branches the graph
+      needs.</strong> The pruned search tree for the honest search is around
+      10<sup>6067</sup> nodes against a universe-wide budget of about
+      10<sup>120</sup>. The strongest structural constraint known &mdash;
+      |Aut|&nbsp;&le;&nbsp;375, now of odd order &mdash; is worth
+      10<sup>2.6</sup>.</p>
+    </div>
+
+    <h2>Nothing classical rejects it</h2>
+    <p>Integral spectrum, both Krein conditions, the absolute bound, a ratio
+    bound of exactly 400, a clique bound consistent with triangle-freeness.
+    Every standard test passes, which is why the problem survives: it has to be
+    settled by construction, or by an argument specific to this parameter set.
+    Each formula is validated against Petersen and Hoffman&ndash;Singleton
+    first, including a brute-force pentagon count confirming the closed form
+    <code>n&middot;C(k,2)&middot;(k&minus;1)/5</code>.</p>
+
+    <h2>The reduction</h2>
+    <p>Root the graph. It has 57 neighbours, each with 56 further children:
+    57 blocks of 56. Girth 5 forces the edges between any two blocks to be a
+    perfect matching &sigma;<sub>ij</sub>, and is <em>equivalent</em> to the
+    condition that every product around a 3-cycle or 4-cycle of blocks is a
+    derangement. So the graph is exactly an edge-labelling of K<sub>57</sub> by
+    1596 permutations of 56 points (1540 after gauge-fixing), subject to 29,260
+    triangle and 1,185,030 quadrilateral constraints. A structure on
+    t&nbsp;&lt;&nbsp;57 blocks is a <em>t-subgraph</em>.</p>
+
+    <p>The reduction is implemented in both directions and checked end to end:
+    Petersen and Hoffman&ndash;Singleton decompose into &sigma;-tables, the
+    tables satisfy the conditions, the tables rebuild the original graphs, and
+    perturbing a single bijection breaks both.</p>
+
+    <h2>What the literature binds</h2>
+    <div class="tablewrap">
+    <table>
+      <tr><th>Result</th><th>Source</th></tr>
+      <tr><td>Not vertex-transitive</td><td>G. Higman</td></tr>
+      <tr><td>|Aut| &le; 375 if odd, &le; 110 if even</td><td>Ma&ccaron;aj &amp; &Scaron;ir&aacute;&ograve;, LAA 2010</td></tr>
+      <tr><td>No involutions &rArr; |Aut| is odd &rArr; |Aut| &le; 375</td><td>Ishida, arXiv:2606.29183 (Jun 2026)</td></tr>
+      <tr><td>A tight 400-coclique leaves a distance-regular graph on 2850 vertices, degree 49, diameter 3</td><td>Dalf&oacute;, LAA 569 (2019)</td></tr>
+      <tr><td>Optimization converges &ldquo;massively short&rdquo; of 92,625 edges</td><td>Smith &amp; Montemanni, EURO J. Comput. Optim. 2023</td></tr>
+      <tr><td>CP-SAT under a cyclic group extends the frontier from 15 to 20 branches</td><td>Smith &amp; Montemanni, Symmetry 16 (2024) 1563</td></tr>
+      <tr><td>A construction using only a cyclic group is impossible</td><td>Axioms 15 (2026) 332</td></tr>
+      <tr><td>The 2020 claimed non-existence proof is not valid</td><td>Faber, arXiv:2210.09577</td></tr>
+    </table>
+    </div>
+    <p class="note">Full texts were not reachable from the machine this ran on
+    &mdash; outbound HTTPS to arXiv, MDPI and ScienceDirect is blocked there
+    &mdash; so these attributions come from search-result summaries and are
+    worth checking against the originals.</p>
+
+    <h2>The frontier, reproduced</h2>
+    <p>Growing a labelling one branch at a time with CP-SAT reaches
+    <strong>t&nbsp;=&nbsp;19</strong> of 57 and stalls there across every
+    restart at 90 seconds per branch; the published frontier is 20. The
+    certificate is verified twice &mdash; arithmetically, and by building the
+    graph it describes: 1084 vertices, girth 5, with 19 vertices already at
+    their full degree 57 and 1064 vertices at 19 of 57.</p>
+
+    <h2>The ansatz that gets you there cannot find Hoffman&ndash;Singleton</h2>
+    <p>Requiring every &sigma;<sub>ij</sub> to lie in one regular cyclic group
+    collapses the problem to arithmetic in Z<sub>56</sub>, which is what makes
+    t&nbsp;=&nbsp;20 reachable at all. But it is not a free assumption: if all
+    the bijections lie in a common regular abelian group, then acting by a
+    generator on every block is an automorphism of order k&minus;1 fixing the
+    root and all k of its neighbours. Searching that model exhaustively where
+    the answer is known:</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>degree</th><th class="num">ansatz reaches</th><th class="num">needs</th><th>verdict</th></tr>
+      <tr><td>3</td><td class="num">t = 3</td><td class="num">3</td><td>finds the Petersen graph</td></tr>
+      <tr><td>7</td><td class="num">t = 5</td><td class="num">7</td><td><strong>misses Hoffman&ndash;Singleton</strong></td></tr>
+    </table>
+    </div>
+
+    <p>The group theory agrees, and can be read straight off the
+    &sigma;-table: an automorphism fixing the root and every layer-1 vertex
+    acts on block i by some &pi;<sub>i</sub> with &pi;<sub>j</sub>
+    &sigma;<sub>ij</sub> = &sigma;<sub>ij</sub> &pi;<sub>i</sub>, so the whole
+    group is computable by inspection.</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>degree</th><th class="num">root-fixing group</th><th class="num">element orders</th><th>ansatz</th></tr>
+      <tr><td>3</td><td class="num">order 2</td><td class="num">1, 2</td><td>can work &mdash; needs order 2</td></tr>
+      <tr><td>7</td><td class="num"><strong>trivial</strong></td><td class="num">1</td><td><strong>empty</strong> &mdash; needs order 6</td></tr>
+    </table>
+    </div>
+
+    <p>At degree 7 the ansatz has nothing to find, which is why the exhaustive
+    search stalls two branches short. At degree 57 the assumed automorphism has
+    order 56 &mdash; even &mdash; which the no-involutions theorem forbids
+    outright.</p>
+
+    <p>So t&nbsp;=&nbsp;20 is not the frontier of the problem. It is the ceiling
+    of a method that provably cannot reach 57, and that would have missed the
+    last Moore graph anyone actually found.</p>
+
+    <h2>Where the structure runs out &mdash; and why that proves nothing</h2>
+    <p>Counting the expected number of ways to add each branch gives a
+    crossover point, and that crossover tracks the empirical frontier closely:</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>model</th><th class="num">predicted max t</th><th class="num">actual</th></tr>
+      <tr><td>k = 3, either model</td><td class="num">3</td><td class="num">3</td></tr>
+      <tr><td>k = 7, cyclic</td><td class="num">5</td><td class="num">5 &mdash; exact</td></tr>
+      <tr><td>k = 7, general</td><td class="num">5</td><td class="num"><strong>7 &mdash; prediction too low</strong></td></tr>
+      <tr><td>k = 57, cyclic</td><td class="num">22</td><td class="num">19 here, 20 published</td></tr>
+      <tr><td>k = 57, general</td><td class="num">20</td><td class="num">unknown</td></tr>
+    </table>
+    </div>
+
+    <p>Exact counts confirm the estimator's accuracy early on: 265 valid
+    3-block structures at degree 7, which the estimate gives exactly, and
+    101,040 valid 4-block structures against an estimate of 341,500.</p>
+
+    <p>The third row is the point. The same estimator that says the degree-57
+    graph should die at 20 branches &mdash; and that puts the expected number of
+    complete structures at 10<sup>&minus;412088</sup> &mdash; says
+    Hoffman&ndash;Singleton should die at 5, and Hoffman&ndash;Singleton exists.
+    The constraints are positively correlated and the method is falsely
+    pessimistic. <strong>A search stalling near the crossover is not evidence of
+    non-existence</strong>: at degree 7 that identical signal would have been
+    wrong.</p>
+
+    <h2>The cost of brute force</h2>
+    <p>Measured at degree 7: 81,381,110 search nodes, 61 seconds, to the first
+    Hoffman&ndash;Singleton. Projecting the same tree-size model upward:</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>search</th><th class="num">widest level</th><th class="num">structures there</th><th class="num">tree size</th></tr>
+      <tr><td>k = 7, general (measured)</td><td class="num">t = 5</td><td class="num">10<sup>6</sup></td><td class="num">10<sup>7.9</sup></td></tr>
+      <tr><td>k = 57, cyclic ansatz</td><td class="num">t = 22</td><td class="num">10<sup>183</sup></td><td class="num">10<sup>185</sup></td></tr>
+      <tr><td>k = 57, general</td><td class="num">t = 20</td><td class="num">10<sup>5992</sup></td><td class="num">10<sup>6067</sup></td></tr>
+    </table>
+    </div>
+
+    <p>Lloyd's bound on the total computation available in the observable
+    universe is about 10<sup>120</sup> operations. The general search exceeds
+    that by some 5947 orders of magnitude. Even the cyclic-restricted search
+    &mdash; the dead-end one &mdash; exceeds it by 65.</p>
+
+    <p>Symmetry does not rescue it. The most any automorphism assumption can buy
+    is the order of the assumed group: odd, at most 375, a factor of
+    10<sup>2.6</sup>. And the assumption is not safe, since a trivial
+    automorphism group is consistent with everything known, and Higman already
+    ruled out the symmetric case that would have helped most.</p>
+
+    <hr>
+
+    <h2>Conclusion</h2>
+    <p>There is no point at which this becomes brute-forceable. The binding
+    constraints buy a couple of orders of magnitude against a shortfall of
+    thousands, and the shortfall is not an artefact of a bad formulation &mdash;
+    the reduction used here is exact and is the one the published searches use.
+    Two things follow that are worth acting on:</p>
+
+    <ol>
+      <li><strong>The t&nbsp;=&nbsp;20 frontier should not be read as evidence
+      against existence.</strong> It is the ceiling of an ansatz that misses
+      Hoffman&ndash;Singleton, and it sits exactly where a first-moment estimate
+      that is demonstrably wrong at degree 7 says it should sit.</li>
+      <li><strong>The leverage is structural, not computational.</strong> The
+      involutions result is the right shape: a trace&ndash;rank identity that
+      closes a case without searching. The other tractable-looking target is
+      Dalf&oacute;'s tight-coclique residual &mdash; a distance-regular graph on
+      2850 vertices of degree 49 and diameter 3 &mdash; a strictly smaller
+      object than the graph itself.</li>
+    </ol>
+
+    <p class="note">Code, certificates and the full numeric report are in the
+    repository alongside this page: the reduction and its validation, the
+    classical feasibility tests, both search models, the expected-count
+    calibration, and the verified 19-branch certificate.</p>
+
+  </main>
+
+</body>
+</html>
