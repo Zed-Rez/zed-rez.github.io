@@ -731,6 +731,51 @@
     led to the graph &mdash; <em>at that degree</em>. Soundness at 57 remains
     the conjecture.</p>
 
+    <h2>The three frontiers, and what &ldquo;frontier&rdquo; even means</h2>
+    <div class="tablewrap">
+    <table>
+      <tr><th>model</th><th>assumption</th><th class="num">branches</th><th>can it complete?</th></tr>
+      <tr><td>cyclic (published)</td><td>all &sigma; in one cyclic group</td><td class="num">20 lit., 19 here</td><td><strong>no</strong> &mdash; provably cannot reach 57, and misses Hoffman&ndash;Singleton</td></tr>
+      <tr><td>general</td><td>none</td><td class="num">12</td><td>unknown; the honest model</td></tr>
+      <tr><td>1-factorization</td><td>the involution conjecture</td><td class="num">10</td><td>unknown; strongest propagation</td></tr>
+    </table>
+    </div>
+
+    <p>The 1-factorization frontier being <em>lower</em> is the constraint doing
+    its job, not the search being worse: it rebuilds Hoffman&ndash;Singleton
+    where the cyclic model cannot, and prunes by 842&times; at four branches.</p>
+
+    <p>The real point is what &ldquo;frontier&rdquo; means. If the conjecture
+    holds at degree 57, the 19- and 20-branch cyclic structures are not partial
+    Moore graphs in any useful sense &mdash; 66 involutive composites out of
+    5814, and no possible extension. The published number measures how far a
+    doomed model can be pushed, not how much of the graph is known. Under the
+    conjecture the honest figure is <strong>10 of 57</strong>, and those are 10
+    branches that could actually belong to a Moore graph.</p>
+
+    <h2>The conjecture in its most attackable form</h2>
+    <p>Everything conditional here rests on one statement, best stated with no
+    bijections, no gauge and no coordinates:</p>
+    <div class="verdict">
+      <p><strong>Form C.</strong> Let v be a vertex, u a neighbour of v, and
+      a<sub>x</sub>, a<sub>y</sub> two distinct neighbours of u other than v.
+      There are exactly k&minus;1 five-cycles through the path
+      a<sub>x</sub>&nbsp;&minus;&nbsp;u&nbsp;&minus;&nbsp;a<sub>y</sub>; each is
+      a<sub>x</sub>&nbsp;&minus;&nbsp;w&nbsp;&minus;&nbsp;z&nbsp;&minus;&nbsp;a<sub>y</sub>&nbsp;&minus;&nbsp;u
+      with w in branch i and z in branch j. Write
+      &phi;<sub>x,y</sub>(i)&nbsp;=&nbsp;j. Then <strong>&phi;<sub>x,y</sub> is
+      an involution</strong>.</p>
+      <p>In words: if you can cross from a<sub>x</sub> to a<sub>y</sub> in two
+      steps leaving by branch i and arriving by branch j, you can also do it
+      leaving by j and arriving by i.</p>
+    </div>
+
+    <p>Verified 2/2 for Petersen and 30/30 for Hoffman&ndash;Singleton, and
+    equivalent to the other two forms. One hard limit on evidence: strongly
+    regular graphs with &lambda;&nbsp;=&nbsp;0, &mu;&nbsp;=&nbsp;1 <em>are</em>
+    Moore graphs, so degrees 2, 3 and 7 are the only instances that will ever
+    exist to test it on. Degree 57 is the open one.</p>
+
     <hr>
 
     <h2>Conclusion</h2>

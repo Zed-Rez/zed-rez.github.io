@@ -659,6 +659,26 @@ symmetry of the pentagon structure and nothing more.
 All three are equivalent, all hold wherever a Moore graph exists, all are open
 at 57, and they stand or fall together. Form C is the one to try to prove.
 
+### 20c. The three frontiers, and what "frontier" even means
+
+| model | assumption | branches reached | can it complete? |
+| --- | --- | --- | --- |
+| cyclic (published) | all σ in one cyclic group | 20 (lit.), 19 (here) | **no** — provably cannot reach 57, and misses Hoffman–Singleton |
+| general | none | 12 | unknown; the honest model |
+| 1-factorization | the involution conjecture | 10 | unknown; strongest propagation |
+
+The 1-factorization frontier being *lower* is the constraint doing its job, not
+the search being worse. It rebuilds Hoffman–Singleton at degree 7 where the
+cyclic model cannot, and it prunes by 842× at four branches.
+
+The real point is what "frontier" means. If the conjecture holds at degree 57,
+then the 19- and 20-branch cyclic structures are not partial Moore graphs in
+any useful sense — they have 66 involutive composites out of 5814 and cannot
+extend to anything. The published number is measuring how far a doomed model
+can be pushed, not how much of the graph is known. Under the conjecture the
+honest figure is 10 of 57, and it is 10 branches that could actually be part of
+a Moore graph.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
