@@ -866,6 +866,27 @@ of *finding* the extension, which the table above shows growing about fourfold
 per branch. **The barrier here is measured to be computational, not
 structural** — over the range where the two can be told apart at all.
 
+### 20i. Seeding row 1 with an explicit 1-factorization — another symmetric dead end
+
+Under the conjecture the gauge makes row 1 of the σ-table *literally* a
+1-factorization of K₅₆, so it need not be searched for: write one down. The
+round-robin ("circle") factorization is the obvious candidate, and at degree 7
+pinning it costs nothing at all, because K₆ has a **unique** 1-factorization up
+to isomorphism. That makes the degree-7 run a clean test rather than a lucky
+guess — and it passes, 6 of 6 restarts (`seeded_factorization.py`).
+
+At degree 57 it does not help. Pinned row 1 reaches cost 30 and 37 at 250 s
+against 26 and 28 for the unpinned baseline on the same budget: slightly worse,
+not better.
+
+The likely reason is the same one that has sunk every other ansatz here. The
+round-robin factorization is highly symmetric, and the degree-57 graph is known
+*not* to be vertex-transitive with |Aut| ≤ 375 of odd order. Pinning a
+symmetric object into an asymmetric one is exactly the mistake the cyclic
+ansatz makes. Three ansätze have now failed in the same direction — cyclic,
+reflection, round-robin — and in each case the symmetry being assumed is
+symmetry the target is known not to have.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
@@ -1024,6 +1045,8 @@ the *design*, not on the *construction*.
 | `extend_exact.py` | asks CP-SAT exactly whether a verified structure extends |
 | `deadends.py` | dead-end density: fraction of valid structures that cannot extend |
 | `scaling.py` | measured cost per branch, fitted and projected to 57 |
+| `seeded_factorization.py` | pin row 1 to the round-robin 1-factorization |
+| `push_frontier.py` | long single-branch push from a verified structure |
 
 Run order: `python3 reduction.py`, `known_constraints.py`, `firstmoment.py`,
 `verify_frontier.py` are all fast. `cyclic_search.py [seconds]` and
