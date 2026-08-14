@@ -604,3 +604,6 @@ Commuting-involution construction for Form A at degree 57
   not decide: 5-branch Form A structures DO exist at degree 57,
   so Form A is not refuted there, and the annealer's stall at 4
   was the searcher rather than the object.
+
+=== formA_reflection_grow.py (backtracking) ===
+reaches t=14; certificate verified 2184/2184 Form A, 799-vertex girth-5 fragment
