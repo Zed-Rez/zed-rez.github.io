@@ -815,6 +815,57 @@ extend? CP-SAT returned UNKNOWN after 480 s on 30,800 conditions. No
 conclusion — the honest answer, and the reason the "is it the searcher or the
 object" question stays open at the frontier even though it is settled below it.
 
+### 20g. The measured cost curve, and where it puts 57
+
+`bruteforce.py` answered the feasibility question for the *complete* search by
+exact counting. `scaling.py` answers it for the *best* method found here —
+grow-and-repair annealing — using its own recorded timings rather than a model.
+The cost of placing branch t is every failed attempt plus the successful one:
+
+| branch | involution space | general space |
+| --- | --- | --- |
+| 8 | 10 s | 10 s |
+| 9 | 13 s | 11 s |
+| 10 | 21 s | 13 s |
+| 11 | **638 s** | 23 s |
+| 12 | 4048 s, unsolved | 126 s |
+| 13 | — | **705 s** |
+| 14 | — | 4048 s, unsolved |
+
+Fitted tail growth: **×3.65 per branch** (involution), **×3.93** (general).
+Projecting to the final branch:
+
+> the last branch alone would cost 10²⁸–10²⁹ seconds — **about 10²¹ years** on
+> this machine.
+
+So the two approaches fail for genuinely independent reasons: the complete
+search cannot finish for *counting* reasons (≥10¹⁴⁸ isomorphism classes at four
+branches, a 10¹³⁵ shortfall against a century of compute), and the best
+heuristic cannot finish for *measured* ones (a ~4× cost multiplier per branch,
+with 45 branches still to place). Neither is within astronomical distance.
+
+### 20h. What the dead-end measurement means
+
+Extending `deadends.py` upward, over 34 sampled valid structures:
+
+| branches | sampled | extend | **dead ends** | undecided |
+| --- | --- | --- | --- | --- |
+| 4–7 | 24 | 24 | **0** | 0 |
+| 8 | 4 | 4 | **0** | 0 |
+| 9 | 4 | 3 | **0** | 1 |
+| 10 | 4 | 0 | 0 | **4** |
+
+Not one provable dead end anywhere the exact solver could decide, and at 10
+branches it can no longer decide at all.
+
+That is worth stating carefully, because it cuts against the prevailing read.
+The published optimization work converges "massively short" and takes that as
+evidence of non-existence. But up to 9 branches, valid structures essentially
+always extend — the object is not obstructing. What changes with t is the cost
+of *finding* the extension, which the table above shows growing about fourfold
+per branch. **The barrier here is measured to be computational, not
+structural** — over the range where the two can be told apart at all.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
@@ -972,6 +1023,7 @@ the *design*, not on the *construction*.
 | `hybrid.py` | anneal to the plateau, then hand the remainder to an exact solver |
 | `extend_exact.py` | asks CP-SAT exactly whether a verified structure extends |
 | `deadends.py` | dead-end density: fraction of valid structures that cannot extend |
+| `scaling.py` | measured cost per branch, fitted and projected to 57 |
 
 Run order: `python3 reduction.py`, `known_constraints.py`, `firstmoment.py`,
 `verify_frontier.py` are all fast. `cyclic_search.py [seconds]` and

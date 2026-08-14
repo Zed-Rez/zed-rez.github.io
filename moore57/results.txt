@@ -540,3 +540,51 @@ certificate t = 10 -> valid 10-branch 1-factorization structure
 built fragment: 571 vertices, girth>=5: True
 non-involutive bijections: 0
 max edge reuse within a row: 1 (1 = edge-disjoint)
+
+=== scaling.py ===
+Measured cost per branch for grow-and-repair annealing
+
+  grow_inv.log (frontier 11)
+     branch seconds      ratio to previous
+     4      0            -
+     5      0            -
+     6      4            -
+     7      8            2.0x
+     8      10           1.2x
+     9      13           1.3x
+     10     21           1.6x
+     11     638          30.4x
+     fitted growth: x3.65 per branch
+     projected cost of the LAST branch (t=57): 10^28 seconds
+     that is 10^21 years on this machine
+     (branch 12 already consumed 4048s without solving)
+
+  grow_gen.log (frontier 13)
+     branch seconds      ratio to previous
+     4      0            -
+     5      3            -
+     6      7            2.3x
+     7      8            1.1x
+     8      10           1.2x
+     9      11           1.1x
+     10     13           1.2x
+     11     23           1.8x
+     12     126          5.5x
+     13     705          5.6x
+     fitted growth: x3.93 per branch
+     projected cost of the LAST branch (t=57): 10^29 seconds
+     that is 10^21 years on this machine
+     (branch 14 already consumed 4048s without solving)
+
+Read this next to bruteforce.py's exact accounting.  The complete
+search cannot finish for counting reasons; the best heuristic
+cannot finish for measured ones.  Neither is close, and they fail
+for independent reasons.
+
+=== deadends (t=4..11) ===
+dead-end density, involution state space, 4 samples per t, 150s exact budget each
+
+  t    sampled  extends    DEAD END     unknown 
+  8    4        4          0            0       
+  9    4        3          0            1       
+  10   4        0          0            4       
