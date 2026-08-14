@@ -781,6 +781,40 @@ aimed, and not the cooling schedule. It is the hard tail: at 12 branches the
 cost falls from ~570 to 14 and then resists, which is the familiar behaviour of
 a constraint problem near its satisfiability threshold.
 
+### 20f. Is the search stuck because of the searcher, or the object?
+
+Two experiments aimed at that question rather than at the frontier.
+
+**Where the residual sits.** When annealing plateaus at 12 branches with cost
+~11–30, is the leftover concentrated in one bad branch or spread out?
+`hybrid.py` deletes each branch in turn and recomputes. Best single deletion
+leaves cost 14, not 0 — the runners-up are 16, 17, 19, 19. **The residual is
+spread across branches, not carried by one.** So there is no small exact
+sub-problem to hand to a solver, which is why the anneal-then-solve hybrid does
+not fire, and why LNS on a single branch cannot help either.
+
+**How many valid structures are dead ends?** `deadends.py` samples valid
+t-branch structures at random and asks CP-SAT exactly whether each extends —
+at small t the solver terminates with a definite answer rather than a timeout.
+
+| branches | sampled | extend | **provably dead ends** | unknown |
+| --- | --- | --- | --- | --- |
+| 4 | 6 | 6 | **0** | 0 |
+| 5 | 6 | 6 | **0** | 0 |
+| 6 | 6 | 6 | **0** | 0 |
+| 7 | 6 | 6 | **0** | 0 |
+
+Not one dead end up to 7 branches. So the space is *not* trap-rich early: a
+searcher that reaches 7 branches has not already doomed itself, and the
+stalling at 11–14 is not explained by early mistakes. What is left is the plain
+growth of constraint density — the number of conditions grows like C(t,3) +
+3·C(t,4) while the freedom per branch grows only linearly.
+
+And a direct exact question, asked of the verified 11-branch structure: does it
+extend? CP-SAT returned UNKNOWN after 480 s on 30,800 conditions. No
+conclusion — the honest answer, and the reason the "is it the searcher or the
+object" question stays open at the frontier even though it is settled below it.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
@@ -935,6 +969,9 @@ the *design*, not on the *construction*.
 | `grow_anneal.py` | grow-and-repair with escalating budgets — the best search here |
 | `lns.py` | large-neighbourhood search: delete and re-solve an old branch |
 | `tempering.py` | parallel tempering / replica exchange |
+| `hybrid.py` | anneal to the plateau, then hand the remainder to an exact solver |
+| `extend_exact.py` | asks CP-SAT exactly whether a verified structure extends |
+| `deadends.py` | dead-end density: fraction of valid structures that cannot extend |
 
 Run order: `python3 reduction.py`, `known_constraints.py`, `firstmoment.py`,
 `verify_frontier.py` are all fast. `cyclic_search.py [seconds]` and
