@@ -635,6 +635,30 @@ triangle/quadrilateral disequality. It **rebuilds Hoffman–Singleton**, and at
 degree 57 it runs far past the previous involution encoding (which stalled at
 4 branches).
 
+### 20b. The conjecture in its most attackable form
+
+Everything conditional here rests on one statement, and it is worth stating in
+the form that mentions no bijections, no gauge and no coordinates
+(`conjecture.py` checks all three forms):
+
+> **Form C.** Let v be a vertex, u a neighbour of v, and a_x, a_y two distinct
+> neighbours of u other than v. There are exactly k−1 five-cycles through the
+> path a_x − u − a_y; each is a_x − w − z − a_y − u with w in branch i and z in
+> branch j. Write φ_{x,y}(i) = j. Then **φ_{x,y} is an involution.**
+
+In words: if you can get from a_x to a_y in two steps leaving by branch i and
+arriving by branch j, you can also do it leaving by j and arriving by i. A
+symmetry of the pentagon structure and nothing more.
+
+| | Petersen | Hoffman–Singleton |
+| --- | --- | --- |
+| Form A (composites are involutions) | 6/6 | 210/210 |
+| Form B (gauged bijections; rows are 1-factorizations) | yes | yes |
+| Form C (φ_{x,y} is an involution) | 2/2 | 30/30 |
+
+All three are equivalent, all hold wherever a Moore graph exists, all are open
+at 57, and they stand or fall together. Form C is the one to try to prove.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
@@ -780,6 +804,9 @@ the *design*, not on the *construction*.
 | `Moore57Verify.lean` | Lean verified-checker harness for a candidate (not machine-checked) |
 | `checker.py` | tested reference implementation the Lean checker mirrors |
 | `bruteforce.py` | complete guaranteed search, validated and measured |
+| `factorization_search.py` | the 1-factorization model; validated, and the best search here |
+| `involution_prune.py` | exact measurement of how hard the conjecture prunes |
+| `conjecture.py` | the conjecture in three equivalent forms, checked |
 
 Run order: `python3 reduction.py`, `known_constraints.py`, `firstmoment.py`,
 `verify_frontier.py` are all fast. `cyclic_search.py [seconds]` and
