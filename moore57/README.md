@@ -1088,6 +1088,43 @@ ansatz is provably infeasible at full size for degree 7, so it will not reach
 reflections reach 5 of the 7 branches needed (71%), while at degree 57 they
 reach 14 of 57 (25%).
 
+### 20o. Reducing the reflection ansatz, and a better search for it
+
+Every g_ij is odd, so write g_ij = 2f_ij + 1. The quadrilateral sum becomes
+exactly 2(f_pw − f_uw + f_qu − f_pq), so the whole reflection ansatz is
+
+> a **symmetric labelling f of K_t over Z₂₈** with no vanishing 4-cycle sum,
+
+with the triangle conditions free and the gauge f_ij → f_ij − s_i − s_j (so the
+"cut" labellings are the trivial ones). A first-moment count on that model puts
+its ceiling near **t = 21**:
+
+| branches | free labels | conditions | log₁₀ E[count] |
+| --- | --- | --- | --- |
+| 18 | 136 | 9,180 | +51.8 |
+| 20 | 171 | 14,535 | +17.9 |
+| 21 | 190 | 17,955 | −8.6 |
+
+So CP-SAT growth stalling at 13–14 is a *search* limit, not the model's
+ceiling — which also means an INFEASIBLE at 15 was never what to expect, and I
+stopped a run that was chasing one.
+
+**A much better search.** The reduced state space is one of 28 values per pair
+rather than one of 56!, and annealing has beaten CP-SAT everywhere else here.
+Annealing solves t = 13 in seconds and drives t = 14 to cost 3–6 — then sticks,
+because once only a handful of conditions are broken, uniform pair selection
+wastes nearly every move. Min-conflicts repair fixes exactly that: pick a
+*violated* 4-cycle and change one of its four edges.
+
+| method | t = 14 |
+| --- | --- |
+| CP-SAT incremental growth, 319 randomised restarts | reached it once |
+| CP-SAT growth with backtracking | reached it once, ~8 min |
+| **anneal + min-conflicts repair** | **reached it in ~2 min, repeatably** |
+
+The t = 14 certificate is verified as before: Form A 2184/2184, 799-vertex
+fragment, girth 5. At t = 15 the hybrid reaches cost 5–7 and has not closed it.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
