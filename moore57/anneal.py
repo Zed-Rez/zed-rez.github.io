@@ -1,244 +1,231 @@
 """
-Local search for the branch-extension problem.
+Probabilistic search: simulated annealing / min-conflicts over the sigma-table.
 
-Pass 7 showed that adding a branch is a colouring problem with no local
-obstruction: 1008 cells, a 361-regular conflict graph, 56 values, every row a
-permutation and every colour class a transversal.  CP-SAT returns UNKNOWN on
-it, which is unsurprising -- dense equitable-colouring and quasigroup-completion
-problems are classically much better served by local search than by systematic
-search.
+No guarantee, no completeness -- just a randomized walk that tries to drive the
+number of violated conditions to zero.  Two state spaces:
 
-State      : one permutation p_i of the 56 values per row i = 1..t-1
-             (row 0 is the identity, fixed by the gauge).
-Cost       : number of violated constraints.
-             Constraints touching row 0 become unary (a forbidden value for a
-             cell); the rest are binary disequalities p_i[a] != p_j[b].
-Move       : swap p_i[a] and p_i[b] -- this keeps every row a permutation, so
-             the search never leaves the feasible region of the row structure
-             and only has to fight the cross-row conflicts.
+  general    sigma_ij is any permutation of the 56 points; a move composes one
+             of them with a transposition.
+  involution sigma_ij is a fixed-point-free involution (the conjecture's form
+             B); a move rewires two edges of one matching, which keeps it a
+             perfect matching.  The state space is 10^36.9 per unknown instead
+             of 10^74.9, and the move set is closed on it.
 
-That move set is the reason this can work where CP-SAT stalls: the permutation
-structure is maintained by construction rather than propagated.
+COST.  The number of fixed points summed over every triangle composite and
+every quadrilateral composite.  Cost 0 is exactly a Moore graph.  Branch 0 is
+gauge-fixed to the identity and never moved.
+
+Row edge-disjointness does not need a separate penalty: if sigma_ij(x) =
+sigma_ij'(x) then the corresponding vertex and the point of B_0 they both point
+at have two common neighbours, which is precisely a quadrilateral violation and
+is already counted.
+
+Validated at degree 7, where cost 0 must be reachable because
+Hoffman-Singleton exists.
 """
 
-import json
 import math
 import random
 import sys
 import time
+from itertools import combinations
 
-import general_extend
-from general_extend import Structure
+import numpy as np
+
+import reduction
 
 
-class Extension:
-    def __init__(self, st):
-        self.st = st
-        self.t, self.m = st.t, st.m
-        rows = range(1, self.t)
-        self.rows = list(rows)
-        self.ncell = (self.t - 1) * self.m
+class Anneal:
+    def __init__(self, k, t=None, model="involution", seed=0, m=None):
+        self.k = k
+        self.m = m if m is not None else k - 1
+        self.t = t if t is not None else k
+        self.model = model
+        self.rng = random.Random(seed)
+        self.np_rng = np.random.default_rng(seed)
+        self.ident = np.arange(self.m, dtype=np.int16)
+        self.s = {}
+        self._init_state()
 
-        # cell (i, x) -> flat index
-        self.flat = {(i, x): (i - 1) * self.m + x
-                     for i in rows for x in range(self.m)}
+    # -- state -------------------------------------------------------------
+    def _random_fpf_involution(self):
+        pts = list(range(self.m))
+        self.rng.shuffle(pts)
+        p = np.empty(self.m, dtype=np.int16)
+        for a, b in zip(pts[0::2], pts[1::2]):
+            p[a], p[b] = b, a
+        return p
 
-        self.unary = [set() for _ in range(self.ncell)]
-        adj = [[] for _ in range(self.ncell)]
-        for (i, a, j, b) in general_extend.build_disequalities(st):
-            if i == 0 and j == 0:
-                continue
-            if i == 0:                      # p_0[a] = a is a constant
-                self.unary[self.flat[(j, b)]].add(a)
-            elif j == 0:
-                self.unary[self.flat[(i, a)]].add(b)
-            else:
-                u, v = self.flat[(i, a)], self.flat[(j, b)]
-                adj[u].append(v)
-                adj[v].append(u)
-        self.adj = [tuple(x) for x in adj]
-        self.n_binary = sum(len(x) for x in adj) // 2
-        self.n_unary = sum(len(u) for u in self.unary)
+    def _random_perm(self):
+        p = np.array(self.np_rng.permutation(self.m), dtype=np.int16)
+        return p
 
-    # -- state helpers ------------------------------------------------------
-    def random_state(self, rng):
-        val = [0] * self.ncell
-        for i in self.rows:
-            perm = list(range(self.m))
-            rng.shuffle(perm)
-            for x in range(self.m):
-                val[self.flat[(i, x)]] = perm[x]
-        return val
+    def _init_state(self):
+        for j in range(self.t):
+            if j:
+                self._put(0, j, self.ident.copy())
+        for i, j in combinations(range(1, self.t), 2):
+            p = (self._random_fpf_involution() if self.model == "involution"
+                 else self._random_perm())
+            self._put(i, j, p)
 
-    def cell_cost(self, val, c):
-        v = val[c]
-        cost = 1 if v in self.unary[c] else 0
-        for d in self.adj[c]:
-            if val[d] == v:
-                cost += 1
-        return cost
+    def _put(self, i, j, p):
+        self.s[(i, j)] = p
+        inv = np.empty(self.m, dtype=np.int16)
+        inv[p] = self.ident
+        self.s[(j, i)] = inv
 
-    def total_cost(self, val):
-        tot = 0
-        for c in range(self.ncell):
-            v = val[c]
-            if v in self.unary[c]:
-                tot += 1
-            for d in self.adj[c]:
-                if val[d] == v:
-                    tot += 1
-        return tot // 1 - sum(
-            1 for c in range(self.ncell) for d in self.adj[c]
-            if val[d] == val[c]) // 2
+    # -- cost --------------------------------------------------------------
+    def _fixed(self, arr):
+        return int(np.count_nonzero(arr == self.ident))
 
-    def cost(self, val):
-        """Violations: unary + binary (each binary counted once)."""
-        u = sum(1 for c in range(self.ncell) if val[c] in self.unary[c])
-        b = 0
-        for c in range(self.ncell):
-            v = val[c]
-            for d in self.adj[c]:
-                if d > c and val[d] == v:
-                    b += 1
-        return u + b
+    def tri(self, a, b, c):
+        s = self.s
+        return self._fixed(s[(c, a)][s[(b, c)][s[(a, b)]]])
 
-    def swap_delta(self, val, c, d):
-        """Change in cost from swapping the values of cells c and d
-        (which must be in the same row)."""
-        before = self.cell_cost(val, c) + self.cell_cost(val, d)
-        # c and d are in the same row so they are never adjacent; no
-        # double-counting correction is needed
-        val[c], val[d] = val[d], val[c]
-        after = self.cell_cost(val, c) + self.cell_cost(val, d)
-        val[c], val[d] = val[d], val[c]
-        return after - before
+    def quad(self, a, b, c, d):
+        s = self.s
+        return self._fixed(s[(d, a)][s[(c, d)][s[(b, c)][s[(a, b)]]]])
 
-    # -- the search ---------------------------------------------------------
-    def violated_cells(self, val):
-        out = []
-        for c in range(self.ncell):
-            if self.cell_cost(val, c):
-                out.append(c)
-        return out
+    def total_cost(self):
+        c = 0
+        for a, b, d in combinations(range(self.t), 3):
+            c += self.tri(a, b, d)
+        for a, b, d, e in combinations(range(self.t), 4):
+            c += self.quad(a, b, d, e)
+            c += self.quad(a, b, e, d)
+            c += self.quad(a, d, b, e)
+        return c
 
-    def anneal(self, seconds=600.0, seed=0, t0=1.5, t1=0.01, report=None,
-               targeted=True):
-        """Simulated annealing over row-swaps.
+    def local_cost(self, i, j):
+        """Cost of every condition that involves the pair (i, j)."""
+        c = 0
+        others = [l for l in range(self.t) if l not in (i, j)]
+        for l in others:
+            c += self.tri(i, j, l)
+        for l, mm in combinations(others, 2):
+            # the two cyclic orders whose 4-cycle uses the edge (i, j)
+            c += self.quad(i, j, l, mm)
+            c += self.quad(i, j, mm, l)
+        return c
 
-        The move is biased towards cells that are actually in conflict: pick a
-        violated cell, then a random partner in its own row.  For colouring
-        problems that focus is worth far more than raw move throughput."""
-        rng = random.Random(seed)
-        val = self.random_state(rng)
-        cur = self.cost(val)
-        best, best_val = cur, val[:]
+    # -- moves -------------------------------------------------------------
+    def propose(self):
+        i, j = self.rng.sample(range(1, self.t), 2)
+        if i > j:
+            i, j = j, i
+        p = self.s[(i, j)]
+        new = p.copy()
+        if self.model == "involution":
+            a = self.rng.randrange(self.m)
+            b = self.rng.randrange(self.m)
+            while b == a or p[a] == b:
+                b = self.rng.randrange(self.m)
+            a2, b2 = int(p[a]), int(p[b])
+            new[a], new[b] = b, a
+            new[a2], new[b2] = b2, a2
+        else:
+            a = self.rng.randrange(self.m)
+            b = self.rng.randrange(self.m)
+            while b == a:
+                b = self.rng.randrange(self.m)
+            new[a], new[b] = p[b], p[a]
+        return i, j, new
+
+    def run(self, iters=200000, t0=2.0, t1=0.01, report=None, deadline=None):
+        cost = self.total_cost()
+        best = cost
         start = time.time()
-        it = 0
-        m = self.m
-        bad = self.violated_cells(val)
-        refresh = 0
-        while True:
-            elapsed = time.time() - start
-            if elapsed > seconds or best == 0:
+        for it in range(iters):
+            if deadline and it % 512 == 0 and time.time() > deadline:
                 break
-            frac = elapsed / seconds
-            temp = t0 * (t1 / t0) ** frac
-            for _ in range(2000):
-                it += 1
-                if targeted and bad:
-                    c = bad[rng.randrange(len(bad))]
-                    i = c // m + 1
-                    b = rng.randrange(m)
-                    d = self.flat[(i, b)]
-                    if c == d:
-                        continue
-                else:
-                    i = self.rows[rng.randrange(len(self.rows))]
-                    a, b = rng.randrange(m), rng.randrange(m)
-                    if a == b:
-                        continue
-                    c, d = self.flat[(i, a)], self.flat[(i, b)]
-                delta = self.swap_delta(val, c, d)
-                if delta <= 0 or rng.random() < math.exp(-delta / temp):
-                    val[c], val[d] = val[d], val[c]
-                    cur += delta
-                    if cur < best:
-                        best, best_val = cur, val[:]
-                        if best == 0:
-                            break
-            refresh += 1
-            if targeted and refresh % 3 == 0:
-                bad = self.violated_cells(val)
-            if report and it % 400000 < 2000:
-                report(elapsed, cur, best)
-        return best, best_val, it
+            temp = t0 * (t1 / t0) ** (it / max(iters - 1, 1))
+            i, j, new = self.propose()
+            before = self.local_cost(i, j)
+            old = self.s[(i, j)]
+            old_inv = self.s[(j, i)]
+            self._put(i, j, new)
+            after = self.local_cost(i, j)
+            delta = after - before
+            if delta <= 0 or self.rng.random() < math.exp(-delta / max(temp, 1e-9)):
+                cost += delta
+                if cost < best:
+                    best = cost
+                    if report and best <= report:
+                        print("      cost %d at iter %d (%.0fs)"
+                              % (best, it, time.time() - start), flush=True)
+                if cost == 0:
+                    return 0, it
+            else:
+                self.s[(i, j)] = old
+                self.s[(j, i)] = old_inv
+        return best, iters
 
-    def to_columns(self, val):
-        return {i: [val[self.flat[(i, x)]] for x in range(self.m)]
-                for i in self.rows}
+    # -- output ------------------------------------------------------------
+    def to_sigma(self):
+        return {(i, j): tuple(int(x) for x in self.s[(i, j)])
+                for i in range(self.t) for j in range(self.t) if i != j}
 
 
-def load(path):
-    if path == "t19":
-        d = json.load(open("t19_cyclic.json"))
-        return Structure.from_cyclic(d["labelling"])
-    d = json.load(open(path))
-    st = Structure(m=d["m"])
-    st.t = d["t"]
-    for key, v in d["sigma"].items():
-        i, j = (int(q) for q in key.split(","))
-        st.sigma[(i, j)] = v
-    return st
+def validate(model, trials=8, iters=400000):
+    """At degree 7 a perfect solution exists; the search must find it."""
+    print("  model=%-11s degree 7, t=7" % model, flush=True)
+    wins = 0
+    for seed in range(trials):
+        a = Anneal(7, t=7, model=model, seed=seed)
+        best, it = a.run(iters=iters, t0=1.5, t1=0.02)
+        if best == 0:
+            g = reduction.build_graph(7, a.to_sigma(), m=6)
+            ok, msg = reduction.is_moore(g, 7)
+            assert ok, msg
+            wins += 1
+    print("    solved %d of %d restarts -- %s" % (wins, trials,
+          "WORKS" if wins else "never reached cost 0"), flush=True)
+    return wins
 
 
 def main():
-    src = sys.argv[1] if len(sys.argv) > 1 else "t19"
-    secs = float(sys.argv[2]) if len(sys.argv) > 2 else 600.0
-    restarts = int(sys.argv[3]) if len(sys.argv) > 3 else 4
-    target = int(sys.argv[4]) if len(sys.argv) > 4 else 0
+    what = sys.argv[1] if len(sys.argv) > 1 else "validate"
+    if what == "validate":
+        print("Validation: probabilistic search on the graph that exists\n")
+        w1 = validate("involution")
+        w2 = validate("general")
+        print("\n  involution model %s, general model %s"
+              % ("works" if w1 else "fails", "works" if w2 else "fails"))
+        return
 
-    st = load(src)
-    ok, msg = st.verify()
-    print("structure: %s" % msg, flush=True)
-    assert ok
+    t = int(sys.argv[2]) if len(sys.argv) > 2 else 12
+    model = sys.argv[3] if len(sys.argv) > 3 else "involution"
+    iters = int(sys.argv[4]) if len(sys.argv) > 4 else 300000
+    restarts = int(sys.argv[5]) if len(sys.argv) > 5 else 5
+    budget = float(sys.argv[6]) if len(sys.argv) > 6 else 3600.0
 
-    while True:
-        ext = Extension(st)
-        print("\nextending to branch %d: %d cells, %d binary + %d unary "
-              "constraints" % (st.t, ext.ncell, ext.n_binary, ext.n_unary),
+    print("Degree 57, t=%d branches, model=%s, %d iters x %d restarts"
+          % (t, model, iters, restarts), flush=True)
+    deadline = time.time() + budget
+    overall = None
+    for seed in range(restarts):
+        if time.time() > deadline:
+            break
+        a = Anneal(57, t=t, model=model, seed=seed, m=56)
+        c0 = a.total_cost()
+        t0 = time.time()
+        best, it = a.run(iters=iters, t0=2.0, t1=0.01, deadline=deadline)
+        el = time.time() - t0
+        print("  restart %d: start cost %d -> best %d  (%d iters, %.0fs, "
+              "%.0f moves/s)" % (seed, c0, best, it, el, it / max(el, 1e-9)),
               flush=True)
-        solved = False
-        for r in range(restarts):
-            def rep(el, cur, best, r=r):
-                print("    run %d  %5.0fs  current %6d  best %6d"
-                      % (r, el, cur, best), flush=True)
-            t0 = time.time()
-            best, val, it = ext.anneal(seconds=secs, seed=1000 * st.t + r,
-                                       report=rep)
-            print("  run %d: best cost %d after %d moves (%.0fs)"
-                  % (r, best, it, time.time() - t0), flush=True)
-            if best == 0:
-                cols = ext.to_columns(val)
-                cols[0] = list(range(ext.m))       # the gauge
-                st.add_block([cols[i] for i in range(st.t)])
-                good, msg = st.verify()
-                print("  EXTENDED to %d branches -- verified: %s"
-                      % (st.t, good), flush=True)
-                assert good, msg
-                st_path = "anneal_t%d.json" % st.t
-                json.dump({"t": st.t, "m": st.m,
-                           "sigma": {"%d,%d" % k: v
-                                     for k, v in st.sigma.items()}},
-                          open(st_path, "w"))
-                solved = True
-                break
-        if not solved:
-            print("\nfrontier: %d branches (no extension found)" % st.t,
-                  flush=True)
-            return
-        if target and st.t >= target:
-            print("\nreached %d branches" % st.t, flush=True)
-            return
+        if overall is None or best < overall:
+            overall = best
+        if best == 0:
+            print("  *** COST 0 -- a %d-branch structure ***" % t, flush=True)
+            import json
+            json.dump({"t": t, "m": 56,
+                       "sigma": {"%d,%d" % kk: list(v)
+                                 for kk, v in a.to_sigma().items()}},
+                      open("anneal_t%d.json" % t, "w"))
+            break
+    print("best cost over all restarts: %s" % overall, flush=True)
 
 
 if __name__ == "__main__":
