@@ -1253,6 +1253,33 @@ extrapolation, which rested on undecided lower bounds at n ≥ 8. The right
 statement is that reaching 15 requires finding a 15-branch structure directly,
 and that the ceiling of this ansatz is still unproved in either direction.
 
+### 20u. Breakout, and chaining the three searches
+
+Every method converges on t = 15 and sticks at 5–7 violated conditions out of
+~4000. That is a local minimum, and the standard remedy is neither a better
+move nor a better schedule but a *changing objective*: weight each condition,
+minimise the weighted violation count, and whenever the search is stuck add one
+to the weight of every currently violated condition. The minimum is destroyed
+rather than escaped.
+
+Breakout alone (`breakout.py`) reaches residual **2** at t = 14 in 120 s —
+better than annealing's 3–6 on the same budget — but does not close it, while
+anneal+repair does in about the same time. So the three methods are good at
+different parts of the descent:
+
+| stage | strength |
+| --- | --- |
+| annealing | falls from hundreds to tens in seconds; wastes moves when the residual is small |
+| min-conflicts repair | aims every move at a live violation; clears easy tails |
+| breakout | changes the objective; the only one that attacks a true local minimum |
+
+`pipeline.py` chains them, which is strictly better than any alone. It is
+running at t = 15 now.
+
+Note what this section is *not*. Chaining local searches is engineering, and the
+frontier it moves is the frontier of an ansatz that is provably infeasible at
+full size for degree 7. None of it bears on whether the Moore graph exists.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
