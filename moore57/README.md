@@ -944,6 +944,49 @@ It does not change the picture — the measured ×3.65 per branch is what govern
 the projection to 57, and a constant-factor improvement in cost per attempt
 does not touch it. It is recorded because it is the one thing that did work.
 
+### 20k. Searching for Form A directly
+
+With the correction in hand, the right search is for Form A itself.
+`formA_search.py` puts it in the annealer's cost — fixed points of every
+triangle composite, plus its involution defects, plus the quadrilateral fixed
+points — and searches the fixed-point-free-involution space with ILS. Cost 0 is
+a Moore fragment that is Form A compliant.
+
+Validated at degree 7: **4 of 6 restarts** reach cost 0, each verified as a
+genuine Moore graph with all 210 composites involutive.
+
+At degree 57 the honest Form A frontier is **4 branches** (verified, 229-vertex
+girth-5 fragment). Five branches did not fall: best cost 80 from an initial
+~244. That matches the old CP-based Form A search, which stalled in the same
+place with completely different machinery.
+
+That gap is itself the interesting thing. At degree 7, Form A is *easy* — it
+falls in seconds and the complete graph satisfies it. At degree 57 it is hard
+at five branches out of fifty-seven. Which raises the sharpest test of the
+conjecture available:
+
+> If no 5-branch Form A structure exists at degree 57, then Form A is **false**
+> for degree 57 — because a Moore graph satisfying it would contain such
+> structures — and every conditional result here collapses.
+
+`formA_exists.py` puts that to CP-SAT: extending a given 4-branch Form A
+structure is a finite model, and INFEASIBLE is a proof that that structure is a
+dead end. So far the solver times out rather than deciding (2 samples, 130 s
+each; longer runs in progress). No conclusion yet, in either direction — and I
+would rather leave it open than read a timeout as evidence.
+
+### 20l. An unconditional 14-branch structure
+
+The general-space push closed t = 14 after 2063 s and 6.0 M moves, from cost
+918 to 0. Verified independently: valid 14-block structure, 799-vertex fragment
+(exactly 1 + 14 + 14·56), girth 5.
+
+It carries **0 of 2184** involutive composites, so under Form A it is off-path
+— but it assumes nothing, and as an unconditional object it is the largest
+from-scratch search result here. The 19-branch cyclic certificate is still
+larger and also unconditional, so this is not a record; it is a
+differently-built structure of comparable size.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
