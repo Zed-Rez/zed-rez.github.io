@@ -1221,6 +1221,38 @@ the mod-4 component and others via mod-7. That is precisely the freedom the
 single-modulus constructions lack, and it explains why they cap at 5 and 7 while
 search over the full Z₂₈ reaches 14.
 
+### 20t. The reflection family is narrow: solutions exist at each level but rarely chain
+
+Whether a structure extends is a property of *that* structure, so the way to
+probe a level is to build many distinct structures there and ask each
+(`refl_surface.py`). Anneal-then-repair produces a fresh one in about two
+minutes, and CP-SAT decides extension in seconds rather than timing out:
+
+| level | structures built (all verified Form A) | extension to next level |
+| --- | --- | --- |
+| 13 → 14 | 4 | **4 of 4 proved INFEASIBLE** (6–11 s each) |
+| 14 → 15 | 1 | **INFEASIBLE** (5 s) |
+
+And yet 14-branch structures certainly exist — several are in this repository,
+verified at Form A 2184/2184. So they are not reached by extending a 13-branch
+one; they have to be found *directly at level 14*, which is exactly what
+anneal-then-repair does and what growth cannot.
+
+That reframes every frontier number here. **The reflection family is narrow:
+it has solutions at each level, but a randomly chosen solution is almost
+certainly a dead end.** Compare the general permutation model, where the same
+question gave 0 dead ends in 34 sampled structures up to 9 branches — there
+valid structures nearly always extend. The two models could hardly behave more
+differently, and the ansatz's narrowness is why growth-based methods stall while
+direct search at a level keeps working.
+
+It also settles a tension in the previous two sections honestly. The
+even-modulus ratio suggested t ≈ 21 was reachable, and I leaned on that to call
+14 a search limit. These INFEASIBLE proofs are much stronger evidence than that
+extrapolation, which rested on undecided lower bounds at n ≥ 8. The right
+statement is that reaching 15 requires finding a 15-branch structure directly,
+and that the ceiling of this ansatz is still unproved in either direction.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
