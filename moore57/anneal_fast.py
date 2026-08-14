@@ -164,7 +164,7 @@ class FastAnneal:
                 now = time.time()
                 if deadline:
                     if now > deadline:
-                        break
+                        return best, it
                     frac = min((now - start) / max(span, 1e-9), 1.0)
                 else:
                     frac = it / max(iters - 1, 1)
