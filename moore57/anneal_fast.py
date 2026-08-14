@@ -282,3 +282,68 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+def run_ils(self, deadline, t_lo=0.06, stall=60000, kick=10, seed=0,
+            log=None):
+    """Iterated local search: descend at a low fixed temperature, and when no
+    improvement has appeared for `stall` moves, restore the best state seen and
+    kick it with `kick` unconditional random moves.
+
+    Plain annealing has one shot at the schedule; if it lands in a basin at
+    cost 11 it stays there.  ILS keeps the best state and repeatedly relaunches
+    from a perturbed copy of it, which is the standard remedy when the residual
+    is small and stubborn.
+    """
+    import math
+    import random
+    rng = random.Random(seed)
+    t = self.t
+    pairs = [(i, j) for i in range(1, t) for j in range(i + 1, t)]
+    others = {(i, j): np.array([l for l in range(t) if l not in (i, j)])
+              for (i, j) in pairs}
+    cost = self.total_cost()
+    best = cost
+    best_S = self.S.copy()
+    since = 0
+    kicks = 0
+    it = 0
+    while time.time() < deadline:
+        it += 1
+        i, j = pairs[rng.randrange(len(pairs))]
+        o = others[(i, j)]
+        before = self.local_cost(i, j, o)
+        old = self.S[i, j].copy()
+        old_inv = self.S[j, i].copy()
+        self._put(i, j, self.propose(i, j))
+        after = self.local_cost(i, j, o)
+        d = after - before
+        if d <= 0 or rng.random() < math.exp(-d / t_lo):
+            cost += d
+            if cost < best:
+                best = cost
+                best_S = self.S.copy()
+                since = 0
+                if cost == 0:
+                    return 0, it, kicks
+            else:
+                since += 1
+        else:
+            self.S[i, j] = old
+            self.S[j, i] = old_inv
+            since += 1
+        if since > stall:
+            self.S = best_S.copy()
+            for _ in range(kick):
+                a, b = pairs[rng.randrange(len(pairs))]
+                self._put(a, b, self.propose(a, b))
+            cost = self.total_cost()
+            since = 0
+            kicks += 1
+            if log:
+                print("        kick %d (cost now %d, best %d)"
+                      % (kicks, cost, best), file=log, flush=True)
+    return best, it, kicks
+
+
+FastAnneal.run_ils = run_ils
