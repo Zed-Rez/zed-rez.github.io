@@ -725,8 +725,20 @@ by building the graph fragment and confirming girth 5:
 
 | state space | branches at cost 0 | fragment | next branch |
 | --- | --- | --- | --- |
-| fixed-point-free involutions | **10** | 571 vertices, girth 5 | t=11 reached cost 2 of ~400 |
-| arbitrary permutations | **12** | 685 vertices, girth 5 | t=13 reached cost 27 of ~750 |
+| fixed-point-free involutions | **11** | 628 vertices, girth 5 | t=12 reached cost 26 of ~530 |
+| arbitrary permutations | **13** | 742 vertices, girth 5 | t=14 reached cost 48 of ~930 |
+
+Annealing beats the exact solver on this problem: CP-SAT growth reached 10 and
+12 branches on the same models where annealing reaches 11 and 13.
+
+**Large-neighbourhood search** (`lns.py`) adds the one move neither method has —
+revising an *old* branch. Freeing a single branch keeps the model in the easy
+form (every condition involving branch r involves only column-r bijections, so
+it stays binary disequalities with no products of unknowns), so an old branch
+can be deleted and re-solved exactly while forbidding the column it had. It
+works, but at 11 branches both the add and the revise time out in CP-SAT where
+annealing succeeds — on this problem the exact solver is the weaker tool, and
+that is worth knowing before anyone invests in a bigger CP model.
 
 The general space gets further only because at small t it is far less
 constrained — a weaker structure, not a better result. And the honest baseline
@@ -890,6 +902,8 @@ the *design*, not on the *construction*.
 | `anneal.py` | simulated annealing over both state spaces; degree-7 validation |
 | `anneal_fast.py` | the same with the table as one numpy array, batched cost |
 | `sweep.py` | probabilistic frontier sweep over t |
+| `grow_anneal.py` | grow-and-repair with escalating budgets — the best search here |
+| `lns.py` | large-neighbourhood search: delete and re-solve an old branch |
 
 Run order: `python3 reduction.py`, `known_constraints.py`, `firstmoment.py`,
 `verify_frontier.py` are all fast. `cyclic_search.py [seconds]` and
