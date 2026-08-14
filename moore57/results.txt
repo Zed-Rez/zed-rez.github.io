@@ -476,3 +476,37 @@ IS A GUARANTEED BRUTE FORCE POSSIBLE IN LOCAL COMPUTE TIME?
     compute time does not exist for this problem, and the obstacle
     is not the implementation -- it is that four branches out of
     fifty-seven already exceed any physically available budget.
+
+=== involution_prune.py (degree 7, exact) ===
+Degree 7: how much does the involution property prune?
+
+  branches valid            involutive       pruning factor
+  t=3      265              15               17.7x
+  t=4      101040           120              842.0x
+
+  (18680115 search nodes, 26.4s)
+
+  Soundness at degree 7: Hoffman-Singleton is the unique Moore
+  graph of this degree and all its triangle composites are
+  involutions, so every structure that extends to a complete graph
+  is involutive.  The filter therefore discards nothing that could
+  have led to the graph -- at this degree.
+
+=== factorization_search.py validate ===
+Premise check -- gauge sigma_0j = id, then look at sigma_ij, i,j>=1
+
+  Petersen           all fixed-point-free involutions: True;  every row a 1-factorization of K_2: True
+  Hoffman-Singleton  all fixed-point-free involutions: True;  every row a 1-factorization of K_6: True
+
+Validation -- rebuild Hoffman-Singleton inside the model
+
+   2 ->  3 : SOLVED -- valid 3-branch 1-factorization structure
+   3 ->  4 : SOLVED -- valid 4-branch 1-factorization structure
+   4 ->  5 : SOLVED -- valid 5-branch 1-factorization structure
+   5 ->  6 : INFEASIBLE (240 conditions)
+   5 ->  6 : SOLVED -- valid 6-branch 1-factorization structure
+   6 ->  7 : SOLVED -- valid 7-branch 1-factorization structure
+  reached t = 7 (COMPLETE)
+  rebuilt: Moore graph of degree 7 on 50 vertices
+
+model VALIDATED
