@@ -161,3 +161,56 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# ---------------------------------------------------------------------------
+# randomised 1-factorizations
+# ---------------------------------------------------------------------------
+
+def random_factorization(m, rng, flips=4000):
+    """A random 1-factorization, produced by walking the standard Markov chain
+    from the round-robin one: pick two factors, take their union (a disjoint
+    union of even cycles), and swap the edges along a randomly chosen cycle.
+    That keeps both factors perfect matchings and keeps the partition, while
+    destroying the round-robin's symmetry."""
+    factors = [f.copy() for f in round_robin(m)]
+    n = len(factors)
+    for _ in range(flips):
+        i = rng.randrange(n)
+        j = rng.randrange(n)
+        if i == j:
+            continue
+        fi, fj = factors[i], factors[j]
+        # cycles of the union fi ∪ fj
+        seen = [False] * m
+        cycles = []
+        for s in range(m):
+            if seen[s]:
+                continue
+            cyc = []
+            x, use_i = s, True
+            while not seen[x]:
+                seen[x] = True
+                cyc.append(x)
+                x = int(fi[x]) if use_i else int(fj[x])
+                if not seen[x]:
+                    seen[x] = True
+                    cyc.append(x)
+                    x = int(fj[x]) if use_i else int(fi[x])
+            cycles.append(cyc)
+        if not cycles:
+            continue
+        cyc = cycles[rng.randrange(len(cycles))]
+        if len(cyc) < 4:
+            continue
+        sub = set(cyc)
+        for x in sub:
+            a, b = int(fi[x]), int(fj[x])
+            if a in sub and b in sub:
+                fi[x], fj[x] = b, a
+        ok_i = all(fi[fi[x]] == x and fi[x] != x for x in range(m))
+        ok_j = all(fj[fj[x]] == x and fj[x] != x for x in range(m))
+        if not (ok_i and ok_j):
+            factors[i] = round_robin(m)[i]
+            factors[j] = round_robin(m)[j]
+    return factors
