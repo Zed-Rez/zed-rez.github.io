@@ -146,13 +146,31 @@ class FastAnneal:
         return new
 
     def run(self, iters, t0=2.0, t1=0.02, deadline=None, report_every=None,
-            log=sys.stdout):
+            log=sys.stdout, focus=0.0, refresh=20000):
+        """``focus`` is the probability of picking the pair to move in
+        proportion to how much unsatisfied cost it currently carries, rather
+        than uniformly (a WalkSAT-style focused walk).  The per-pair costs go
+        stale as neighbouring pairs change, so they are recomputed every
+        ``refresh`` moves."""
         t = self.t
         others_cache = {}
         cost = self.total_cost()
         best = cost
         start = time.time()
         pairs = [(i, j) for i in range(1, t) for j in range(i + 1, t)]
+        npairs = len(pairs)
+
+        def others_for(i, j):
+            o = others_cache.get((i, j))
+            if o is None:
+                o = np.array([l for l in range(t) if l not in (i, j)])
+                others_cache[(i, j)] = o
+            return o
+
+        pc = np.zeros(npairs, dtype=np.float64)
+        if focus > 0:
+            for idx, (i, j) in enumerate(pairs):
+                pc[idx] = self.local_cost(i, j, others_for(i, j))
         # When a wall-clock deadline is given, drive the cooling schedule by
         # elapsed time rather than by iteration count -- otherwise a deadline
         # that cuts the run short leaves the temperature still near t0 and the
@@ -168,12 +186,17 @@ class FastAnneal:
                     frac = min((now - start) / max(span, 1e-9), 1.0)
                 else:
                     frac = it / max(iters - 1, 1)
-            i, j = pairs[self.rng.randrange(len(pairs))]
-            key = (i, j)
-            others = others_cache.get(key)
-            if others is None:
-                others = np.array([l for l in range(t) if l not in (i, j)])
-                others_cache[key] = others
+            if focus > 0 and (it % refresh) == 0 and it:
+                for idx, (a_, b_) in enumerate(pairs):
+                    pc[idx] = self.local_cost(a_, b_, others_for(a_, b_))
+            if focus > 0 and self.rng.random() < focus and pc.sum() > 0:
+                idx = int(np.searchsorted(np.cumsum(pc),
+                                          self.rng.random() * pc.sum()))
+                idx = min(idx, npairs - 1)
+            else:
+                idx = self.rng.randrange(npairs)
+            i, j = pairs[idx]
+            others = others_for(i, j)
             before = self.local_cost(i, j, others)
             old = self.S[i, j].copy()
             old_inv = self.S[j, i].copy()
@@ -183,6 +206,8 @@ class FastAnneal:
             temp = t0 * (t1 / t0) ** frac
             if delta <= 0 or self.rng.random() < math.exp(-delta / max(temp, 1e-9)):
                 cost += delta
+                if focus > 0:
+                    pc[idx] = after
                 if cost < best:
                     best = cost
                 if cost == 0:
@@ -190,6 +215,8 @@ class FastAnneal:
             else:
                 self.S[i, j] = old
                 self.S[j, i] = old_inv
+                if focus > 0:
+                    pc[idx] = before
             if report_every and it and it % report_every == 0:
                 print("      iter %d: cost %d (best %d, %.0f moves/s)"
                       % (it, cost, best, it / max(time.time() - start, 1e-9)),

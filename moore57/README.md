@@ -751,6 +751,36 @@ less constrained — it is a weaker structure, not a better result. And note the
 19-branch cyclic certificate is itself a valid general structure, so the
 unconditional general frontier is ≥ 19 by construction.
 
+### 20e. Seven methods, compared honestly
+
+Everything tried on this problem, with what it actually achieved:
+
+| method | degree-7 check | degree-57 reach | note |
+| --- | --- | --- | --- |
+| complete DFS (guaranteed) | finds HoSi, 765,621 nodes | 12 branches in 242 s | correct, never finishes |
+| cyclic ansatz + CP-SAT | **misses HoSi** (5 of 7) | 19–20 branches | provably cannot complete |
+| reflection ansatz | **infeasible at 7** | — | dead on arrival |
+| CP-SAT growth, general | — | 12 branches | never revises a branch |
+| CP-SAT growth, 1-factorization | rebuilds HoSi | 10 branches | strongest propagation |
+| LNS (delete + re-solve a branch) | — | no gain | both add and revise time out at 11 |
+| **annealing, grow-and-repair** | 6/6 in involution space, **0/6** in permutation space | **11 involution / 13 general** | best method here |
+| parallel tempering | 4/4 | 58 at t=12 vs annealing's 26 | loses even when tuned |
+
+Two details worth keeping from the tempering attempt. The swap acceptance rate
+is the diagnostic: at 0.95 the ladder is so dense that neighbouring replicas
+are indistinguishable and the method is worthless (best energy 428); retuned to
+a colder, wider ladder with rate 0.43 it improves sevenfold to 58. It still
+loses to a single well-scheduled annealing trajectory, because R replicas split
+the move budget R ways and this landscape rewards one long descent more than
+many short ones.
+
+Focused, WalkSAT-style move selection — picking the pair to move in proportion
+to the unsatisfied cost it carries — was also tried and is within noise (mean
+51 against 53 on equal budgets). So the difficulty is not where the moves are
+aimed, and not the cooling schedule. It is the hard tail: at 12 branches the
+cost falls from ~570 to 14 and then resists, which is the familiar behaviour of
+a constraint problem near its satisfiability threshold.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
@@ -904,6 +934,7 @@ the *design*, not on the *construction*.
 | `sweep.py` | probabilistic frontier sweep over t |
 | `grow_anneal.py` | grow-and-repair with escalating budgets — the best search here |
 | `lns.py` | large-neighbourhood search: delete and re-solve an old branch |
+| `tempering.py` | parallel tempering / replica exchange |
 
 Run order: `python3 reduction.py`, `known_constraints.py`, `firstmoment.py`,
 `verify_frontier.py` are all fast. `cyclic_search.py [seconds]` and
