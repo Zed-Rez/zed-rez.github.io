@@ -1155,6 +1155,36 @@ that survives five unrelated methods and both starting points is more likely to
 be the object than the searcher — but the sampling above cannot confirm that,
 and the estimate says otherwise.
 
+### 20q. The ceiling law, computed exactly at small moduli
+
+Instead of arguing about the extrapolation, compute the model's ceiling exactly
+where CP-SAT can prove INFEASIBLE (`refl_law.py`). The model is a symmetric
+Z_n labelling of K_t with no vanishing 4-cycle sum; degree 57 is n = 28.
+
+| n | max t | proved | t / n |
+| --- | --- | --- | --- |
+| 2 | 3 | yes | 1.50 |
+| 4 | 5 | yes | 1.25 |
+| 6 | 6 | yes | 1.00 |
+| 8 | ≥7 | undecided | 0.88 |
+| 10 | ≥9 | undecided | 0.90 |
+| 12 | ≥9 | undecided | 0.75 |
+
+(Prime moduli behave differently — 3→5, 7→9 — so the even column is the
+relevant one, 28 being even.)
+
+**This corrects the reading I leaned toward last turn.** I had suggested that a
+barrier surviving five methods was more likely the object than the searcher. The
+even-modulus ratio sits around 0.75–0.9 and does not collapse, which
+extrapolates to roughly **21–25 at n = 28** — in agreement with the first-moment
+estimate and *against* my guess. On this evidence t = 14 is a search limit after
+all, and the plateau across methods reflects that they share a weakness (all are
+local in the same way) rather than a wall in the object.
+
+Note the entries at n ≥ 8 are lower bounds, so the ratio could be higher still;
+none of them is a proved ceiling. The honest conclusion is that the model very
+probably admits structures well past 14 and none of the searches here find them.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
