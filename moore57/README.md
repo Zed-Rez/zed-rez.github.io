@@ -712,13 +712,27 @@ the schedule by elapsed time instead turned "best cost 62" into solved-to-zero
 at 8 and 10 branches. Worth stating because a plateau is exactly what a broken
 schedule and a genuine obstruction look like from the outside.
 
-Probabilistic frontiers at degree 57, each certificate verified independently
-(model conditions, plus building the graph fragment and confirming girth 5):
+**Grow and repair.** Cold annealing at a fixed t throws away everything already
+known; the CP-SAT growth never revises a branch once placed. `grow_anneal.py`
+does both: append a branch with random bijections, then anneal the *whole*
+table, so the search may revise branch 3 in order to fit branch 12. Budgets
+escalate (28 s, 84 s, 252 s, …) because a long budget makes the cooling
+schedule sluggish and burns the allowance on branches that would fall in
+seconds.
 
-| state space | branches reached at cost 0 |
-| --- | --- |
-| fixed-point-free involutions | 10 |
-| arbitrary permutations | 14 |
+Probabilistic frontiers at degree 57, every certificate verified independently
+by building the graph fragment and confirming girth 5:
+
+| state space | branches at cost 0 | fragment | next branch |
+| --- | --- | --- | --- |
+| fixed-point-free involutions | **10** | 571 vertices, girth 5 | t=11 reached cost 2 of ~400 |
+| arbitrary permutations | **12** | 685 vertices, girth 5 | t=13 reached cost 27 of ~750 |
+
+The general space gets further only because at small t it is far less
+constrained — a weaker structure, not a better result. And the honest baseline
+is that the 19-branch cyclic certificate is itself a valid general structure,
+so probabilistic search from scratch has not beaten what construction already
+gives.
 
 The general-space number is higher only because at small t that model is far
 less constrained — it is a weaker structure, not a better result. And note the
