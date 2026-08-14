@@ -679,6 +679,52 @@ can be pushed, not how much of the graph is known. Under the conjecture the
 honest figure is 10 of 57, and it is 10 branches that could actually be part of
 a Moore graph.
 
+### 20d. Probabilistic search — and what it says about the state space
+
+Dropping the guarantee entirely: simulated annealing over the σ-table, cost =
+the number of fixed points summed over every triangle and quadrilateral
+composite. Cost 0 is exactly a Moore graph. Two state spaces, same cost
+function, same move budget (`anneal.py`, `anneal_fast.py`).
+
+**At degree 7, where the answer exists, the two spaces behave completely
+differently:**
+
+| state space | move | degree-7 result |
+| --- | --- | --- |
+| arbitrary permutations | compose with a transposition | **0 of 6 restarts** solve, 300k iterations each |
+| fixed-point-free involutions | rewire two edges of the matching | **6 of 6 restarts** solve, in 190–840 iterations |
+
+Initial cost is ~120–135 and it goes to 0 almost immediately in the involution
+space, and never in the permutation space. Each solve rebuilds
+Hoffman–Singleton.
+
+This is independent evidence for the conjecture that has nothing to do with the
+earlier arguments: the involution structure is not merely a filter that happens
+to be true of the known graphs — it is the space in which the problem is
+*searchable at all*. In the unrestricted space the landscape is hopeless even
+when a solution is known to exist a few hundred moves away.
+
+**A methodological note worth recording.** The first sweep reported failure at
+8 branches. The bug was that the cooling schedule was indexed by iteration
+count while the run was cut off by a wall-clock deadline, so the temperature
+never left its starting value and the "annealer" was a hot random walk. Driving
+the schedule by elapsed time instead turned "best cost 62" into solved-to-zero
+at 8 and 10 branches. Worth stating because a plateau is exactly what a broken
+schedule and a genuine obstruction look like from the outside.
+
+Probabilistic frontiers at degree 57, each certificate verified independently
+(model conditions, plus building the graph fragment and confirming girth 5):
+
+| state space | branches reached at cost 0 |
+| --- | --- |
+| fixed-point-free involutions | 10 |
+| arbitrary permutations | 14 |
+
+The general-space number is higher only because at small t that model is far
+less constrained — it is a weaker structure, not a better result. And note the
+19-branch cyclic certificate is itself a valid general structure, so the
+unconditional general frontier is ≥ 19 by construction.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
@@ -827,6 +873,9 @@ the *design*, not on the *construction*.
 | `factorization_search.py` | the 1-factorization model; validated, and the best search here |
 | `involution_prune.py` | exact measurement of how hard the conjecture prunes |
 | `conjecture.py` | the conjecture in three equivalent forms, checked |
+| `anneal.py` | simulated annealing over both state spaces; degree-7 validation |
+| `anneal_fast.py` | the same with the table as one numpy array, batched cost |
+| `sweep.py` | probabilistic frontier sweep over t |
 
 Run order: `python3 reduction.py`, `known_constraints.py`, `firstmoment.py`,
 `verify_frontier.py` are all fast. `cyclic_search.py [seconds]` and
