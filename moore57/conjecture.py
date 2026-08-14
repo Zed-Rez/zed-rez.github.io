@@ -1,11 +1,20 @@
 """
-The involution conjecture, in three equivalent forms.
+The involution conjecture, in three forms -- two strengths, not three.
 
 Everything conditional in this project rests on one statement.  It is verified
-at degrees 3 and 7 and open at 57.  Stating it three ways is useful because the
-third form mentions no bijections, no gauge and no coordinates at all -- it is
-purely about how the 5-cycles of a Moore graph sit around a path of length two,
-and it is the form worth trying to prove.
+at degrees 3 and 7 and open at 57.
+
+CORRECTION.  An earlier version of this file claimed the three forms below are
+equivalent.  They are not.  Form A is strictly stronger:
+
+    A  ==>  B  and  A ==> C,   and   B <==> C,   but   B does NOT imply A.
+
+The reason is elementary and I missed it: with the gauge, the triples that
+contain branch 0 collapse to "sigma_ij is an involution", which is B -- but a
+triple of three non-zero branches gives a product of three involutions, and a
+product of three involutions need not be an involution.  The certificates in
+this repository make it concrete: structures built to satisfy B have only
+270 of 990 triangle composites involutive, so they satisfy B and violate A.
 
 FORM A (composites).  For any three branches a, j, b of the rooted
 decomposition, the triangle composite
@@ -145,7 +154,9 @@ def main():
         print()
 
     print("All three forms hold at every degree where a Moore graph exists.")
-    print("At degree 57 all three are open, and they stand or fall together.")
+    print("At degree 57 all three are open.  They do NOT stand or fall")
+    print("together: A implies B and C, B and C are equivalent to each other,")
+    print("and neither implies A.  A is the conjecture that matters.")
     print()
     print("Why it matters: Form A is false in essentially every partial")
     print("structure a search produces (0 of 1320 triples in a 12-branch")

@@ -656,8 +656,16 @@ symmetry of the pentagon structure and nothing more.
 | Form B (gauged bijections; rows are 1-factorizations) | yes | yes |
 | Form C (φ_{x,y} is an involution) | 2/2 | 30/30 |
 
-All three are equivalent, all hold wherever a Moore graph exists, all are open
-at 57, and they stand or fall together. Form C is the one to try to prove.
+**Correction — these are not all equivalent.** I claimed they were, and that
+was wrong. With the gauge, the triples containing branch 0 collapse to
+"σ_ij is an involution", which is Form B; but a triple of three *non-zero*
+branches is a product of three involutions, and that need not be an involution.
+The true relations are
+
+    A ⟹ B,  A ⟹ C,  B ⟺ C,  and **B does not imply A**.
+
+Form A is strictly the strongest, and it is the one that matters. This is not a
+pedantic point — it changes the results below.
 
 ### 20c. The three frontiers, and what "frontier" even means
 
@@ -725,8 +733,22 @@ by building the graph fragment and confirming girth 5:
 
 | state space | branches at cost 0 | fragment | next branch |
 | --- | --- | --- | --- |
-| fixed-point-free involutions | **11** | 628 vertices, girth 5 | t=12 reached cost 26 of ~530 |
+| fixed-point-free involutions (Form **B** only) | **11** | 628 vertices, girth 5 | t=12 reached cost 26 of ~530 |
 | arbitrary permutations | **13** | 742 vertices, girth 5 | t=14 reached cost 48 of ~930 |
+
+**What the correction costs.** The "involution state space" imposes Form B, not
+Form A. `locality.py` audits every certificate in the repository and the
+11-branch one has only **270 of 990** triangle composites involutive — it
+satisfies B and violates A. Since any sub-structure of a Moore graph inherits
+Form A (its composites are composites of the whole graph), a structure
+violating A cannot extend to a Moore graph *if A holds*. So my own best
+certificates are off-path under my own conjecture — exactly the criticism I
+levelled at the published cyclic frontier, now applying to me.
+
+The search that imposed the full Form A is `involution_search.py`, and it
+stalled at 4–5 branches. That, not 11, is the honest frontier under the
+conjecture. Verified against Hoffman–Singleton: its first t branches satisfy
+Form A exactly, for every t from 3 to 7.
 
 Annealing beats the exact solver on this problem: CP-SAT growth reached 10 and
 12 branches on the same models where annealing reaches 11 and 13.
