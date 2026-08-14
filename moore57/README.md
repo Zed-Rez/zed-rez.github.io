@@ -1024,6 +1024,49 @@ annealer with the verified 5-branch structure did not reach 6 (cost 183–200
 from ~360, three tries). So the Form A frontier is **5 of 57**, now
 constructive rather than search-limited.
 
+### 20n. Form A from reflections — the best conditional result here
+
+Commuting is sufficient for σ_ca σ_bc σ_ab = σ_ab σ_bc σ_ca but not necessary.
+In a **dihedral** group a product of an odd number of reflections is again a
+reflection, and a reflection is an involution — so taking every bijection to be
+a reflection of Z₅₆,
+
+    σ_ij(x) = g_ij − x,   g_ij = g_ji,
+
+makes every triangle composite a reflection and Form A holds **automatically**,
+with no commuting required. The conditions collapse to arithmetic: the triangle
+composite is x ↦ c − x with c = g_ab − g_bj + g_aj, fixed-point-free exactly
+when c is odd — satisfied outright by taking every g_ij odd — and the
+quadrilateral composite is the translation x ↦ x + d, fixed-point-free when
+d ≠ 0. So only the quadrilateral conditions remain, over 28 odd residues per
+pair.
+
+This is the same ansatz `reflection.py` tested at *full* size, where it is
+infeasible at degree 7. What was never run is the *partial* problem at degree
+57, and that is a different question entirely:
+
+| branches | Moore conditions | Form A | fragment |
+| --- | --- | --- | --- |
+| 5 | ✓ | 60/60 | 286 vertices, girth 5 |
+| 9 | ✓ | 504/504 | 514 vertices, girth 5 |
+| 11 | ✓ | 990/990 | 628 vertices, girth 5 |
+| **13** | ✓ | **1716/1716** | 742 vertices, girth 5 |
+
+Every one verified independently — derangement conditions on the σ-table, all
+composites fixed-point-free involutions, and the graph fragment rebuilt and
+checked for girth 5.
+
+**13 of 57 branches, fully Form A compliant.** That beats the abelian
+construction's 5 and the annealer's 4, and unlike the 11- and 14-branch
+certificates from the general and 1-factorization searches, this one is not
+off-path under the conjecture — it satisfies Form A exactly. It is the best
+conditional structure in this project.
+
+Two honest caveats. The reflection family is an ansatz, and the *same* ansatz
+is provably infeasible at full size for degree 7 — so it will not reach 57
+either, and this is a lower bound on what Form A permits rather than a route to
+the graph. And t = 14 did not solve within 40 s; longer runs are in progress.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
