@@ -45,6 +45,9 @@ def check(a, model):
     return st.verify()
 
 
+USE_ILS = True
+
+
 def main():
     path = sys.argv[1]
     model = sys.argv[2] if len(sys.argv) > 2 else "involution"
@@ -64,13 +67,19 @@ def main():
         a.rng.seed(seed0 + 977 * k)
         c0 = a.total_cost()
         t0 = time.time()
-        best, it = a.run(10_000_000, t0=1.2, t1=0.008,
-                         deadline=time.time() + per_try)
+        if USE_ILS:
+            best, it, kicks = a.run_ils(time.time() + per_try, t_lo=0.06,
+                                        stall=40000, kick=10,
+                                        seed=seed0 + 977 * k)
+        else:
+            best, it = a.run(10_000_000, t0=1.2, t1=0.008,
+                             deadline=time.time() + per_try)
+            kicks = 0
         el = time.time() - t0
         if best_ever is None or best < best_ever:
             best_ever = best
-        print("  try %d: %d -> %d  (%d moves, %.0fs)" % (k, c0, best, it, el),
-              flush=True)
+        print("  try %d: %d -> %d  (%d moves, %d kicks, %.0fs)"
+              % (k, c0, best, it, kicks, el), flush=True)
         if best == 0:
             ok, msg = check(a, model)
             g = reduction.build_graph(a.t, a.to_sigma(), m=a.m)

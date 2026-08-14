@@ -899,6 +899,29 @@ removing 55 unknowns from the move set removes freedom the annealer was using �
 row 1 is not a free parameter to be guessed but part of what has to be
 co-optimised with everything else.
 
+### 20j. Iterated local search — the one algorithmic change that helped
+
+Plain annealing gets one shot at its schedule: if it lands in a basin at cost
+11 it stays there. Iterated local search keeps the best state seen, and when no
+improvement has appeared for a while it *restores* that state and kicks it with
+a handful of unconditional random moves, then descends again. That is the
+standard remedy for a small stubborn residual, and it is the only algorithmic
+change tried here that produced a consistent gain:
+
+| seed | plain annealing | ILS |
+| --- | --- | --- |
+| 11 | 46 | **40** (2 kicks) |
+| 12 | 44 | **32** (3 kicks) |
+
+Same 120 s budget, same state space, t = 12. Worth contrasting with everything
+else attempted at the search level: focused move selection was within noise,
+parallel tempering lost even when tuned, pinning row 1 hurt. ILS is the one
+that moved.
+
+It does not change the picture — the measured ×3.65 per branch is what governs
+the projection to 57, and a constant-factor improvement in cost per attempt
+does not touch it. It is recorded because it is the one thing that did work.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
