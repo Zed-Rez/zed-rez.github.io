@@ -510,3 +510,27 @@ Validation -- rebuild Hoffman-Singleton inside the model
   rebuilt: Moore graph of degree 7 on 50 vertices
 
 model VALIDATED
+
+=== conjecture.py ===
+The involution conjecture, checked where a Moore graph exists
+
+Petersen (degree 3)
+  Form A  triangle composites that are f.p.f. involutions: 6 / 6
+  Form B  gauged bijections all f.p.f. involutions: True;  every row a 1-factorization: True
+  Form C  phi_{x,y} an involution: 2 / 2 ordered pairs
+
+Hoffman-Singleton (degree 7)
+  Form A  triangle composites that are f.p.f. involutions: 210 / 210
+  Form B  gauged bijections all f.p.f. involutions: True;  every row a 1-factorization: True
+  Form C  phi_{x,y} an involution: 30 / 30 ordered pairs
+
+All three forms hold at every degree where a Moore graph exists.
+At degree 57 all three are open, and they stand or fall together.
+
+Why it matters: Form A is false in essentially every partial
+structure a search produces (0 of 1320 triples in a 12-branch
+structure), so it is real information no published search uses; and
+it implies the 2026 theorem that no cyclic construction exists.
+
+Why to doubt it: the only two graphs it can be checked on are
+vertex-transitive and rank 3, and the degree-57 graph is neither.
