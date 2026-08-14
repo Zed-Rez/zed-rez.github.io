@@ -1185,6 +1185,24 @@ Note the entries at n ≥ 8 are lower bounds, so the ratio could be higher still
 none of them is a proved ceiling. The honest conclusion is that the model very
 probably admits structures well past 14 and none of the searches here find them.
 
+### 20r. The small-n solutions have no algebraic structure
+
+If the solutions CP-SAT finds at small moduli had a pattern, it could be
+written down directly at n = 28 and the search skipped. They do not. Extracting
+solutions at (t,n) = (9,12), (9,10) and (6,6) and testing:
+
+| structure | present? |
+| --- | --- |
+| circulant (f depends only on i − j) | no |
+| rank-1 bilinear (f_ij = x_i·x_j mod n) | no |
+
+That is a useful negative, and it explains the pattern across this whole
+section. Every *construction* tried caps early — commuting involutions at 5,
+multiplicative/bilinear forms at 7 (since B(a,b) ≠ 0 for all differences forces
+at most one vertex per residue class mod 7) — while *search* reaches 14. The
+solutions that exist are generic, so there is no shortcut to write down, and
+progress has to come from better search rather than better algebra.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
