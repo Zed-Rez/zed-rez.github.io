@@ -1062,10 +1062,31 @@ certificates from the general and 1-factorization searches, this one is not
 off-path under the conjecture — it satisfies Form A exactly. It is the best
 conditional structure in this project.
 
-Two honest caveats. The reflection family is an ansatz, and the *same* ansatz
-is provably infeasible at full size for degree 7 — so it will not reach 57
-either, and this is a lower bound on what Form A permits rather than a route to
-the graph. And t = 14 did not solve within 40 s; longer runs are in progress.
+**Incremental growth with backtracking reaches 14.** Handing the whole K_t
+model to CP-SAT stalls at 13; growing branch by branch and backtracking on
+failure — the same move that took the cyclic labelling from 15 to 19 — gets one
+further. The 14-branch certificate verifies completely:
+
+| check | result |
+| --- | --- |
+| derangement conditions on the σ-table | ✓ |
+| Form A (all composites f.p.f. involutions) | **2184 / 2184** |
+| fragment | 799 vertices = 1 + 14 + 14·56, girth 5 |
+| degrees | 14 and 57 — the 14 layer-1 vertices are already at full degree |
+
+**14 of 57 branches, fully Form A compliant and independently verified.** This
+is the best conditional structure in the project: unlike the 11-branch
+1-factorization certificate and the 14-branch general one, which carry 270/990
+and 0/2184 involutive composites respectively, this one is on-path under the
+conjecture.
+
+Three honest caveats. Most 13→14 extensions are proved INFEASIBLE — only one
+line survived — and 14→15 came back INFEASIBLE on that line too, so the ansatz
+is close to its ceiling. The reflection family is an ansatz, and the *same*
+ansatz is provably infeasible at full size for degree 7, so it will not reach
+57. And the degree-7 calibration is sobering in the other direction: there
+reflections reach 5 of the 7 branches needed (71%), while at degree 57 they
+reach 14 of 57 (25%).
 
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
