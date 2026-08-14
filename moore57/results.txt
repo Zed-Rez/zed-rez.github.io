@@ -534,3 +534,9 @@ it implies the 2026 theorem that no cyclic construction exists.
 
 Why to doubt it: the only two graphs it can be checked on are
 vertex-transitive and rank 3, and the degree-57 graph is neither.
+
+=== factorization frontier certificate (independent verification) ===
+certificate t = 10 -> valid 10-branch 1-factorization structure
+built fragment: 571 vertices, girth>=5: True
+non-involutive bijections: 0
+max edge reuse within a row: 1 (1 = edge-disjoint)
