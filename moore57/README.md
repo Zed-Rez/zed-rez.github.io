@@ -1203,6 +1203,24 @@ at most one vertex per residue class mod 7) — while *search* reaches 14. The
 solutions that exist are generic, so there is no shortcut to write down, and
 progress has to come from better search rather than better algebra.
 
+### 20s. The CRT split: a good observation, a bad encoding
+
+Z₂₈ = Z₄ × Z₇, so a 4-cycle sum vanishes mod 28 exactly when it vanishes mod 4
+**and** mod 7. Splitting each label into (a_ij, b_ij) makes every condition a
+disjunction, NOT(sum₄ = 0 AND sum₇ = 0), which is the shape SAT solvers like.
+
+As an encoding it is a clear loss: t = 13 came back UNKNOWN at 150 s where the
+direct encoding solves it in 32 s. The `AddModuloEquality` constraints cost more
+than the disjunction saves.
+
+As an observation it is worth keeping, because `refl_law.py` proves the ceilings
+of the two components separately: **5 for modulus 4, 9 for modulus 7**. So
+neither component alone can reach past 9, and every structure beyond that —
+including the verified 14-branch one — must *mix*, satisfying some 4-cycles via
+the mod-4 component and others via mod-7. That is precisely the freedom the
+single-modulus constructions lack, and it explains why they cap at 5 and 7 while
+search over the full Z₂₈ reaches 14.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
