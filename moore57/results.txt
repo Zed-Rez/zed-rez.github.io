@@ -588,3 +588,19 @@ dead-end density, involution state space, 4 samples per t, 150s exact budget eac
   8    4        4          0            0       
   9    4        3          0            1       
   10   4        0          0            4       
+
+=== formA_abelian.py ===
+Commuting-involution construction for Form A at degree 57
+(E = (Z_2)^3 acting freely on 56 points)
+
+  n=2  (t= 3 branches): FOUND -- Moore conditions True, Form A 6/6, fragment 172 vertices, girth>=5 True
+  n=3  (t= 4 branches): FOUND -- Moore conditions True, Form A 24/24, fragment 229 vertices, girth>=5 True
+  n=4  (t= 5 branches): FOUND -- Moore conditions True, Form A 60/60, fragment 286 vertices, girth>=5 True
+  n=5  (t= 6 branches): none
+
+  Largest Form A structure from this construction: t = 5 branches.
+
+  That answers the existence question the exact solver could
+  not decide: 5-branch Form A structures DO exist at degree 57,
+  so Form A is not refuted there, and the annealer's stall at 4
+  was the searcher rather than the object.
