@@ -987,6 +987,43 @@ from-scratch search result here. The 19-branch cyclic certificate is still
 larger and also unconditional, so this is not a record; it is a
 differently-built structure of comparable size.
 
+### 20m. Form A has a clean algebraic form, and a constructive answer
+
+Each σ is an involution, so τ⁻¹ = σ_ab σ_bc σ_ca while τ = σ_ca σ_bc σ_ab.
+Hence Form A's triple condition is exactly
+
+> **σ_ca σ_bc σ_ab = σ_ab σ_bc σ_ca**
+
+which is automatic when the bijections **commute**. Commuting fixed-point-free
+involutions generate an elementary abelian 2-group acting freely, and a free
+action on 56 points needs |E| | 56, so E = (Z₂)³ is the largest available
+(56 = 8 × 7, seven orbits).
+
+With the gauge, everything collapses to arithmetic in (Z₂)³ on the non-zero
+branches — a_ij ≠ 0, a_ij ⊕ a_jk ≠ 0 (a proper edge colouring), a_ij ⊕ a_jk ⊕
+a_ki ≠ 0, and a_ij ⊕ a_jk ⊕ a_kl ⊕ a_li ≠ 0 — with the triple condition free
+because the group is abelian. That is a tiny exact search (`formA_abelian.py`),
+and it produces:
+
+| branches | Moore conditions | Form A | fragment |
+| --- | --- | --- | --- |
+| 3 | ✓ | 6/6 | 172 vertices, girth 5 |
+| 4 | ✓ | 24/24 | 229 vertices, girth 5 |
+| **5** | ✓ | **60/60** | 286 vertices, girth 5 |
+| 6 | none exists in this construction | | |
+
+**This settles the question the exact solver kept timing out on.** Five-branch
+Form A structures *do* exist at degree 57, explicitly. So Form A is **not**
+refuted there, and the annealer's stall at 4 was the searcher, not the object —
+the opposite of what the timeout might have tempted me to conclude.
+
+Two limits, stated plainly. The construction caps at 5 branches, well short of
+the n−1 ≤ 7 ceiling that proper edge colouring alone would impose — the
+triangle and quadrilateral conditions bite first. And seeding the Form A
+annealer with the verified 5-branch structure did not reach 6 (cost 183–200
+from ~360, three tries). So the Form A frontier is **5 of 57**, now
+constructive rather than search-limited.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
