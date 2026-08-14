@@ -1125,6 +1125,36 @@ wastes nearly every move. Min-conflicts repair fixes exactly that: pick a
 The t = 14 certificate is verified as before: Form A 2184/2184, 799-vertex
 fragment, girth 5. At t = 15 the hybrid reaches cost 5–7 and has not closed it.
 
+### 20p. Is the first-moment ceiling of t = 21 trustworthy? Partly.
+
+The estimate assumes the conditions are independent. That is testable by
+sampling: draw random gauge-fixed labellings and measure what fraction survive
+all conditions, against the predicted (27/28)^(#conditions).
+
+| branches | conditions | predicted | measured | measured / predicted |
+| --- | --- | --- | --- | --- |
+| 5 | 15 | 5.80e−1 | 5.67e−1 | 0.98 |
+| 6 | 45 | 1.95e−1 | 1.75e−1 | 0.90 |
+| 7 | 105 | 2.20e−2 | 1.58e−2 | 0.72 |
+| 8 | 210 | 4.82e−4 | 1.80e−4 | 0.37 |
+| 9 | 378 | 1.07e−6 | ~2.5e−6 | (1 hit in 400k — noise) |
+
+So the estimator is accurate to within a factor of about three over the range
+where sampling can see anything, and it errs *optimistically* — there are fewer
+labellings than independence predicts, so the true ceiling is **at most** 21.
+Past t = 8 the survival probability is too small to sample and the estimate is
+untested.
+
+That leaves the gap between the searched 14 and the estimated 21 genuinely
+ambiguous, and I would rather say so than pick the flattering reading. What can
+be said: every method tried plateaus in the same place. Cold anneal+repair, the
+same seeded from the verified 14-branch certificate (initial cost only 33, still
+ending at 6), CP-SAT growth, CP-SAT with backtracking, and 319 randomised
+restarts all stop at 14 with a residual of 5–7 conditions at t = 15. A barrier
+that survives five unrelated methods and both starting points is more likely to
+be the object than the searcher — but the sampling above cannot confirm that,
+and the estimate says otherwise.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
