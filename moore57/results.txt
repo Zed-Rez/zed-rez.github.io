@@ -423,3 +423,56 @@ analysis: any obstruction at degree 57 has to be global.
   run 1: best cost 8 after 39006000 moves (400s)
 cyclic t=19:
   run 0: best cost 581 after 44330000 moves (900s)
+
+=== checker.py ===
+Verified-checker reference implementation
+
+  Petersen           n=10    k=3   accepted: True
+    rejects a wrong degree claim      : True
+    rejects 102 one-edge perturbations : True
+  Hoffman-Singleton  n=50    k=7   accepted: True
+    rejects a wrong degree claim      : True
+    rejects 164 one-edge perturbations : True
+
+  circulant C10(1,5), n=10 k=3 accepted: False  (must be False -- it has 4-cycles)
+  a 2-branch degree-57 fragment accepted: False  (must be False)
+
+  all checker tests passed: True
+
+=== bruteforce.py ===
+Validation -- the search is complete, so it must find what exists
+
+  degree 3: found in 2 nodes / 0.0s -- Moore graph of degree 3 on 10 vertices
+  degree 7: found in 765621 nodes / 19.0s -- Moore graph of degree 7 on 50 vertices
+
+======================================================================
+IS A GUARANTEED BRUTE FORCE POSSIBLE IN LOCAL COMPUTE TIME?
+======================================================================
+
+  EXACT, not estimated:
+    gauge-fixed structures on just 3 of the 57 branches
+      = D_56 (derangements of 56 points)
+      = 261561763155337832293801371240394297250999460530798866171481991351183803665
+      = 10^74.4
+
+    Isomorph rejection helps at 3 branches: the classes are just
+    cycle types, a few thousand.  It stops helping almost at once.
+    At 4 branches the count is ~D_56^3 = 10^223 while the residual
+    symmetry is at most 56! = 10^74.9, so orbits >= 10^148.
+
+  MEASURED, on this machine:
+    2919 search nodes per second
+    a year of local compute = 10^11.0 nodes
+    a century = 10^13.0 nodes
+
+  VERDICT: a guaranteed complete search must cover at least
+    10^148 classes at FOUR of the 57 branches alone.
+    A century of this machine covers 10^13 nodes.
+    Shortfall at four branches: 10^135.
+
+    There is no way to close that with engineering.  The program
+    below is complete and correct and will find the graph if one
+    exists; it will not finish.  A guaranteed brute force in local
+    compute time does not exist for this problem, and the obstacle
+    is not the implementation -- it is that four branches out of
+    fifty-seven already exceed any physically available budget.

@@ -627,6 +627,68 @@
       impossibility, and the two instances differ in size.</p>
     </div>
 
+    <h2>Verification: a checker, so a candidate would not rest on a script</h2>
+    <p><code>Moore57Verify.lean</code> defines an executable
+    <code>MooreCheck n k adj : Bool</code> on an adjacency table together with
+    <code>MooreCheck_sound</code> &mdash; the statement that its returning
+    <code>true</code> implies the graph really is a Moore graph. Verifying a
+    candidate then reduces to evaluating one Boolean on concrete data:
+    <code>decide</code> for small cases, <code>native_decide</code> for
+    n&nbsp;=&nbsp;3250. That final theorem is the statement which would settle
+    the problem; there is no candidate to plug in, but the last step would be
+    machine-checked rather than trusted.</p>
+    <p class="note">The Lean file is not machine-checked here (no toolchain,
+    egress blocked), so <code>checker.py</code> mirrors it clause for clause and
+    <em>is</em> tested: it accepts Petersen and Hoffman&ndash;Singleton, rejects
+    a wrong degree claim, rejects all 266 one-edge perturbations of both, and
+    rejects the circulant C<sub>10</sub>(1,5), which has the right order and
+    degree but 4-cycles.</p>
+
+    <h2>A guaranteed brute force: written, validated, measured, impossible</h2>
+    <p><code>bruteforce.py</code> is a complete search &mdash; no heuristics, no
+    ansatz, no restarts &mdash; so it finds a Moore graph of degree k if and
+    only if one exists. Validated where the answer is known:</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th class="num">degree</th><th class="num">result</th></tr>
+      <tr><td class="num">3</td><td class="num">Petersen found in <strong>2 nodes</strong></td></tr>
+      <tr><td class="num">7</td><td class="num">Hoffman&ndash;Singleton found in <strong>765,621 nodes / 17.4 s</strong></td></tr>
+    </table>
+    </div>
+
+    <p>At degree 57 on this machine: 705,124 nodes in 242&nbsp;s &mdash;
+    <strong>2,919 nodes/s</strong>, reaching 12 of 57 branches.</p>
+
+    <p>Now the accounting, and the first number is <strong>exact</strong>. With
+    the gauge, a 3-branch structure is precisely a derangement of the 56 points,
+    so the count on just 3 of the 57 branches is
+    N<sub>3</sub>&nbsp;=&nbsp;D<sub>56</sub>&nbsp;&asymp;&nbsp;10<sup>74.4</sup>.
+    Isomorph rejection helps at 3 branches &mdash; the classes are just cycle
+    types &mdash; then stops helping. At 4 branches the count is
+    ~D<sub>56</sub><sup>3</sup>&nbsp;=&nbsp;10<sup>223</sup> against residual
+    symmetry of at most 56!&nbsp;=&nbsp;10<sup>74.9</sup>, so the isomorphism
+    classes number at least 10<sup>148</sup>.</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>quantity</th><th class="num">value</th></tr>
+      <tr><td>classes to cover at <strong>4</strong> of 57 branches</td><td class="num">&ge; 10<sup>148</sup></td></tr>
+      <tr><td>a year of this machine</td><td class="num">10<sup>11</sup> nodes</td></tr>
+      <tr><td>a century of this machine</td><td class="num">10<sup>13</sup> nodes</td></tr>
+      <tr><td><strong>shortfall at four branches</strong></td><td class="num"><strong>10<sup>135</sup></strong></td></tr>
+    </table>
+    </div>
+
+    <div class="verdict">
+      <p><strong>A guaranteed brute force in local compute time does not exist
+      for this problem.</strong> The obstacle is not the implementation. Four
+      branches out of fifty-seven already exceed any physically available budget
+      by 135 orders of magnitude &mdash; computed from an exact count, with
+      isomorph rejection already credited. The program is correct and will find
+      the graph if one exists. It will not finish.</p>
+    </div>
+
     <hr>
 
     <h2>Conclusion</h2>

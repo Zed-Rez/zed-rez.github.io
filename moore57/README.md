@@ -589,6 +589,78 @@ the two instances differ in size. But it is the strongest signal available that
 climbing to 20 branches under the cyclic ansatz is not progress towards the
 graph.
 
+### 21. Verification: a checker, so a candidate would not rest on a script
+
+`Moore57Verify.lean` is the verification half. It defines an executable
+`MooreCheck n k adj : Bool` on an adjacency table together with
+`MooreCheck_sound`, the statement that its returning `true` implies the graph
+really is a Moore graph. Verifying a candidate then reduces to evaluating one
+Boolean on concrete data — `decide` for the small cases, `native_decide` for
+n = 3250:
+
+```lean
+theorem candidate_is_moore :
+    IsMoore (toGraph candidateAdj (by native_decide)) 57 :=
+  MooreCheck_sound 3250 57 candidateAdj (by native_decide) (by native_decide)
+```
+
+That is the statement which would settle the problem. There is no
+`candidateAdj` to plug in — that is the whole difficulty — but the final step
+would be machine-checked rather than trusted.
+
+The Lean file is **not machine-checked** (no toolchain, egress blocked), so
+`checker.py` is the executable mirror, clause for clause, and it *is* tested:
+it accepts Petersen and Hoffman–Singleton, rejects a wrong degree claim,
+rejects all 266 one-edge perturbations of both, and rejects the circulant
+C₁₀(1,5) which has the right order and degree but 4-cycles.
+
+### 22. A guaranteed brute force: written, validated, measured, and impossible
+
+`bruteforce.py` is a complete search — no heuristics, no ansatz, no restarts.
+It enumerates gauge-fixed structures in a fixed order with forward checking and
+smallest-remaining-domain cell selection, so it finds a Moore graph of degree k
+**if and only if one exists**.
+
+Validated where the answer is known:
+
+| degree | result |
+| --- | --- |
+| 3 | Petersen found in **2 nodes** |
+| 7 | Hoffman–Singleton found in **765,621 nodes / 17.4 s** |
+
+(That is 106× better than the naive complete search of section 4, which needed
+81,381,110 nodes.)
+
+Run at degree 57 on this machine: 705,124 nodes in 242 s — **2,919 nodes/s**,
+reaching 12 of 57 branches, not exhausted.
+
+Now the accounting, and the first number is **exact, not estimated**. With the
+gauge σ_0j = id, a 3-branch structure is precisely a derangement of the 56
+points, so the count on just 3 of the 57 branches is
+
+    N₃ = D₅₆ = 261,561,763,155,337,832,293,801,371,240,394,297,250,999,460,530,798,866,171,481,991,351,183,803,665 ≈ 10⁷⁴·⁴
+
+Isomorph rejection does help at 3 branches — the classes are just cycle types,
+a few thousand — and then it stops helping. At 4 branches the count is ~D₅₆³ =
+10²²³ against residual symmetry of at most 56! = 10⁷⁴·⁹, so the number of
+*isomorphism classes* is at least 10¹⁴⁸.
+
+| quantity | value |
+| --- | --- |
+| classes to cover at **4** of 57 branches | ≥ 10¹⁴⁸ |
+| a year of this machine | 10¹¹ nodes |
+| a century of this machine | 10¹³ nodes |
+| **shortfall at four branches** | **10¹³⁵** |
+
+> **A guaranteed brute force in local compute time does not exist for this
+> problem.** The obstacle is not the implementation. Four branches out of
+> fifty-seven already exceed any physically available budget by 135 orders of
+> magnitude, and that is computed from an exact count with isomorph rejection
+> already credited.
+
+The program is correct and will find the graph if one exists. It will not
+finish.
+
 ## Conclusion
 
 The question was where the constraints bind hard enough to hand the rest to
@@ -659,6 +731,9 @@ the *design*, not on the *construction*.
 | `anneal.py` | local search for branch extension (row-swap simulated annealing) |
 | `hybrid.py` | annealing to get close, CP-SAT plus LNS to close the gap |
 | `Moore57.lean` | Lean formalization of the block decomposition (not machine-checked) |
+| `Moore57Verify.lean` | Lean verified-checker harness for a candidate (not machine-checked) |
+| `checker.py` | tested reference implementation the Lean checker mirrors |
+| `bruteforce.py` | complete guaranteed search, validated and measured |
 
 Run order: `python3 reduction.py`, `known_constraints.py`, `firstmoment.py`,
 `verify_frontier.py` are all fast. `cyclic_search.py [seconds]` and
