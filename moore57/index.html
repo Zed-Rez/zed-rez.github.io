@@ -689,6 +689,48 @@
       the graph if one exists. It will not finish.</p>
     </div>
 
+    <h2>The gauge turns the conjecture into a 1-factorization statement</h2>
+    <p>Gauge-fix &sigma;<sub>0j</sub>&nbsp;=&nbsp;identity for <em>every</em>
+    branch. In that gauge the involution property becomes something far more
+    concrete: <strong>every &sigma;<sub>ij</sub> with i,&nbsp;j&nbsp;&ge;&nbsp;1
+    is a fixed-point-free involution of the 56 points, and for each fixed i the
+    family { &sigma;<sub>ij</sub> } is a 1-factorization of
+    K<sub>56</sub></strong>. Verified on both graphs that exist: after gauging,
+    all 15 of Hoffman&ndash;Singleton's bijections have cycle type (2,2,2) and
+    every row is a 1-factorization of K<sub>6</sub>.</p>
+
+    <p>The row condition has no slack at all &mdash; 55 matchings &times; 28
+    edges = 1540 = C(56,2) exactly &mdash; and the space collapses:</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th></th><th class="num">per unknown</th><th class="num">raw space</th></tr>
+      <tr><td>general model</td><td class="num">56! = 10<sup>74.9</sup></td><td class="num">10<sup>115272</sup></td></tr>
+      <tr><td>1-factorization model</td><td class="num">55!! = 10<sup>36.9</sup></td><td class="num">10<sup>56886</sup></td></tr>
+      <tr><td><strong>reduction</strong></td><td class="num"></td><td class="num"><strong>10<sup>58386</sup></strong></td></tr>
+    </table>
+    </div>
+
+    <p>How hard does it prune? At degree 7 the space is enumerable, so this is
+    measured, not estimated:</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th class="num">branches</th><th class="num">valid</th><th class="num">involutive</th><th class="num">pruning</th></tr>
+      <tr><td class="num">3</td><td class="num">265</td><td class="num"><strong>15</strong></td><td class="num">17.7&times;</td></tr>
+      <tr><td class="num">4</td><td class="num">101,040</td><td class="num"><strong>120</strong></td><td class="num">842&times;</td></tr>
+    </table>
+    </div>
+
+    <p>The 15 is not a coincidence: it is 5!!, exactly the count of
+    fixed-point-free involutions of 6 points &mdash; precisely what the model
+    predicts &sigma;<sub>12</sub> must be. And at degree 7 the filter is
+    <strong>sound</strong>: Hoffman&ndash;Singleton is unique and all its
+    composites are involutions, so every partial structure that extends to a
+    complete graph is involutive. The filter discards nothing that could have
+    led to the graph &mdash; <em>at that degree</em>. Soundness at 57 remains
+    the conjecture.</p>
+
     <hr>
 
     <h2>Conclusion</h2>

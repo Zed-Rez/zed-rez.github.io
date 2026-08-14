@@ -49,6 +49,8 @@ class GeneralSearch:
         self.nodes = 0
         self.solutions = 0
         self.level_counts = [0] * (k + 1)   # valid t-block structures
+        self.involutive_counts = [0] * (k + 1)
+        self.track_involutive = False
         self.s = {}                          # (i, j) -> permutation index
         self.first = None
         self.capped = False
@@ -113,9 +115,28 @@ class GeneralSearch:
             return False        # counting only: do not descend past the limit
         return self._col(r, 1)
 
+    def involutive_here(self, upto):
+        """True if every triangle composite among blocks 0..upto-1 is an
+        involution.  Used to measure how hard the involution property prunes."""
+        C, INV, s = self.COMP, self.INV, self.s
+        for a in range(upto):
+            for j in range(upto):
+                if j == a:
+                    continue
+                for b in range(upto):
+                    if b in (a, j):
+                        continue
+                    tau = C[s[(b, a)]][C[s[(j, b)]][s[(a, j)]]]
+                    p = self.perms[tau]
+                    if any(p[p[x]] != x for x in range(self.m)):
+                        return False
+        return True
+
     def _col(self, r, i):
         if i == r:
             self.level_counts[r + 1] += 1
+            if self.track_involutive and self.involutive_here(r + 1):
+                self.involutive_counts[r + 1] += 1
             if self.first is None and r + 1 == self.k:
                 pass
             return self._block(r + 1)

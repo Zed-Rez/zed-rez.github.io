@@ -589,6 +589,52 @@ the two instances differ in size. But it is the strongest signal available that
 climbing to 20 branches under the cyclic ansatz is not progress towards the
 graph.
 
+### 20. The gauge turns the conjecture into a 1-factorization statement
+
+Gauge-fix σ_0j = identity for *every* branch. In that gauge the involution
+property becomes something far more concrete:
+
+> every σ_ij with i,j ≥ 1 is a **fixed-point-free involution** of the 56 points,
+> and for each fixed i the family { σ_ij : j ≠ i } is a **1-factorization of
+> K₅₆**.
+
+Verified on both graphs that exist: after gauging, all 15 of
+Hoffman–Singleton's bijections have cycle type (2,2,2), and every row is a
+1-factorization of K₆. Petersen likewise.
+
+The row condition has no slack whatsoever: 55 matchings × 28 edges = 1540 =
+C(56,2) exactly. And the space collapses:
+
+| | per unknown | raw space (1540 unknowns) |
+| --- | --- | --- |
+| general model | 56! = 10⁷⁴·⁹ | 10¹¹⁵²⁷² |
+| 1-factorization model | 55!! = 10³⁶·⁹ | 10⁵⁶⁸⁸⁶ |
+| **reduction** | | **10⁵⁸³⁸⁶** |
+
+**How hard does it prune, exactly?** At degree 7 the whole space is enumerable,
+so this is measured rather than estimated (`involution_prune.py`):
+
+| branches | valid structures | involutive | pruning |
+| --- | --- | --- | --- |
+| 3 | 265 | **15** | 17.7× |
+| 4 | 101,040 | **120** | 842× |
+
+The 15 is not a coincidence: it is 5!!, exactly the number of fixed-point-free
+involutions of 6 points — precisely what the model predicts σ₁₂ must be.
+
+And at degree 7 the filter is **sound**: Hoffman–Singleton is the unique Moore
+graph of that degree and all its composites are involutions, so every partial
+structure that extends to a complete graph is involutive. The filter discards
+nothing that could have led to the graph — *at that degree*. Soundness at 57
+remains the conjecture.
+
+`factorization_search.py` implements this model with the full propagation it
+allows: cells are fixed-point-free, avoid every edge their row already uses,
+are pairwise distinct down each column, and satisfy every original
+triangle/quadrilateral disequality. It **rebuilds Hoffman–Singleton**, and at
+degree 57 it runs far past the previous involution encoding (which stalled at
+4 branches).
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
