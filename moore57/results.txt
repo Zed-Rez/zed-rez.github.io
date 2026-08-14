@@ -413,3 +413,13 @@ necessary condition -- a transversal exists, the clique number
 is exactly 56, and neither spectral bound bites.  So there is no
 LOCAL obstruction to extending it.  That matches the dihedral
 analysis: any obstruction at degree 57 has to be global.
+
+=== anneal.py validation (degree 7) and frontier ===
+  run 0: best cost 0 after 15625974 moves (128s)
+  EXTENDED to 13 branches -- verified: True
+  run 0: best cost 0 after 13339013 moves (127s)
+  EXTENDED to 14 branches -- verified: True
+  run 0: best cost 8 after 36464000 moves (400s)
+  run 1: best cost 8 after 39006000 moves (400s)
+cyclic t=19:
+  run 0: best cost 581 after 44330000 moves (900s)
