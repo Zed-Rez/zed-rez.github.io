@@ -572,6 +572,61 @@
     obstruction at degree 57 has to be global &mdash; exactly the kind a solver
     cannot find and a counting argument cannot see.</p>
 
+    <h2>Local search moves the assumption-free frontier to 14</h2>
+    <p>Branch extension is a dense equitable-colouring problem, and CP-SAT is a
+    poor fit for those &mdash; local search is the standard tool, and it had not
+    been tried. The annealer keeps one permutation per row (so the row structure
+    is maintained by construction rather than propagated) and moves by swapping
+    two values within a row, biased towards cells in conflict. It runs at about
+    56,000 moves per second.</p>
+
+    <p><strong>Validated first:</strong> it extends Hoffman&ndash;Singleton's
+    6-branch structure to 7 in 9,086 moves, and the result rebuilds as a genuine
+    Moore graph of degree 7.</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>step</th><th class="num">result</th></tr>
+      <tr><td>12 &rarr; 13 branches</td><td class="num">solved, verified (15.6M moves, 128 s)</td></tr>
+      <tr><td>13 &rarr; 14 branches</td><td class="num">solved, verified (13.3M moves, 127 s)</td></tr>
+      <tr><td>14 &rarr; 15 branches</td><td class="num">plateaus at cost 7&ndash;12 of 56,784</td></tr>
+    </table>
+    </div>
+
+    <p>Handing the near-solution to CP-SAT as a hint, and separately running
+    large-neighbourhood repair with the conflict-free rows frozen, both return
+    UNKNOWN at 300&nbsp;s. So <strong>14 branches</strong> is the honest,
+    assumption-free frontier reached here &mdash; up from 12.</p>
+
+    <h2>The cyclic structures are hostile to extension</h2>
+    <p>The same annealer on the verified 19-branch <em>cyclic</em> structure
+    behaves completely differently:</p>
+
+    <div class="tablewrap">
+    <table>
+      <tr><th>structure</th><th class="num">best cost after annealing</th><th class="num">relative residual</th></tr>
+      <tr><td>general, 14 branches</td><td class="num">7 of 56,784</td><td class="num">0.012%</td></tr>
+      <tr><td>cyclic, 19 branches</td><td class="num"><strong>581</strong> of 154,224 (44.3M moves)</td><td class="num">0.377%</td></tr>
+    </table>
+    </div>
+
+    <p>General structures are driven to exactly zero, repeatedly. The cyclic
+    structure cannot be moved below 581 violations by 44 million moves &mdash;
+    a thirty-fold difference in relative residual, and a qualitative one: one
+    kind completes, the other never approaches completion.</p>
+
+    <div class="verdict">
+      <p>This matters because it is <strong>independent of the involution
+      conjecture</strong> that the control experiment undermined. That earlier
+      &ldquo;off-path&rdquo; claim was withdrawn; this is separate evidence for
+      the same conclusion, resting only on measurement. The cyclic structures
+      are not merely restricted &mdash; they are empirically hostile to being
+      extended at all, even once the cyclic assumption is dropped and arbitrary
+      permutations allowed.</p>
+      <p class="note">Evidence, not proof: local search failing is not
+      impossibility, and the two instances differ in size.</p>
+    </div>
+
     <hr>
 
     <h2>Conclusion</h2>

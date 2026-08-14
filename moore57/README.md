@@ -535,6 +535,60 @@ side: no single triple, and no local test, is ever unsatisfiable. Any
 obstruction at degree 57 has to be global — which is precisely the kind a
 solver cannot find and a counting argument cannot see.
 
+### 19. Local search: the assumption-free frontier moves to 14
+
+Pass 7 established that branch extension is a dense equitable-colouring
+problem. CP-SAT is a poor fit for those; local search is the standard tool, and
+it had not been tried.
+
+`anneal.py` keeps one permutation per row (so the row structure is maintained
+by construction, never propagated) and moves by swapping two values within a
+row, biased towards cells currently in conflict. It runs at ~56,000 moves/s.
+
+**Validated first**: it extends Hoffman–Singleton's 6-branch structure to 7 in
+9,086 moves, and the result rebuilds as a genuine Moore graph of degree 7.
+
+Applied to the assumption-free search, it advances the frontier:
+
+| step | result |
+| --- | --- |
+| 12 → 13 branches | solved, verified (15.6M moves, 128 s) |
+| 13 → 14 branches | solved, verified (13.3M moves, 127 s) |
+| 14 → 15 branches | plateaus at cost 7–12 of 56,784 constraints |
+
+`hybrid.py` then hands the near-solution to CP-SAT as a hint, and separately
+runs large-neighbourhood repair with the conflict-free rows frozen. Both return
+UNKNOWN at 300 s. So **14 branches** is the honest, assumption-free frontier
+reached here — up from 12.
+
+### 20. The cyclic frontier structures are empirically hostile to extension
+
+The same annealer, run on the verified 19-branch *cyclic* structure, behaves
+completely differently:
+
+| structure | best cost after annealing | relative residual |
+| --- | --- | --- |
+| general, 14 branches | 7 of 56,784 | 0.012% |
+| cyclic, 19 branches | **581** of 154,224 (44.3M moves, 900 s) | 0.377% |
+
+General structures are driven to exactly zero, repeatedly. The cyclic structure
+cannot be moved below 581 violations by 44 million moves. That is a 30-fold
+difference in relative residual, and more tellingly a qualitative one: one kind
+of structure completes, the other never approaches completion.
+
+This matters because it is **independent of the involution conjecture** that
+section 17 undermined. The earlier claim that the published t = 20 frontier is
+"off-path" rested on that conjecture and was withdrawn. This is separate
+evidence for the same conclusion, resting only on measurement: the cyclic
+structures are not merely restricted, they are empirically hostile to being
+extended at all, even when the cyclic assumption is dropped and arbitrary
+permutations are allowed.
+
+It remains evidence, not proof — local search failing is not impossibility, and
+the two instances differ in size. But it is the strongest signal available that
+climbing to 20 branches under the cyclic ansatz is not progress towards the
+graph.
+
 ## Conclusion
 
 The question was where the constraints bind hard enough to hand the rest to
@@ -602,6 +656,8 @@ the *design*, not on the *construction*.
 | `control.py` | control experiment on the involution base rate, and its severity |
 | `transversal.py` | branch extension as a transversal-colouring problem |
 | `clique.py` | clique and spectral obstructions on the conflict graph |
+| `anneal.py` | local search for branch extension (row-swap simulated annealing) |
+| `hybrid.py` | annealing to get close, CP-SAT plus LNS to close the gap |
 | `Moore57.lean` | Lean formalization of the block decomposition (not machine-checked) |
 
 Run order: `python3 reduction.py`, `known_constraints.py`, `firstmoment.py`,
