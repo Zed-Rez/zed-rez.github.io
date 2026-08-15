@@ -1280,6 +1280,48 @@ Note what this section is *not*. Chaining local searches is engineering, and the
 frontier it moves is the frontier of an ansatz that is provably infeasible at
 full size for degree 7. None of it bears on whether the Moore graph exists.
 
+### 20v. A theorem: the reflection ansatz cannot reach degree 57
+
+Not a search limit — a proof. In the reduced model every g_ij is odd, and
+writing g_ij = 2f_ij + 1 makes the quadrilateral condition
+
+    f_pw − f_uw + f_qu − f_pq ≠ 0  (mod 28),  f symmetric.
+
+**Step 1 — the collapse.** Since f is symmetric, f_qu = f_uq, so
+
+    f_pw − f_uw + f_qu − f_pq = (f_pw − f_pq) − (f_uw − f_uq).
+
+**Step 2 — what the conditions say.** For a 4-set, the three cyclic orders
+correspond exactly to the three ways of splitting it into two pairs {p,u} and
+{q,w}. So the whole family of quadrilateral conditions is equivalent to:
+
+> for every pair {q,w}, the map i ↦ f_iw − f_iq (mod 28) is **injective** over
+> the indices i outside {q,w}.
+
+**Step 3 — the count.** That map has t−2 arguments and lands in Z₂₈, so
+injectivity forces t − 2 ≤ 28, i.e.
+
+> **t ≤ 30.**
+
+A Moore graph of degree 57 needs t = 57. **Therefore no Moore graph of degree
+57 has all of its bijections reflections in Z₅₆.** ∎
+
+`reflection_bound.py` checks Step 2 by brute force on random labellings (it is
+an identity, so a counterexample would mean a bug) — the two violation counts
+vanish together in every case — and confirms that all 16 reflection
+certificates on disk have exactly zero injectivity failures.
+
+This is the same shape as the published theorem that no cyclic construction
+exists (Axioms 2026), proved here for a different and strictly larger family:
+the reflection family reaches 14 branches under Form A where the cyclic family
+dies at 4.
+
+It also settles the status of everything in §20n–20u. That work was pushing the
+frontier of an ansatz which is *provably* capped at 30 — so the effort spent
+chasing t = 15 was, in the end, exploring a family that could never have
+finished. Worth knowing before spending more on it, and exactly the kind of
+thing worth proving early rather than late.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
