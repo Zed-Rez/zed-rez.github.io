@@ -607,3 +607,17 @@ Commuting-involution construction for Form A at degree 57
 
 === formA_reflection_grow.py (backtracking) ===
 reaches t=14; certificate verified 2184/2184 Form A, 799-vertex girth-5 fragment
+
+=== reflection_bound.py (theorem) ===
+  formA_grown_t11.json             t=11  injectivity failures 0  (bound allows t<=30)
+  formA_grown_t12.json             t=12  injectivity failures 0  (bound allows t<=30)
+  formA_grown_t13.json             t=13  injectivity failures 0  (bound allows t<=30)
+  formA_grown_t14.json             t=14  injectivity failures 0  (bound allows t<=30)
+  formA_grown_t3.json              t=3   injectivity failures 0  (bound allows t<=30)
+  formA_grown_t4.json              t=4   injectivity failures 0  (bound allows t<=30)
+  formA_grown_t5.json              t=5   injectivity failures 0  (bound allows t<=30)
+  formA_grown_t6.json              t=6   injectivity failures 0  (bound allows t<=30)
+  formA_grown_t7.json              t=7   injectivity failures 0  (bound allows t<=30)
+  formA_grown_t8.json              t=8   injectivity failures 0  (bound allows t<=30)
+  formA_grown_t9.json              t=9   injectivity failures 0  (bound allows t<=30)
+  formA_pipeline_t14.json          t=14  injectivity failures 0  (bound allows t<=30)

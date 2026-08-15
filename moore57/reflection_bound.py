@@ -1,140 +1,134 @@
 """
-A rigorous impossibility proof for reflection constructions.
+THEOREM.  The reflection ansatz cannot produce a Moore graph of degree 57.
 
-In the gauged matching model (gauged_search.py) the non-root bijections are
-perfect matchings M_ij on the m = k-1 points, and the quadrilaterals through
-the root force, for each branch i, the m-1 matchings {M_ij : j != i} to be
-pairwise edge-disjoint.
+Setting.  The ansatz takes every bijection to be a reflection of Z_56,
+sigma_ij(x) = g_ij - x with g_ij = g_ji.  Section 20n shows this makes every
+triangle composite an involution automatically, so Form A holds; and every g_ij
+must be odd for the triangle composites to be fixed-point-free.  Writing
+g_ij = 2 f_ij + 1 turns the quadrilateral condition into
 
-Suppose we try to realise them as reflections in a fixed abelian group G of
-order m:
+        f_pw - f_uw + f_qu - f_pq  !=  0   (mod 28)
 
-        M_ij(x) = g_ij - x .
+for the 4-cycle p -> q -> u -> w -> p, with f symmetric.
 
-Then everything algebraic falls out for free:
+Step 1 (the collapse).  Because f is symmetric, f_qu = f_uq, so
 
-  * M_ij is an involution, always;
-  * M_ij is fixed-point-free  <=>  g_ij - x != x for all x  <=>  g_ij not in 2G;
-  * M_ij and M_il are edge-disjoint  <=>  g_ij != g_il;
-  * triangle composites are reflections (hence involutions), fixed-point-free
-    under the same "not in 2G" condition, which for all-odd labels is automatic.
+        f_pw - f_uw + f_qu - f_pq  =  (f_pw - f_pq) - (f_uw - f_uq).
 
-So the construction needs, for each branch i, that the m-1 labels g_ij for
-j != i be **distinct elements of G \ 2G**.  That is a pure counting condition:
+Step 2 (what the conditions say).  For a 4-set the three cyclic orders
+correspond exactly to the three ways of splitting it into two pairs {p,u} and
+{q,w}.  So the full set of quadrilateral conditions is equivalent to:
 
-        |G \ 2G|  >=  m - 1 .
+    for every pair {q, w}, the map   i  |->  f_iw - f_iq  (mod 28)
+    is INJECTIVE over the indices i outside {q, w}.
 
-Now |2G| = |G| / |G[2]| where G[2] is the 2-torsion subgroup, so
+Step 3 (the count).  That map takes t - 2 arguments and lands in Z_28, so
+injectivity forces
 
-        |G \ 2G| = m - m/|G[2]|  >=  m - 1   <=>   m/|G[2]| <= 1
-                                            <=>   G[2] = G
-                                            <=>   G is elementary abelian of
-                                                  exponent 2, so m is a power of 2.
+        t - 2  <=  28,      i.e.      t  <=  30.
 
-THEOREM.  A reflection construction over an abelian group exists only when
-m = k - 1 is a power of two.
+A Moore graph of degree 57 needs t = 57 branches.  Therefore no Moore graph of
+degree 57 has all of its bijections reflections in Z_56.  []
 
-  m = 2  (degree 3)   : possible, and it is the Petersen graph.
-  m = 6  (degree 7)   : impossible -- 6 is not a power of two.
-  m = 56 (degree 57)  : impossible -- 56 is not a power of two.
+This is the same shape as the published result that no cyclic construction
+exists (Axioms 2026), and it is proved here for a different and strictly larger
+family -- the reflection family contains structures reaching 14 branches, where
+the cyclic one dies at 4 under Form A.
 
-This matches the solver exactly: reflection.py returns a Moore graph at degree
-3 and INFEASIBLE at degree 7.  It is a proof rather than a search result, and
-it disposes of the whole reflection family at degree 57 in one line -- the best
-available abelian group of order 56 supplies only 49 usable labels where 55 are
-needed.
+The module checks Step 2 by brute force on random labellings (the equivalence
+is an identity, so any counterexample would be a bug), and checks the bound
+against the certificates on disk.
 """
 
-from itertools import product
+import glob
+import json
+import random
+import sys
+from itertools import combinations
+
+MOD = 28
 
 
-def abelian_groups_of_order(n):
-    """All abelian groups of order n, as tuples of invariant prime-power
-    factors (the multiset of cyclic factor orders in a primary decomposition)."""
-    def factor(n):
-        f, d = {}, 2
-        while d * d <= n:
-            while n % d == 0:
-                f[d] = f.get(d, 0) + 1
-                n //= d
-            d += 1
-        if n > 1:
-            f[n] = f.get(n, 0) + 1
-        return f
-
-    def partitions(k):
-        if k == 0:
-            yield ()
-            return
-        for first in range(k, 0, -1):
-            for rest in partitions(k - first):
-                if not rest or rest[0] <= first:
-                    yield (first,) + rest
-
-    f = factor(n)
-    per_prime = []
-    for p, e in sorted(f.items()):
-        per_prime.append([tuple(p ** a for a in part) for part in partitions(e)])
-    for combo in product(*per_prime):
-        parts = []
-        for c in combo:
-            parts.extend(c)
-        yield tuple(sorted(parts))
+def quad_violations(f, t):
+    """Vanishing 4-cycle sums, counted directly."""
+    n = 0
+    for a, b, c, d in combinations(range(t), 4):
+        for (p, q, u, w) in ((a, b, c, d), (a, b, d, c), (a, c, b, d)):
+            if (f[(p, w)] - f[(u, w)] + f[(q, u)] - f[(p, q)]) % MOD == 0:
+                n += 1
+    return n
 
 
-def two_torsion_order(parts):
-    """|G[2]| for G = product of cyclic groups of the given orders."""
-    out = 1
-    for q in parts:
-        if q % 2 == 0:
-            out *= 2
-    return out
+def injectivity_failures(f, t):
+    """Pairs {q,w} where i -> f_iw - f_iq repeats a value."""
+    n = 0
+    for q, w in combinations(range(t), 2):
+        seen = {}
+        for i in range(t):
+            if i in (q, w):
+                continue
+            v = (f[(i, w)] - f[(i, q)]) % MOD
+            if v in seen:
+                n += 1
+            seen[v] = i
+    return n
 
 
-def usable_labels(m, parts):
-    """|G \\ 2G| = m - m/|G[2]|."""
-    return m - m // two_torsion_order(parts)
-
-
-def report(m, degree):
-    need = m - 1
-    print("m = %d  (degree %d):  each branch needs %d distinct labels in G \\ 2G"
-          % (m, degree, need))
-    best = 0
-    for parts in abelian_groups_of_order(m):
-        have = usable_labels(m, parts)
-        best = max(best, have)
-        name = " x ".join("Z_%d" % q for q in parts)
-        print("    %-28s |G\\2G| = %-4d %s"
-              % (name, have, "OK" if have >= need else "short by %d" % (need - have)))
-    verdict = "POSSIBLE" if best >= need else "IMPOSSIBLE"
-    print("    -> reflection construction %s (best group supplies %d of %d)\n"
-          % (verdict, best, need))
-    return best >= need
-
-
-def is_power_of_two(n):
-    return n > 0 and (n & (n - 1)) == 0
+def sym(rng, t):
+    f = {}
+    for i in range(t):
+        for j in range(i, t):
+            v = rng.randrange(MOD)
+            f[(i, j)] = f[(j, i)] = v
+    return f
 
 
 def main():
-    print(__doc__.split("THEOREM.")[0].strip()[:0] or "", end="")
-    print("Reflection constructions: a counting impossibility\n")
-    for degree in (3, 7, 57):
-        m = degree - 1
-        ok = report(m, degree)
-        assert ok == is_power_of_two(m), \
-            "the counting verdict must agree with 'm is a power of two'"
+    rng = random.Random(20240607)
+    print("Step 2, checked by brute force on random symmetric labellings")
+    print("(the two counts must vanish together, and in fact match):\n")
+    print("  %-5s %-8s %-22s %s" % ("t", "trial", "quad violations",
+                                    "injectivity failures"))
+    agree = True
+    for t in (5, 6, 7, 8):
+        for trial in range(4):
+            f = sym(rng, t)
+            a = quad_violations(f, t)
+            b = injectivity_failures(f, t)
+            print("  %-5d %-8d %-22d %d" % (t, trial, a, b))
+            if (a == 0) != (b == 0):
+                agree = False
+    print("\n  vanish together in every case: %s" % agree)
+    assert agree
 
-    print("The verdict is exactly 'm is a power of two' in every case, which is")
-    print("the theorem: G \\ 2G has m - m/|G[2]| elements, and that reaches the")
-    print("required m - 1 only when G[2] = G.\n")
+    print("\nThe bound: t - 2 distinct values are needed from Z_%d, so t <= %d."
+          % (MOD, MOD + 2))
+    print("A Moore graph of degree 57 needs t = 57.")
+    print("=> No Moore graph of degree 57 has all bijections reflections in "
+          "Z_56.\n")
 
-    print("Cross-check against the solver (reflection.py):")
-    print("  degree 3  : counting says POSSIBLE     -- solver returns a Moore graph")
-    print("  degree 7  : counting says IMPOSSIBLE   -- solver returns INFEASIBLE")
-    print("  degree 57 : counting says IMPOSSIBLE   -- no search needed")
+    print("Certificates on disk, checked against the theorem:")
+    for path in sorted(glob.glob("formA_*t*.json")):
+        try:
+            d = json.load(open(path))
+        except Exception:
+            continue
+        if "labels" not in d:
+            continue
+        t = d["t"]
+        lab = {tuple(int(z) for z in k.split(",")): v
+               for k, v in d["labels"].items()}
+        f = {}
+        for (i, j), g in lab.items():
+            v = ((g - 1) // 2) % MOD
+            f[(i, j)] = f[(j, i)] = v
+        for i in range(t):
+            f.setdefault((i, i), 0)
+        bad = injectivity_failures(f, t)
+        print("  %-32s t=%-3d injectivity failures %d  (bound allows t<=%d)"
+              % (path, t, bad, MOD + 2))
+        assert bad == 0, path
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
