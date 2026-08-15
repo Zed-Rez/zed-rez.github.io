@@ -621,3 +621,35 @@ reaches t=14; certificate verified 2184/2184 Form A, 799-vertex girth-5 fragment
   formA_grown_t8.json              t=8   injectivity failures 0  (bound allows t<=30)
   formA_grown_t9.json              t=9   injectivity failures 0  (bound allows t<=30)
   formA_pipeline_t14.json          t=14  injectivity failures 0  (bound allows t<=30)
+
+=== spectral.py ===
+   primes where all three coincide: [5]
+   mod 5: all eigenvalues = 2, so N = A - 2I has N^3 = 0
+      and A^2 - (lam-mu)A - (k-mu)I = mu J gives N^2 = 1 J mod 5
+      CHECKED on the real graph: N^2 = 1J is True, rank_5(N^2) = 1, rank_5(N) = 21
+
+degree 57 : eigenvalues 57, 7, -8
+   primes where all three coincide: [5]
+   mod 5: all eigenvalues = 2, so N = A - 2I has N^3 = 0
+      and A^2 - (lam-mu)A - (k-mu)I = mu J gives N^2 = 1 J mod 5
+
+   For degree 57 mod 5: N = A - 2I is nilpotent with N^2 = J, and
+   J has rank 1.  So N has exactly one Jordan block of size 3 and
+   the rest have size <= 2; if b of them have size 2 then
+   rank_5(A - 2I) = 2 + b, with 3 + 2b + c = 3250.
+   b is NOT determined by the parameters.  That free invariant is
+   where a modular non-existence proof would have to live.
+
+==========================================================================
+PART 3 -- why the first moment cannot prove non-existence
+==========================================================================
+   The method bounds P(X >= 1) <= E[X] for a random variable X.
+   The number of Moore graphs is not a random variable.  Treating
+   the sigma-table as uniform computes the expected count of valid
+   tables in a model where nothing forces the structure; E < 1 says
+   a RANDOM table fails, not that a special one cannot exist.
+
+   Empirically, from firstmoment.py: the same estimate says
+   Hoffman-Singleton should die at 5 of the 7 branches it needs.
+   Hoffman-Singleton exists.  An argument that refutes a graph you
+   can hold in your hand refutes nothing.

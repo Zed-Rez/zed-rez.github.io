@@ -1322,6 +1322,51 @@ chasing t = 15 was, in the end, exploring a family that could never have
 finished. Worth knowing before spending more on it, and exactly the kind of
 thing worth proving early rather than late.
 
+### 20w. Can spectral or probabilistic methods prove non-existence?
+
+Asked directly, and worth a precise answer rather than a guess (`spectral.py`).
+
+**Spectral: the classical toolkit cannot.** Verified, not asserted — for
+(3250, 57, 0, 1) every standard test passes: integral spectrum and
+multiplicities, both Krein conditions, the absolute bound, Neumaier's claw
+bound, the ratio bound (α ≤ 400, ω ≤ 65/8). That is the whole reason the
+problem has survived 65 years. Spectral methods do bite on *symmetry* — Higman's
+non-vertex-transitivity and |Aut| ≤ 375 both come from character/trace
+integrality on the 1729- and 1520-dimensional eigenspaces — but the graph is
+allowed to be asymmetric, so that line bottoms out too.
+
+**Where the spectrum still has something to say.** The minimal polynomial is
+(x−57)(x−7)(x+8), and mod 5 all three roots collapse: 57 ≡ 7 ≡ −8 ≡ 2. So with
+N = A − 2I over F₅ the minimal polynomial is x³ — **N is nilpotent**. Better,
+substituting A = N + 2I into A² + A − 56I = J gives N² + 5N + 5I = J, i.e.
+
+> **N² = J over F₅**, and J has rank 1.
+
+So N has *exactly one* Jordan block of size 3, every other block has size ≤ 2,
+and with b blocks of size 2, rank₅(A − 2I) = 2 + b where 3 + 2b + c = 3250.
+
+The same collapse happens for Hoffman–Singleton (7 ≡ 2 ≡ −3 ≡ 2 mod 5), so the
+identity is checkable on a real graph — and it checks out exactly:
+
+| | rank₅(N) | rank₅(N²) | Jordan structure |
+| --- | --- | --- | --- |
+| Hoffman–Singleton | 21 | **1** | one 3-block, 19 2-blocks, 9 1-blocks |
+
+Note rank₅(A − 2I) = 21 = g, the multiplicity of the eigenvalue −3. If that
+identity were general, degree 57 would force rank₅ = 1520, b = 1518, c = 211 —
+a fully determined 5-modular structure. **That is one data point, so it is an
+observation and not a theorem**, but b is exactly the free invariant a modular
+non-existence proof would have to pin down, and nobody has.
+
+**Probabilistic: the first moment cannot, in principle.** Not "is hard to use"
+— cannot. The method bounds P(X ≥ 1) ≤ E[X] for a *random variable*. The number
+of Moore graphs is not one. Treating the σ-table as uniformly random computes
+the expected count of valid tables in a model where nothing forces the
+structure, so E < 1 says a *random* table fails, not that a special one cannot
+exist. And empirically the same estimate says Hoffman–Singleton should die at 5
+of the 7 branches it needs — an argument that refutes a graph you can hold in
+your hand refutes nothing.
+
 ### 21. Verification: a checker, so a candidate would not rest on a script
 
 `Moore57Verify.lean` is the verification half. It defines an executable
