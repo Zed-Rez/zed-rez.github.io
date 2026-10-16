@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Die Link Map</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f0e8;--ink:#1f1d1a;--ink2:#5c574f;--muted:#8d877c;--line:#d9d3c6;--panel:rgba(255,253,248,.94);--coast:#a59d8e;--obv:#2f5fb3;--rev:#b4532a;--accent:#2f5fb3}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:13px/1.4 -apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;overflow:hidden}
+canvas{position:fixed;inset:0;width:100%;height:100%;cursor:grab;touch-action:none}canvas.drag{cursor:grabbing}
+.panel{position:fixed;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.08);padding:14px 16px}
+#ctl{top:16px;left:16px;width:330px;max-height:calc(100% - 32px);overflow:auto}
+h1{font-size:17px;margin:0 0 2px;font-weight:650}.sub{color:var(--ink2);font-size:12px;margin-bottom:12px}
+.lab{display:flex;justify-content:space-between;align-items:baseline;font-weight:600;margin-top:4px}.big{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;margin:8px 0 2px;accent-color:var(--accent);height:22px}
+.ticks{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums}
+.stat{color:var(--ink2);margin:10px 0 8px;font-variant-numeric:tabular-nums}
+.row{display:flex;align-items:center;gap:8px;margin:6px 0;color:var(--ink2)}
+.leg{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);color:var(--ink2);font-size:12px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:-1px;margin-right:5px}
+.wl{display:inline-flex;align-items:center;gap:4px}.wl i{display:inline-block;width:22px;background:#3a3631;border-radius:2px}
+#mints{top:16px;right:16px;width:250px;max-height:calc(100% - 32px);display:flex;flex-direction:column}
+#mints input[type=search]{width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:7px;font:inherit;background:#fff}
+#ml{overflow:auto;margin-top:8px;flex:1}
+.m{display:flex;justify-content:space-between;padding:4px 6px;border-radius:5px;cursor:pointer}.m:hover{background:#ebe6da}.m span:last-child{color:var(--muted);font-variant-numeric:tabular-nums}
+#tip{position:fixed;pointer-events:none;background:#1f1d1a;color:#f6f3ec;border-radius:7px;padding:8px 10px;font-size:12px;max-width:340px;display:none;z-index:5;box-shadow:0 3px 12px rgba(0,0,0,.25)}
+#det{bottom:16px;left:16px;width:420px;max-height:46%;overflow:auto;display:none}
+#det a{color:var(--accent);text-decoration:none}#det a:hover{text-decoration:underline}
+#det table{border-collapse:collapse;width:100%;margin-top:6px}#det td{padding:2px 6px 2px 0;vertical-align:top;font-variant-numeric:tabular-nums}
+.x{float:right;cursor:pointer;color:var(--muted);font-size:16px;line-height:1}
+button{font:inherit;border:1px solid var(--line);background:#fff;border-radius:7px;padding:5px 10px;cursor:pointer}button:hover{background:#ebe6da}
+.xsw{display:inline-block;width:22px;height:3px;background:rgba(122,48,140,.8);border-radius:2px;vertical-align:3px;margin-right:6px}
+.dl{display:flex;align-items:center;gap:7px;padding:2px 4px;border-radius:5px;cursor:pointer;font-size:12px;color:var(--ink)}.dl:hover{background:#ebe6da}.dl.off{opacity:.35}.dl b{font-weight:400;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums}.sw{width:11px;height:11px;border-radius:2px;flex:none}
+.hint{color:var(--muted);font-size:11px;margin-top:8px}
+.acc-btn{width:100%;margin-top:10px;background:var(--ink);color:#f6f3ec;border-color:var(--ink);font-weight:600}.acc-btn:hover{background:#3a3631}
+#mbtn,#ctlmin{display:none}
+#key{right:16px;bottom:16px;width:250px;padding:12px 14px 10px;font-size:12px;color:var(--ink2)}
+#key h4{margin:0 0 6px;font-size:13px;color:var(--ink);font-weight:650}
+#key .k{display:flex;align-items:center;gap:9px;margin:5px 0}#key svg{flex:none;width:30px;height:16px}
+#key .kn{color:var(--muted);font-size:11px;margin-top:7px;padding-top:7px;border-top:1px solid var(--line)}
+body.keyon #mints{max-height:calc(100% - 300px)}
+#keyb{margin-left:auto}
+#acc{position:fixed;inset:0;background:rgba(31,29,26,.45);display:none;z-index:10;overflow:auto;padding:32px 16px}
+#acc article{max-width:780px;margin:0 auto;background:#fffdf8;border-radius:12px;padding:34px 40px 30px;font:18px/1.55 "EB Garamond",Georgia,serif;color:var(--ink);box-shadow:0 10px 40px rgba(0,0,0,.25)}
+#acc h2{font-size:30px;line-height:1.15;margin:0 0 10px;font-weight:600}#acc h3{font-size:21px;margin:26px 0 6px;font-weight:600}
+#acc .lede{font-size:20px;color:#3a3631}#acc p{margin:8px 0}#acc ul{padding-left:20px;margin:6px 0}#acc li{margin:4px 0}
+#acc table{border-collapse:collapse;width:100%;font:13px/1.35 -apple-system,BlinkMacSystemFont,sans-serif;margin:10px 0 4px;font-variant-numeric:tabular-nums}
+#acc th{text-align:right;font-weight:600;color:var(--ink2);padding:6px 6px;border-bottom:1px solid var(--line);vertical-align:bottom}
+#acc td{text-align:right;padding:6px 6px;border-bottom:1px solid #ece7dc}#acc th:first-child,#acc td:first-child{text-align:left}
+#acc tr.feat td{background:#f3eee1;font-weight:600}#acc td.ours{color:#7a2424;font-weight:600}
+#acc .tw{overflow-x:auto}#acc .note{font-size:15px;color:var(--ink2)}
+#acc .caveat{background:#f3f0e8;border-left:3px solid #7a2424;padding:10px 14px;margin:14px 0;font-size:16px}
+#acc .close{float:right;font:24px/1 -apple-system,sans-serif;color:var(--muted);cursor:pointer;border:0;background:none;padding:0 0 0 12px}
+#acc .math{font-style:italic;white-space:nowrap}
+@media (max-width:760px){
+  #ctl{top:auto;bottom:0;left:0;right:0;width:auto;border-radius:14px 14px 0 0;max-height:62vh;overflow:auto;padding:12px 14px}
+  #ctl.min .more{display:none}#ctlmin{display:inline-block;float:right;padding:3px 9px}
+  #mbtn{display:inline-block}
+  #mints{display:none;top:8px;left:8px;right:8px;width:auto;max-height:50vh}#mints.open{display:flex}
+  #det{top:8px;left:8px;right:8px;bottom:auto;width:auto;max-height:48vh;z-index:6}
+  #key{top:8px;left:8px;right:8px;bottom:auto;width:auto;z-index:5}body.keyon #mints{max-height:50vh}
+  #acc{padding:0}#acc article{border-radius:0;padding:22px 18px;font-size:17px}#acc h2{font-size:25px}
+  .sub{display:none}
+}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="ctl" class="panel">
+  <button id="ctlmin" aria-label="Show or hide controls">More</button>
+  <h1>RIC / RPC die links</h1>
+  <div class="sub">Each dot is a die. A line joins an obverse and a reverse die that struck the same coin; thickness = number of coins. At each mint, dies are split into denomination sections; in each, every die chain is drawn bipartite (obverse dies left, reverse dies right), oldest to newest top to bottom, then column by column. Placement approximate.</div>
+  <div class="lab"><span>Min coins per link</span><span class="big" id="tv">1</span></div>
+  <input type="range" id="thr" min="0" max="10" step="1" value="0">
+  <div class="ticks" id="ticks"></div>
+  <div class="stat" id="stat"></div>
+  <button class="acc-btn" id="accb" style="margin:0 0 6px">How accurate is this?</button>
+  <div class="more">
+  <label class="row"><input type="checkbox" id="iso" checked> Hide dies with no link at this cut-off</label>
+  <label class="row"><input type="checkbox" id="sl"> Possible same-die links (scored below the match bar)</label>
+  <label class="row"><input type="checkbox" id="xl" checked> <span><span class="xsw"></span>Inter-mint links</span></label>
+  <div class="row"><button id="reset">Whole map</button><button id="rome">Rome</button><button id="mbtn">Mints</button><button id="keyb">Key</button></div>
+  <div style="margin-top:8px;color:var(--ink2);font-size:12px">Colour = denomination (click to hide or show)</div>
+  <div id="dleg" style="margin-top:4px"></div>
+  <div class="hint">Purple lines join mints where dies attributed to two different mints struck the same coin. These are often catalogue noise or a false match, so worth checking. Hover or click one for its links.<br>Scroll or pinch to zoom, drag to pan. Mints open into their dies as you zoom in. Click a die for its coins.</div>
+  </div>
+</div>
+<div id="mints" class="panel"><input type="search" id="q" placeholder="Find a mint…"><div id="ml"></div></div>
+<div id="det" class="panel"></div>
+<div id="key" class="panel" role="region" aria-label="Map key">
+  <span class="x" id="keyx" title="Hide key" role="button" aria-label="Hide key">×</span>
+  <h4>Key</h4>
+  <div class="k"><svg viewBox="0 0 30 16"><rect x="10" y="3" width="10" height="10" rx="1" fill="rgb(31,119,180)"/></svg>Obverse die (head side)</div>
+  <div class="k"><svg viewBox="0 0 30 16"><circle cx="15" cy="8" r="5.5" fill="rgb(31,119,180)"/></svg>Reverse die (tail side)</div>
+  <div class="k"><svg viewBox="0 0 30 16"><line x1="2" y1="5" x2="28" y2="5" stroke="rgba(40,36,31,.55)" stroke-width="1"/><line x1="2" y1="11" x2="28" y2="11" stroke="rgba(40,36,31,.75)" stroke-width="3.5"/></svg>Struck the same coin; thicker = more coins</div>
+  <div class="k"><svg viewBox="0 0 30 16"><line x1="2" y1="8" x2="28" y2="8" stroke="rgba(40,36,31,.45)" stroke-width="1.2" stroke-dasharray="3 3"/></svg>Possible same die (off by default)</div>
+  <div class="k"><svg viewBox="0 0 30 16"><path d="M2 13 Q15 -2 28 13" fill="none" stroke="rgba(122,48,140,.8)" stroke-width="2.2" stroke-linecap="round"/></svg>Link between two mints</div>
+  <div class="k"><svg viewBox="0 0 30 16"><circle cx="15" cy="8" r="6.5" fill="rgba(214,39,40,.45)" stroke="rgba(128,23,24,.9)" stroke-width="1.2"/></svg>A mint, zoomed out; size = dies</div>
+  <div class="kn">Colour = denomination (see the list in the controls). In each mint, obverse dies sit left and reverse dies right, oldest at the top.</div>
+</div>
+<div id="tip"></div>
+<div id="acc" role="dialog" aria-modal="true" aria-labelledby="acch"><article>
+<button class="close" id="accx" aria-label="Close">×</button>
+<h2 id="acch">How accurate is the die-finding?</h2>
+<p class="lede">Short answer: <b>the total number of dies is about right, but the largest dies are wrong.</b> When two photos show the same physical coin, the pipeline links them 96% of the time on the obverse and 99% on the reverse. But chains of weak matches have merged distinct obverse dies into a few impossible "dies" of hundreds of coins. About 15–20% of the obverse faces we put on a shared die are probably there by mistake. Separately, some real links are missed because the two coins were never compared. The two errors roughly cancel in the total, which is likely within about 2% of right.</p>
+<h3>What a die link is</h3>
+<p>Roman coins were struck by hand between two engraved dies: the obverse (head) die and the reverse (tail) die. Each die was cut separately, so every die has its own tiny differences in letter spacing, hair and drapery, even when it copies the same design. Two coins that share these differences were struck from the same die. A die study collects those links. They show how many dies an issue used, which reverse dies were used with which obverse dies, and the order the issue was struck in.</p>
+
+<h3>How the dies were found</h3>
+<p>The starting point is 421,249 photographed coin faces from museum, university and auction collections, each already catalogued to RIC (imperial) or RPC (provincial). No one labelled the dies. The pipeline works in six steps.</p>
+<ol>
+<li><b>Find the coin in the photo.</b> A disc finder searches for the circle with the sharpest edge, then crops and rescales so every coin face is the same size and centred. Photos that show both sides in one frame are split into obverse and reverse.</li>
+<li><b>Decide which coins could share a die.</b> Comparing every coin with every other is impossible, so the catalogue narrows the field. A reverse die strikes only one design, so reverses are compared within a single RIC or RPC type. Obverses are compared within the same ruler, denomination, obverse legend and bust type, with dates no more than 25 years apart. Faces with no possible partner, such as a type known from one coin, are compared instead with the 20 coins whose catalogue text is most similar (same ruler, mint and denomination). That gives about 15 million pairs.</li>
+<li><b>Line the two coins up.</b> Two photos of coins from one die are never taken at the same angle, size or lighting. A quick low-resolution pass ranks each coin's candidates. The best are then aligned several ways (by rotation correlation, by matched image features, and by overlap), and the best alignment is kept.</li>
+<li><b>The point test.</b> About 1,000–2,000 small textured points are chosen on one coin and each is searched for on the other. Half the points fix the alignment, and the score is the share of the other half that land within 4 pixels of where they should. Coins from one die agree point by point, so the score is high. Coins from two dies of the same design agree in the broad shapes but not in the fine detail, so the score is low. Most pairs score about 0.05, and true matches mostly score well above 0.25. No neural network judges die identity: an image model was tried first, and it mostly recognised which collection a photo came from.</li>
+<li><b>Join matches into dies.</b> Every pair scoring above 0.25 is a match, and matches are joined strongest first: if A matches B and B matches C, all three go on one die. Merging two dies that both already have several coins needs a score of at least 0.25 (obverse) or 0.30 (reverse). The chaining recovers links the direct test missed, but it can also join two dies through one bad match. That is the source of the false merges described below.</li>
+<li><b>Connect the two sides.</b> Each coin joins its obverse die to its reverse die. Those joins are the lines on this map, and a line is thicker when more coins share the pair. Pairs that came close but scored under the bar (0.15–0.25) are kept as "possible same-die" links.</li>
+</ol>
+<p><b>How the rules were set.</b> The thresholds were fixed in advance on one Roman Republican issue, Crawford RRC 361. Schaefer's hand-made die list covers every coin of it. They were then tested blind on a second issue, RRC 393/1a. There the pipeline put coins on the right die with 97% precision and 93% recall on the obverse, and 94% and 85% on the reverse. On that test, every coin was compared with every other. On the imperial corpus they are not, and that difference is the main finding below.</p>
+<p>The result is 381,413 dies. Of these, 22,745 have two or more coins, and 62,581 faces sit on a shared die. The map shows the dies that link into chains. The tallest chains on the map are the false merges described below, so treat them with suspicion.</p>
+
+<h3>How we checked it against published die studies</h3>
+<p>A die study by hand records how many coins it saw (<span class="math">n</span>) and how many obverse dies they came from (<span class="math">d</span>). From these, Esty's estimator gives the number of dies the whole issue probably used, including dies that no surviving coin shows: <span class="math">D̂ = nd / (n − d)</span>.</p>
+<p>That lets us ask a fair question of our own data. With <span class="math">m</span> of our coins from the issue, how many should share a die with at least one other? If dies were equally common, the answer is <span class="math">1 − (1 − 1/D̂)<sup>m−1</sup></span>. More coins, or fewer dies, make sharing more likely. We compare that expected share with the share our pipeline actually found. If we find much less sharing than expected, the pipeline is missing links. If we found much more, it would be merging dies that should be separate.</p>
+
+<p>For each issue we take the published study's coins <span class="math">n</span> and obverse dies <span class="math">d</span>. From these, Esty's estimator gives the issue's total obverse dies, <span class="math">D̂ = nd / (n − d)</span>. With <span class="math">m</span> of our own coins of that issue, the share expected to share an obverse die with at least one other is <span class="math">1 − (1 − 1/D̂)<sup>m−1</sup></span>. Applied to each study's own sample, this formula lands within a few points of its published coverage.</p>
+<div class="tw"><table>
+<thead><tr><th>Issue</th><th>Study</th><th>Study coins / obv. dies</th><th>Est. obv. dies <span class="math">D̂</span></th><th>Our coins</th><th>Expected shared, obv.</th><th>Ours, obv.</th><th>Expected shared, rev.</th><th>Ours, rev.</th></tr></thead>
+<tbody>
+<tr class="feat"><td>Nero denarii, Rome AD 64–66 (RIC 53–62)</td><td>Heinecke et al.</td><td>1,135 / 297</td><td>402</td><td>212</td><td>0.41</td><td class="ours">0.31</td><td>0.31</td><td class="ours">0.26</td></tr>
+<tr><td>Postumus aurei</td><td>Schulte 1983</td><td>277 / 96</td><td>147</td><td>63</td><td>0.35</td><td class="ours">0.32</td><td>0.27</td><td class="ours">0.31</td></tr>
+<tr><td>Tetricus I aurei</td><td>Schulte 1983</td><td>89 / 50</td><td>114</td><td>31</td><td>≈0.25</td><td class="ours">0.00</td><td>≈0.20</td><td class="ours">0.16</td></tr>
+<tr><td>Laelianus antoniniani</td><td>Gilljam 1990</td><td>418 / 54</td><td>62</td><td>13</td><td>0.18</td><td class="ours">0.00</td><td>0.18</td><td class="ours">0.15</td></tr>
+<tr><td>Augustan cistophori, Pergamum</td><td>Sutherland 1970</td><td>164 / 71</td><td>125</td><td>66</td><td>≤0.41</td><td class="ours">0.27</td><td>–</td><td class="ours">0.22</td></tr>
+<tr><td>Pertinax denarii (87-day reign)</td><td>no study</td><td>–</td><td>–</td><td>61</td><td>–</td><td class="ours">0.03</td><td>–</td><td class="ours">0.13</td></tr>
+</tbody></table></div>
+<p class="note">The Nero denarii are the cleanest test: a large, well-photographed issue with a recent machine-assisted die study. Here we find somewhat less obverse die-sharing than expected and most of the reverse. Small gold issues, such as Postumus, come out close. Tetricus I and Laelianus come out badly. Pertinax has no die study, but 3% obverse sharing would imply about 1,800 obverse dies for an 87-day reign, which is not credible.</p>
+<div class="caveat"><b>A caution about this comparison.</b> Published die studies choose issues that interlink and collect near-complete corpora. Their raw coverage (median 0.92 across 87 Roman studies in the SILVER database) therefore says nothing about a scattered sample like ours, and it is not used here. Scaling each study's die count down to our sample size corrects for sample size. But issues chosen for study may have fewer dies than average, which would make our shortfall look bigger than it is. We estimate this pushes the expected shares 10–20% too high. For Nero, that lowers the obverse expectation from 0.41 to about 0.33–0.37, against our 0.31. That gap is about the size of the noise. Read the gaps above as upper bounds.</div>
+
+<h3>Checks that need no literature</h3>
+<p>These tests use only our own data, so the selection problem above does not touch them. They now carry the verdict.</p>
+<ul>
+<li><b>Same coin, photographed twice (recall).</b> The test set is 353 coins that appear twice in the corpus, re-photographed or re-sold, and confirmed as one coin by weight and an independent image check. A die-finder must link these. It linked 96% on the obverse and 99% on the reverse. Of the 17 misses, 15 were never compared at all. Only 2 were compared and scored too low.</li>
+<li><b>Big obverse dies fall apart (precision).</b> Inside a real die, most pairs of coins should match each other directly. Dies of 3 coins pass, with a median of 100% of pairs matching directly. Dies of 11–30 coins have a median of only 36%, and dies of more than 30 coins only 20%. The six largest obverse "dies" have 143–604 coins each, such as a Gordian III antoninianus die of 604 coins across 43 types. They are not joined by one bad match: hundreds of borderline matches (scores 0.27–0.31) each add one more coin.</li>
+<li><b>Borderline matches are mostly wrong.</b> We checked whether a match on one side is backed by a match on the other side of the same coins. Obverse matches scoring 0.25–0.30 are backed at only an eighth of the rate of clean ones. On the reverse, about half of matches in that band are false, and about 15% of all reverse matches. Lowering the threshold would add almost nothing true: of about 11,000 extra obverse links, fewer than 100 are backed.</li>
+<li><b>Some pairs are never compared (recall).</b> Of coin pairs with a confident reverse match, only 54% are also linked on the obverse, and about a quarter of those were never compared on the obverse. The usual reasons are very large comparison groups, coins missing a date or denomination, and the catch-all pools for coins with no obvious partner.</li>
+<li><b>Where errors cluster.</b> Third-century base-metal coins (antoniniani, Gordian III bronze), small museum photos, the largest comparison groups, and matches scoring under 0.35. Gold and high-resolution auction photos are the cleanest.</li>
+<li><b>Some "impossible" matches are catalogue errors.</b> For example, one coin may give a ruler's alternate legend, or a mint differ between two catalogues for what is one die. So simply forbidding matches across catalogue differences would throw away real links.</li>
+</ul>
+
+<h3>What changes next</h3>
+<ul>
+<li><b>Stricter merging in big groups.</b> Raise the bar as a comparison group grows (0.25 up to 20 coins, 0.30 up to 100, 0.35 up to 300, 0.40 beyond), and need two supporting matches before joining two existing dies. Simulated on the existing scores, this cuts the largest obverse die from 604 coins to 80, removes about 8,400 mostly false obverse links, and nearly doubles the obverse cross-check rate. It loses none of the same-coin links. No new image matching is needed.</li>
+<li><b>Compare the pairs the other side points to.</b> Score the roughly 6,000 pairs that share a confident die on one side but were never compared on the other. That is under an hour of compute, for about 1,500 more obverse links.</li>
+<li><b>Tidy the catalogue keys.</b> Fill in missing dates and denominations so twins land in the same group, and count a coin listed in two catalogues once.</li>
+<li><b>Calibrate against Schaefer.</b> Score the Roman Republican dies, labelled coin by coin, to turn these relative checks into absolute precision and recall.</li>
+</ul>
+<p class="note">Working draft, October 2026. The map and these numbers will change as the pipeline is fixed.</p>
+</article></div>
+<script src="core.js"></script>
+<script src="n0.js"></script>
+<script src="n1.js"></script>
+<script>
+const D = window.MAPDATA, N = D.nodes, E = D.edges, M = D.mints, S = 0.0011;
+M.forEach(m => m.name = m.name.replace(/_/g, ' '));
+const STEPS = [1, 2, 3, 4, 5, 6, 8, 10, 15, 20, 30];
+const cv = document.getElementById('c'), cx = cv.getContext('2d');
+let W = 0, H = 0, dpr = 1, k = 1, ox = 0, oy = 0, T = 1, hideIso = true, hover = -1, sel = -1;
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const COL = {obv: css('--obv'), rev: css('--rev'), coast: css('--coast'), ink: css('--ink')};
+// per-mint lists, degree by threshold
+const mN = M.map(() => []), mE = M.map(() => []);
+N.forEach((n, i) => mN[n[4]].push(i));
+E.forEach((e, i) => mE[N[e[0]][4]].push(i));
+mE.forEach(l => l.sort((a, b) => E[a][2] - E[b][2]));
+const adj = N.map(() => []); E.forEach((e, i) => { adj[e[0]].push(i); adj[e[1]].push(i); });
+let vis = new Uint8Array(N.length), mVis = new Int32Array(M.length), nE = 0, showX = true, XA = [], xHover = -1;
+const XL = D.xlinks || [], SL = D.sim || []; let showS = false;
+const turbo = t => { t = Math.max(0, Math.min(1, t));
+  const r = 34.61 + t * (1172.33 - t * (10793.56 - t * (33300.12 - t * (38394.49 - t * 14825.05))));
+  const g = 23.31 + t * (557.33 + t * (1225.33 - t * (3574.96 - t * (1073.77 + t * 707.56))));
+  const b = 27.2 + t * (3211.1 - t * (15327.97 - t * (27814 - t * (22569.18 - t * 6838.66))));
+  return [r, g, b].map(v => Math.max(0, Math.min(255, Math.round(v)))); };
+const midY = n => n[9] == null ? null : (n[10] == null ? n[9] : (n[9] + n[10]) / 2);
+const ys = N.map(midY).filter(v => v != null).sort((a, b) => a - b);
+const Y0 = Math.floor(ys[Math.floor(ys.length * 0.01)] / 10) * 10, Y1 = Math.ceil(ys[Math.floor(ys.length * 0.99)] / 10) * 10, NB = 48;
+const DG = D.dgroups, NG = DG.length;
+// gold, denarius, antoninianus, late silver, provincial silver, sestertius, dupondius, as, late bronze, other, unknown
+const DCOL = [[214,160,20],[31,119,180],[23,170,190],[148,103,189],[227,119,194],[214,39,40],[255,127,14],[140,86,75],[44,160,44],[188,189,34],[168,162,152]];
+const BIN = new Uint8Array(N.length), BCOL = DCOL.map(c => `rgb(${c})`), BSTR = DCOL.map(c => `rgba(${c.map(v => v * 0.55 | 0)},.9)`);
+N.forEach((n, i) => { BIN[i] = n[15]; });
+const hid = new Uint8Array(NG);
+const yCol = y => y == null ? [163, 157, 146] : turbo((y - Y0) / (Y1 - Y0));
+const mMed = M.map(() => null), mDom = M.map(() => 10);
+{ const c = M.map(() => new Int32Array(NG)); N.forEach(n => c[n[4]][n[15]]++); c.forEach((a, i) => { let b = 10, bn = 0; a.forEach((v, g) => { if (g < 10 && v > bn) { bn = v; b = g; } }); mDom[i] = b; }); }
+{ const by = M.map(() => []); N.forEach(n => { const y = midY(n); if (y != null) by[n[4]].push(y); }); by.forEach((a, i) => { if (a.length) { a.sort((p, q) => p - q); mMed[i] = a[a.length >> 1]; } }); }
+const sByMint = M.map(() => []); SL.forEach((e, i) => sByMint[N[e[0]][4]].push(i));
+const SIM_ADJ = []; SL.forEach(e => { (SIM_ADJ[e[0]] ||= []).push(e); (SIM_ADJ[e[1]] ||= []).push(e); });
+const BK = Array.from({length: NG}, () => []);
+function recompute() {
+  vis.fill(0); nE = 0; mVis.fill(0);
+  for (const e of E) if (e[2] >= T && !hid[N[e[0]][15]] && !hid[N[e[1]][15]]) { vis[e[0]] = 1; vis[e[1]] = 1; nE++; }
+  if (!hideIso) N.forEach((n, i) => { vis[i] = hid[n[15]] ? 0 : 1; });
+  drawLegend();
+  let nv = 0; N.forEach((n, i) => { if (vis[i]) { nv++; mVis[n[4]]++; } });
+  const agg = new Map();
+  for (const x of XL) if (x[2] >= T) { const a = Math.min(x[0], x[1]), b = Math.max(x[0], x[1]), key = a + ',' + b;
+    const g = agg.get(key) || agg.set(key, {a, b, c: 0, l: 0, items: []}).get(key); g.c += x[2]; g.l++; g.items.push(x); }
+  XA = [...agg.values()].sort((p, q) => p.c - q.c);
+  document.getElementById('stat').innerHTML = `<b>${nE.toLocaleString()}</b> of ${E.length.toLocaleString()} links &nbsp;·&nbsp; ${XA.reduce((s, g) => s + g.l, 0)} inter-mint &nbsp;·&nbsp; <b>${nv.toLocaleString()}</b> dies &nbsp;·&nbsp; ${M.filter((m, i) => mVis[i]).length} mints`;
+  buildList(); draw();
+}
+// spatial grid for hit-testing
+const G = new Map(), CS = 4 * S;
+N.forEach((n, i) => { const key = Math.floor(n[0] / CS) + ',' + Math.floor(n[1] / CS); (G.get(key) || G.set(key, []).get(key)).push(i); });
+// camera
+const sx = x => (x - ox) * k, sy = y => (oy - y) * k, wx = px => px / k + ox, wy = py => oy - py / k;
+function fit(x0, y0, x1, y1, pad = 40) {          // fit into the area between the two side panels
+  const L = W > 1100 ? 370 : 0, R = W > 1100 ? 285 : 0, B = W <= 760 ? Math.min(H * 0.35, 220) : 0, P = W <= 760 ? Math.min(pad, 12) : pad, aw = W - L - R - 2 * P, ah = H - B - 2 * P;
+  k = Math.min(aw / (x1 - x0), ah / (y1 - y0)); ox = (x0 + x1) / 2 - (L + P + aw / 2) / k; oy = (y0 + y1) / 2 + (P + ah / 2) / k; }
+let anim = null;
+function flyTo(x0, y0, x1, y1) {
+  const a = {k, ox, oy}; fit(x0, y0, x1, y1, 80); const b = {k, ox, oy}; k = a.k; ox = a.ox; oy = a.oy;
+  const t0 = performance.now(); cancelAnimationFrame(anim);
+  const step = t => { let u = Math.min(1, (t - t0) / 650); u = u < .5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+    const lk = Math.exp(Math.log(a.k) + (Math.log(b.k) - Math.log(a.k)) * u); // zoom in log space, keep centre path linear
+    const ca = [a.ox + W / 2 / a.k, a.oy - H / 2 / a.k], cb = [b.ox + W / 2 / b.k, b.oy - H / 2 / b.k];
+    const c = [ca[0] + (cb[0] - ca[0]) * u, ca[1] + (cb[1] - ca[1]) * u];
+    k = lk; ox = c[0] - W / 2 / k; oy = c[1] + H / 2 / k; draw(); if (u < 1) anim = requestAnimationFrame(step); };
+  anim = requestAnimationFrame(step);
+}
+const COSL = Math.cos(40 * Math.PI / 180);
+const home = () => fit(-10 * COSL, 25, 45 * COSL, 55);
+let fitted = true;
+function resize() {
+  const c = W ? [ox + W / 2 / k, oy - H / 2 / k] : null;
+  dpr = window.devicePixelRatio || 1; W = innerWidth; H = innerHeight; cv.width = W * dpr; cv.height = H * dpr;
+  if (fitted || !c) home(); else { ox = c[0] - W / 2 / k; oy = c[1] + H / 2 / k; }
+  draw();
+}
+// drawing
+const OPEN = 70; // a mint opens into its dies once its block is this many px wide
+function draw() {
+  if (!W) return;
+  cx.setTransform(dpr, 0, 0, dpr, 0, 0); cx.fillStyle = css('--bg'); cx.fillRect(0, 0, W, H);
+  const vx0 = wx(0), vx1 = wx(W), vy0 = wy(H), vy1 = wy(0);
+  cx.strokeStyle = COL.coast; cx.lineWidth = 1; cx.beginPath();
+  for (const ln of D.coast) { cx.moveTo(sx(ln[0][0]), sy(ln[0][1])); for (let i = 1; i < ln.length; i++) cx.lineTo(sx(ln[i][0]), sy(ln[i][1])); }
+  cx.stroke();
+  const u = S * k; const labels = [];
+  if (showX) for (let gi = 0; gi < XA.length; gi++) {
+    const g = XA[gi], pts = xCurve(g), w = xW(g);
+    cx.strokeStyle = gi === xHover ? 'rgba(122,48,140,.95)' : `rgba(122,48,140,${k > 900 ? .2 : .5})`; cx.lineWidth = gi === xHover ? w + 2 : w; cx.lineCap = 'round';
+    cx.beginPath(); cx.moveTo(pts[0][0], pts[0][1]); cx.quadraticCurveTo(pts.c[0], pts.c[1], pts[1][0], pts[1][1]); cx.stroke();
+    for (const m of [M[g.a], M[g.b]]) if (!m.n) { cx.beginPath(); cx.arc(sx(m.tx), sy(m.ty), 3, 0, 7); cx.fillStyle = '#fff'; cx.fill(); cx.strokeStyle = 'rgba(122,48,140,.8)'; cx.lineWidth = 1.2; cx.stroke(); labels.push({x: sx(m.tx), y: sy(m.ty) + 12, t: m.name, n: 0, pri: 0}); }
+  }
+  cx.lineCap = 'butt';
+  // leader lines for nudged blocks
+  cx.strokeStyle = 'rgba(60,55,48,.35)'; cx.lineWidth = 1;
+  for (const m of M) if (Math.hypot(m.x - m.tx, m.y - m.ty) > 0.02) { cx.beginPath(); cx.moveTo(sx(m.tx), sy(m.ty)); cx.lineTo(sx(m.x), sy(m.y)); cx.stroke(); cx.fillStyle = '#5c574f'; cx.fillRect(sx(m.tx) - 1.5, sy(m.ty) - 1.5, 3, 3); }
+  M.forEach((m, mi) => {
+    if (!mVis[mi]) return;
+    const bx0 = m.x - m.w / 2, bx1 = m.x + m.w / 2, by0 = m.y - m.h / 2, by1 = m.y + m.h / 2;
+    if (bx1 < vx0 - 1 || bx0 > vx1 + 1 || by1 < vy0 - 1 || by0 > vy1 + 1) return;
+    const open = m.w * k >= OPEN;
+    if (!open) {
+      const r = 2.5 + 0.11 * Math.sqrt(mVis[mi]) * Math.min(3, Math.max(1, k / 40));
+      const mc = DCOL[mDom[mi]]; cx.beginPath(); cx.arc(sx(m.x), sy(m.y), r, 0, 7); cx.fillStyle = `rgba(${mc},.45)`; cx.fill(); cx.strokeStyle = `rgba(${mc.map(v => v * 0.6 | 0)},.9)`; cx.lineWidth = 1.2; cx.stroke();
+      labels.push({x: sx(m.x), y: sy(m.y) + r + 11, t: m.name, n: mVis[mi], pri: mVis[mi]});
+      return;
+    }
+    cx.fillStyle = 'rgba(255,255,255,.55)'; cx.fillRect(sx(bx0) - 4, sy(by1) - 4, m.w * k + 8, m.h * k + 8);
+    if (showS && sByMint[mi].length) {
+      cx.setLineDash([Math.max(2, u * 0.5), Math.max(2, u * 0.5)]); cx.lineWidth = Math.max(0.6, Math.min(2, u * 0.12)); cx.strokeStyle = 'rgba(40,36,31,.22)'; cx.beginPath();
+      for (const si of sByMint[mi]) { const e = SL[si]; if (!vis[e[0]] || !vis[e[1]]) continue; const a = N[e[0]], b = N[e[1]];
+        if (Math.max(a[0], b[0]) < vx0 || Math.min(a[0], b[0]) > vx1 || Math.max(a[1], b[1]) < vy0 || Math.min(a[1], b[1]) > vy1) continue;
+        cx.moveTo(sx(a[0]), sy(a[1])); cx.lineTo(sx(b[0]), sy(b[1])); }
+      cx.stroke(); cx.setLineDash([]);
+    }
+    // edges, thin first
+    let lw = -1;
+    for (const ei of mE[mi]) {
+      const e = E[ei]; if (e[2] < T || !vis[e[0]] || !vis[e[1]]) continue;
+      const a = N[e[0]], b = N[e[1]];
+      if (Math.max(a[0], b[0]) < vx0 || Math.min(a[0], b[0]) > vx1 || Math.max(a[1], b[1]) < vy0 || Math.min(a[1], b[1]) > vy1) continue;
+      const w = Math.max(0.5, Math.min(u * 1.6, u * 0.16 * Math.sqrt(e[2]) * 2)), g = Math.min(1, 0.35 + 0.12 * e[2]);
+      if (w !== lw) { lw = w; cx.lineWidth = w; cx.strokeStyle = `rgba(40,36,31,${g})`; }
+      else cx.strokeStyle = `rgba(40,36,31,${g})`;
+      cx.beginPath(); cx.moveTo(sx(a[0]), sy(a[1])); cx.lineTo(sx(b[0]), sy(b[1])); cx.stroke();
+    }
+    for (const b of BK) b.length = 0;
+    for (const i of mN[mi]) { const n = N[i]; if (!vis[i] || n[0] < vx0 || n[0] > vx1 || n[1] < vy0 || n[1] > vy1) continue; BK[BIN[i]].push(i); }
+    const outline = u > 5;
+    for (let b = 0; b < NG; b++) { if (!BK[b].length) continue;
+      cx.fillStyle = BCOL[b]; cx.beginPath();
+      for (const i of BK[b]) { const n = N[i], r = Math.max(1.1, u * (0.3 + 0.16 * Math.sqrt(n[3]))), x = sx(n[0]), y = sy(n[1]);
+        if (n[2] === 0 || r < 1.6) { const h = n[2] === 0 ? r * 0.9 : r; cx.rect(x - h, y - h, 2 * h, 2 * h); } else { cx.moveTo(x + r, y); cx.arc(x, y, r, 0, 7); } }
+      cx.fill(); if (outline) { cx.strokeStyle = BSTR[b]; cx.lineWidth = 0.8; cx.stroke(); } }
+    labels.push({x: sx(m.x), y: sy(by1) - 64, t: `${m.name} · ${mVis[mi].toLocaleString()} dies`, n: mVis[mi], pri: 1e9});
+    if (m.secs) { cx.textAlign = 'left'; cx.textBaseline = 'middle';
+      for (const [a, b, name, nd] of m.secs) { const X0 = sx(m.x + a * S), X1 = sx(m.x + b * S); if (X1 < 0 || X0 > W || X1 - X0 < 40) continue;
+        const g = DG.indexOf(name); cx.fillStyle = BCOL[g]; cx.fillRect(X0, sy(by1) - 46, X1 - X0, 3);
+        cx.font = '600 12px -apple-system,sans-serif'; cx.fillStyle = COL.ink; const t = `${name} · ${nd.toLocaleString()} dies`;
+        if (cx.measureText(t).width < X1 - X0 + 40) cx.fillText(t, Math.max(X0, Math.min(X1 - cx.measureText(t).width, 380)), sy(by1) - 36); } }
+    if (m.cols && 9 * u > 46) { cx.font = '500 11px -apple-system,sans-serif'; cx.textAlign = 'center'; cx.textBaseline = 'middle'; cx.fillStyle = '#5c574f';
+      for (const [lx, t] of m.cols) { const X = sx(m.x + lx * S); if (X < -80 || X > W + 80) continue; cx.fillText(t, X, sy(by1) - 10); } }
+  });
+  for (const i of [hover, sel]) if (i >= 0 && vis[i] && showS) {
+    cx.setLineDash([5, 4]); cx.lineWidth = 2; cx.strokeStyle = 'rgba(20,18,15,.9)'; cx.beginPath();
+    for (const e of SIM_ADJ[i] || []) { const a = N[e[0]], b = N[e[1]]; cx.moveTo(sx(a[0]), sy(a[1])); cx.lineTo(sx(b[0]), sy(b[1])); }
+    cx.stroke(); cx.setLineDash([]);
+  }
+  for (const i of [hover, sel]) if (i >= 0 && vis[i]) {
+    const n = N[i], r = Math.max(4, u * (0.3 + 0.16 * Math.sqrt(n[3]))) + 3;
+    cx.strokeStyle = '#111'; cx.lineWidth = 2; cx.beginPath(); cx.arc(sx(n[0]), sy(n[1]), r, 0, 7); cx.stroke();
+  }
+  // labels, biggest first, skip collisions
+  labels.sort((a, b) => b.pri - a.pri); const placed = [];
+  cx.textAlign = 'center'; cx.textBaseline = 'middle';
+  for (const L of labels) {
+    const big = L.pri >= 1e9; cx.font = `${big ? 600 : (L.n > 500 ? 600 : 500)} ${big ? 14 : 12}px -apple-system,sans-serif`;
+    const w = cx.measureText(L.t).width, bx = [L.x - w / 2 - 3, L.y - 8, L.x + w / 2 + 3, L.y + 8];
+    if (placed.some(p => bx[0] < p[2] && bx[2] > p[0] && bx[1] < p[3] && bx[3] > p[1])) continue;
+    placed.push(bx); cx.lineWidth = 3.5; cx.strokeStyle = 'rgba(243,240,232,.95)'; cx.strokeText(L.t, L.x, L.y); cx.fillStyle = COL.ink; cx.fillText(L.t, L.x, L.y);
+  }
+}
+function xCurve(g) {   // quadratic arc between the true mint points, bowed to one side
+  const A = M[g.a], B = M[g.b], p = [sx(A.tx), sy(A.ty)], q = [sx(B.tx), sy(B.ty)], dx = q[0] - p[0], dy = q[1] - p[1];
+  const r = [p, q]; r.c = [(p[0] + q[0]) / 2 - dy * 0.18, (p[1] + q[1]) / 2 + dx * 0.18]; return r;
+}
+const xW = g => Math.min(14, 1.2 + 1.1 * Math.sqrt(g.c));
+function pickX(px, py) {
+  if (!showX) return -1; let best = -1, bd = 1e9;
+  XA.forEach((g, gi) => { const P = xCurve(g), tol = xW(g) / 2 + 5;
+    for (let i = 0; i <= 30; i++) { const t = i / 30, a = (1 - t) * (1 - t), b = 2 * (1 - t) * t, c = t * t;
+      const x = a * P[0][0] + b * P.c[0] + c * P[1][0], y = a * P[0][1] + b * P.c[1] + c * P[1][1], d = Math.hypot(x - px, y - py);
+      if (d < tol && d < bd) { bd = d; best = gi; } } });
+  return best;
+}
+function xHtml(g) {
+  const au = {}; g.items.forEach(x => au[x[5] || '?'] = (au[x[5] || '?'] || 0) + 1);
+  return `<b>${esc(M[g.a].name)} ↔ ${esc(M[g.b].name)}</b><br>${g.l} die link${g.l > 1 ? 's' : ''} · ${g.c} coin${g.c > 1 ? 's' : ''}<br>${Object.entries(au).sort((p, q) => q[1] - p[1]).slice(0, 4).map(([a, n]) => esc(a) + ' ' + n).join(' · ')}`;
+}
+function showX_(g) {
+  const el = document.getElementById('det');
+  el.innerHTML = `<span class="x" onclick="this.parentNode.style.display='none'">×</span><b style="font-size:15px">${esc(M[g.a].name)} ↔ ${esc(M[g.b].name)}</b>
+  <div style="color:var(--ink2);margin:4px 0 6px">${g.l} links, ${g.c} coins. Each: an obverse and a reverse die, attributed to different mints, that struck the same coin.</div>
+  <table>${g.items.sort((p, q) => q[2] - p[2]).map(x => `<tr><td>${esc(x[5] || '?')}</td><td>${esc(x[6] || '')}</td><td>${x[7] == null ? '' : fy(x[7])}</td><td>${x[2]} coin${x[2] > 1 ? 's' : ''}</td><td>${[[x[8], M[x[0]].name], [x[9], M[x[1]].name]].map(([i, mn]) => i >= 0 ? `<a href="#" onclick="sel=${i};showDet(${i});const n=N[${i}];flyTo(n[0]-40*S,n[1]-25*S,n[0]+40*S,n[1]+25*S);return false">${esc(mn)}</a>` : esc(mn)).join(' – ')}</td></tr>`).join('')}</table>`;
+  el.style.display = 'block';
+}
+function drawLegend() {
+  const cnt = new Int32Array(NG); N.forEach((n, i) => { if (vis[i]) cnt[n[15]]++; });
+  const all = new Int32Array(NG); N.forEach(n => all[n[15]]++);
+  document.getElementById('dleg').innerHTML = DG.map((g, i) => all[i] ? `<div class="dl${hid[i] ? ' off' : ''}" data-g="${i}"><span class="sw" style="background:${BCOL[i]}"></span>${esc(g)}<b>${(hid[i] ? all[i] : cnt[i]).toLocaleString()}</b></div>` : '').join('');
+}
+// interaction
+let drag = null, pinch = null; const PT = new Map();
+function clickAt(x, y) {
+  const i = pick(x, y);
+  if (i >= 0) { sel = i; showDet(i); draw(); return; }
+  const mi = pickMint(x, y); if (mi >= 0) { zoomMint(mi); return; }
+  const gi = pickX(x, y); if (gi >= 0) showX_(XA[gi]);
+}
+function hoverAt(e) {
+  const i = pick(e.clientX, e.clientY);
+  if (i !== hover) { hover = i; draw(); }
+  const place = () => { tip.style.display = 'block'; tip.style.left = Math.min(W - 350, e.clientX + 14) + 'px'; tip.style.top = Math.min(H - 120, e.clientY + 14) + 'px'; };
+  if (i >= 0) { tip.innerHTML = tipHtml(i); place(); return; }
+  const mi = pickMint(e.clientX, e.clientY), gi = mi >= 0 ? -1 : pickX(e.clientX, e.clientY);
+  if (gi !== xHover) { xHover = gi; draw(); }
+  if (gi >= 0) { tip.innerHTML = xHtml(XA[gi]) + '<br><span style="opacity:.7">click to list links</span>'; place(); }
+  else if (mi >= 0) { tip.innerHTML = `<b>${esc(M[mi].name)}</b><br>${mVis[mi].toLocaleString()} dies shown · click to open`; place(); }
+  else tip.style.display = 'none';
+}
+cv.addEventListener('pointerdown', e => {
+  cv.setPointerCapture(e.pointerId); PT.set(e.pointerId, {x: e.clientX, y: e.clientY});
+  if (PT.size === 1) { drag = {x: e.clientX, y: e.clientY, ox, oy, moved: false}; cv.classList.add('drag'); }
+  else if (PT.size === 2) { const [p, q] = [...PT.values()]; drag = null; pinch = {d: Math.hypot(p.x - q.x, p.y - q.y), k, wx: wx((p.x + q.x) / 2), wy: wy((p.y + q.y) / 2)}; }
+});
+cv.addEventListener('pointermove', e => {
+  if (PT.has(e.pointerId)) PT.set(e.pointerId, {x: e.clientX, y: e.clientY});
+  if (pinch && PT.size === 2) { const [p, q] = [...PT.values()], mx = (p.x + q.x) / 2, my = (p.y + q.y) / 2;
+    k = Math.min(2e6, Math.max(5, pinch.k * Math.hypot(p.x - q.x, p.y - q.y) / Math.max(1, pinch.d))); ox = pinch.wx - mx / k; oy = pinch.wy + my / k; fitted = false; draw(); return; }
+  if (drag) { const dx = e.clientX - drag.x, dy = e.clientY - drag.y; if (Math.abs(dx) + Math.abs(dy) > (e.pointerType === 'mouse' ? 3 : 8)) drag.moved = true;
+    if (drag.moved) { ox = drag.ox - dx / k; oy = drag.oy + dy / k; fitted = false; tip.style.display = 'none'; draw(); } return; }
+  if (e.pointerType === 'mouse') hoverAt(e);
+});
+const endPt = e => {
+  if (drag && !drag.moved && PT.size === 1 && e.type === 'pointerup') clickAt(e.clientX, e.clientY);
+  PT.delete(e.pointerId); cv.classList.remove('drag');
+  if (PT.size < 2) pinch = null;
+  if (PT.size === 1) { const [p] = [...PT.values()]; drag = {x: p.x, y: p.y, ox, oy, moved: true}; } else if (PT.size === 0) drag = null;
+};
+cv.addEventListener('pointerup', endPt); cv.addEventListener('pointercancel', endPt);
+cv.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && !drag) { tip.style.display = 'none'; if (hover >= 0) { hover = -1; draw(); } } });
+cv.addEventListener('wheel', e => { e.preventDefault(); const f = Math.exp(-e.deltaY * (e.ctrlKey ? 0.01 : 0.0022)); const x = wx(e.clientX), y = wy(e.clientY); k = Math.min(2e6, Math.max(5, k * f)); fitted = false; ox = x - e.clientX / k; oy = y + e.clientY / k; draw(); }, {passive: false});
+const tip = document.getElementById('tip');
+function pick(px, py) {
+  if (S * k < 0.5) return -1;
+  const x = wx(px), y = wy(py), rr = Math.max(6 / k, 1.2 * S); let best = -1, bd = rr * rr;
+  const gx = Math.floor(x / CS), gy = Math.floor(y / CS), span = Math.ceil(rr / CS);
+  for (let a = -span; a <= span; a++) for (let b = -span; b <= span; b++) for (const i of G.get((gx + a) + ',' + (gy + b)) || []) {
+    if (!vis[i] || M[N[i][4]].w * k < OPEN) continue;
+    const d = (N[i][0] - x) ** 2 + (N[i][1] - y) ** 2; if (d < bd) { bd = d; best = i; } }
+  return best;
+}
+function pickMint(px, py) {
+  for (let mi = 0; mi < M.length; mi++) { const m = M[mi]; if (!mVis[mi] || m.w * k >= OPEN) continue;
+    const r = 2.5 + 0.11 * Math.sqrt(mVis[mi]) * Math.min(3, Math.max(1, k / 40)) + 3; if (Math.hypot(sx(m.x) - px, sy(m.y) - py) < r) return mi; }
+  return -1;
+}
+const zoomMint = mi => { fitted = false; const m = M[mi]; flyTo(m.x - m.w / 2, m.y - m.h / 2, m.x + m.w / 2, m.y + m.h / 2); };
+const yrs = n => n[9] == null ? 'undated' : (n[9] === n[10] || n[10] == null ? fy(n[9]) : `${fy(n[9])} – ${fy(n[10])}`);
+const fy = y => y < 0 ? `${-y} BC` : `AD ${y}`;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+function tipHtml(i) {
+  const n = N[i], links = adj[i].filter(ei => E[ei][2] >= T);
+  return `<b>${n[2] ? 'Reverse' : 'Obverse'} die</b> · ${n[3]} coin${n[3] > 1 ? 's' : ''}<br>${esc(D.lut.auth[n[6]])} · <span style="color:${BCOL[n[15]]}">■</span> ${esc(D.lut.den[n[7]])} · ${M[n[4]].name}<br>${yrs(n)}${n[11].length ? '<br>' + esc(n[11].slice(0, 3).join(', ')) : ''}<br>${links.length} link${links.length === 1 ? '' : 's'} shown${(SIM_ADJ[i] || []).length ? ` · ${SIM_ADJ[i].length} possible same-die` : ''}`;
+}
+const shardWait = {};
+window.MAPDETAIL = (k, arr) => { arr.forEach((d, j) => { const n = N[k * D.shard + j]; n[11] = d[0]; n[12] = d[1]; n[14] = d[2]; }); (shardWait[k] || []).forEach(f => f()); shardWait[k] = 'done'; };
+function withDetail(idx, f) {
+  const ks = [...new Set(idx.map(i => Math.floor(i / D.shard)))].filter(k => shardWait[k] !== 'done');
+  if (!ks.length) return f();
+  let left = ks.length; const done = () => { if (--left === 0) f(); };
+  for (const k of ks) { if (shardWait[k]) { shardWait[k].push(done); continue; } shardWait[k] = [done];
+    const sc = document.createElement('script'); sc.src = `d${k}.js`; sc.onerror = () => { shardWait[k] = 'done'; done(); }; document.head.appendChild(sc); }
+}
+function showDet(i) {
+  const el = document.getElementById('det');
+  if (N[i][12] == null) { el.innerHTML = '<span style="color:var(--muted)">Loading die details…</span>'; el.style.display = 'block'; }
+  const near = [i, ...adj[i].map(ei => E[ei][0] === i ? E[ei][1] : E[ei][0]), ...(SIM_ADJ[i] || []).map(e => e[0] === i ? e[1] : e[0])];
+  withDetail(near, () => showDet_(i));
+}
+const metalOf = n => (D.lut.metal ? D.lut.metal[n[8]] : n[8]) || '';
+const did = j => N[j][14] ? esc(N[j][14]) : '#' + j;
+function showDet_(i) {
+  const n = N[i], el = document.getElementById('det');
+  const part = adj[i].map(ei => [E[ei][0] === i ? E[ei][1] : E[ei][0], E[ei][2]]).sort((a, b) => b[1] - a[1]);
+  el.innerHTML = `<span class="x" onclick="this.parentNode.style.display='none';sel=-1;draw()">×</span>
+  <b style="font-size:15px">${n[2] ? 'Reverse' : 'Obverse'} die</b> <span style="color:var(--muted)">${did(i)}</span>
+  <table><tr><td>Authority</td><td>${esc(D.lut.auth[n[6]])}</td></tr><tr><td>Mint</td><td>${esc(M[n[4]].name)}</td></tr><tr><td>Denomination</td><td>${esc(D.lut.den[n[7]])} ${esc(metalOf(n))}</td></tr>
+  <tr><td>Date</td><td>${yrs(n)}</td></tr><tr><td>Types</td><td>${esc(n[11].join(', ') || '–')}</td></tr></table>
+  <div style="margin-top:8px"><b>Coins (${n[13]})</b><br>${(n[12] || []).map(([c, u]) => u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(c)}</a>` : esc(c)).join('<br>')}${n[12] && n[13] > n[12].length ? `<br><span style="color:var(--muted)">+${n[13] - n[12].length} more</span>` : ''}</div>
+  ${(SIM_ADJ[i] || []).length ? `<div style="margin-top:8px"><b>Possible same die (below match bar)</b><br>${SIM_ADJ[i].map(e => { const j = e[0] === i ? e[1] : e[0]; return `<a href="#" onclick="sel=${j};showDet(${j});draw();return false">${N[j][2] ? 'reverse' : 'obverse'} die ${did(j)}</a> · score ${e[2]}`; }).join('<br>')}</div>` : ''}
+  <div style="margin-top:8px"><b>Paired with</b><br>${part.map(([j, c]) => `<a href="#" onclick="sel=${j};showDet(${j});draw();return false">${N[j][2] ? 'reverse' : 'obverse'} die ${did(j)}</a> · ${c} coin${c > 1 ? 's' : ''}`).join('<br>')}</div>`;
+  el.style.display = 'block';
+}
+function buildList() {
+  const q = document.getElementById('q').value.toLowerCase();
+  document.getElementById('ml').innerHTML = M.map((m, i) => [m, i]).filter(([m, i]) => mVis[i] && m.name.toLowerCase().includes(q)).slice(0, 300)
+    .map(([m, i]) => `<div class="m" data-i="${i}"><span>${esc(m.name)}</span><span>${mVis[i].toLocaleString()}</span></div>`).join('');
+}
+document.getElementById('ml').addEventListener('click', e => { const d = e.target.closest('.m'); if (d) zoomMint(+d.dataset.i); });
+document.getElementById('q').addEventListener('input', buildList);
+const thr = document.getElementById('thr'), maxc = Math.max(...E.map(e => e[2]));
+const steps = STEPS.filter(s => s <= maxc); thr.max = steps.length - 1;
+document.getElementById('ticks').innerHTML = steps.map(s => `<span>${s}</span>`).join('');
+thr.addEventListener('input', () => { T = steps[+thr.value]; document.getElementById('tv').textContent = T === 1 ? '1 (all)' : T + '+'; recompute(); });
+document.getElementById('iso').addEventListener('change', e => { hideIso = e.target.checked; recompute(); });
+document.getElementById('xl').addEventListener('change', e => { showX = e.target.checked; draw(); });
+document.getElementById('sl').addEventListener('change', e => { showS = e.target.checked; draw(); });
+document.getElementById('dleg').addEventListener('click', e => { const d = e.target.closest('.dl'); if (!d) return; const g = +d.dataset.g; hid[g] = hid[g] ? 0 : 1; recompute(); });
+document.getElementById('reset').onclick = () => { const a = {k, ox, oy}; home(); const b = [ox + W / 2 / k, oy - H / 2 / k], bk = k; k = a.k; ox = a.ox; oy = a.oy; flyTo(-10 * COSL, 25, 45 * COSL, 55); fitted = true; };
+document.getElementById('rome').onclick = () => { const i = M.findIndex(m => m.id === 'rome'); if (i >= 0) zoomMint(i); };
+addEventListener('keydown', e => { if (e.target.tagName === 'INPUT' && e.target.type === 'search') return; if (e.key === 'Escape') { if (acc.style.display !== 'block' && keyEl.style.display !== 'none' && sel < 0) setKey(false); closeAcc(); sel = -1; document.getElementById('det').style.display = 'none'; draw(); } });
+addEventListener('resize', resize);
+const keyEl = document.getElementById('key');
+const setKey = on => { keyEl.style.display = on ? 'block' : 'none'; document.body.classList.toggle('keyon', on); try { localStorage.setItem('dlm-key', on ? '1' : '0'); } catch (e) {} };
+let keyPref = null; try { keyPref = localStorage.getItem('dlm-key'); } catch (e) {}
+setKey(keyPref !== '0');
+document.getElementById('keyx').onclick = () => setKey(false);
+document.getElementById('keyb').onclick = () => setKey(keyEl.style.display === 'none');
+const acc = document.getElementById('acc');
+const openAcc = () => { acc.style.display = 'block'; history.replaceState(null, '', '#accuracy'); };
+const closeAcc = () => { acc.style.display = 'none'; if (location.hash === '#accuracy') history.replaceState(null, '', location.pathname); };
+document.getElementById('accb').onclick = openAcc; document.getElementById('accx').onclick = closeAcc;
+acc.addEventListener('click', e => { if (e.target === acc) closeAcc(); });
+if (location.hash === '#accuracy') openAcc();
+const ctl = document.getElementById('ctl'), cmin = document.getElementById('ctlmin');
+if (innerWidth <= 760) { ctl.classList.add('min'); cmin.textContent = 'More'; }
+cmin.onclick = () => { ctl.classList.toggle('min'); cmin.textContent = ctl.classList.contains('min') ? 'More' : 'Less'; };
+document.getElementById('mbtn').onclick = () => document.getElementById('mints').classList.toggle('open');
+document.getElementById('ml').addEventListener('click', () => { if (innerWidth <= 760) document.getElementById('mints').classList.remove('open'); });
+W = innerWidth; H = innerHeight; home(); resize(); document.getElementById('tv').textContent = '1 (all)'; recompute();
+</script>
+<script data-goatcounter="https://rezaramji.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
