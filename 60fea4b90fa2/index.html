@@ -51,7 +51,7 @@ body.keyon #mints{max-height:calc(100% - 300px)}
 #acc th{text-align:right;font-weight:600;color:var(--ink2);padding:6px 6px;border-bottom:1px solid var(--line);vertical-align:bottom}
 #acc td{text-align:right;padding:6px 6px;border-bottom:1px solid #ece7dc}#acc th:first-child,#acc td:first-child{text-align:left}
 #acc tr.feat td{background:#f3eee1;font-weight:600}#acc td.ours{color:#7a2424;font-weight:600}
-#acc .tw{overflow-x:auto}#acc .note{font-size:15px;color:var(--ink2)}
+#acc .tw{overflow-x:auto}#acc .tabs2{display:flex;flex-wrap:wrap;gap:4px 24px}#acc .tabs2 table{flex:1 1 300px;width:auto}#acc caption{text-align:left;font:600 14px -apple-system,BlinkMacSystemFont,sans-serif;color:var(--ink);padding:4px 0 2px}#acc th.grp{text-align:center;border-bottom:1px solid var(--line)}#acc td:first-child{min-width:8.5em}#acc .note{font-size:15px;color:var(--ink2)}
 #acc .caveat{background:#f3f0e8;border-left:3px solid #7a2424;padding:10px 14px;margin:14px 0;font-size:16px}
 #acc .close{float:right;font:24px/1 -apple-system,sans-serif;color:var(--muted);cursor:pointer;border:0;background:none;padding:0 0 0 12px}
 #acc .math{font-style:italic;white-space:nowrap}
@@ -62,7 +62,7 @@ body.keyon #mints{max-height:calc(100% - 300px)}
   #mints{display:none;top:8px;left:8px;right:8px;width:auto;max-height:50vh}#mints.open{display:flex}
   #det{top:8px;left:8px;right:8px;bottom:auto;width:auto;max-height:48vh;z-index:6;background:#fffdf8}
   #key{top:8px;left:8px;right:8px;bottom:auto;width:auto;z-index:5}body.keyon #mints{max-height:50vh}
-  #acc{padding:0}#acc article{border-radius:0;padding:22px 18px;font-size:17px}#acc h2{font-size:25px}
+  #acc{padding:0}#acc table{font-size:12px}#acc th,#acc td{padding:6px 3px}#acc article{border-radius:0;padding:22px 18px;font-size:17px}#acc h2{font-size:25px}
   .sub{display:none}
 }
 </style>
@@ -106,13 +106,7 @@ body.keyon #mints{max-height:calc(100% - 300px)}
 <button class="close" id="accx" aria-label="Close">×</button>
 <h2 id="acch">How accurate is this?</h2>
 <p>Tested against an existing die study: Schaefer's Roman Republican Die Project, Crawford RRC 393/1a. That is 676 coins whose dies were identified by hand. The thresholds were fixed in advance on a different issue (RRC 361), so this is a blind test.</p>
-<div class="tw"><table>
-<thead><tr><th>Method</th><th>Obverse P</th><th>Obverse R</th><th>Obverse ARI</th><th>Reverse P</th><th>Reverse R</th><th>Reverse ARI</th></tr></thead>
-<tbody>
-<tr><td>Average linkage (first version)</td><td>0.983</td><td>0.572</td><td>0.721</td><td>0.934</td><td>0.301</td><td>0.452</td></tr>
-<tr><td>Die-link chains</td><td>0.972</td><td>0.877</td><td>0.921</td><td>0.924</td><td>0.802</td><td>0.857</td></tr>
-<tr class="feat"><td>Final: chains + rescue pass + coin-edge fix</td><td>0.973</td><td>0.933</td><td>0.952</td><td>0.940</td><td>0.852</td><td>0.892</td></tr>
-</tbody></table></div>
+<div class="tabs2"><table><caption>Obverse dies</caption><thead><tr><th>Method</th><th>P</th><th>R</th><th>ARI</th></tr></thead><tbody><tr><td>First version</td><td>0.983</td><td>0.572</td><td>0.721</td></tr><tr><td>Die-link chains</td><td>0.972</td><td>0.877</td><td>0.921</td></tr><tr class="feat"><td>Final (chains, rescue, edge fix)</td><td>0.973</td><td>0.933</td><td>0.952</td></tr></tbody></table><table><caption>Reverse dies</caption><thead><tr><th>Method</th><th>P</th><th>R</th><th>ARI</th></tr></thead><tbody><tr><td>First version</td><td>0.934</td><td>0.301</td><td>0.452</td></tr><tr><td>Die-link chains</td><td>0.924</td><td>0.802</td><td>0.857</td></tr><tr class="feat"><td>Final (chains, rescue, edge fix)</td><td>0.940</td><td>0.852</td><td>0.892</td></tr></tbody></table></div>
 <p class="note"><b>P</b> (precision): of the coin pairs we put on one die, the share that Schaefer also puts on one die. <b>R</b> (recall): of the pairs Schaefer puts on one die, the share we found. <b>ARI</b> (adjusted Rand index): how closely our whole grouping into dies matches his, where 1 means identical.</p>
 </article></div>
 <script src="core.js"></script>
