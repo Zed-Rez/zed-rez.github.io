@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>coinID (research preview)</title>
+  <meta name="description" content="Upload photos of a Roman coin to find its RIC or RPC type.">
+  <link rel="canonical" href="https://rezaramji.com/coinID/">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://gc.zgo.at; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' blob: data: https://images.numismatics.org https://rezaramji.goatcounter.com; connect-src 'self' https://jetson-nano.tailc1c489.ts.net http://127.0.0.1:8765 https://rezaramji.goatcounter.com; form-action 'none'; base-uri 'none'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #fff; --ink: rgb(33, 37, 41); --muted: #666; --rule: #d9d9d9; --orange: rgb(231, 117, 0);
+      --red: rgb(178, 34, 34); --red-bg: rgb(250, 226, 222); --green: rgb(46, 110, 64); --green-bg: rgb(221, 238, 220);
+      --box: #f7f7f7; --hover: rgb(253, 241, 228); --active: rgb(252, 227, 199);
+      --img: 300px; --tw: 52px; --pad: 10px; --gap: 8px;
+      color-scheme: light;
+    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html, body { margin: 0; background: var(--paper); color: var(--ink); }
+    body { font-family: 'EB Garamond', Garamond, Georgia, serif; font-size: 16px; line-height: 1.25; }
+    body:not(.narrow) { height: 100vh; height: 100dvh; overflow: hidden; display: flex; flex-direction: column; }
+    a { color: inherit; }
+    ::selection { background: var(--active); }
+
+    /* top bar: the title, upload, and the settings that apply to a web page */
+    header.top { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 18px; padding: 7px var(--pad); border-bottom: 1px solid var(--rule); }
+    header.top h1 { font-size: 20px; font-weight: 600; margin: 0; white-space: nowrap; }
+    header.top h1 .rp { font-weight: 400; font-style: italic; color: var(--muted); font-size: 16px; }
+    .btn { font: inherit; font-size: 15.5px; color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: 2px;
+           padding: 3px 10px; min-height: 32px; display: inline-flex; align-items: center; cursor: pointer; user-select: none; }
+    .btn:hover { background: var(--hover); border-color: var(--orange); }
+    .btn:active { background: var(--active); }
+    .btn:focus-visible, .th:focus-visible, .lock:focus-visible, .box:focus-visible, .tb:focus-visible { outline: 2px solid var(--orange); outline-offset: 1px; }
+    .btn.up { color: var(--orange); border: 1.5px solid var(--orange); font-weight: 600; }
+    #file { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+    .set { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 16px; color: var(--muted); font-size: 15px; }
+    .seg { display: inline-flex; align-items: center; gap: 6px; }
+    .seg .opts-s { display: inline-flex; }
+    .seg button { font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--rule); min-height: 30px; padding: 2px 9px; cursor: pointer; margin-left: -1px; }
+    .seg button:first-child { border-radius: 2px 0 0 2px; margin-left: 0; }
+    .seg button:last-child { border-radius: 0 2px 2px 0; }
+    .seg button:hover { background: var(--hover); }
+    .seg button[aria-pressed="true"] { background: var(--active); border-color: var(--orange); position: relative; }
+    .set label.chk { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; min-height: 30px; }
+    .set input[type="checkbox"] { accent-color: var(--orange); width: 16px; height: 16px; margin: 0; }
+    #status { color: var(--muted); font-size: 15px; font-style: italic; margin-left: auto; }
+    #status.err { color: var(--red); font-style: normal; }
+
+    /* three columns: the photographed coin, the boxes, the selected type and the candidates */
+    main { flex: 1; min-height: 0; display: grid; grid-template-columns: calc(var(--img) + 2 * var(--pad)) minmax(0, 1fr) calc(var(--img) + 2 * var(--pad)); }
+    .side { padding: var(--pad); display: flex; flex-direction: column; gap: var(--gap); min-width: 0; }
+    .pair { display: flex; flex-direction: column; gap: var(--gap); }
+    figure.sq { margin: 0; width: var(--img); }
+    figure.sq .img, .th .img { position: relative; width: 100%; aspect-ratio: 1; background: var(--box); border-radius: 2px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    figure.sq .img { box-shadow: inset 0 0 0 1.5px var(--orange); }
+    figure.sq img, .th img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    figure.sq img { padding: 1.5px; }
+    .ph { color: var(--muted); font-size: 14px; text-align: center; padding: 4px; }
+    figure.sq figcaption { height: 18px; font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+    figure.sq figcaption a { color: var(--muted); text-decoration: none; }
+    figure.sq figcaption a:hover { text-decoration: underline; }
+    .row-scroll { display: flex; gap: var(--gap); overflow-x: auto; overflow-y: hidden; padding-bottom: 4px; scrollbar-width: thin; }
+    .th { flex: 0 0 var(--tw); width: var(--tw); padding: 0; border: 0; background: none; font: inherit; color: inherit; text-align: left; cursor: pointer; }
+    .th.on .img { box-shadow: inset 0 0 0 1.5px var(--orange); }
+    .th.tie .img, .th.bad .img { box-shadow: inset 0 0 0 1.5px var(--red); }
+    .th .tag { position: absolute; left: 3px; top: 3px; background: rgba(255, 255, 255, .85); color: var(--ink); font-size: 12.5px; line-height: 1.2; padding: 0 3px; border-radius: 2px; }
+    .th .ph { font-size: 12px; }
+    .th .cap { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 12px; color: var(--muted); line-height: 1.15; margin-top: 1px; min-height: 27px; word-break: break-word; }
+    .th.tied .cap { color: var(--red); }
+    .start { margin: auto 0; display: flex; flex-direction: column; align-items: center; gap: 10px; padding-bottom: 20%; }
+    .btn.big { font-size: 17px; min-height: 36px; min-width: 220px; justify-content: center; }
+    .hint { color: var(--muted); font-size: 14px; text-align: center; margin: 0; }
+
+    .centre { padding: var(--pad); display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+    #banner { display: flex; flex-direction: column; gap: 6px; margin-bottom: 6px; }
+    #banner p { margin: 0; }
+    #banner .wait { color: var(--muted); font-style: italic; }
+    #banner .err { color: var(--red); }
+    #banner .btn { align-self: flex-start; }
+    .tied-box { background: var(--red-bg); padding: 6px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; }
+    .tied-box .nu { color: var(--red); font-weight: 600; font-size: 15px; margin-right: 2px; }
+    .tb { font: inherit; font-size: 14px; color: var(--red); background: #fff; border: 1px solid var(--red); border-radius: 2px; padding: 1px 7px; cursor: pointer; text-decoration: none; }
+    .tb.on { background: var(--red); color: var(--paper); }
+    a.type { font-weight: 600; font-size: 18px; color: var(--ink); text-underline-offset: 2px; }
+    a.type.red { color: var(--red); }
+    #rows { flex: 1; min-height: 0; overflow-y: auto; padding-right: 4px; }
+    .frow { display: flex; align-items: flex-start; gap: 6px; margin-bottom: 4px; }
+    .gap { height: 12px; }
+    .lock { flex: 0 0 14px; width: 14px; height: 24px; padding: 0; border: 0; background: none; cursor: pointer; color: var(--rule); }
+    .lock:hover { color: var(--muted); }
+    .frow.locked .lock { color: var(--ink); }
+    .lock svg { display: block; }
+    .lock rect { fill: currentColor; }
+    .lock path { fill: none; stroke: currentColor; stroke-width: 1.4; }
+    .lab { flex: 0 0 110px; width: 110px; font-size: 14px; color: var(--muted); line-height: 24px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .boxwrap { position: relative; flex: 0 0 calc((100% - 130px - 2 * var(--gap)) * .55); min-width: 80px; }
+    .box { display: block; width: 100%; min-height: 24px; font: inherit; font-size: 15.5px; line-height: 18px; color: var(--ink); background: var(--box); border: 0; border-radius: 2px; padding: 3px 5px; margin: 0;
+           white-space: pre-wrap; overflow-wrap: anywhere; cursor: text; }
+    .box b { font-weight: 600; }
+    .box.good { background: var(--green-bg); }
+    .box.bad { background: var(--red-bg); }
+    textarea.box { resize: none; overflow: hidden; outline: 1px solid var(--orange); font-size: 16px; }
+    .box.show:hover { outline: 1px solid var(--rule); }
+    .other { flex: 1 1 0; min-width: 0; font-size: 14px; color: var(--muted); line-height: 18px; padding-top: 3px; overflow-wrap: anywhere; }
+    .other b { font-weight: 600; color: var(--ink); }
+    .opts { position: absolute; left: 0; right: 0; top: calc(100% + 2px); z-index: 10; background: #fff; border: 1px solid var(--rule); border-radius: 3px; box-shadow: 0 4px 14px rgba(0, 0, 0, .12); padding: 3px; max-height: 260px; overflow-y: auto; }
+    .opt { display: flex; justify-content: space-between; align-items: center; gap: 10px; min-height: 26px; padding: 0 5px; font-size: 15px; cursor: pointer; border-radius: 2px; }
+    .opt:hover, .opt.hi { background: var(--hover); }
+    .opt.in .o { font-weight: 600; }
+    .opt .p { font-size: 13px; color: var(--muted); }
+
+    .foot { padding-top: 8px; display: flex; flex-direction: column; gap: 8px; }
+    #meander { height: 16px; color: var(--orange); overflow: hidden; }
+    #meander svg { display: block; }
+    #next { width: 100%; min-height: 38px; justify-content: center; color: var(--orange); border: 1.5px solid var(--orange); font-weight: 600; font-size: 18px; }
+    #next:disabled { opacity: .45; cursor: default; background: var(--paper); }
+    .logos { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 6px 14px; min-height: 24px; }
+    .logos a { display: block; line-height: 0; }
+    .logos img { height: 24px; width: auto; opacity: .55; }
+    .logos a:hover img, .logos a:hover.r { opacity: .9; }
+    .logos .r { font-size: 36px; line-height: 24px; color: var(--ink); opacity: .55; text-decoration: none; margin-top: -4px; }
+    .note { color: var(--muted); font-size: 13px; text-align: center; margin: 0; }
+
+    body.drag::after { content: "Drop photos"; position: fixed; inset: 8px; border: 2px dashed var(--orange); border-radius: 4px; background: rgba(255, 255, 255, .85);
+                       display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--orange); z-index: 50; pointer-events: none; }
+
+    /* phones and narrow windows: one column, faces side by side */
+    body.narrow main { display: flex; flex-direction: column; }
+    body.narrow .pair { flex-direction: row; }
+    body.narrow #rows { overflow: visible; }
+    body.narrow .side { align-items: center; }
+    body.narrow .row-scroll { width: min(100%, calc(2 * var(--img) + var(--gap))); }
+    body.narrow #right { order: 1; }
+    body.narrow .centre { order: 2; }
+    body.narrow .start { padding: 20px 0; }
+    @media (max-width: 560px) {
+      .frow { flex-wrap: wrap; }
+      .boxwrap { flex: 1 1 calc(100% - 130px - var(--gap)); }
+      .other { flex: 1 1 100%; padding: 0 0 0 130px; }
+      #status { margin-left: 0; }
+    }
+  </style>
+  <script src="prep.js" defer></script>
+  <script src="app.js" defer></script>
+  <script data-goatcounter="https://rezaramji.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</head>
+<body>
+  <header class="top">
+    <h1>coinID <span class="rp">(research preview)</span></h1>
+    <label class="btn up" for="file">Upload photos</label>
+    <input type="file" id="file" multiple accept="image/*,.jpg,.jpeg,.jfif,.png,.tif,.tiff,.webp,.bmp">
+    <div class="set">
+      <div class="seg" id="scope" role="group" aria-label="Search">
+        <span>Search</span>
+        <span class="opts-s"><button type="button" data-s="0">RIC + RPC</button><button type="button" data-s="1">RIC</button><button type="button" data-s="2">RPC</button></span>
+      </div>
+      <label class="chk"><input type="checkbox" id="autocrop" checked> Auto-crop</label>
+      <label class="chk"><input type="checkbox" id="perphoto"> One photo per coin</label>
+    </div>
+    <span id="status" role="status" aria-live="polite"></span>
+  </header>
+  <main>
+    <section class="side" id="left" aria-label="Your coin"></section>
+    <section class="centre" aria-label="Type">
+      <div id="banner"></div>
+      <div id="rows"></div>
+      <div class="foot">
+        <div id="meander"></div>
+        <button type="button" class="btn" id="next" disabled>Next</button>
+        <div class="logos">
+          <a class="r" href="/" title="Reza Ramji">R</a>
+          <a href="https://www.princeton.edu" target="_blank" rel="noopener" title="Princeton University"><img src="logos/princeton.svg" alt="Princeton University"></a>
+          <a href="https://library.princeton.edu" target="_blank" rel="noopener" title="Princeton University Library"><img src="logos/pul.svg" alt="Princeton University Library"></a>
+          <a href="https://hellenic.princeton.edu" target="_blank" rel="noopener" title="Seeger Center for Hellenic Studies"><img src="logos/hellenic.png" alt="Seeger Center for Hellenic Studies"></a>
+          <a href="https://coinage.princeton.edu" target="_blank" rel="noopener" title="FLAME"><img src="logos/flame.png" alt="FLAME"></a>
+        </div>
+        <p class="note">Photos are cropped in your browser; only the crops are sent, and nothing is kept.</p>
+      </div>
+    </section>
+    <section class="side" id="right" aria-label="Candidate types"></section>
+  </main>
+</body>
+</html>
