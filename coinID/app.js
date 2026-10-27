@@ -133,7 +133,8 @@
         if (c === coins[cur]) built = null;
         render(); return;
       } catch (e) {
-        if (e.code === 429 && tries < 6) { c.err = "Busy, waiting a moment…"; render(); await sleep(12000); continue; }
+        // 429/503: rate or bandwidth cap (the server is on a home connection); a refused upload can also surface as a dropped connection
+        if ((e.code === 429 || e.code === 503) && tries < 6 || e.code === 0 && tries < 2) { c.err = "Busy, waiting a moment…"; render(); await sleep(12000); continue; }
         c.status = "error"; c.err = e.message; render(); return;
       }
     }
@@ -158,7 +159,7 @@
     } catch (e) {
       if (seq !== c.seq) return;
       if (e.code === 410 && !again) { await identify(c, true); return runSearch(c, true); }
-      if (e.code === 429 && !again) { await sleep(3000); return runSearch(c, true); }
+      if ((e.code === 429 || e.code === 503) && !again) { await sleep(3000); return runSearch(c, true); }
       c.err = e.message; c.searchKey = null;
     }
     status();

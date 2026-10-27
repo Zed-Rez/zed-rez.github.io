@@ -1,7 +1,8 @@
 // prep.js -- photo -> the 512 x 512 faces the model reads, in the browser (the server takes nothing else).
 // A port of coin-visualizer/app/src/autocrop.rs and preprocess.rs: find the coin(s) on a plain background (two coins =
 // a combined obverse + reverse photo), else the infer_v6 framing (aspect split / whole frame); square centre crop; then
-// Pillow's resize((512, 512), BILINEAR, reducing_gap=2.0), bit-exact (Image.reduce pre-shrink + fixed-point bilinear).
+// Pillow's resize((512, 512), BILINEAR, reducing_gap=2.0), bit-exact (Image.reduce pre-shrink + fixed-point bilinear);
+// sent as JPEG q92, the form the training faces were cached in (~80 KB vs ~400 KB as PNG: the server is on a home Wi-Fi).
 // Images are decoded without EXIF rotation or colour management, as Pillow's Image.open(...).convert("RGB") does.
 "use strict";
 (function (root) {
@@ -343,21 +344,21 @@
   }
 
   // ---- out ----------------------------------------------------------------------------------------------------------
-  function toPNG(face) {
+  function toJPEG(face) {
     const c = document.createElement("canvas"); c.width = face.w; c.height = face.h;
     const g = c.getContext("2d"), d = g.createImageData(face.w, face.h);
     for (let i = 0; i < face.w * face.h; i++) { d.data[i * 4] = face.px[i * 3]; d.data[i * 4 + 1] = face.px[i * 3 + 1]; d.data[i * 4 + 2] = face.px[i * 3 + 2]; d.data[i * 4 + 3] = 255; }
     g.putImageData(d, 0, 0);
-    return new Promise((ok, bad) => c.toBlob((b) => (b ? ok(b) : bad(new Error("could not encode a face"))), "image/png"));
+    return new Promise((ok, bad) => c.toBlob((b) => (b ? ok(b) : bad(new Error("could not encode a face"))), "image/jpeg", 0.92));
   }
 
-  // one photo -> its faces as 512 px PNG blobs
+  // one photo -> its faces as 512 px JPEG blobs
   async function photoFaces(file, auto) {
     const im = await decode(file);
     if (im.w < 64 || im.h < 64) throw new Error("photo too small");
     const { boxes, kind } = findFaces(im, auto);
     const faces = [];
-    for (const b of boxes) faces.push(await toPNG(crop512(im, b)));
+    for (const b of boxes) faces.push(await toJPEG(crop512(im, b)));
     return { faces, kind };
   }
 
