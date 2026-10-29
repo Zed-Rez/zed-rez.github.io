@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rezoin — Reza Ramji</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site.css">
+  <style>
+    .dl { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .4rem 1rem;
+          border-top: 1px solid rgba(0,0,0,.12); padding: .9rem 0; }
+    .dl:last-of-type { border-bottom: 1px solid rgba(0,0,0,.12); }
+    .dl h2 { margin: 0; }
+    .dl p { margin: .15rem 0 0; flex-basis: 100%; }
+    .btn { display: inline-block; min-height: 40px; padding: .45rem 1.1rem; border: 1.5px solid var(--accent); border-radius: 4px;
+           font-weight: 600; white-space: nowrap; }
+    .btn:hover { background: var(--accent); color: #fff; text-decoration: none; }
+    .btn.off { border-color: rgba(0,0,0,.2); color: var(--muted); pointer-events: none; }
+    .notes { white-space: pre-wrap; margin: .3rem 0 0; }
+    .cite { font-style: italic; }
+    ul.terms { padding-left: 1.2rem; margin: .3rem 0; }
+  </style>
+</head>
+<body>
+
+  <header class="site">
+    <div class="bar">
+      <a class="brand" href="/">Reza Ramji</a>
+    </div>
+  </header>
+
+  <h1>Rezoin</h1>
+  <p>Suggests Roman Imperial (RIC) and Roman Provincial (RPC) types for photographs of ancient coins. Research preview, for Mac and Windows.</p>
+
+  <p class="muted" id="version">Latest version: <a href="https://github.com/Zed-Rez/rezoin/releases/latest">see releases</a></p>
+
+  <div class="dl">
+    <h2>Rezoin Lite</h2>
+    <a class="btn" id="lite" href="https://github.com/Zed-Rez/rezoin/releases/latest">Download</a>
+    <p>Drag in a coin photo, the two photos of one coin, or a folder of coins. Reference photos load from OCRE and RPC online on a click. Mac and Windows in one zip, with test coins and a one-page guide.</p>
+  </div>
+  <div class="dl">
+    <h2>Rezoin Princeton</h2>
+    <a class="btn" id="princeton" href="https://github.com/Zed-Rez/rezoin/releases/latest">Download</a>
+    <p>The full edition: catalogue search, export to spreadsheet and labels, test coins and example outputs. Mac and Windows in one zip.
+    Its reference photos are separate downloads, below; without them it loads photos from OCRE and RPC online on a click, as Lite does.</p>
+  </div>
+
+  <h2>Reference photos for Rezoin Princeton</h2>
+  <p>One zip per catalogue volume: take only the volumes you need. Unzip each and move the folder it makes
+  (<i>Rezoin photos RIC IV</i>, …) anywhere into the Rezoin Princeton folder; Rezoin finds it the next time it opens.</p>
+  <p id="photos" class="muted">The volumes are listed on <a href="https://github.com/Zed-Rez/rezoin/releases">GitHub</a>.</p>
+
+  <h2>What’s new</h2>
+  <p class="notes" id="notes">Release notes are on <a href="https://github.com/Zed-Rez/rezoin/releases">GitHub</a>.</p>
+  <p class="muted"><a href="https://github.com/Zed-Rez/rezoin/releases">Earlier versions</a></p>
+
+  <h2>Opening it</h2>
+  <p><b>Mac:</b> unzip, then double-click the app. If macOS will not open it, Control-click it → Open, or System Settings → Privacy &amp; Security → Open Anyway.
+  <b>Windows:</b> unzip, then double-click the .exe in the Windows folder. At “Windows protected your PC”, click More info → Run anyway.</p>
+
+  <h2>Terms of use</h2>
+  <ul class="terms">
+    <li>Research use only.</li>
+    <li>Do not publish or monetize this software, its data or its model.</li>
+    <li>Matches are a model’s suggestions, not identifications: check every attribution against the catalogue.</li>
+    <li>Provided as is, without warranty of any kind.</li>
+  </ul>
+  <p>Until the accompanying paper is published, cite Rezoin as:</p>
+  <p class="cite">Ramji, Reza (ORCID 0009-0007-1469-0670). 2026. Rezoin: identification of Roman Imperial and Provincial coin types from photographs (research preview). Unpublished software, Princeton University. reza.ramji@gmail.com.</p>
+  <p>For corrections, please contact <a href="mailto:Rezoin@rezaramji.com">Rezoin@rezaramji.com</a>.</p>
+
+  <script>
+  // the buttons point at the newest app release (tag v…) and the photo list at the newest photo release (tag photos-…);
+  // without the API the links stay on the releases page
+  const gb = n => (n / 1e9 >= 1 ? (n / 1e9).toFixed(1) + " GB" : Math.round(n / 1e6) + " MB");
+  fetch("https://api.github.com/repos/Zed-Rez/rezoin/releases?per_page=30")
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(list => {
+      const photos = list.find(r => !r.draft && r.tag_name.startsWith("photos-"));
+      if (photos && photos.assets.length) {
+        const label = a => a.name.replace(/^Rezoin-photos-/, "").replace(/\.zip$/, "").replace(/-first-edition$/, " (first edition)").replace(/-/g, " ");
+        // in catalogue order: RIC before RPC, volumes by their Roman numeral (IX after VIII, not after IV)
+        const roman = s => [...s].reduce((n, c, i, a) => { const v = { I: 1, V: 5, X: 10 }[c], w = { I: 1, V: 5, X: 10 }[a[i + 1]] || 0; return n + (v < w ? -v : v); }, 0);
+        const key = a => { const m = label(a).match(/^(\S+) ([IVX]+)?(.*)$/) || []; return [m[1] || "", m[2] ? roman(m[2]) : 99, m[3] || ""]; };
+        const cmp = (a, b) => { const x = key(a), y = key(b); return x[0].localeCompare(y[0]) || x[1] - y[1] || x[2].localeCompare(y[2], "en", { numeric: true }); };
+        document.getElementById("photos").innerHTML = photos.assets.slice().sort(cmp)
+          .map(a => `<a href="${a.browser_download_url}">${label(a)}</a> (${gb(a.size)})`).join(" · ");
+        document.getElementById("photos").classList.remove("muted");
+      }
+      const rel = list.find(r => !r.draft && r.tag_name.startsWith("v"));
+      if (!rel) return;
+      const v = rel.tag_name.replace(/^v/, "");
+      const date = new Date(rel.published_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+      document.getElementById("version").innerHTML = `Latest version: <b>${v}</b>, ${date}`;
+      if (rel.body) document.getElementById("notes").textContent = rel.body.trim();
+      const find = re => rel.assets.filter(a => re.test(a.name));
+      for (const [id, re] of [["lite", /^Rezoin-Lite-.*\.zip$/], ["princeton", /^Rezoin-Princeton-.*\.zip$/]]) {
+        const a = find(re)[0], b = document.getElementById(id);
+        if (a) { b.href = a.browser_download_url; b.textContent = `Download (${gb(a.size)})`; }
+        else { b.classList.add("off"); b.textContent = "Not in this release"; }
+      }
+    })
+    .catch(() => {});
+  </script>
+</body>
+</html>
