@@ -65,13 +65,16 @@
     .then(r => r.ok ? r.json() : Promise.reject(r.status))
     .then(list => {
       const rel = list.find(r => !r.draft && r.tag_name.startsWith("v"));
+      // Rezoin then downloads the newest photo release by itself
+      const ph = list.find(r => !r.draft && r.tag_name.startsWith("photos-"));
+      const photos = ph ? ph.assets.reduce((n, a) => n + a.size, 0) : 0;
       if (!rel) return;
       const date = new Date(rel.published_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
       document.getElementById("version").innerHTML = `Latest version: <b>${rel.tag_name.replace(/^v/, "")}</b>, ${date}`;
       // Rezoin-<v>.zip (named Rezoin-Princeton-<v>.zip in the first release)
       for (const [id, re] of [["lite", /^Rezoin-Lite-.*\.zip$/], ["full", /^Rezoin-(Princeton-)?\d.*\.zip$/]]) {
         const a = rel.assets.find(x => re.test(x.name)), b = document.getElementById(id);
-        if (a) { b.href = a.browser_download_url; b.textContent = `Download (${gb(a.size)})`; }
+        if (a) { b.href = a.browser_download_url; b.textContent = `Download (${gb(a.size)}${id == "full" && photos ? ` + ${gb(photos)} of photos` : ""})`; }
         else { b.classList.add("off"); b.textContent = "Not in this release"; }
       }
     })
