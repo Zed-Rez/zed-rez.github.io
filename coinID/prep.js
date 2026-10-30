@@ -40,7 +40,7 @@
   }
   function tiff() {
     // UTIF.js reads TIFF (no browser but Safari does); pako inflates Deflate-compressed TIFFs. Loaded only when needed.
-    tiffLib = tiffLib || loadScript("https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako_inflate.min.js",
+    tiffLib = tiffLib || loadScript("https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako_inflate.min.js",
       "sha384-taEjHL+GUvC8IhXeCaTNUxz3O8ItsajGFLDFj4v/VJvM24HU36qP/6sRpuAGGfeT")
       .then(() => loadScript("https://cdn.jsdelivr.net/npm/utif@3.1.0/UTIF.js",
         "sha384-RyBmXHdfZ/Uon+ud+/AqSyWpUWnKYt2tkRG/P4gWoRUGDU+qIAV3tGBPNlYTBZEF"));
