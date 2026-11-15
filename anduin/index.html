@@ -11,14 +11,15 @@
   @font-face{font-family:'EB Garamond';font-style:normal;font-weight:400 600;font-display:swap;src:url(fonts/EBGaramond-latin.woff2) format('woff2');}
 
   :root{
-    --paper:#f8f6f1;
-    --ink:#1f1d1a;
-    --muted:#6f6a62;
+    --paper:#ffffff;
+    --ink:#1c1b19;
+    --muted:#6b6760;
     --faint:#a8a297;
-    --hair:rgba(31,29,26,0.16);
-    --hair-soft:rgba(31,29,26,0.08);
-    --teal:#2f6b6e;
-    --rust:#b0553a;
+    --hair:rgba(0,0,0,0.12);
+    --hair-soft:rgba(0,0,0,0.12);
+    --teal:#1c1b19; /* trust paths: the site's ink */
+    --rust:#7a2424; /* the attacker: the site's oxblood accent */
+    --accent:#7a2424;
     --font:'EB Garamond',Garamond,Georgia,serif;
     --maxw:1180px;
     --canvas-h:50svh;
@@ -31,8 +32,8 @@
     font-family:var(--font);font-size:19px;line-height:1.5;font-variant-numeric:tabular-nums;
     -webkit-font-smoothing:antialiased;overflow-x:hidden;
   }
-  a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--hair);text-underline-offset:0.18em;}
-  a:hover{text-decoration-color:var(--ink);}
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
   h1,h2,h3{font-weight:500;margin:0;}
   .shell{max-width:var(--maxw);margin:0 auto;padding:0 16px;}
 
@@ -50,7 +51,7 @@
   .hero .intro{margin:2.2em 0 0;max-width:56ch;text-wrap:pretty;}
   .hero .intro+.intro{margin-top:0.9em;}
   .hero .meta{margin:2.4em 0 0;font-size:0.95rem;color:var(--muted);max-width:56ch;}
-  .hero .meta a{color:var(--ink);}
+  .hero .meta a{color:var(--accent);}
   .hero .cue{margin:7vh 0 0;font-size:0.85rem;color:var(--faint);letter-spacing:0.12em;text-transform:uppercase;}
 
   /* ---------- scrolly ---------- */
@@ -147,8 +148,8 @@
 <header class="hero">
   <h1>Anduin</h1>
   <p class="dek">Rating providers for AI agents from the payments they already make</p>
-  <p class="intro">Software programs that act on their own, called AI agents, now buy services from one another: data, computation, another agent&rsquo;s work. They pay for each request as it happens, often a cent at a time, in digital dollars called stablecoins, sent over onchain payment rails such as <a href="https://www.x402.org/">x402</a> and recorded on public ledgers called blockchains. Anyone can list a service in a marketplace such as <a href="https://docs.cdp.coinbase.com/x402/bazaar">x402 Bazaar</a>, so an agent choosing a new provider cannot tell a good one from a fraud.</p>
-  <p class="intro">Every proposed fix adds a burden to the market: a gatekeeper who approves providers, identity papers, a paid referee who checks each purchase for more than the purchase costs, or reviews that nobody writes. Anduin adds none of these. It rates providers using nothing but the payments already on the ledger, and it makes a rating cost real money to fake. This page walks through the idea and the paper&rsquo;s results.</p>
+  <p class="intro">AI agents are programs that act on their own. They now buy services from each other, like data or computing. They pay a few cents at a time in stablecoins (digital dollars) over <a href="https://www.x402.org/">x402</a>, and every payment is recorded on a public blockchain. Anyone can sell on marketplaces like <a href="https://docs.cdp.coinbase.com/x402/bazaar">x402 Bazaar</a>, so a buyer can&rsquo;t tell a good provider from a fraud.</p>
+  <p class="intro">Most fixes add a gatekeeper, an ID check, or reviews that nobody writes. Anduin adds nothing. It rates providers using only the payments already on the blockchain, and faking a good rating costs real money.</p>
   <p class="meta" id="paper"><a href="#paper">Paper under review</a> &middot; 66 million real payments by AI agents across 16 blockchains</p>
   <p class="cue">Scroll</p>
 </header>
@@ -339,7 +340,7 @@ steps.forEach(function(st){ st.setAttribute("data-aria",st.getAttribute("aria-la
 function applyAria(m){ steps.forEach(function(st){ var a=(m&&st.getAttribute("data-aria-mobile"))||st.getAttribute("data-aria"); st.setAttribute("aria-label",a); }); }
 
 /* ---------------- colours ---------------- */
-var C={ink:[31,29,26], muted:[111,106,98], grey:[185,179,168], teal:[47,107,110], rust:[176,85,58], paper:[248,246,241], hair:[205,201,193]};
+var C={ink:[28,27,25], muted:[107,103,96], grey:[185,182,176], teal:[28,27,25], rust:[122,36,36], paper:[255,255,255], hair:[224,224,224]};
 function rgb(c){return "rgb("+Math.round(c[0])+","+Math.round(c[1])+","+Math.round(c[2])+")";}
 function mixc(a,b,t){return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t];}
 function lerp(a,b,t){return a+(b-a)*t;}
