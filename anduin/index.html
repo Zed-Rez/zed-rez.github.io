@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://rezaramji.com/anduin/">
+<title>Anduin</title>
+<meta name="description" content="Anduin rates providers for AI agents using only the payments already recorded on public blockchains, and makes a rating cost real money to fake. A walk through the paper.">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<style>
+  @font-face{font-family:'EB Garamond';font-style:normal;font-weight:400 600;font-display:swap;src:url(fonts/EBGaramond-latin.woff2) format('woff2');}
+
+  :root{
+    --paper:#f8f6f1;
+    --ink:#1f1d1a;
+    --muted:#6f6a62;
+    --faint:#a8a297;
+    --hair:rgba(31,29,26,0.16);
+    --hair-soft:rgba(31,29,26,0.08);
+    --teal:#2f6b6e;
+    --rust:#b0553a;
+    --font:'EB Garamond',Garamond,Georgia,serif;
+    --maxw:1180px;
+    --canvas-h:50svh;
+    --bar:44px;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+  body{
+    margin:0;padding-top:var(--bar);background:var(--paper);color:var(--ink);
+    font-family:var(--font);font-size:19px;line-height:1.5;font-variant-numeric:tabular-nums;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--hair);text-underline-offset:0.18em;}
+  a:hover{text-decoration-color:var(--ink);}
+  h1,h2,h3{font-weight:500;margin:0;}
+  .shell{max-width:var(--maxw);margin:0 auto;padding:0 16px;}
+
+  /* ---------- persistent bar ---------- */
+  nav.bar{position:fixed;top:0;left:0;right:0;height:var(--bar);z-index:5;background:var(--paper);border-bottom:1px solid var(--hair-soft);}
+  nav.bar .shell{height:100%;display:flex;justify-content:space-between;align-items:center;font-size:0.95rem;}
+  nav.bar a{text-decoration:none;color:var(--muted);}
+  nav.bar a:hover{color:var(--ink);}
+  nav.bar a.name{color:var(--ink);letter-spacing:0.04em;}
+
+  /* ---------- hero ---------- */
+  header.hero{padding:12vh 0 8vh;max-width:640px;min-height:calc(100svh - var(--bar));}
+  .hero h1{font-size:clamp(2.6rem,6vw,4.4rem);line-height:1;letter-spacing:-0.01em;}
+  .hero .dek{font-size:clamp(1.25rem,2.2vw,1.6rem);color:var(--muted);margin:0.6em 0 0;max-width:30ch;line-height:1.3;text-wrap:pretty;}
+  .hero .intro{margin:2.2em 0 0;max-width:56ch;text-wrap:pretty;}
+  .hero .intro+.intro{margin-top:0.9em;}
+  .hero .meta{margin:2.4em 0 0;font-size:0.95rem;color:var(--muted);max-width:56ch;}
+  .hero .meta a{color:var(--ink);}
+  .hero .cue{margin:7vh 0 0;font-size:0.85rem;color:var(--faint);letter-spacing:0.12em;text-transform:uppercase;}
+
+  /* ---------- scrolly ---------- */
+  .scrolly{position:relative;display:grid;grid-template-columns:minmax(300px,5fr) minmax(0,7fr);column-gap:32px;align-items:start;}
+  .track{display:contents;}
+  .stage{grid-column:2;grid-row:1 / span 3;position:sticky;top:var(--bar);height:calc(100vh - var(--bar));height:calc(100svh - var(--bar));display:flex;align-items:center;justify-content:center;}
+  .stage svg{display:block;width:100%;height:100%;overflow:hidden;}
+  .steps{grid-column:1;grid-row:1;padding:30vh 0 0;}
+  .step.close{grid-column:1;grid-row:2;}
+  .scrolly footer{grid-column:1;grid-row:3;}
+  section.part{margin:0;}
+  section.part h2{
+    font-size:0.85rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);
+    font-weight:500;margin:0 0 -18vh;padding-top:8vh;transition:color .35s ease;
+  }
+  section.part h2.under{color:transparent;}
+  .step{min-height:84vh;display:flex;align-items:center;}
+  .step>div{max-width:38ch;}
+  .step p{margin:0;font-size:clamp(1.15rem,1.6vw,1.38rem);line-height:1.38;color:var(--faint);transition:color .35s ease;text-wrap:pretty;}
+  .step p+p{margin-top:0.55em;}
+  .step p a{color:inherit;}
+  .step.on p{color:var(--ink);}
+  .step.on.under p{color:var(--faint);}
+  .nb{white-space:nowrap;}
+
+  /* ---------- closing ---------- */
+  .step.close>div{max-width:640px;}
+  .close h2{font-size:0.85rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:0 0 1.2em;}
+  .close p{font-size:clamp(1.2rem,1.8vw,1.5rem);line-height:1.32;margin:0 0 0.8em;max-width:32ch;text-wrap:pretty;}
+  .close p.small,.step.on p.small{font-size:1rem;color:var(--muted);max-width:52ch;margin-top:2em;line-height:1.45;text-wrap:pretty;}
+  footer{border-top:1px solid var(--hair);padding:2em 0 5em;font-size:0.95rem;color:var(--muted);max-width:640px;line-height:1.45;}
+  footer p{margin:0 0 0.5em;}
+
+  /* ---------- noscript ---------- */
+  .nojs{max-width:640px;padding:4vh 0;}
+  .nojs table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:0.95rem;}
+  .nojs th,.nojs td{text-align:left;padding:0.35em 0.5em 0.35em 0;border-bottom:1px solid var(--hair-soft);vertical-align:top;}
+  .nojs th{font-weight:500;color:var(--muted);}
+  .nojs td.a{font-weight:600;}
+
+  /* ---------- svg text ---------- */
+  svg text{font-family:var(--font);font-variant-numeric:tabular-nums;pointer-events:none;}
+  .lb{font-size:15px;fill:var(--muted);paint-order:stroke;stroke:var(--paper);stroke-width:3px;stroke-linejoin:round;}
+  .lb.ink{fill:var(--ink);}
+  .lb.teal{fill:var(--teal);}
+  .lb.rust{fill:var(--rust);}
+  .lb.faint{fill:var(--faint);}
+  .lb.bold{font-weight:600;}
+  .lb.big{font-size:20px;fill:var(--ink);}
+  .lb.big.rust{fill:var(--rust);}
+  .lb.big.teal{fill:var(--teal);}
+  .lb.num{font-size:14px;fill:var(--ink);}
+  .lb.num.rust{fill:var(--rust);}
+  .lb.num.teal{fill:var(--teal);}
+  .lb.tick{font-size:13px;fill:var(--muted);}
+  .lb.hdr{font-size:13px;fill:var(--muted);letter-spacing:0.12em;text-transform:uppercase;}
+  .lb.hdr.ink{fill:var(--ink);}
+  .lb.title{font-size:16px;fill:var(--ink);}
+
+  /* ---------- mobile ---------- */
+  @media (max-width:820px){
+    :root{--bar:0px;}
+    body{font-size:17px;padding-top:0;}
+    nav.bar{display:none;}
+    header.hero{padding:8vh 0 5vh;min-height:0;}
+    .hero .intro{margin-top:1.6em;}
+    .hero .meta{margin-top:1.6em;}
+    .scrolly{display:block;}
+    .track{display:block;} /* the canvas stays put through the captions and scrolls up with the closing */
+    .stage{position:sticky;top:0;height:var(--canvas-h);z-index:2;background:var(--paper);
+      margin:0 -16px;padding:0 10px;width:auto;}
+    .steps{padding:8vh 0 4vh;}
+    section.part h2{margin:0 0 14px;padding-top:0;}
+    .step{min-height:46vh;align-items:flex-start;padding-right:8px;}
+    .step>div{max-width:none;}
+    .step p{font-size:1.08rem;line-height:1.36;}
+    .step.close{min-height:0;align-items:flex-start;padding:14px 8px 10px 0;}
+    .close h2{margin-bottom:0.9em;}
+    .close p{max-width:none;margin-bottom:0.5em;font-size:1.15rem;}
+    .close p.small,.step.on p.small{margin-top:0.7em;font-size:0.95rem;line-height:1.4;}
+    footer{padding:0.8em 0 1em;}
+    .lb{font-size:13px;} .lb.big{font-size:17px;} .lb.num{font-size:13px;} .lb.tick{font-size:12px;} .lb.hdr{font-size:11px;} .lb.title{font-size:14px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .step p{transition:none;}
+  }
+</style>
+</head>
+<body>
+<nav class="bar" aria-label="Site"><div class="shell"><span><a href="/#writing" aria-label="Back to rezaramji.com writing">&larr;</a>&ensp;<a class="name" href="#top">Anduin</a></span><a href="#paper">Paper</a></div></nav>
+<div class="shell" id="top">
+
+<header class="hero">
+  <h1>Anduin</h1>
+  <p class="dek">Rating providers for AI agents from the payments they already make</p>
+  <p class="intro">Software programs that act on their own, called AI agents, now buy services from one another: data, computation, another agent&rsquo;s work. They pay for each request as it happens, often a cent at a time, in digital dollars called stablecoins, sent over onchain payment rails such as <a href="https://www.x402.org/">x402</a> and recorded on public ledgers called blockchains. Anyone can list a service in a marketplace such as <a href="https://docs.cdp.coinbase.com/x402/bazaar">x402 Bazaar</a>, so an agent choosing a new provider cannot tell a good one from a fraud.</p>
+  <p class="intro">Every proposed fix adds a burden to the market: a gatekeeper who approves providers, identity papers, a paid referee who checks each purchase for more than the purchase costs, or reviews that nobody writes. Anduin adds none of these. It rates providers using nothing but the payments already on the ledger, and it makes a rating cost real money to fake. This page walks through the idea and the paper&rsquo;s results.</p>
+  <p class="meta" id="paper"><a href="#paper">Paper under review</a> &middot; 66 million real payments by AI agents across 16 blockchains</p>
+  <p class="cue">Scroll</p>
+</header>
+
+<noscript>
+<style>.stage{display:none;}.scrolly{display:block;}.steps{padding:0;}header.hero{min-height:0;padding:6vh 0 3vh;}.hero .cue{display:none;}.nojs{margin:0 0 2.5em;}.step{min-height:0;padding:0.5em 0;}.step p{color:var(--ink);}section.part h2{margin:1.6em 0 0.4em;padding:0;}</style>
+<div class="nojs">
+  <p>Without scripts there is no picture; its captions and the final numbers follow.</p>
+</div>
+</noscript>
+<div class="scrolly" id="scrolly">
+  <div class="track">
+  <div class="stage" id="stage">
+    <svg id="svg" role="img" aria-label="Loose dots drift: a marketplace of buyers and providers." xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+  <div class="steps" id="steps">
+
+    <section class="part" aria-label="Part one: the market">
+      <h2>The market</h2>
+      <div class="step" data-k="0" role="group" aria-label="Loose dots drift: a marketplace of buyers and providers."><div>
+        <p>AI agents buy services from providers and pay per request: a few cents in stablecoins, settled on a blockchain. Anyone can sell, and anyone can buy.</p>
+      </div></div>
+      <div class="step" data-k="1" role="group" aria-label="One dot moves to the centre and darkens: the buyer."><div>
+        <p>One agent, the buyer, needs a service it has never bought. It faces a list of strangers, with no brands, no reviews and no one to complain to. Which stranger can it trust?</p>
+      </div></div>
+      <div class="step" data-k="2" role="group" aria-label="Lines appear between the dots: every payment on the ledger, each line one buyer's payments to one provider."><div>
+        <p>What the market does have is its ledger. A payment on a blockchain is public and permanent by nature, so anyone can see every payment ever made: who paid whom, and how much.</p>
+        <p>Each line here is one buyer&rsquo;s payments to one provider. That record is all Anduin reads.</p>
+      </div></div>
+    </section>
+
+    <section class="part" aria-label="Part two: drawing the market">
+      <h2>Drawing the market</h2>
+      <div class="step" data-k="3" role="group" aria-label="The dots sort into two columns, buyers on the left and providers on the right, and every line crosses between them."><div>
+        <p>Buyers pay providers, never each other, and providers never pay providers. So think of the participants as nodes and the payments as edges between them: buyers in one column, providers in the other, every edge crossing between. The paper calls this a bipartite graph.</p>
+      </div></div>
+      <div class="step" data-k="4" role="group" aria-label="The lines take on width: thicker lines carry more dollars, and a few carry their totals in bold."><div>
+        <p>Each edge adds up one buyer&rsquo;s payments to one provider over the last 90 days, fees included: its weight. Thicker edges carry more dollars.</p>
+        <p>This graph is the whole input. A rating is any rule that reads it and scores a provider for one buyer.</p>
+      </div></div>
+    </section>
+
+    <section class="part" aria-label="Part three: scoring a stranger">
+      <h2>Scoring a stranger</h2>
+      <div class="step" data-k="5" role="group" aria-label="The buyer's two edges, $4 and $2, are highlighted with the two providers they reach: its known providers."><div>
+        <p>Take the buyer. Over many small payments it has paid two providers $4 and $2 in total: its known providers.</p>
+      </div></div>
+      <div class="step" data-k="6" role="group" aria-label="Two other buyers of the first known provider are highlighted, paying it $8 and $1: shared customers, which the paper calls co-users."><div>
+        <p>Two other buyers pay the first known provider too, $8 and $1. The paper calls them co-users; here, shared customers.</p>
+      </div></div>
+      <div class="step" data-k="7" role="group" aria-label="The shared customers' edges to one more provider are highlighted, $8 and $1: the candidate. The rest of the market fades away, leaving the buyer, its two known providers, the two shared customers and the candidate."><div>
+        <p>The shared customers also pay a provider the buyer never has: the candidate. $8 from one, $1 from the other.</p>
+        <p>The rest of the market plays no part in this buyer&rsquo;s rating, so it fades.</p>
+      </div></div>
+      <div class="step" data-k="8" role="group" aria-label="A path draws itself from the buyer through the first known provider and the first shared customer to the candidate."><div>
+        <p>A buyer that pays the same provider as you probably needs the same things, so where it spends next is evidence. Trust runs along a path: buyer, known provider, shared customer, candidate.</p>
+      </div></div>
+      <div class="step" data-k="9" role="group" aria-label="Both paths to the candidate are lit; the thinnest edge on each is ringed, $4 on the first and $1 on the second."><div>
+        <p>A path carries no more trust than its thinnest edge. Through the first shared customer, the path carries $4. Through the second, $1.</p>
+      </div></div>
+    </section>
+
+    <section class="part" aria-label="Part four: the attack">
+      <h2>The attack</h2>
+      <div class="step" data-k="10" role="group" aria-label="A new provider appears in the provider column, the attacker, and three fake buyers appear in the buyer column below the real ones."><div>
+        <p>One provider wants to be every buyer&rsquo;s first pick: the attacker. Joining the market is free, so it creates fake buyers under its own control.</p>
+        <p>One party posing as many is the <a href="https://www.freehaven.net/anonbib/cache/sybil.pdf">Sybil attack</a>, named in 2002 for the file-sharing networks of the early internet.</p>
+      </div></div>
+      <div class="step" data-k="11" role="group" aria-label="A dashed edge from a fake to the attacker is marked fee only; a solid edge from a fake to a real provider is marked real money."><div>
+        <p>A payment from a fake to the attacker costs only the network fee, about two cents, because the money comes straight back. A payment to a real provider is gone for good.</p>
+        <p>That difference is the whole defence.</p>
+      </div></div>
+      <div class="step" data-k="12" role="group" aria-label="Three small pictures side by side, one per simple rating; the first, usage ranking, is dark: three fakes pay the attacker itself with dashed edges. Price: one fee per fake."><div>
+        <p>Three simple ratings, and how each one falls.</p>
+        <p>Usage ranking counts a provider&rsquo;s buyers, as marketplaces do today. The fakes pay the attacker itself, so any number of buyers costs one fee each.</p>
+      </div></div>
+      <div class="step" data-k="13" role="group" aria-label="The second picture, co-user count, is dark: the buyer pays a known provider; two fakes pay that provider a cent each and pay the attacker with dashed edges. Price: two fees per fake."><div>
+        <p>Co-user count counts the candidate&rsquo;s shared customers, the rule behind &ldquo;customers who bought this also bought&rdquo;, known as collaborative filtering. Each fake pays a known provider one cent to qualify as a shared customer, then pays the attacker. Two fees per fake.</p>
+      </div></div>
+      <div class="step" data-k="14" role="group" aria-label="The third picture, co-user volume, is dark: one fake pays a known provider a cent and pays the attacker a very thick dashed edge. Price: a couple of fees."><div>
+        <p>Co-user volume adds up what the shared customers spend at the candidate. One fake pays a known provider a cent, then pays the attacker a fortune of the attacker&rsquo;s own money. A couple of fees.</p>
+      </div></div>
+      <div class="step" data-k="15" role="group" aria-label="All three pictures are dark, each with its price beneath: one fee per fake, two fees per fake, a couple of fees."><div>
+        <p>All three take the attacker&rsquo;s fabricated edges at face value. Each falls for transaction fees alone.</p>
+      </div></div>
+    </section>
+
+    <section class="part" aria-label="Part five: Anduin">
+      <h2>Anduin</h2>
+      <div class="step" data-k="16" role="group" aria-label="Back to the buyer's picture. Three fakes pay the first known provider one cent each and pay the attacker thick dashed edges; the one-cent edges are ringed and the attacker's score reads three cents."><div>
+        <p>Anduin&rsquo;s rule: trust reaches a candidate only along paths that start at the buyer&rsquo;s own payments, and a path carries no more than its thinnest edge.</p>
+        <p>A fake that paid a known provider one cent carries one cent, however much it pays the attacker. The attacker scores three cents.</p>
+      </div></div>
+      <div class="step" data-k="17" role="group" aria-label="The three fakes become six, each paying half a cent; the attacker's score is still three cents."><div>
+        <p>Splitting the same money across more fakes buys nothing. Six fakes at half a cent each still carry three cents.</p>
+      </div></div>
+      <div class="step" data-k="18" role="group" aria-label="The fakes and attacker fade; the $4 edge is ringed and the candidate's score reads $4."><div>
+        <p>Now make the rule exact. Treat trust as a quantity that flows, so the buyer&rsquo;s $4 edge cannot be used twice: both paths share it, and the candidate scores $4. However rich the attacker, no candidate can score more than the buyer itself has spent.</p>
+        <p>The paper calls this maximum flow. A 2011 system called <a href="https://www.usenix.org/conference/nsdi11/bazaar-strengthening-user-reputations-online-marketplaces">Bazaar</a> first used it against fake accounts in online marketplaces.</p>
+      </div></div>
+      <div class="step" data-k="19" role="group" aria-label="The buyer splits into two copies, one per shared customer, each with its own $4 edge; the candidate's score reads $4 plus $1, $5."><div>
+        <p>Two independent shared customers are two pieces of evidence, not one shared. Give each its own copy of the buyer&rsquo;s edge and add the paths: $4 + $1 = $5. The paper calls this summation flow.</p>
+      </div></div>
+      <div class="step" data-k="20" role="group" aria-label="The copies merge; the buyer's edge doubles to 2 times $4 and the thick path carries all of it; the candidate's score reads $8."><div>
+        <p>The second customer&rsquo;s copy is mostly wasted, while the first could carry $8. Pool the copies into one edge worth 2&nbsp;&times;&nbsp;$4 and let the strongest path draw on it: the candidate scores $8. The paper calls this amplified flow.</p>
+      </div></div>
+      <div class="step" data-k="21" role="group" aria-label="The whole picture returns with three scores beside each provider, under maximum, summation and amplified flow: the candidate $4, $5 and $8; the attacker three cents under all three."><div>
+        <p>Side by side: the candidate scores $4, $5 and $8 under maximum, summation and amplified flow. The attacker scores three cents under all three, the cents its fakes gave to real providers.</p>
+        <p>The paper proves it: however many fakes it creates, a score never exceeds the money the attacker gave away.</p>
+      </div></div>
+    </section>
+
+    <section class="part" aria-label="Part six: results">
+      <h2>Results</h2>
+      <div class="step" data-k="22" role="group" aria-label="The dots gather into a dense block: the data, 66 million payments worth $6.1 million over 157 days across 16 blockchains; 813 buyers later paid a provider they never had before."><div>
+        <p>The test: 157 days of real payments by AI agents through x402, the most used way for agents to pay for web requests. 66 million payments, worth $6.1 million, across 16 blockchains.</p>
+        <p>Each rating read 90 days of history. Then 813 buyers each paid a provider they never had before. Was that provider the rating&rsquo;s first pick?</p>
+      </div></div>
+      <div class="step" data-k="23" role="group" aria-label="A chart titled utility: was the first pick right, in percent of 813 buyers. Simple ratings: usage ranking 3.7%, co-user count 23.2%, co-user volume 12.1%. Anduin: maximum flow 4.8%, summation flow 20.0%, amplified flow 22.8%."><div>
+        <p>The paper calls this utility and measures it as precision at 1, written P@1: the share of the 813 buyers whose first pick was right.</p>
+        <p>Co-user count, the standard recommendation rule, gets 23.2%. Amplified flow gets 22.8%. Usage ranking, today&rsquo;s marketplace rule, gets 3.7%. Maximum flow ties so often that it rarely names a single first pick.</p>
+      </div></div>
+      <div class="step" data-k="24" role="group" aria-label="A second chart titled attack cost: price of becoming first pick, in dollars for all 813 buyers. Simple ratings: usage ranking $217,539, its bar cut short; co-user count $358; co-user volume $0.02. Anduin: maximum flow $4,673; summation flow $4,330; amplified flow $8,259."><div>
+        <p>The paper calls the second measure attack cost: what an attacker pays to be first pick for all 813 buyers, who spent $41,331 between them. Co-user volume: two cents. Co-user count: $358. Amplified flow: $8,259, a fifth of everything those buyers spent and 23 times the standard rule&rsquo;s price.</p>
+      </div></div>
+      <div class="step" data-k="25" role="group" aria-label="Only the usage-ranking row of the attack-cost chart stays dark: its $217,539 is 12.8 million fees, one per fake buyer, the number needed to out-count the busiest real providers."><div>
+        <p>Usage ranking looks expensive at $217,539, but that is 12.8 million fees at two cents each, the fakes needed to out-count the busiest real providers. On a cheaper chain the price falls with the fee, and the rating is right for 3.7% of buyers.</p>
+      </div></div>
+      <div class="step" data-k="26" role="group" aria-label="A scatter chart with both measures: across, attack cost, each step ten times more; up, utility as P@1. The axes cross at $1,240 and 15%, so the top right holds only Anduin's summation and amplified flow."><div>
+        <p>Both measures at once, as the paper draws them. A rating belongs in the top right: useful, and costly to fake. Anduin&rsquo;s summation and amplified flow are the only two there.</p>
+      </div></div>
+    </section>
+  </div>
+  </div>
+<noscript>
+<div class="nojs">
+  <table>
+    <caption style="text-align:left;color:var(--muted);margin-bottom:0.6em;">66 million payments worth $6.1 million over 157 days across 16 blockchains; 813 buyers later paid a provider they never had before. Anduin&rsquo;s three ratings are in bold.</caption>
+    <thead><tr><th>Rating</th><th>Utility: first pick was right, percent of buyers (P@1)</th><th>Attack cost: price of becoming first pick for all 813 buyers, dollars</th></tr></thead>
+    <tbody>
+      <tr><td>Usage ranking</td><td>3.7%</td><td>$217,539</td></tr>
+      <tr><td>Co-user count</td><td>23.2%</td><td>$358</td></tr>
+      <tr><td>Co-user volume</td><td>12.1%</td><td>$0.02</td></tr>
+      <tr><td class="a">Maximum flow</td><td>4.8%</td><td>$4,673</td></tr>
+      <tr><td class="a">Summation flow</td><td>20.0%</td><td>$4,330</td></tr>
+      <tr><td class="a">Amplified flow</td><td>22.8%</td><td>$8,259</td></tr>
+    </tbody>
+  </table>
+</div>
+</noscript>
+    <section class="step close" data-k="27" role="group" aria-label="The dots return to the buyer's picture with both paths lit.">
+      <div>
+        <h2>What the paper shows</h2>
+        <p>Payments already on the ledger can rate providers. Nothing about the market has to change.</p>
+        <p>A fake buyer earns trust only by paying providers the buyer already pays, so every point of rating costs real money.</p>
+        <p>Under amplified flow, becoming every buyer&rsquo;s first pick costs a fifth of what those buyers spent, 23 times the price under the standard recommendation rule.</p>
+        <p class="small">Data: 66,073,201 x402 payments across 16 blockchains, March 23 to August 26, 2026. Ratings used the 90 days before June 21, 2026; the 813 buyers chose in the 30 days after. Chart values include each payment&rsquo;s fee.</p>
+      </div>
+    </section>
+
+<footer id="references">
+  <p>Named on this page: <a href="https://www.x402.org/">x402</a>, the payment protocol the data comes from; <a href="https://docs.cdp.coinbase.com/x402/bazaar">x402 Bazaar</a>, its marketplace; <a href="https://www.freehaven.net/anonbib/cache/sybil.pdf">The Sybil Attack</a> (Douceur, 2002); <a href="https://www.usenix.org/conference/nsdi11/bazaar-strengthening-user-reputations-online-marketplaces">Bazaar: Strengthening User Reputations in Online Marketplaces</a> (Post, Shah and Mislove, 2011).</p>
+  <p id="paper-note">The paper is under review. Its link at the <a href="#paper">top of this page</a> will point to it once it is public.</p>
+  <p><a href="/#writing">&larr; back to writing</a></p>
+</footer>
+</div>
+
+
+</div>
+
+<script>
+/* Paper link. Set this to the paper's URL (arXiv or venue page) and every "Paper" link on the page,
+   including "Paper under review" at the top, will point there and the "under review" wording will change. */
+var PAPER_URL = "https://arxiv.org/abs/2611.05586";
+(function(){
+"use strict";
+if (PAPER_URL) {
+  Array.prototype.slice.call(document.querySelectorAll('a[href="#paper"]')).forEach(function(a){ a.setAttribute("href", PAPER_URL); });
+  var m = document.querySelector(".hero .meta a"); if (m) m.textContent = "Read the paper";
+  var f = document.getElementById("paper-note"); if (f) f.textContent = "";
+}
+var NS="http://www.w3.org/2000/svg";
+var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var svg=document.getElementById("svg"), stageEl=document.getElementById("stage");
+var steps=Array.prototype.slice.call(document.querySelectorAll(".step"));
+var heads=Array.prototype.slice.call(document.querySelectorAll("section.part h2"));
+steps.forEach(function(st){ st.setAttribute("data-aria",st.getAttribute("aria-label")); });
+function applyAria(m){ steps.forEach(function(st){ var a=(m&&st.getAttribute("data-aria-mobile"))||st.getAttribute("data-aria"); st.setAttribute("aria-label",a); }); }
+
+/* ---------------- colours ---------------- */
+var C={ink:[31,29,26], muted:[111,106,98], grey:[185,179,168], teal:[47,107,110], rust:[176,85,58], paper:[248,246,241], hair:[205,201,193]};
+function rgb(c){return "rgb("+Math.round(c[0])+","+Math.round(c[1])+","+Math.round(c[2])+")";}
+function mixc(a,b,t){return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t];}
+function lerp(a,b,t){return a+(b-a)*t;}
+function clamp(v,a,b){return v<a?a:(v>b?b:v);}
+function ease(t){return 0.5-0.5*Math.cos(Math.PI*t);}
+function rand(seed){var s=seed;return function(){s=(s*1664525+1013904223)%4294967296;return s/4294967296;};}
+
+/* ---------------- population ---------------- */
+var DOTS=[];
+function D(id){DOTS.push({id:id});}
+["b","c1","c2"].forEach(D);
+for(var i=1;i<=12;i++) D("o"+i);
+["p1","p2","q1","att"].forEach(D);
+for(var j=1;j<=10;j++) D("r"+j);
+for(var k=1;k<=6;k++) D("f"+k);
+D("b2");
+var IDX={}; DOTS.forEach(function(d,i){IDX[d.id]=i;});
+
+var EDGES=[];
+function E(a,b,tag){EDGES.push({a:a,b:b,id:a+"-"+b,tag:tag||""});}
+// the buyer's neighbourhood, the paper's own example, with the dollars each edge carries
+var W={"b-p1":4,"b-p2":2,"c1-p1":8,"c2-p1":1,"c1-q1":8,"c2-q1":1};
+Object.keys(W).forEach(function(id){ var p=id.split("-"); E(p[0],p[1]); });
+// the rest of the market; no background buyer pays a known provider, or it would be a shared customer
+var BG=[["o1","r1"],["o1","r2"],["o2","r2"],["o2","q1"],["o3","r3"],["o3","r4"],["o4","r3"],["o4","att"],["o5","r5"],["o5","r9"],["o6","r4"],["o6","r6"],["o7","r5"],["o7","r7"],["o8","r6"],["o8","r8"],["o9","r7"],["o9","att"],["o10","r8"],["o10","r1"],["o2","r5"],["o6","r8"],["o9","r2"],["o4","r6"],["o7","q1"],["o3","r7"],["o11","r9"],["o11","r10"],["o12","r10"],["o12","r3"],["o5","r10"],["o11","r6"]];
+BG.forEach(function(e){E(e[0],e[1],"bg");});
+for(var f=1;f<=6;f++){E("f"+f,"att","fake"); E("f"+f,"p1","fake");}
+E("b2","p1","copy");
+// the three small pictures of the simple ratings borrow spare dots
+[["f4","r1"],["f5","r1"],["f4","r2"],["f5","r2"],["o2","r3"],["f6","r3"],["f6","r4"]].forEach(function(e){E(e[0],e[1],"pan");});
+var EIDX={}; EDGES.forEach(function(e,i){EIDX[e.id]=i;});
+function eid(a,b){ return EIDX[a+"-"+b]!=null?a+"-"+b:b+"-"+a; }
+
+var PATHS=[["b","p1","c1","q1"],["b","p1","c2","q1"]];
+
+var LABELS=["buyer","buyer2","known","known2","sh1","sh2","cand","att","fakes","total","hdrB","hdrP",
+  "n1","n2","n3","n4","n5","n6","n11","score","scoreAtt","cols","fee1","fee2",
+  "t1","t2","t3","pn1","pn2","pn3","pl1","pl2","pl3","pl4","pl5","pl6","pl7","pl8",
+  "chartT1","chartT2","axis1","axis2","grpA","grpB","grpA2","grpB2","m1","m2","m3","m4","m5","m6","v1","v2","v3","v4","v5","v6","w1","w2","w3","w4","w5","w6",
+  "data","cap","sx1","sx2","sy1","sy2","sxT","syT","sq1","sq2","s1","s2","s3","s4","s5","s6"];
+var STEMS=[]; for(var s=0;s<14;s++) STEMS.push({id:"st"+s}); // twelve bars and the two axes of the scatter
+
+/* ---------------- keyframes ---------------- */
+function blank(){
+  var st={dots:{},edges:{},labels:{},stems:{},drift:0,route:[0,0],rings:[]};
+  DOTS.forEach(function(d){st.dots[d.id]={x:0.5,y:0.5,r:5,o:0,col:C.grey};});
+  EDGES.forEach(function(e){st.edges[e.id]={o:0,w:1,col:C.hair,dash:0};});
+  LABELS.forEach(function(l){st.labels[l]={x:0,y:0,o:0,t:"",cls:"lb",anc:"middle"};});
+  STEMS.forEach(function(s){st.stems[s.id]={x:0,y:0,len:0,o:0,brk:0};});
+  return st;
+}
+function copy(st){return JSON.parse(JSON.stringify(st));}
+
+var BX=0.24, PX=0.76;
+var rowsB=["o1","c1","o2","c2","o3","b","o4","o5","o6","o7","o8","o9","o10","o11","o12"];
+var rowsP=["r1","q1","r2","p1","r3","p2","r4","r9","r5","att","r6","r7","r8","r10"];
+function colY(i,n){return 0.09+0.83*(i/(n-1));}
+var BY={}, PY={};
+rowsB.forEach(function(id,i){BY[id]=colY(i,rowsB.length);});
+rowsP.forEach(function(id,i){PY[id]=colY(i,rowsP.length);});
+// the buyer's neighbourhood once the market has faded: the shape of the paper's figure
+var FY={c1:0.12,c2:0.30,b:0.48, q1:0.12,p1:0.30,p2:0.48,att:0.82};
+var F3=[0.68,0.79,0.90], F6=[0.64,0.70,0.76,0.82,0.88,0.94];
+function wpx(v){return 1+Math.sqrt(v)*1.35;}
+function midLabel(st,name,a,b,text,cls,off,frac){
+  var A=st.dots[a],B=st.dots[b],f=(frac==null)?0.5:frac, d=(off==null)?-12:off;
+  var ex=(B.x-A.x)*(Wpx-2*PAD), ey=(B.y-A.y)*(Hpx-2*PAD), L=Math.sqrt(ex*ex+ey*ey)||1;
+  var nx=-ey/L, ny=ex/L; if(ny>0){nx=-nx;ny=-ny;} // the normal that points up the page
+  var k=d<0?-d:d, sg=d<0?1:-1;               // negative: above the line; positive: below
+  st.labels[name]={x:A.x+(B.x-A.x)*f,y:A.y+(B.y-A.y)*f,dx:sg*nx*k,dy:sg*ny*k+5,o:1,t:text,cls:cls||"lb num bold",anc:"middle"};
+}
+function clearRing(st,spec){ // hides any background line that would pass inside the ring, whatever the canvas size
+  var parts=spec.split("@"), f=parts.length>1?parseFloat(parts[1]):0.5, e=EDGES[EIDX[parts[0]]];
+  var A=st.dots[e.a], B=st.dots[e.b], cx=px(A.x+(B.x-A.x)*f), cy=py(A.y+(B.y-A.y)*f), r=(mobile?12:16)+2;
+  EDGES.forEach(function(g){ if(g.tag!=="bg"||st.edges[g.id].o<0.01) return; var P=st.dots[g.a], Q=st.dots[g.b];
+    var ax=px(P.x), ay=py(P.y), dx=px(Q.x)-ax, dy=py(Q.y)-ay, u=clamp(((cx-ax)*dx+(cy-ay)*dy)/(dx*dx+dy*dy||1),0,1);
+    if(Math.hypot(cx-(ax+dx*u),cy-(ay+dy*u))<r) st.edges[g.id].o=0; });
+}
+
+var ROWS=[
+  {name:"usage ranking",  p1:3.7,  costTxt:"$217,539", usd:217539, cost:526.3, off:true},
+  {name:"co-user count",  p1:23.2, costTxt:"$358",     usd:358,    cost:0.9},
+  {name:"co-user volume", p1:12.1, costTxt:"$0.02",    usd:0.02,   cost:0.0},
+  {name:"maximum flow",   p1:4.8,  costTxt:"$4,673",   usd:4673,   cost:11.3, ours:1},
+  {name:"summation flow", p1:20.0, costTxt:"$4,330",   usd:4330,   cost:10.5, ours:1},
+  {name:"amplified flow", p1:22.8, costTxt:"$8,259",   usd:8259,   cost:20.0, ours:1}
+];
+var mDots=["o1","o2","o3","o4","o5","o6"], wDots=["r1","r2","r3","r4","r5","r6"];
+
+var K=[], mobile=false;
+function build(){
+  K=[]; BX=mobile?0.30:0.24; PX=mobile?0.66:0.76;
+  var NEIGH=["b","c1","c2","p1","p2","q1"];
+  function isNeigh(id){ return NEIGH.indexOf(id)>=0; }
+  var SD=mobile?30:27; // the score line under a provider's name
+
+  // K0 loose scatter
+  var rnd=rand(7), placed=[];
+  function scatter(){ // keep dots apart and leave the centre clear for the buyer
+    var x,y,ok,tries=0;
+    do{ x=0.08+0.84*rnd(); y=0.08+0.84*rnd(); ok=Math.hypot(x-0.5,y-0.5)>0.13;
+        for(var q=0;q<placed.length&&ok;q++){ if(Math.hypot(x-placed[q][0],y-placed[q][1])<0.075) ok=false; }
+    }while(!ok&&++tries<400);
+    placed.push([x,y]); return [x,y];
+  }
+  var k0=blank();
+  DOTS.forEach(function(d){
+    var s=k0.dots[d.id];
+    if(d.id==="b2"||d.id.charAt(0)==="f"){s.o=0;s.x=0.5;s.y=0.5;return;}
+    var pt=scatter(); s.x=pt[0]; s.y=pt[1]; s.o=1; s.r=5;
+  });
+  k0.drift=1; K.push(k0);
+
+  // K1 the buyer to the centre
+  var k1=copy(k0);
+  k1.dots.b.x=0.5; k1.dots.b.y=0.5; k1.dots.b.r=7; k1.dots.b.col=C.ink;
+  k1.labels.buyer={x:0.5,y:0.5,dy:mobile?-24:-22,o:1,t:"buyer",cls:"lb ink",anc:"middle",mv:1};
+  K.push(k1);
+
+  // K2 the ledger: every payment drawn
+  var k2=copy(k1);
+  EDGES.forEach(function(e){ if(e.tag===""||e.tag==="bg"){k2.edges[e.id]={o:1,w:1,col:C.hair,dash:0};} });
+  K.push(k2);
+
+  // K3 two columns
+  var k3=copy(k2); k3.drift=0;
+  rowsB.forEach(function(id){k3.dots[id].x=BX;k3.dots[id].y=BY[id];});
+  rowsP.forEach(function(id){k3.dots[id].x=PX;k3.dots[id].y=PY[id];});
+  k3.labels.buyer={x:BX,y:BY.b,dx:-14,dy:5,o:1,t:"buyer",cls:"lb ink",anc:"end",mv:1}; // rides with the dot into the column
+  k3.labels.hdrB={x:BX,y:0.02,o:1,t:"buyers",cls:"lb hdr",anc:"middle"};
+  k3.labels.hdrP={x:PX,y:0.02,o:1,t:"providers",cls:"lb hdr",anc:"middle"};
+  K.push(k3);
+
+  // K4 edges take weight
+  var k4=copy(k3);
+  var bgw=rand(3);
+  EDGES.forEach(function(e){
+    if(e.tag==="bg"){k4.edges[e.id].w=wpx(0.3+3*bgw());}
+    else if(e.tag===""){k4.edges[e.id].w=wpx(W[e.id]);}
+  });
+  midLabel(k4,"n1","b","p1","$4",null,12,mobile?0.33:0.32);
+  midLabel(k4,"n3","c1","p1","$8",null,-12,0.5);
+  midLabel(k4,"n2","b","p2","$2",null,12,0.72);
+  K.push(k4);
+
+  function dimBG(st,o){ EDGES.forEach(function(e){ if(e.tag==="bg") st.edges[e.id].o=o; }); }
+
+  // K5 known providers
+  var k5=copy(k4); dimBG(k5,0.4);
+  k5.labels.n3.o=0;
+  ["b-p1","b-p2"].forEach(function(id){k5.edges[id].col=C.teal;});
+  k5.dots.p1.col=C.teal; k5.dots.p2.col=C.teal; k5.dots.p1.r=6; k5.dots.p2.r=6;
+  k5.labels.known={x:PX,y:PY.p1,dx:14,dy:5,o:1,t:"known provider",cls:"lb teal",anc:"start"};
+  k5.labels.known2={x:PX,y:PY.p2,dx:14,dy:5,o:1,t:"known provider",cls:"lb teal",anc:"start"};
+  midLabel(k5,"n1","b","p1","$4",null,-12,0.4);
+  midLabel(k5,"n2","b","p2","$2",null,12,0.72);
+  K.push(k5);
+
+  // K6 shared customers
+  var k6=copy(k5);
+  ["c1-p1","c2-p1"].forEach(function(id){k6.edges[id].col=C.teal;});
+  ["c1","c2"].forEach(function(id){k6.dots[id].col=C.teal; k6.dots[id].r=6;});
+  k6.labels.sh1={x:BX,y:BY.c1,dx:-14,dy:5,o:1,t:"shared customer",cls:"lb teal",anc:"end"};
+  k6.labels.sh2={x:BX,y:BY.c2,dx:-14,dy:5,o:1,t:"shared customer",cls:"lb teal",anc:"end"};
+  midLabel(k6,"n3","c1","p1","$8",null,-12,0.5);
+  midLabel(k6,"n4","c2","p1","$1",null,-12,0.35);
+  K.push(k6);
+
+  // K7 the candidate; the market fades and the neighbourhood takes the shape of the paper's figure
+  var k7=copy(k6); dimBG(k7,0);
+  ["c1-q1","c2-q1"].forEach(function(id){k7.edges[id].col=C.teal;});
+  k7.dots.q1.col=C.teal; k7.dots.q1.r=7;
+  DOTS.forEach(function(d){ if(!isNeigh(d.id)) k7.dots[d.id].o=0; });
+  Object.keys(FY).forEach(function(id){ if(k7.dots[id]&&isNeigh(id)){ k7.dots[id].y=FY[id]; } });
+  function neighLabels(st){
+    st.labels.buyer={x:BX,y:FY.b,dx:-14,dy:5,o:1,t:"buyer",cls:"lb ink",anc:"end"};
+    st.labels.sh1={x:BX,y:FY.c1,dx:-14,dy:5,o:1,t:"shared customer",cls:"lb teal",anc:"end"};
+    st.labels.sh2={x:BX,y:FY.c2,dx:-14,dy:5,o:1,t:"shared customer",cls:"lb teal",anc:"end"};
+    st.labels.known={x:PX,y:FY.p1,dx:14,dy:5,o:1,t:"known provider",cls:"lb teal",anc:"start"};
+    st.labels.known2={x:PX,y:FY.p2,dx:14,dy:5,o:1,t:"known provider",cls:"lb teal",anc:"start"};
+    st.labels.cand={x:PX,y:FY.q1,dx:14,dy:5,o:1,t:"candidate",cls:"lb teal",anc:"start"};
+    midLabel(st,"n1","b","p1","$4",null,-11,0.5);
+    midLabel(st,"n2","b","p2","$2",null,12,0.5);
+    midLabel(st,"n3","c1","p1","$8",null,-11,0.5);
+    midLabel(st,"n4","c2","p1","$1",null,-11,0.3);
+    midLabel(st,"n5","c1","q1","$8",null,-11,0.5);
+    midLabel(st,"n6","c2","q1","$1",null,12,0.7);
+  }
+  neighLabels(k7);
+  K.push(k7);
+
+  // K8 the first path draws itself
+  var k8=copy(k7); k8.route=[1,0];
+  K.push(k8);
+
+  // K9 thinnest edges: both paths
+  var k9=copy(k8); k9.route=[1,1];
+  k9.rings=["b-p1@0.5","c2-p1@0.3"];
+  midLabel(k9,"n1","b","p1","$4",null,-24,0.5);
+  midLabel(k9,"n4","c2","p1","$1",null,-24,0.3);
+  k9.labels.score={x:PX,y:FY.q1,dx:14,dy:SD,o:1,t:"paths: $4, $1",cls:"lb tick",anc:"start"};
+  K.push(k9);
+
+  // K10 the attacker and its fakes
+  var k10=copy(k7);
+  k10.dots.att.x=PX; k10.dots.att.y=FY.att; k10.dots.att.o=1; k10.dots.att.col=C.rust; k10.dots.att.r=7;
+  k10.labels.att={x:PX,y:FY.att,dx:14,dy:5,o:1,t:"attacker",cls:"lb rust",anc:"start"};
+  for(var a0=1;a0<=6;a0++){ var s0=k10.dots["f"+a0]; s0.x=BX; s0.y=a0<=3?F3[a0-1]:F3[2]; s0.o=a0<=3?1:0; s0.col=C.rust; s0.r=5; }
+  k10.labels.fakes={x:BX,y:F3[1],dx:-14,dy:5,o:1,t:"fake buyers",cls:"lb rust",anc:"end"};
+  K.push(k10);
+
+  // K11 fee only against real money
+  var k11=copy(k10);
+  k11.edges["f1-att"]={o:1,w:wpx(3),col:C.rust,dash:1};
+  k11.edges["f3-p1"]={o:1,w:1,col:C.rust,dash:0};
+  midLabel(k11,"fee1","f1","att","fee only: the money comes back","lb num rust",-12,0.5);
+  midLabel(k11,"fee2","f3","p1","real money: gone for good","lb num rust",12,mobile?0.42:0.5);
+  K.push(k11);
+
+  // K12..K15 the three simple ratings, one small picture each
+  function panels(lit){
+    var st=blank(); st.kind="panels";
+    var P=[]; // per panel: the two columns, the title line, the first dot row, the row pitch and the price line
+    if(mobile){ for(var i=0;i<3;i++){ var ty=0.03+i*0.335; P.push({bx:0.24,px:0.72,ty:ty,y0:ty+0.085,dy:0.055,ny:ty+0.26}); } }
+    else { for(var i2=0;i2<3;i2++){ P.push({bx:i2/3+0.08,px:i2/3+0.26,ty:0.22,y0:0.37,dy:0.12,ny:0.76}); } }
+    function lo(i){ return (lit==null||lit===i||lit==="all")?1:0.3; }
+    function dot(id,x,y,col,r,i){ var s=st.dots[id]; s.x=x; s.y=y; s.o=lo(i); s.col=col; s.r=r||5; }
+    function edge(id,w,col,dash,i){ st.edges[id]={o:lo(i),w:w,col:col,dash:dash}; }
+    function lab(name,x,y,t,cls,anc,dx,dy,i){ st.labels[name]={x:x,y:y,dx:dx||0,dy:dy||0,o:lo(i),t:t,cls:cls,anc:anc||"middle"}; }
+    var up=mobile?-9:-11, dn=mobile?17:19, g, aA=mobile?"start":"middle", aX=mobile?10:0, aY=mobile?4:dn; // on a phone the attacker's name sits beside its dot, clear of the price line
+    // 1 usage ranking: count a provider's buyers
+    g=P[0];
+    dot("att",g.px,g.y0+g.dy,C.rust,6,0);
+    dot("f1",g.bx,g.y0,C.rust,5,0); dot("f2",g.bx,g.y0+g.dy,C.rust,5,0); dot("f3",g.bx,g.y0+2*g.dy,C.rust,5,0);
+    edge("f1-att",1,C.rust,1,0); edge("f2-att",1,C.rust,1,0); edge("f3-att",1,C.rust,1,0);
+    lab("t1",(g.bx+g.px)/2,g.ty,"usage ranking","lb title","middle",0,0,0);
+    lab("pn1",(g.bx+g.px)/2,g.ny,"any buyer counts: a fee each","lb tick","middle",0,0,0);
+    lab("pl1",g.bx,g.y0,"fakes","lb rust","middle",0,up,0);
+    lab("pl2",g.px,g.y0+g.dy,"attacker","lb rust",aA,aX,aY,0);
+    // 2 co-user count: count shared customers
+    g=P[1];
+    dot("o1",g.bx,g.y0,C.ink,6,1); dot("r1",g.px,g.y0,C.teal,6,1); dot("r2",g.px,g.y0+2*g.dy,C.rust,6,1);
+    dot("f4",g.bx,g.y0+g.dy,C.rust,5,1); dot("f5",g.bx,g.y0+2*g.dy,C.rust,5,1);
+    edge("o1-r1",wpx(4),C.teal,0,1); edge("f4-r1",1,C.rust,0,1); edge("f5-r1",1,C.rust,0,1); edge("f4-r2",1,C.rust,1,1); edge("f5-r2",1,C.rust,1,1);
+    lab("t2",(g.bx+g.px)/2,g.ty,"co-user count","lb title","middle",0,0,1);
+    lab("pn2",(g.bx+g.px)/2,g.ny,"a cent qualifies: two fees each","lb tick","middle",0,0,1);
+    lab("pl3",g.bx,g.y0,"buyer","lb ink","middle",0,up,1);
+    lab("pl4",g.px,g.y0,"known provider","lb teal","middle",0,up,1);
+    lab("pl5",g.px,g.y0+2*g.dy,"attacker","lb rust",aA,aX,aY,1);
+    // 3 co-user volume: add up shared customers' spending
+    g=P[2];
+    dot("o2",g.bx,g.y0,C.ink,6,2); dot("r3",g.px,g.y0,C.teal,6,2); dot("r4",g.px,g.y0+2*g.dy,C.rust,6,2);
+    dot("f6",g.bx,g.y0+1.5*g.dy,C.rust,5,2);
+    edge("o2-r3",wpx(4),C.teal,0,2); edge("f6-r3",1,C.rust,0,2); edge("f6-r4",wpx(20),C.rust,1,2);
+    lab("t3",(g.bx+g.px)/2,g.ty,"co-user volume","lb title","middle",0,0,2);
+    lab("pn3",(g.bx+g.px)/2,g.ny,"self-paid: a couple of fees","lb tick","middle",0,0,2);
+    lab("pl6",g.bx,g.y0,"buyer","lb ink","middle",0,up,2);
+    lab("pl7",g.px,g.y0,"known provider","lb teal","middle",0,up,2);
+    lab("pl8",g.px,g.y0+2*g.dy,"attacker","lb rust",aA,aX,aY,2);
+    return st;
+  }
+  K.push(panels(0)); K.push(panels(1)); K.push(panels(2)); K.push(panels("all"));
+
+  // K16 Anduin's rule: the fakes count only for their cents
+  var k16=copy(k11);
+  k16.labels.fee1.o=0; k16.labels.fee2.o=0;
+  for(var a1=1;a1<=3;a1++){ k16.edges["f"+a1+"-att"]={o:1,w:wpx(3),col:C.rust,dash:1}; k16.edges["f"+a1+"-p1"]={o:1,w:1,col:C.rust,dash:0}; }
+  k16.rings=["f1-p1@0.12","f2-p1@0.12","f3-p1@0.12"];
+  k16.labels.total={x:BX,y:F3[1],dx:-14,dy:5,o:1,t:"one cent each",cls:"lb rust",anc:"end"};
+  k16.labels.fakes.o=0;
+  k16.labels.scoreAtt={x:PX,y:FY.att,dx:14,dy:SD,o:1,t:"scores 3 cents",cls:"lb tick",anc:"start"};
+  K.push(k16);
+
+  // K17 splitting buys nothing
+  var k17=copy(k16); k17.rings=[];
+  for(var a5=1;a5<=6;a5++){ var s5=k17.dots["f"+a5]; s5.x=BX; s5.y=F6[a5-1]; s5.o=1; s5.col=C.rust; s5.r=4.5;
+    k17.edges["f"+a5+"-p1"]={o:1,w:0.8,col:C.rust,dash:0}; k17.edges["f"+a5+"-att"]={o:0.7,w:wpx(1.5),col:C.rust,dash:1}; }
+  k17.labels.total={x:BX,y:(F6[2]+F6[3])/2,dx:-14,dy:5,o:1,t:"half a cent each",cls:"lb rust",anc:"end"};
+  k17.labels.scoreAtt.t="still 3 cents";
+  K.push(k17);
+
+  // the paper's worked example: the second known provider steps back
+  function focusA(){
+    var st=copy(k7);
+    st.dots.p2.o=0.25; st.edges["b-p2"].o=0.2; st.labels.known2.o=0.3; st.labels.n2.o=0.3;
+    return st;
+  }
+  // K18 maximum flow
+  var k18=focusA(); k18.rings=["b-p1@0.5"]; midLabel(k18,"n1","b","p1","$4",null,-24,0.5);
+  k18.labels.score={x:PX,y:FY.q1,dx:14,dy:SD,o:1,t:"scores $4",cls:"lb tick",anc:"start"};
+  K.push(k18);
+
+  // K19 summation flow: the buyer splits into two copies
+  var k19=focusA();
+  k19.dots.b.y=FY.b-0.06; k19.dots.b2.x=BX; k19.dots.b2.y=FY.b+0.06; k19.dots.b2.o=1; k19.dots.b2.col=C.ink; k19.dots.b2.r=7;
+  k19.edges["b2-p1"]={o:1,w:wpx(4),col:C.teal,dash:0};
+  k19.edges["b-p2"].o=0; k19.labels.n2.o=0; k19.dots.p2.o=0; k19.labels.known2.o=0;
+  k19.labels.buyer={x:BX,y:FY.b-0.06,dx:-14,dy:5,o:1,t:"buyer, copy 1",cls:"lb ink",anc:"end"};
+  k19.labels.buyer2={x:BX,y:FY.b+0.06,dx:-14,dy:5,o:1,t:"buyer, copy 2",cls:"lb ink",anc:"end"};
+  midLabel(k19,"n1","b","p1","$4",null,-11,0.5); midLabel(k19,"n11","b2","p1","$4",null,12,0.5);
+  k19.labels.score={x:PX,y:FY.q1,dx:14,dy:SD,o:1,t:"scores $4 + $1 = $5",cls:"lb tick",anc:"start"};
+  K.push(k19);
+
+  // K20 amplified flow: the copies pool
+  var k20=focusA();
+  k20.edges["b-p1"].w=wpx(8);
+  midLabel(k20,"n1","b","p1","2 × $4",null,-13,0.5);
+  k20.labels.score={x:PX,y:FY.q1,dx:14,dy:SD,o:1,t:"scores $8",cls:"lb tick",anc:"start"};
+  K.push(k20);
+
+  // K21 all three side by side, with the attacker
+  var k21=copy(k16); k21.rings=[];
+  k21.labels.total.o=0; k21.labels.fakes={x:BX,y:F3[1],dx:-14,dy:5,o:1,t:"fakes, a cent each",cls:"lb rust",anc:"end"};
+  k21.labels.cols={x:PX,y:0.02,dx:mobile?60:90,o:1,t:"max · sum · amp",cls:"lb tick",anc:"middle"};
+  k21.labels.hdrP.o=0;
+  k21.labels.score={x:PX,y:FY.q1,dx:14,dy:SD,o:1,t:"$4 · $5 · $8",cls:"lb num bold",anc:"start"};
+  k21.labels.scoreAtt={x:PX,y:FY.att,dx:14,dy:SD,o:1,t:"3¢ · 3¢ · 3¢",cls:"lb num bold rust",anc:"start"};
+  K.push(k21);
+
+  // K22 the dataset
+  var k22=blank();
+  var r22=rand(11);
+  DOTS.forEach(function(d,i){ var s=k22.dots[d.id]; s.o=1; s.r=3.5; s.col=C.grey;
+    var col=i%8, row=Math.floor(i/8); s.x=0.3425+col*0.045+(r22()-0.5)*0.016; s.y=0.30+row*0.06+(r22()-0.5)*0.016; });
+  k22.labels.data={x:0.5,y:mobile?0.66:0.66,o:1,t:"66 million payments, $6.1 million, 16 blockchains",cls:"lb ink",anc:"middle"};
+  k22.labels.cap={x:0.5,y:mobile?0.66:0.70,dy:mobile?24:0,o:1,t:"813 buyers later paid a provider new to them",cls:"lb",anc:"middle"};
+  k22.kind="block";
+  K.push(k22);
+
+  // chart keyframes
+  function chart(mode,t1,t2,dim){
+    var st=blank(); st.kind="chart";
+    var two=(mode==="both"), single=mobile&&!two; // on a phone one chart fills the canvas until the comparison, when both stand side by side
+    var g=mobile?{hy:0.05,ay:0.05,ady:22,gA:0.17,gB:0.57,rows:[0.27,0.38,0.49,0.67,0.78,0.89],nameDy:-16,x1:0.03,span:two?0.27:0.66,x2:two?0.52:0.03}
+                :{hy:0.06,ay:0.10,ady:0,gA:0.19,gB:0.55,rows:[0.26,0.35,0.44,0.62,0.71,0.80],nameDy:-15,x1:0.03,span:0.30,x2:0.53};
+    var vP=(mode==="cost")?0:t1, vC=(mode==="p1")?0:t2;
+    var rn=5.5/(Wpx-2*PAD); // one dot radius, in canvas units
+    DOTS.forEach(function(d){ var s=st.dots[d.id], z=k22.dots[d.id]; s.x=z.x; s.y=z.y; s.o=0; });
+    // a hidden bar parks at the start of its row, so a chart swap grows or retracts along the row and crosses nothing
+    function bar(y,lo,x0,len,v,dotId,stemId,lab,txt,col,brk){
+      var d=st.dots[dotId], xEnd=x0+Math.max(len*v,rn);
+      d.x=xEnd; d.y=y;
+      d.o=lo*v; d.r=5.5; d.col=col;
+      st.stems[stemId]={x:x0,y:y,len:len*v,o:(len>2*rn?lo*v:0),brk:brk};
+      st.labels[lab]={x:xEnd,y:y,dx:11,dy:4,o:lo*v,t:txt,cls:"lb num",anc:"start",mv:1};
+    }
+    var dimP=dim&&(dim.p||dim), dimC=dim&&(dim.c||dim), isC=(mode==="cost");
+    ROWS.forEach(function(r,i){
+      var y=g.rows[i], loP=(dimP&&dimP.indexOf(i)>=0)?0.3:1, loC=(dimC&&dimC.indexOf(i)>=0)?0.3:1;
+      var lo=single?(isC?loC:loP):Math.max(loP,loC); // a name stays dark while either column of its row is lit
+      st.labels["m"+(i+1)]={x:g.x1,y:y,dy:g.nameDy,o:lo,t:r.name,cls:r.ours?"lb ink bold":"lb ink",anc:"start"};
+      if(single){
+        bar(y,lo,g.x1,g.span*clamp((isC?r.cost:r.p1)/25,0,1),1,mDots[i],"st"+i,"v"+(i+1),isC?r.costTxt:r.p1.toFixed(1)+"%",r.ours?C.teal:C.ink,(isC&&r.off)?1:0);
+        bar(y,loC,0.52,0.27*clamp(r.cost/25,0,1),0,wDots[i],"st"+(i+6),"w"+(i+1),r.costTxt,r.ours?C.teal:C.ink,r.off?1:0);
+      } else {
+        bar(y,loP,g.x1,g.span*clamp(r.p1/25,0,1),vP,mDots[i],"st"+i,"v"+(i+1),r.p1.toFixed(1)+"%",r.ours?C.teal:C.ink,0);
+        bar(y,loC,g.x2,g.span*clamp(r.cost/25,0,1),vC,wDots[i],"st"+(i+6),"w"+(i+1),r.costTxt,r.ours?C.teal:C.ink,r.off?1:0);
+      }
+    });
+    // group headings, as the paper's tables draw them
+    var gx2=single?g.x1:g.x2;
+    st.labels.grpA={x:g.x1,y:g.gA,o:vP||single?1:vP,t:"simple ratings",cls:"lb hdr",anc:"start"};
+    st.labels.grpB={x:g.x1,y:g.gB,o:vP||single?1:vP,t:"Anduin",cls:"lb hdr ink bold",anc:"start"};
+    if(!single&&two){ st.labels.grpA2={x:gx2,y:g.gA,o:vC,t:"simple ratings",cls:"lb hdr",anc:"start"}; st.labels.grpB2={x:gx2,y:g.gB,o:vC,t:"Anduin",cls:"lb hdr ink bold",anc:"start"}; }
+    st.labels.chartT1={x:g.x1,y:g.hy,o:vP,t:"utility: was the first pick right?",cls:"lb title",anc:"start",xf:1};
+    st.labels.axis1={x:g.x1,y:g.ay,dy:g.ady,o:vP,t:"P@1, percent of the 813 buyers",cls:"lb tick",anc:"start",xf:1};
+    var gT=mobile?(two?2:1):0; // on a phone the price chart's title and axis fade between their two homes rather than slide
+    st.labels.chartT2={x:g.x2,y:g.hy,o:vC,t:"attack cost: price of becoming first pick",cls:"lb title",anc:"start",g:gT,xf:1};
+    st.labels.axis2={x:g.x2,y:g.ay,dy:g.ady,o:vC,t:"dollars, all 813 buyers; the first bar is cut short",cls:"lb tick",anc:"start",g:gT,xf:1};
+    return st;
+  }
+  K.push(chart("p1",1,0));
+  K.push(mobile?chart("cost",0,1):chart("both",1,1)); // a phone shows the price chart on its own first
+  K.push(mobile?chart("cost",0,1,[1,2,3,4,5]):chart("both",1,1,{p:[0,1,2,3,4,5],c:[1,2,3,4,5]})); // only usage ranking's price stays dark
+
+  // K26 the paper's own chart: both measures at once, with the axes crossing where Anduin's two best stand apart
+  function scatterChart(){
+    var st=blank(); st.kind="scatter";
+    var g=mobile?{x0:0.13,x1:0.95,y0:0.14,y1:0.86}:{x0:0.10,x1:0.92,y0:0.12,y1:0.84};
+    var cx=0.03*41331, cy=15; // the cross: 3% of the buyers' spending, and 15% of buyers
+    function X(usd){ return g.x0+(g.x1-g.x0)*clamp((Math.log(usd)/Math.LN10+2)/8,0,1); } // $0.01 to $1,000,000, eight steps of ten
+    function Y(p){ return g.y1-(g.y1-g.y0)*clamp(p/30,0,1); }
+    DOTS.forEach(function(d){ var s=st.dots[d.id], z=k22.dots[d.id]; s.x=z.x; s.y=z.y; s.o=0; });
+    st.stems.st12={x:g.x0,y:Y(cy),len:g.x1-g.x0,o:1,brk:0,col:C.hair};
+    st.stems.st13={x:X(cx),y:g.y0,len:g.y1-g.y0,o:1,brk:0,col:C.hair,v:1};
+    var side={0:["middle",0,20],1:["end",-12,-8],2:["start",-4,20],3:["middle",0,-11],4:["end",-12,4],5:["start",12,4]};
+    ROWS.forEach(function(r,i){
+      var d=st.dots[mDots[i]]; d.x=X(r.usd); d.y=Y(r.p1); d.o=1; d.r=r.ours?6:5; d.col=r.ours?C.teal:C.grey;
+      var sd=side[i];
+      st.labels["s"+(i+1)]={x:d.x,y:d.y,dx:sd[1],dy:sd[2],o:1,t:r.name,cls:r.ours?"lb teal bold":"lb",anc:sd[0]};
+    });
+    st.labels.sx1={x:g.x0,y:Y(cy),dy:-8,o:1,t:"$0.01",cls:"lb tick",anc:"start"};
+    st.labels.sx2={x:g.x1,y:Y(cy),dy:-8,o:1,t:"$1,000,000",cls:"lb tick",anc:"end"};
+    st.labels.sxT={x:g.x1,y:Y(cy),dy:18,o:1,t:"attack cost, each step ten times more",cls:"lb tick",anc:"end"};
+    st.labels.sy1={x:X(cx),y:g.y1,dx:8,dy:4,o:1,t:"0%",cls:"lb tick",anc:"start"};
+    st.labels.sy2={x:X(cx),y:g.y0,dx:8,dy:4,o:1,t:"30%",cls:"lb tick",anc:"start"};
+    st.labels.syT={x:X(cx),y:g.y0,dx:-8,dy:4,o:1,t:"utility, P@1",cls:"lb tick",anc:"end"};
+    st.labels.sq1={x:g.x1,y:g.y0,dy:24,o:1,t:"useful, costly to fake",cls:"lb faint",anc:"end"};
+    st.labels.sq2={x:g.x0,y:g.y1,dy:-14,o:1,t:"not useful, cheap to fake",cls:"lb faint",anc:"start"};
+    return st;
+  }
+  K.push(scatterChart());
+
+  // K27 closing: the neighbourhood returns with both paths lit
+  var k27=copy(k9); k27.rings=[];
+  midLabel(k27,"n1","b","p1","$4",null,-11,0.5); midLabel(k27,"n4","c2","p1","$1",null,-11,0.3);
+  if(mobile){ // the closing text stands under the canvas; what does not fit pushes the canvas up at the end, so the picture returns lower and stays in view
+    var cl=document.querySelector(".step.close"), ft=document.querySelector(".scrolly footer");
+    var over=(cl?cl.getBoundingClientRect().height:0)+(ft?ft.getBoundingClientRect().height:0)-Hpx, span=Hpx-2*PAD;
+    if(over>0){ // the picture shrinks about its centre until it fits the part of the canvas still in view, then sits in that part
+      var ys=[]; DOTS.forEach(function(d){ if(k27.dots[d.id].o>0.01) ys.push(k27.dots[d.id].y); });
+      var top=PAD+Math.min.apply(null,ys)*span-6, bot=PAD+Math.max.apply(null,ys)*span+6, sc=Math.min(1,(Hpx-over-48)/(bot-top));
+      var cy2=over+(Hpx-over)/2, gc=(top+bot)/2, cx2=Wpx/2, spanX=Wpx-2*PAD;
+      function fitY(y){ return (cy2+((PAD+y*span)-gc)*sc-PAD)/span; }
+      function fitX(x){ return (cx2+((PAD+x*spanX)-cx2)*sc-PAD)/spanX; }
+      DOTS.forEach(function(d){ var q=k27.dots[d.id]; q.x=fitX(q.x); q.y=fitY(q.y); q.r*=sc; });
+      LABELS.forEach(function(l){ var q=k27.labels[l]; q.x=fitX(q.x); q.y=fitY(q.y); if(sc<0.8) q.o=0; }); // on a short phone the shrunk picture keeps its dots and paths but drops the words, which would pile up
+    }
+  }
+  K.push(k27);
+}
+
+/* ---------------- DOM ---------------- */
+function el(n,a){var e=document.createElementNS(NS,n);if(a)for(var k in a)e.setAttribute(k,a[k]);return e;}
+var gEdges=el("g"), gStems=el("g"), gRoute=el("g"), gRing=el("g"), gDots=el("g"), gLabels=el("g");
+svg.appendChild(gEdges); svg.appendChild(gStems); svg.appendChild(gRoute); svg.appendChild(gRing); svg.appendChild(gDots); svg.appendChild(gLabels);
+var edgeEls={}; EDGES.forEach(function(e){var l=el("line",{"stroke-linecap":"round"});edgeEls[e.id]=l;gEdges.appendChild(l);});
+var stemEls={}; STEMS.forEach(function(s){var l=el("line",{"stroke-linecap":"butt"});stemEls[s.id]=l;gStems.appendChild(l);});
+var brkGap=el("line",{stroke:rgb(C.paper),"stroke-width":4}); gStems.appendChild(brkGap);
+var brkTicks=el("path",{fill:"none",stroke:rgb(C.muted),"stroke-width":1}); gStems.appendChild(brkTicks);
+var dotEls={}; DOTS.forEach(function(d){var c=el("circle",{r:5});dotEls[d.id]=c;gDots.appendChild(c);});
+var labelEls={}; LABELS.forEach(function(l){var t=el("text",{"class":"lb"});labelEls[l]=t;gLabels.appendChild(t);});
+var routeCol=rgb(mixc(C.teal,C.ink,0.55));
+var routeEls=PATHS.map(function(p){ return [0,1,2].map(function(){ var l=el("line",{stroke:routeCol,"stroke-linecap":"round"}); gRoute.appendChild(l); return l; }); });
+var ringEls=[]; for(var ri=0;ri<6;ri++){ var rc=el("circle",{fill:"none",stroke:rgb(C.ink),"stroke-width":1.2,opacity:0}); gRing.appendChild(rc); ringEls.push(rc); }
+
+function setText(t,s){
+  if(t._t===s) return; t._t=s;
+  while(t.firstChild) t.removeChild(t.firstChild);
+  t.appendChild(document.createTextNode(s));
+}
+
+/* ---------------- draw ---------------- */
+var Wpx=0,Hpx=0,PAD=28,BAR=44;
+function px(x){return PAD+x*(Wpx-2*PAD);}
+function py(y){return PAD+y*(Hpx-2*PAD);}
+function resize(){
+  var r=svg.getBoundingClientRect(); Wpx=r.width; Hpx=r.height;
+  var m=window.innerWidth<=820; PAD=m?12:28; BAR=m?0:44;
+  if(m!==mobile) applyAria(m);
+  mobile=m; build(); activeStep=-1; // the keyframes depend on the canvas size and, on a phone, on the closing text height
+  svg.setAttribute("width",Wpx); svg.setAttribute("height",Hpx);
+  svg.setAttribute("viewBox","0 0 "+Wpx+" "+Hpx);
+  layoutSteps(); dirty=true;
+}
+function drawState(A,B,tt,drift,now){
+  var mS=mobile?0.85:1;
+  // between a graph, the panels, the block and a chart the stems and text leave in the first 15% and the dots that leave fade over the first 35%; the rest travel from 15% to 80%; dots that arrive fade in from 65%, and the new stems and text arrive in the last 20%
+  var reloc=(A.kind||"")!==(B.kind||"");
+  var t=reloc?clamp((tt-0.15)/0.65,0,1):tt;
+  var fout=reloc?1-clamp(tt/0.15,0,1):1-clamp(tt/0.3,0,1), fin=reloc?clamp((tt-0.8)/0.2,0,1):clamp((tt-0.7)/0.3,0,1);
+  var dfout=reloc?1-clamp(tt/0.35,0,1):fout, dfin=reloc?clamp((tt-0.65)/0.35,0,1):fin; // dots overlap the relocation, so the canvas never empties
+  DOTS.forEach(function(d){
+    var a=A.dots[d.id], b=B.dots[d.id];
+    var stay=reloc&&(a.o<0.01||b.o<0.01); // in a relocation only the dots present at both ends travel; the others leave first and arrive last, each in place
+    var x=stay?(a.o<0.01?b.x:a.x):lerp(a.x,b.x,t), y=stay?(a.o<0.01?b.y:a.y):lerp(a.y,b.y,t), r=stay?(a.o<0.01?b.r:a.r):lerp(a.r,b.r,t);
+    var o=reloc?(a.o<0.01?b.o*dfin:(b.o<0.01?a.o*dfout:lerp(a.o,b.o,t))):(b.o<0.01&&a.o>=0.01?a.o*fout:lerp(a.o,b.o,t)); // a dot that vanishes leaves in the first 30%, so it never ghosts along its way out
+    var col=a.o<0.01?b.col:(b.o<0.01?a.col:mixc(a.col,b.col,t));
+    if(drift>0){ var i=IDX[d.id]; x+=drift*0.016*Math.sin(now*0.00035+i*1.7); y+=drift*0.016*Math.cos(now*0.00029+i*2.3); }
+    var c=dotEls[d.id];
+    c.setAttribute("cx",px(x)); c.setAttribute("cy",py(y)); c.setAttribute("r",Math.max(0.5,r*mS));
+    c.setAttribute("fill",rgb(col)); c.setAttribute("opacity",o);
+    c.style.display=o<0.01?"none":"";
+    d._x=x; d._y=y;
+  });
+  EDGES.forEach(function(e){
+    var a=A.edges[e.id], b=B.edges[e.id];
+    var o=reloc?(a.o<0.01?b.o*fin:(b.o<0.01?a.o*fout:lerp(a.o,b.o,t))):(b.o<0.01&&a.o>=0.01?a.o*fout:lerp(a.o,b.o,t)); var l=edgeEls[e.id]; // a line that vanishes leaves in the first 30%
+    if(o<0.01){l.style.display="none";return;}
+    l.style.display="";
+    var da=DOTS[IDX[e.a]], db=DOTS[IDX[e.b]];
+    l.setAttribute("x1",px(da._x)); l.setAttribute("y1",py(da._y)); l.setAttribute("x2",px(db._x)); l.setAttribute("y2",py(db._y));
+    // a line that appears or vanishes keeps the width and colour of the state it belongs to, so it never fades in grey
+    var w=(a.o<0.01?b.w:(b.o<0.01?a.w:lerp(a.w,b.w,t)))*(mobile?0.8:1); e._w=w;
+    l.setAttribute("stroke-width",w);
+    l.setAttribute("stroke",rgb(a.o<0.01?b.col:(b.o<0.01?a.col:mixc(a.col,b.col,t)))); l.setAttribute("opacity",o);
+    var dash=a.o<0.01?b.dash:(b.o<0.01?a.dash:(t<0.5?a.dash:b.dash)); // never flip while visible at both ends
+    l.setAttribute("stroke-dasharray",dash?(4+w*1.5)+" "+(6+w):"none");
+    l.setAttribute("stroke-linecap",dash?"butt":"round");
+  });
+  var brkShown=false;
+  STEMS.forEach(function(s){
+    var a=A.stems[s.id], b=B.stems[s.id]; var l=stemEls[s.id];
+    var o=reloc?(a.o<0.01?b.o*fin:(b.o<0.01?a.o*fout:lerp(a.o,b.o,t))):lerp(a.o,b.o,t); // between two charts a bar slides
+    if(o<0.01){l.style.display="none";return;}
+    l.style.display="";
+    var x,y; // a stem that appears or vanishes grows or shrinks in place
+    if(a.o<0.01){x=b.x;y=b.y;} else if(b.o<0.01){x=a.x;y=a.y;} else {x=lerp(a.x,b.x,t);y=lerp(a.y,b.y,t);}
+    var len=lerp(a.len,b.len,t), use=(b.o>=0.01?b:a);
+    l.setAttribute("x1",px(x)); l.setAttribute("y1",py(y));
+    if(use.v){ l.setAttribute("x2",px(x)); l.setAttribute("y2",py(y+len)); } else { l.setAttribute("x2",px(x+len)); l.setAttribute("y2",py(y)); }
+    l.setAttribute("stroke",rgb(use.col||C.muted)); l.setAttribute("stroke-width",1); l.setAttribute("opacity",o);
+    // the cut mark sits at a fixed point of the full bar and shows only once the bar reaches it, so it never rides a growing bar
+    var full=Math.max(a.brk>0.01?a.len:0,b.brk>0.01?b.len:0);
+    var shrink=a.o>=0.01&&b.o>=0.01&&a.brk>0.01&&b.len<a.len-1e-6; // a cut bar retracting between two charts: the mark leaves in the first 15%, before the dot slides back over it
+    var brk=full>0.05?(shrink?1-clamp(tt/0.15,0,1):clamp((len/full-0.82)/0.18,0,1)):0;
+    if(brk>0.01){
+      var bx=px(x+full*0.82), by=py(y);
+      brkGap.setAttribute("x1",bx-3); brkGap.setAttribute("x2",bx+9); brkGap.setAttribute("y1",by); brkGap.setAttribute("y2",by);
+      brkTicks.setAttribute("d","M"+(bx-4)+" "+(by+5)+" L"+(bx+2)+" "+(by-5)+" M"+(bx+4)+" "+(by+5)+" L"+(bx+10)+" "+(by-5));
+      brkGap.setAttribute("opacity",o*brk); brkTicks.setAttribute("opacity",o*brk); brkShown=true;
+    }
+  });
+  if(!brkShown){ brkGap.setAttribute("opacity",0); brkTicks.setAttribute("opacity",0); }
+  LABELS.forEach(function(id){
+    var a=A.labels[id], b=B.labels[id]; var tEl=labelEls[id];
+    var aOn=a.o>=0.01, bOn=b.o>=0.01, o, use;
+    // a label that changes text, appears, or vanishes fades out in the first half and in during the second,
+    // so two texts never sit on top of each other mid-tween
+    var same=aOn&&bOn&&a.t===b.t&&(a.anc||"middle")===(b.anc||"middle")&&(a.g||0)===(b.g||0);
+    if(reloc&&same&&(a.x!==b.x||a.y!==b.y)) same=false; // in a relocation no label rides through moving lines: it leaves and arrives
+    var follow=same||(a.mv&&b.mv); // a chart value rides with its dot even while its text changes
+    var lfin=reloc?fin:clamp((tt-0.85)/0.15,0,1); // new text arrives in the last 15%, once the lines it sits beside have all but settled
+    var xf=!reloc&&(a.xf||b.xf); // a chart title or axis hands over at mid-tween: out by half way, in from half way, so the chart is never untitled for long
+    var lout=xf?1-clamp((tt-0.3)/0.2,0,1):fout, lin=xf?clamp((tt-0.5)/0.2,0,1):lfin;
+    if(same){ o=lerp(a.o,b.o,t); use=(t<0.5?a:b); }
+    else if(aOn&&bOn){ o=tt<0.5?a.o*lout:b.o*lin; use=(tt<0.5?a:b); }
+    else if(aOn){ o=a.o*lout; use=a; }
+    else if(bOn){ o=b.o*lin; use=b; }
+    else o=0;
+    if(o<0.01){tEl.style.display="none";return;}
+    tEl.style.display="";
+    var x,y;
+    if(follow){ x=lerp(a.x,b.x,t); y=lerp(a.y,b.y,t); }
+    else { x=use.x; y=use.y; }
+    var dx=(use.dx||0), dy=(use.dy||0);
+    if(same){ dx=lerp(a.dx||0,b.dx||0,t); dy=lerp(a.dy||0,b.dy||0,t); }
+    tEl.setAttribute("x",px(x)+dx*(mobile?0.8:1)); tEl.setAttribute("y",py(y)+dy*(mobile?0.85:1));
+    tEl.setAttribute("text-anchor",use.anc||"middle");
+    setText(tEl,use.t);
+    if(tEl.getAttribute("class")!==use.cls) tEl.setAttribute("class",use.cls);
+    tEl.setAttribute("opacity",o);
+  });
+  PATHS.forEach(function(p,pi){
+    var ra=A.route[pi], rb=B.route[pi];
+    var ro=reloc?(rb>ra?rb*fin:(ra>rb?ra*fout:ra)):lerp(ra,rb,t);
+    // the path only draws once its dots are in place: if a keyframe hides an endpoint, the path waits for the last 30%
+    var hidA=p.some(function(id){return A.dots[id].o<0.01;}), hidB=p.some(function(id){return B.dots[id].o<0.01;});
+    if(hidA&&!hidB) ro=rb*fin; else if(hidB&&!hidA) ro=ra*fout;
+    // the lit path is the same three lines drawn again, each at its own width, so nothing outlines anything
+    for(var i=0;i<3;i++){
+      var l=routeEls[pi][i], q=clamp(ro*3-i,0,1);
+      if(q<0.01){ l.style.display="none"; continue; }
+      var da=DOTS[IDX[p[i]]], db=DOTS[IDX[p[i+1]]];
+      var x1=px(da._x), y1=py(da._y), x2=px(db._x), y2=py(db._y);
+      l.style.display="";
+      l.setAttribute("x1",x1); l.setAttribute("y1",y1); l.setAttribute("x2",x1+(x2-x1)*q); l.setAttribute("y2",y1+(y2-y1)*q);
+      l.setAttribute("stroke-width",EDGES[EIDX[eid(p[i],p[i+1])]]._w||2);
+    }
+  });
+  function ringTo(elm,spec,op){ // spec is "edge" or "edge@fraction along it from the first dot"
+    var parts=spec.split("@"), f=parts.length>1?parseFloat(parts[1]):0.5;
+    var e=EDGES[EIDX[parts[0]]]; var da=DOTS[IDX[e.a]], db=DOTS[IDX[e.b]];
+    elm.setAttribute("cx",px(da._x+(db._x-da._x)*f)); elm.setAttribute("cy",py(da._y+(db._y-da._y)*f)); elm.setAttribute("r",mobile?12:16);
+    elm.setAttribute("opacity",op);
+  }
+  var specs={}; A.rings.forEach(function(s){specs[s]=1;}); B.rings.forEach(function(s){specs[s]=(specs[s]||0)+2;});
+  var n=0; ringEls.forEach(function(e){e.setAttribute("opacity",0);});
+  Object.keys(specs).forEach(function(s){ if(n>=ringEls.length) return; var m=specs[s]; ringTo(ringEls[n++],s,m===3?1:(m===1?fout:fin)); });
+}
+
+/* ---------------- scroll ---------------- */
+var stepY=[];
+function layoutSteps(){
+  var sy=window.pageYOffset, avail=window.innerHeight;
+  if(mobile){ avail=window.innerHeight-stageEl.getBoundingClientRect().height; }
+  stepY=steps.map(function(s){var r=s.getBoundingClientRect();return sy+r.top+Math.min(r.height,avail*0.84)*0.5;});
+}
+function anchorY(){
+  var sy=window.pageYOffset;
+  if(mobile){ var r=stageEl.getBoundingClientRect(); return sy+r.bottom+(window.innerHeight-r.bottom)*0.55; }
+  return sy+BAR+(window.innerHeight-BAR)*0.5;
+}
+function sceneFromScroll(){
+  var y=anchorY(), n=stepY.length;
+  if(y<=stepY[0]) return 0;
+  if(y>=stepY[n-1]){ var after=steps[n-1].getBoundingClientRect().height*0.9; return (n-1)+clamp((y-stepY[n-1])/after,0,1); }
+  for(var i=0;i<n-1;i++){ if(y>=stepY[i]&&y<stepY[i+1]) return i+(y-stepY[i])/(stepY[i+1]-stepY[i]); }
+  return n-1;
+}
+var activeStep=-1;
+function setActive(i){
+  if(i===activeStep) return; activeStep=i;
+  steps.forEach(function(s,j){s.classList.toggle("on",j===i);});
+  var lab=steps[i].getAttribute("aria-label"); if(lab) svg.setAttribute("aria-label",lab);
+}
+var dirty=true, running=false, pending=false;
+function frame(now){
+  var s=sceneFromScroll();
+  var i=Math.floor(s), f=s-i;
+  var lo=mobile?0.3:0.15, hi=mobile?0.8:0.85; // on a phone the picture holds still longer, so it changes as the caption slides under the canvas
+  var t=ease(clamp((f-lo)/(hi-lo),0,1));
+  if(reduce) t=f<0.5?0:1;
+  var A=K[Math.min(i,K.length-1)], B=K[Math.min(i+1,K.length-1)];
+  if(mobile){ // on a phone the next caption lights once the whole of the current one has slid under the canvas
+    var sb=stageEl.getBoundingClientRect().bottom, ai=0;
+    for(var j=1;j<steps.length;j++){ var pp=steps[j-1].querySelector("div")||steps[j-1]; if(pp.getBoundingClientRect().bottom<=sb+2) ai=j; else break; }
+    setActive(ai);
+    var cp=steps[ai].querySelector("div")||steps[ai], cr=cp.getBoundingClientRect(), under=ai<steps.length-1&&cr.top+cr.height/2<sb-1; // a caption goes faint once half of it has slid under the canvas, before the next one lights
+    steps.forEach(function(s,j){ s.classList.toggle("under",j===ai&&under); });
+    heads.forEach(function(h){ h.classList.toggle("under",h.getBoundingClientRect().top<sb-1); }); // a part heading fades as it slides under the canvas
+  } else setActive(clamp(Math.round(s),0,steps.length-1));
+  var drift=lerp(A.drift,B.drift,t);
+  var animating=(drift>0.01&&!reduce);
+  drawState(A,B,t,reduce?0:drift,now); dirty=false;
+  var top=stageEl.getBoundingClientRect().top-BAR;
+  svg.style.opacity=top<=0?1:clamp(1-top/(window.innerHeight*0.6),0,1);
+  if(animating||pending){ pending=false; requestAnimationFrame(frame); running=true; } else running=false;
+}
+function kick(){ dirty=true; if(!running){running=true;requestAnimationFrame(frame);} else pending=true; }
+window.addEventListener("scroll",kick,{passive:true});
+window.addEventListener("resize",function(){resize();kick();},{passive:true});
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){resize();kick();});
+resize(); kick();
+setTimeout(function(){resize();kick();},300);
+setTimeout(function(){layoutSteps();kick();},1200);
+})();
+</script>
+<script>(()=>{const u="/_e";let s="";try{s=sessionStorage.v||(sessionStorage.v=Math.random().toString(36).slice(2))}catch(e){}
+const v=Math.random().toString(36).slice(2),P=location.pathname+location.search,n=navigator,mq=q=>{try{return matchMedia(q).matches}catch(e){}};
+const send=(p,e,o)=>{try{n.sendBeacon(u,JSON.stringify(Object.assign({p,t:document.title,r:document.referrer,s,v,w:screen.width+"x"+screen.height,e},o)))}catch(x){}};
+const c=n.connection||{},nt=()=>(performance.getEntriesByType&&performance.getEntriesByType("navigation")[0])||{};let tz="";try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone}catch(e){}
+send(P,0,{l:(n.languages||[n.language]).join(","),vp:innerWidth+"x"+innerHeight,dpr:devicePixelRatio,tz,x:{url:location.href,nav:nt().type,cores:n.hardwareConcurrency,mem:n.deviceMemory,touch:n.maxTouchPoints,plat:n.platform,
+net:c.effectiveType,down:c.downlink,rtt:c.rtt,save:c.saveData,dark:mq("(prefers-color-scheme: dark)"),motion:mq("(prefers-reduced-motion: reduce)"),contrast:mq("(prefers-contrast: more)"),coarse:mq("(pointer: coarse)"),
+avail:screen.availWidth+"x"+screen.availHeight,depth:screen.colorDepth,orient:(screen.orientation||{}).type,gpc:n.globalPrivacyControl,dnt:n.doNotTrack,frame:top!==self,hidden:document.visibilityState!="visible",app:mq("(display-mode: standalone)")}});
+const dl=/\.(pdf|zip|dmg|pkg|exe|gz|tgz|tar|7z|csv|xlsx?|epub)([?#]|$)|\/releases\//i;let shown=document.visibilityState=="visible"?Date.now():0,seen=0,deep=0,clicks=0,copies=0;
+const depth=()=>{const h=document.documentElement.scrollHeight;deep=Math.max(deep,h?Math.min(100,Math.round(100*(scrollY+innerHeight)/h)):100)};depth();addEventListener("scroll",depth,{passive:true});addEventListener("load",depth);
+const end=()=>{if(!shown)return;seen+=Date.now()-shown;shown=0;const t=nt();send(P,2,{d:seen,sc:deep,x:{clicks,copies,ttfb:Math.round(t.responseStart||0),dom:Math.round(t.domContentLoadedEventEnd||0),load:Math.round(t.loadEventEnd||0)}})};
+document.addEventListener("visibilitychange",()=>{document.visibilityState=="hidden"?end():shown=shown||Date.now()});addEventListener("pagehide",end);
+document.addEventListener("copy",()=>{copies++;send("copy",1)});
+const click=ev=>{clicks++;if(ev.type=="auxclick"&&ev.button!=1)return;const a=ev.target.closest&&ev.target.closest("a,[data-visit-click]");if(!a)return;if(a.dataset.visitClick)return send(a.dataset.visitClick,1);
+const h=a.href||"";if(!h)return;try{const l=new URL(h),f=l.pathname,m=f.split("/").pop();if(a.hasAttribute("download")||dl.test(h))return send("download "+decodeURIComponent(/^(latest|releases)?$/.test(m)?f:m),1);
+if(l.protocol=="mailto:")return send("out email",1);if(/^https?:$/.test(l.protocol)&&l.host!=location.host)send("out "+l.host+decodeURIComponent(f).replace(/\/$/,""),1)}catch(x){}};
+document.addEventListener("click",click);document.addEventListener("auxclick",click)})()</script>
+</body>
+</html>
