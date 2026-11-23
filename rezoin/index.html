@@ -18,9 +18,16 @@
     .btn { display: inline-block; min-height: 40px; padding: .45rem 1.1rem; border: 1.5px solid var(--accent); border-radius: 4px;
            font-weight: 600; white-space: nowrap; }
     .btn:hover { background: var(--accent); color: #fff; text-decoration: none; }
+    .btns { display: flex; flex-wrap: wrap; gap: .5rem; }
     .btn.off { border-color: rgba(0,0,0,.2); color: var(--muted); pointer-events: none; }
     .cite { font-style: italic; }
     ul.terms { padding-left: 1.2rem; margin: .3rem 0; }
+    .new { border-left: 3px solid var(--accent); padding: .2rem 0 .2rem 1rem; margin: 1rem 0 1.4rem; }
+    .new h2 { margin: 0 0 .3rem; }
+    .new ul { padding-left: 1.2rem; margin: .3rem 0; }
+    figure.shot { margin: 0 0 1.4rem; }
+    figure.shot img { display: block; width: 100%; height: auto; border: 1px solid var(--line, rgba(0,0,0,.12)); border-radius: 4px; }
+    figure.shot figcaption { font-size: .9rem; color: var(--muted); margin-top: .4rem; }
   </style>
 </head>
 <body>
@@ -32,18 +39,42 @@
   </header>
 
   <h1>Rezoin</h1>
-  <p>Suggests Roman Imperial (RIC) and Roman Provincial (RPC) types for photographs of ancient coins. Research preview, for Mac and Windows.</p>
+
+  <section class="new">
+    <h2>Newest release: Rezoin 1.0</h2>
+    <p class="muted">November 22, 2026</p>
+    <ul>
+      <li>Greek and Hellenistic coinage joins the Roman: 181,651 types in eleven catalogues, RIC, RPC and RRC, then Price, SC, PCO, AGCO, BIGR, LCO, Corpus Nummorum and IRIS.</li>
+      <li>A new model. On held-out Roman coins the right type is first 59% of the time and in the top ten 93%.</li>
+      <li>Choose a catalogue and Rezoin reads the coin only against that catalogue’s coinage.</li>
+      <li>Look a type up by its number (“RIC III 64”, “RRC 44/5”), and drag photos straight in.</li>
+      <li>Reference photos load from each catalogue’s website when you click; keeping a local copy is optional, in Settings.</li>
+    </ul>
+  </section>
+  <figure class="shot">
+    <a href="rezoin-1.0.jpg"><img src="rezoin-1.0.jpg" width="1600" height="1004" loading="lazy"
+      alt="Rezoin 1.0 window: photographs of a denarius of Vespasian on the left, its suggested type RIC II Vespasian 2 with matching authority, mint, date, denomination, designs and legends in the middle, and a reference specimen of that type on the right."></a>
+    <figcaption>Rezoin 1.0 reading a denarius of Vespasian (IVDAEA) it never saw in training: the first suggestion is RIC II², Vespasian 2. Coin: Münzkabinett der Staatlichen Museen zu Berlin, 18221433 (Public Domain Mark). Reference: American Numismatic Society, 1944.100.39904; smaller references from KENOM and the Museu de Prehistòria de València.</figcaption>
+  </figure>
+  <p>Suggests catalogue types for photographs of ancient coins: Roman (RIC, RPC, RRC) and Greek and Hellenistic (Price, SC, PCO, AGCO, BIGR, LCO, Corpus Nummorum, IRIS). Version 1.0, for Mac and Windows.</p>
 
   <p class="muted" id="version">Latest version: <a href="https://github.com/Zed-Rez/rezoin/releases/latest">see releases</a></p>
 
   <div class="dl">
     <h2>Rezoin Lite</h2>
-    <a class="btn" id="lite" data-visit-click="rezoin-lite-download" href="https://github.com/Zed-Rez/rezoin/releases/latest">Download</a>
+    <span class="btns">
+      <a class="btn" id="lite-mac" data-visit-click="rezoin-lite-download-mac" href="https://github.com/Zed-Rez/rezoin/releases/latest">Mac</a>
+      <a class="btn" id="lite-win" data-visit-click="rezoin-lite-download-windows" href="https://github.com/Zed-Rez/rezoin/releases/latest">Windows</a>
+    </span>
   </div>
   <div class="dl">
     <h2>Rezoin</h2>
-    <a class="btn" id="full" data-visit-click="rezoin-download" href="https://github.com/Zed-Rez/rezoin/releases/latest">Download</a>
+    <span class="btns">
+      <a class="btn" id="full-mac" data-visit-click="rezoin-download-mac" href="https://github.com/Zed-Rez/rezoin/releases/latest">Mac</a>
+      <a class="btn" id="full-win" data-visit-click="rezoin-download-windows" href="https://github.com/Zed-Rez/rezoin/releases/latest">Windows</a>
+    </span>
   </div>
+  <p class="muted">Mac: Apple silicon (M1 or later), macOS 12 or later. Windows: 64-bit Windows 10 or 11.</p>
 
   <p class="muted"><a href="https://github.com/Zed-Rez/rezoin/releases">Earlier versions</a></p>
 
@@ -55,7 +86,7 @@
     <li>Provided as is, without warranty of any kind.</li>
   </ul>
   <p>Until the accompanying paper is published, cite Rezoin as:</p>
-  <p class="cite">Ramji, Reza (ORCID 0009-0007-1469-0670). 2026. Rezoin: identification of Roman Imperial and Provincial coin types from photographs (research preview). Unpublished software, Princeton University. reza.ramji@gmail.com.</p>
+  <p class="cite">Ramji, Reza (ORCID 0009-0007-1469-0670). 2026. Rezoin: identification of ancient coin types from photographs (version 1.0). Unpublished software, Princeton University. reza.ramji@gmail.com.</p>
   <p>For corrections, please contact <a href="mailto:Rezoin@rezaramji.com">Rezoin@rezaramji.com</a>.</p>
 
   <script>
@@ -65,17 +96,21 @@
     .then(r => r.ok ? r.json() : Promise.reject(r.status))
     .then(list => {
       const rel = list.find(r => !r.draft && r.tag_name.startsWith("v"));
-      // Rezoin's size is the whole of it: the zip, then the newest photo release, which it downloads by itself
-      const ph = list.find(r => !r.draft && r.tag_name.startsWith("photos-"));
-      const photos = ph ? ph.assets.reduce((n, a) => n + a.size, 0) : 0;
       if (!rel) return;
       const date = new Date(rel.published_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
-      document.getElementById("version").innerHTML = `Latest version: <b>${rel.tag_name.replace(/^v/, "")}</b>, ${date}`;
-      // Rezoin-<v>.zip (named Rezoin-Princeton-<v>.zip in the first release)
-      for (const [id, re] of [["lite", /^Rezoin-Lite-.*\.zip$/], ["full", /^Rezoin-(Princeton-)?\d.*\.zip$/]]) {
-        const a = rel.assets.find(x => re.test(x.name)), b = document.getElementById(id);
-        if (a) { b.href = a.browser_download_url; b.textContent = `Download (${gb(a.size + (id == "full" ? photos : 0))})`; }
-        else { b.classList.add("off"); b.textContent = "Not in this release"; }
+      // the release title carries the version number ("Rezoin 1.0"); the tag is the date
+      const num = (rel.name || "").match(/\d+\.\d+(\.\d+)?/);
+      document.getElementById("version").innerHTML = `Latest version: <b>${num ? num[0] : rel.tag_name.replace(/^v/, "")}</b>, ${date}`;
+      // one zip per edition and platform: Rezoin-<v>-Mac.zip, Rezoin-Lite-<v>-Windows.zip (from 1.0; before, one zip
+      // for both platforms, Rezoin-<v>.zip or Rezoin-Princeton-<v>.zip)
+      for (const [id, ed] of [["lite", "Rezoin-Lite-"], ["full", "Rezoin-(Princeton-)?(?=\\d)"]]) {
+        for (const [p, label] of [["mac", "Mac"], ["win", "Windows"]]) {
+          const b = document.getElementById(`${id}-${p}`);
+          const a = rel.assets.find(x => new RegExp(`^${ed}.*-${label}\\.zip$`).test(x.name))
+                 || rel.assets.find(x => new RegExp(`^${ed}[^-]*\\.zip$`).test(x.name));
+          if (a) { b.href = a.browser_download_url; b.textContent = `${label} (${gb(a.size)})`; }
+          else { b.classList.add("off"); b.textContent = `${label}: not in this release`; }
+        }
       }
     })
     .catch(() => {});
