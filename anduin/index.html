@@ -18,7 +18,7 @@
     --hair:rgba(0,0,0,0.12);
     --hair-soft:rgba(0,0,0,0.12);
     --teal:#1c1b19; /* trust paths: the site's ink */
-    --rust:#7a2424; /* the attacker: the site's oxblood accent */
+    --rust:#e77500; /* the attacker: the site's accent, Rezoin orange */
     --accent:#e77500;
     --font:'EB Garamond',Garamond,Georgia,serif;
     --maxw:1180px;
@@ -340,7 +340,7 @@ steps.forEach(function(st){ st.setAttribute("data-aria",st.getAttribute("aria-la
 function applyAria(m){ steps.forEach(function(st){ var a=(m&&st.getAttribute("data-aria-mobile"))||st.getAttribute("data-aria"); st.setAttribute("aria-label",a); }); }
 
 /* ---------------- colours ---------------- */
-var C={ink:[28,27,25], muted:[107,103,96], grey:[185,182,176], teal:[28,27,25], rust:[122,36,36], paper:[255,255,255], hair:[224,224,224]};
+var C={ink:[28,27,25], muted:[107,103,96], grey:[185,182,176], teal:[28,27,25], rust:[231,117,0], paper:[255,255,255], hair:[224,224,224]};
 function rgb(c){return "rgb("+Math.round(c[0])+","+Math.round(c[1])+","+Math.round(c[2])+")";}
 function mixc(a,b,t){return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t];}
 function lerp(a,b,t){return a+(b-a)*t;}
