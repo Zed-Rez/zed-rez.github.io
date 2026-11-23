@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/site.css">
   <style>
+    /* Rezoin's own orange (Princeton orange, ORANGE in the app) for this page's links and download buttons */
+    :root { --accent: #e77500; }
     .dl { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .4rem 1rem;
           border-top: 1px solid rgba(0,0,0,.12); padding: .9rem 0; }
     .dl:last-of-type { border-bottom: 1px solid rgba(0,0,0,.12); }
@@ -24,7 +26,6 @@
     ul.terms { padding-left: 1.2rem; margin: .3rem 0; }
     figure.shot { margin: 0 0 1.4rem; }
     figure.shot img { display: block; width: 100%; height: auto; border: 1px solid var(--line, rgba(0,0,0,.12)); border-radius: 4px; }
-    figure.shot figcaption { font-size: .9rem; color: var(--muted); margin-top: .4rem; }
   </style>
 </head>
 <body>
@@ -41,7 +42,6 @@
   <figure class="shot">
     <a href="rezoin-1.0.jpg"><img src="rezoin-1.0.jpg" width="1600" height="1004" loading="lazy"
       alt="Rezoin 1.0 window: photographs of a denarius of Vespasian on the left, its suggested type RIC II Vespasian 2 with matching authority, mint, date, denomination, designs and legends in the middle, and a reference specimen of that type on the right."></a>
-    <figcaption>Rezoin 1.0 reading a denarius of Vespasian (IVDAEA) it never saw in training: the first suggestion is RIC II², Vespasian 2. Coin: Münzkabinett der Staatlichen Museen zu Berlin, 18221433 (Public Domain Mark). Reference: American Numismatic Society, 1944.100.39904; smaller references from KENOM and the Museu de Prehistòria de València.</figcaption>
   </figure>
 
   <p class="muted" id="version">Latest version: <a href="https://github.com/Zed-Rez/rezoin/releases/latest">see releases</a></p>
