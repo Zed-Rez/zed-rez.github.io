@@ -61,13 +61,6 @@
   <p class="muted" id="version">Latest version: <a href="https://github.com/Zed-Rez/rezoin/releases/latest">see releases</a></p>
 
   <div class="dl">
-    <h2>Rezoin Lite</h2>
-    <span class="btns">
-      <a class="btn" id="lite-mac" data-visit-click="rezoin-lite-download-mac" href="https://github.com/Zed-Rez/rezoin/releases/latest">Mac</a>
-      <a class="btn" id="lite-win" data-visit-click="rezoin-lite-download-windows" href="https://github.com/Zed-Rez/rezoin/releases/latest">Windows</a>
-    </span>
-  </div>
-  <div class="dl">
     <h2>Rezoin</h2>
     <span class="btns">
       <a class="btn" id="full-mac" data-visit-click="rezoin-download-mac" href="https://github.com/Zed-Rez/rezoin/releases/latest">Mac</a>
@@ -101,9 +94,9 @@
       // the release title carries the version number ("Rezoin 1.0"); the tag is the date
       const num = (rel.name || "").match(/\d+\.\d+(\.\d+)?/);
       document.getElementById("version").innerHTML = `Latest version: <b>${num ? num[0] : rel.tag_name.replace(/^v/, "")}</b>, ${date}`;
-      // one zip per edition and platform: Rezoin-<v>-Mac.zip, Rezoin-Lite-<v>-Windows.zip (from 1.0; before, one zip
-      // for both platforms, Rezoin-<v>.zip or Rezoin-Princeton-<v>.zip)
-      for (const [id, ed] of [["lite", "Rezoin-Lite-"], ["full", "Rezoin-(Princeton-)?(?=\\d)"]]) {
+      // one zip per platform: Rezoin-<v>-Mac.zip, Rezoin-<v>-Windows.zip (from 1.0; before, one zip for both platforms,
+      // Rezoin-<v>.zip or Rezoin-Princeton-<v>.zip). Rezoin Lite is no longer offered.
+      for (const [id, ed] of [["full", "Rezoin-(Princeton-)?(?=\\d)"]]) {
         for (const [p, label] of [["mac", "Mac"], ["win", "Windows"]]) {
           const b = document.getElementById(`${id}-${p}`);
           const a = rel.assets.find(x => new RegExp(`^${ed}.*-${label}\\.zip$`).test(x.name))
