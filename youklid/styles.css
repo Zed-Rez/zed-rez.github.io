@@ -7,8 +7,8 @@
   --parchment-ink: #2b2418;
   --parchment-ink-soft: #5b4d39;
   --parchment-rule: #c8bca0;
-  --parchment-accent: #8a2b1f;      /* vermillion */
-  --parchment-accent-soft: #b35c4d;
+  --parchment-accent: #e77500;      /* Rezoin orange (was vermillion #8a2b1f) */
+  --parchment-accent-soft: #f0a050;
   --parchment-cite: #1e4b3b;        /* forest — like a medieval manuscript */
   --parchment-panel: #ecdfc3;
   --parchment-panel-edge: #ddcea9;
@@ -20,8 +20,8 @@
   --dark-ink: #e7e0d3;
   --dark-ink-soft: #a59987;
   --dark-rule: #3a352d;
-  --dark-accent: #e8a33c;           /* gold */
-  --dark-accent-soft: #c6822b;
+  --dark-accent: #e77500;           /* Rezoin orange (was gold #e8a33c) */
+  --dark-accent-soft: #f0a050;
   --dark-cite: #7dc29a;
   --dark-panel-edge: #2a2725;
   --dark-highlight: #2a2313;

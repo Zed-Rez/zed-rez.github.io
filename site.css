@@ -1,6 +1,6 @@
 /* rezaramji.com — plain EB Garamond, one hash-routed page */
 
-:root { --ink: #1c1b19; --muted: #6b6760; --accent: #7a2424; }
+:root { --ink: #1c1b19; --muted: #6b6760; --accent: #e77500; }  /* Rezoin orange (Princeton orange) */
 
 body {
   margin: 0 auto;
