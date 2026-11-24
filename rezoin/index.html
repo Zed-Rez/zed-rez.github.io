@@ -35,7 +35,7 @@
   </header>
 
   <h1>Rezoin v1</h1>
-  <p>Suggests catalogue types for photographs of ancient coins: Roman (RIC, RPC, RRC) and Greek and Hellenistic (Price, SC, PCO, AGCO, BIGR, LCO, Corpus Nummorum, IRIS). Version 1.0, for Mac and Windows.</p>
+  <p>Suggests catalogue types for photographs of ancient coins: Roman (RIC, RPC, RRC) and Greek and Hellenistic (Price, SC, PCO, AGCO, BIGR, LCO, Corpus Nummorum, IRIS). Version <span class="vnum">1.1</span>, for Mac and Windows.</p>
 
   <figure class="shot">
     <a href="rezoin-1.0.jpg"><img src="rezoin-1.0.jpg" width="1600" height="1004" loading="lazy"
@@ -63,7 +63,7 @@
     <li>Provided as is, without warranty of any kind.</li>
   </ul>
   <p>Until the accompanying paper is published, cite Rezoin as:</p>
-  <p class="cite">Ramji, Reza (ORCID 0009-0007-1469-0670). 2026. Rezoin: identification of ancient coin types from photographs (version 1.0). Unpublished software, Princeton University. reza.ramji@gmail.com.</p>
+  <p class="cite">Ramji, Reza (ORCID 0009-0007-1469-0670). 2026. Rezoin: identification of ancient coin types from photographs (version <span class="vnum">1.1</span>). Unpublished software, Princeton University. reza.ramji@gmail.com.</p>
   <p>For corrections, please contact <a href="mailto:Rezoin@rezaramji.com">Rezoin@rezaramji.com</a>.</p>
 
   <script>
@@ -78,6 +78,8 @@
       // the release title carries the version number ("Rezoin 1.0"); the tag is the date
       const num = (rel.name || "").match(/\d+\.\d+(\.\d+)?/);
       document.getElementById("version").innerHTML = `Latest version: <b>${num ? num[0] : rel.tag_name.replace(/^v/, "")}</b>, ${date}`;
+      // the intro and the citation name the same number, so a new release needs no edit here
+      if (num) document.querySelectorAll(".vnum").forEach(e => { e.textContent = num[0]; });
       // one zip per platform: Rezoin-<v>-Mac.zip, Rezoin-<v>-Windows.zip (from 1.0; before, one zip for both platforms,
       // Rezoin-<v>.zip or Rezoin-Princeton-<v>.zip). Rezoin Lite is no longer offered.
       for (const [id, ed] of [["full", "Rezoin-(Princeton-)?(?=\\d)"]]) {
